@@ -7,8 +7,9 @@ This document provides an actionable step-by-step guide for implementing the **C
 ## 1. Prerequisites
 
 1. Install and configure an SNES development toolchain:
-   - WLA-DX (WLA-65816 assembler)
-   - Spred or SDASM for linking and ROM building
+   - pvsneslib (via git submodule from <https://github.com/alekmaul/pvsneslib.git>)
+   - Build tools from source (816-tcc, wla-65816, wla-spc700, wlalink)
+   - Graphics/audio conversion tools (gfx2snes, gfx4snes, smconv, etc.)
 2. Graphics and tile editing tools:
    - YY-CHR or Tile Layer Pro for CHR and tilemap design
    - A palette editor (e.g., Tile Molester)
@@ -18,9 +19,9 @@ This document provides an actionable step-by-step guide for implementing the **C
 4. Emulator for testing on PC:
    - bsnes-plus, higan, or ZMZ Emulator
 5. Version control:
-   - Git with a GitHub or GitLab repository
-6. Scripting environment (optional, for build automation):
-   - Python 3.x or Bash/Zsh
+   - Git with GitHub repository and submodule support
+6. Scripting environment:
+   - Python 3.x or Bash/Zsh for build automation
 
 ---
 
@@ -30,37 +31,30 @@ This document provides an actionable step-by-step guide for implementing the **C
  / (repo root)
 ├── .copilot/
 │   ├── CHRONIC_ECHOS.md         # Original design document
-│   └── INSTRUCTIONS.md          # This file
-├── src/                        # 65816 assembly source
-│   ├── reset.asm               # Reset vector and startup
-│   ├── ppu_init.asm            # PPU and VRAM routines
-│   ├── engine/                 # Core engine modules
-│   │   ├── input.asm
-│   │   ├── rendering.asm
-│   │   └── memory.asm
-│   ├── time/                   # Time manipulation system
-│   │   ├── record.asm
-│   │   ├── rewind.asm
-│   │   └── echo.asm
-│   ├── combat/                 # Turn-based and echo combos
-│   │   ├── battle_flow.asm
-│   │   └── turn_menu.asm
-│   ├── exploration/            # Overworld, puzzles, era transitions
-│   └── dialog.asm              # NPC and story dialogues
-├── assets/
-│   ├── graphics/
-│   │   ├── tiles/              # CHR banks and tilemaps
-│   │   └── sprites/            # Character and echo sprites
-│   ├── audio/
-│   │   ├── music/              # SPC files
-│   │   └── sfx/                # Sound effects
-│   └── fonts/                  # Bitmap font data
+│   ├── INSTRUCTIONS.md          # This file
+│   ├── LISTS.md                # Checklists and flowcharts
+│   ├── METHODS.md              # Technical methods and tools
+│   ├── NOTES.md                # Development progress notes
+│   └── QUESTIONS_AND_ANSWERS.md # Q&A for development guidance
+├── .github/workflows/
+│   └── ci.yml                  # GitHub Actions CI with submodule support
+├── pvsneslib/                  # Git submodule for pvsneslib library
+│   ├── devkitsnes/             # Compiler and tools (built from source)
+│   ├── pvsneslib/              # Library headers and binaries
+│   ├── tools/                  # Graphics/audio conversion tools
+│   └── compiler/               # Source for building 816-tcc, wla tools
+├── src/                        # 65816 assembly and C source
+│   └── main.c                  # Main game logic
+├── data.asm                    # Data includes (fonts, palettes)
+├── hdr.asm                     # ROM header and memory map
+├── Makefile                    # Build configuration
+├── build/                      # Build output directory
+│   └── ChronicEchos.sfc        # Output ROM file
 ├── scripts/                    # Build and automation scripts
-│   ├── build_rom.sh            # Assemble/link and produce .sfc
-│   └── convert_audio.py        # SPC conversion helper
-├── docs/                       # Design docs, asset guides
-│   └── art_guidelines.md
-└── README.md                   # High-level project info
+│   ├── build.sh                # Build automation
+│   └── validate_rom.sh         # ROM validation
+├── README.md                   # Project overview
+└── pvsneslibfont.png           # Default font asset
 ```
 
 ---

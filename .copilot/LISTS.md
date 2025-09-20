@@ -3,6 +3,10 @@
 ## Development Phases Checklist
 
 - [x] Phase 1: Engine Core (build pipeline, PPU init, tilemap rendering, input) - Basic title screen working
+- [x] Git Submodule Setup - pvsneslib converted to submodule with CI integration
+- [x] Toolchain Build - All pvsneslib tools compiled from source
+- [x] Library Compilation - pvsneslib library built with all components
+- [x] ROM Validation - Build system produces valid 256KB SNES ROM
 - [ ] Phase 2: Time Manipulation System (record, rewind, echoes, freeze, accelerate)
 - [ ] Phase 3: Overworld & Puzzles (era maps, CHR bank swaps, interactive puzzles)
 - [ ] Phase 4: Combat System (turn queue, menu, actions, echo combos)
