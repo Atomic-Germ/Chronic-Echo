@@ -57,7 +57,7 @@ assets/graphics/backgrounds/tileset.pic assets/graphics/backgrounds/tileset.pal:
 # Convert sprites PNG to SNES format  
 assets/graphics/sprites/sprites_simple.pic assets/graphics/sprites/sprites_simple.pal: assets/graphics/sprites/sprites_simple.png
 	@echo "Converting sprites $(notdir $<) to SNES format..."
-	$(GFXCONV) -i $< -p
+	$(GFXCONV) -s 32 -o 16 -u 16 -t png -p -i $<
 
 # Convert any PNG to SNES format (usage: make convert PNG=image.png)
 convert:

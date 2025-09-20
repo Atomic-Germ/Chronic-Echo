@@ -98,22 +98,21 @@ int main(void)
 //---------------------------------------------------------------------------------
 void initGame(void)
 {
-    // Initialize text console with our font
+    // Initialize text console with our font - use BG2 to avoid conflict with BG1 tilemap
     consoleSetTextMapPtr(0x7000);  // Changed from 0x6800 to avoid conflict
     consoleSetTextGfxPtr(0x3000);
     consoleSetTextOffset(0x0100);
-    consoleInitText(0, 16 * 2, &tilfont, &palfont);
+    consoleInitText(2, 16 * 2, &tilfont, &palfont);  // Use BG2 for console
 
-    // Init background
-    bgSetGfxPtr(0, 0x2000);
-    bgSetMapPtr(0, 0x6800, SC_32x32);  // Background uses 0x6800
+    // Init background - use BG1 for tilemap
+    bgSetGfxPtr(1, 0x2000);  // BG1 for tilemap graphics
+    bgSetMapPtr(1, 0x6800, SC_32x32);  // BG1 for tilemap data
 
-    // Now Put in 16 color mode and enable BG1 and sprites
-    setMode(BG_MODE1, BG1_ENABLE | OBJ_ENABLE);
-    bgSetDisable(1);
-    bgSetDisable(2);
+    // Now Put in 16 color mode and enable BG1 (tilemap) and BG2 (console) and sprites
+    setMode(BG_MODE1, BG1_ENABLE | BG1_TSIZE16x16 | BG2_ENABLE | OBJ_ENABLE);
+    bgSetDisable(3);  // Disable BG3, keep BG2 enabled for console
 
-    // Load background tileset graphics and palette
+    // Load background tileset graphics and palette to BG1
     dmaCopyVram(&tileset, 0x2000, 8192);  // Load tileset to VRAM 0x2000 (256 tiles * 32 bytes each)
     dmaCopyCGram(&tileset_pal, 0, (&tileset_pal_end - &tileset_pal));  // Load tileset palette to CGram 0
 
@@ -153,7 +152,7 @@ void initBackground(void)
         }
     }
 
-    // Copy tilemap to VRAM
+    // Copy tilemap to VRAM for BG1
     dmaCopyVram(tilemap, 0x6800, sizeof(tilemap));
 }
 

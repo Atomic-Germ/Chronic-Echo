@@ -21,24 +21,23 @@ Player player = {0};  // Initialize to zero
 Projectile projectiles[MAX_PROJECTILES];
 
 //---------------------------------------------------------------------------------
-// Animation constants for compass sprite (32x32 = 4x4 tiles)
-#define FRAMES_PER_DIRECTION 1  // Each direction uses 1 set of 4 tiles
-#define TILE_OFFSET_PER_FRAME 4  // Each frame uses 4 tiles (2x2 for 16x16 sprite)
+// Animation constants for 64x64 sprite (8x8 grid of 8x8 tiles)
+#define FRAMES_PER_DIRECTION 1  // Each direction uses 1 set of 16 tiles
+#define TILE_OFFSET_PER_FRAME 16  // Each frame uses 16 tiles (4x4 for 32x32 sprite)
 
 //---------------------------------------------------------------------------------
-// Animation frame lookup table for 32x32 compass sprite
-// The 32x32 sprite has 16 tiles arranged as 4x4 grid:
-// Tiles 0-3: top row, 4-7: second row, 8-11: third row, 12-15: bottom row
-// For directional arrows, we'll use different quadrants of the 4x4 sprite
-const u8 animationTiles[4][4] = {
-    // Right arrow: top-left quadrant (tiles 0,1,4,5)
-    {0, 1, 4, 5},   // Frame 0: right arrow
-    // Left arrow: top-right quadrant (tiles 2,3,6,7) - will flip horizontally
-    {2, 3, 6, 7},   // Frame 1: left arrow
-    // Up arrow: bottom-left quadrant (tiles 8,9,12,13)
-    {8, 9, 12, 13}, // Frame 2: up arrow
-    // Down arrow: bottom-right quadrant (tiles 10,11,14,15) - will flip vertically
-    {10, 11, 14, 15} // Frame 3: down arrow
+// Animation frame lookup table for 64x64 compass sprite
+// The 64x64 sprite has 64 tiles arranged as 8x8 grid:
+// For a 32x32 sprite, we use 4x4 tiles (16 tiles) from different quadrants
+const u8 animationTiles[4][16] = {
+    // Right arrow: top-left quadrant (32x32) - tiles 0-3,8-11,16-19,24-27
+    {0,1,8,9, 2,3,10,11, 16,17,24,25, 18,19,26,27},  // 16 tiles for 4 OAM entries
+    // Left arrow: top-right quadrant (32x32) - tiles 4-7,12-15,20-23,28-31 (will flip)
+    {4,5,12,13, 6,7,14,15, 20,21,28,29, 22,23,30,31},
+    // Up arrow: bottom-left quadrant (32x32) - tiles 32-35,40-43,48-51,56-59
+    {32,33,40,41, 34,35,42,43, 48,49,56,57, 50,51,58,59},
+    // Down arrow: bottom-right quadrant (32x32) - tiles 36-39,44-47,52-55,60-63 (will flip)
+    {36,37,44,45, 38,39,46,47, 52,53,60,61, 54,55,62,63}
 };
 
 //---------------------------------------------------------------------------------
@@ -134,52 +133,46 @@ void movePlayer(s16 dx, s16 dy)
 //---------------------------------------------------------------------------------
 void drawPlayer(void)
 {
-    // For 32x32 sprite (4x4 tiles), we need to use 4 OAM entries arranged in 2x2 grid
-    // Each OAM entry handles one 16x16 quadrant of the 32x32 sprite
+    // For 32x32 sprite (4x4 grid of 8x8 tiles), we use 16 tiles arranged as 4 quadrants
+    // Each quadrant is a 16x16 sprite (OBJ_LARGE) using 4 tiles in a 2x2 pattern
 
-    // Get the correct tile offsets for current direction
-    u8 tileOffset = animationTiles[player.facing][0];  // Base tile for this direction
+    // Get the correct tile offsets for current direction (16 tiles per direction)
+    const u8* tileOffsets = animationTiles[player.facing];
 
     // Determine flip settings based on direction
     u8 flipX = (player.facing == 1) ? 1 : 0;  // Flip horizontally for left
     u8 flipY = (player.facing == 3) ? 1 : 0;  // Flip vertically for down
 
     // Set up the 4 OAM entries for the 2x2 grid of 16x16 sprites
-    // Top-left quadrant
+    // Each quadrant uses 4 consecutive tiles from the animationTiles array
+
+    // Top-left quadrant (OAM 0) - uses tiles 0,1,8,9 as 2x2 grid
     oamSet(PLAYER_SPRITE_ID,
-           player.x, player.y,           // Position
-           3,                           // Priority (highest)
-           flipX, flipY,                // Flipping
-           tileOffset,                  // Tile offset
-           0);                          // Palette
-    oamSetEx(PLAYER_SPRITE_ID, OBJ_SMALL, OBJ_SHOW);
+           player.x, player.y,
+           3, flipX, flipY,
+           tileOffsets[0], 0);  // Starting tile for 16x16 sprite
+    oamSetEx(PLAYER_SPRITE_ID, OBJ_LARGE, OBJ_SHOW);
 
-    // Top-right quadrant
+    // Top-right quadrant (OAM 1) - uses tiles 2,3,10,11 as 2x2 grid
     oamSet(PLAYER_SPRITE_ID + 1,
-           player.x + 16, player.y,     // Position (16 pixels to the right)
-           3,                           // Priority
-           flipX, flipY,                // Flipping
-           tileOffset + 1,              // Next tile
-           0);                          // Palette
-    oamSetEx(PLAYER_SPRITE_ID + 1, OBJ_SMALL, OBJ_SHOW);
+           player.x + 16, player.y,
+           3, flipX, flipY,
+           tileOffsets[4], 0);  // Starting tile for 16x16 sprite
+    oamSetEx(PLAYER_SPRITE_ID + 1, OBJ_LARGE, OBJ_SHOW);
 
-    // Bottom-left quadrant
+    // Bottom-left quadrant (OAM 2) - uses tiles 16,17,24,25 as 2x2 grid
     oamSet(PLAYER_SPRITE_ID + 2,
-           player.x, player.y + 16,     // Position (16 pixels down)
-           3,                           // Priority
-           flipX, flipY,                // Flipping
-           tileOffset + 4,              // Tile 4 rows down
-           0);                          // Palette
-    oamSetEx(PLAYER_SPRITE_ID + 2, OBJ_SMALL, OBJ_SHOW);
+           player.x, player.y + 16,
+           3, flipX, flipY,
+           tileOffsets[8], 0);  // Starting tile for 16x16 sprite
+    oamSetEx(PLAYER_SPRITE_ID + 2, OBJ_LARGE, OBJ_SHOW);
 
-    // Bottom-right quadrant
+    // Bottom-right quadrant (OAM 3) - uses tiles 18,19,26,27 as 2x2 grid
     oamSet(PLAYER_SPRITE_ID + 3,
-           player.x + 16, player.y + 16, // Position (16 pixels right and down)
-           3,                           // Priority
-           flipX, flipY,                // Flipping
-           tileOffset + 5,              // Next tile, 4 rows down
-           0);                          // Palette
-    oamSetEx(PLAYER_SPRITE_ID + 3, OBJ_SMALL, OBJ_SHOW);
+           player.x + 16, player.y + 16,
+           3, flipX, flipY,
+           tileOffsets[12], 0);  // Starting tile for 16x16 sprite
+    oamSetEx(PLAYER_SPRITE_ID + 3, OBJ_LARGE, OBJ_SHOW);
 
     // Update OAM
     oamUpdate();
