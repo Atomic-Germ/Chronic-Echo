@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Chronic Echos Build Script
 # This script sets up the environment and builds the SNES ROM

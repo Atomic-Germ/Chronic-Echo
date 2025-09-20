@@ -1,5 +1,5 @@
 ifeq ($(strip $(PVSNESLIB_HOME)),)
-$(error "Please create an environment variable PVSNESLIB_HOME by following this guide: https://github.com/alekmaul/pvsneslib/wiki/Installation")
+PVSNESLIB_HOME = $(CURDIR)/pvsneslib
 endif
 
 include ${PVSNESLIB_HOME}/devkitsnes/snes_rules
@@ -19,6 +19,10 @@ $(BUILD_DIR):
 #---------------------------------------------------------------------------------
 # ROMNAME is used in snes_rules file
 all: bitmaps $(BUILD_DIR) $(BUILD_DIR)/$(ROMNAME).sfc
+
+validate: $(BUILD_DIR)/$(ROMNAME).sfc
+	@echo "Validating $(ROMNAME).sfc..."
+	./scripts/validate_rom.sh $(BUILD_DIR)/$(ROMNAME).sfc
 
 run: $(BUILD_DIR)/$(ROMNAME).sfc
 	@echo "Running $(ROMNAME).sfc in Mednafen..."

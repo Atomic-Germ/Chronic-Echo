@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Basic ROM validation script for CI/testing
 # This can be expanded for more comprehensive testing
 
