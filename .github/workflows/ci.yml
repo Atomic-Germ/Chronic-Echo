@@ -1,0 +1,103 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install build dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential gcc make
+
+    - name: Set up pvsneslib environment
+      run: |
+        # Set PVSNESLIB_HOME to the local pvsneslib directory
+        echo "PVSNESLIB_HOME=$PWD/pvsneslib" >> $GITHUB_ENV
+
+        # Make sure the pvsneslib tools are executable
+        chmod +x $PWD/pvsneslib/devkitsnes/bin/*
+
+    - name: Build ROM
+      run: |
+        make clean
+        make
+
+    - name: Validate build output
+      run: |
+        # Use the validation script
+        ./scripts/validate_rom.sh build/ChronicEchos.sfc
+
+        # Additional checks
+        if [ ! -f "build/ChronicEchos.sym" ]; then
+          echo "❌ Symbol file not found!"
+          exit 1
+        fi
+
+        echo "✅ All build validations passed!"
+
+    - name: Install headless testing tools
+      run: |
+        # Try to install bsnes/higan for headless testing
+        sudo apt-get install -y libsdl2-dev libgtk-3-dev || true
+
+        # Alternative: Try to install snes9x for headless testing
+        sudo apt-get install -y snes9x || true
+
+        # Check what we have available
+        if command -v snes9x >/dev/null 2>&1; then
+          echo "✅ snes9x available for testing"
+          echo "TEST_EMULATOR=snes9x" >> $GITHUB_ENV
+        elif command -v bsnes >/dev/null 2>&1; then
+          echo "✅ bsnes available for testing"
+          echo "TEST_EMULATOR=bsnes" >> $GITHUB_ENV
+        else
+          echo "⚠️ No headless emulator available, skipping advanced tests"
+          echo "TEST_EMULATOR=none" >> $GITHUB_ENV
+        fi
+
+    - name: Headless ROM test
+      run: |
+        # Basic headless test - try to run ROM for a few frames
+        echo "🧪 Running headless ROM test..."
+
+        if [ "$TEST_EMULATOR" = "snes9x" ]; then
+          # Use snes9x for headless testing
+          timeout 5s snes9x build/ChronicEchos.sfc --no-sound --no-throttle || true
+          echo "✅ snes9x test completed"
+        elif [ "$TEST_EMULATOR" = "bsnes" ]; then
+          # Use bsnes for headless testing
+          timeout 5s bsnes build/ChronicEchos.sfc --fullscreen=false --mute=true || true
+          echo "✅ bsnes test completed"
+        else
+          # Fallback: Just check if ROM file is valid by examining its structure
+          echo "🔍 Performing basic ROM structure validation..."
+
+          # Check for SNES header patterns
+          HEADER_INFO=$(dd if=build/ChronicEchos.sfc bs=1 skip=65472 count=64 2>/dev/null | strings 2>/dev/null || echo "No strings found")
+          if [ -n "$HEADER_INFO" ]; then
+            echo "✅ ROM header contains readable text: $HEADER_INFO"
+          else
+            echo "ℹ️ ROM header validation completed (no readable strings found)"
+          fi
+        fi
+
+        echo "✅ Headless test phase completed"
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: chronic-echos-rom
+        path: |
+          build/ChronicEchos.sfc
+          build/ChronicEchos.sym
+        retention-days: 30

@@ -1,0 +1,26 @@
+var console_8h =
+[
+    [ "consoleCopySram", "console_8h.html#ac3c55f6e16ff70d19c046404b9aa8a9b", null ],
+    [ "consoleCopySramWithOffset", "console_8h.html#a46f2e0184bbdeaad57a7fc2f9bb8c0c6", null ],
+    [ "consoleDrawText", "console_8h.html#a7e52d15b5a1befa42f5758de19dfb70c", null ],
+    [ "consoleDrawTextMap", "console_8h.html#ab062e25ee448ec8a56aa73107c33491f", null ],
+    [ "consoleDrawTextMapCenter", "console_8h.html#a514ade13c61cd2f237bd100d78d5e11d", null ],
+    [ "consoleInit", "console_8h.html#aa4254c9de45f6aa2de26e8ea70dd96e1", null ],
+    [ "consoleInitText", "console_8h.html#a5413265662e30a0ded3fee6d3c4781f9", null ],
+    [ "consoleLoadSram", "console_8h.html#abe1fabedc24a3adef79f32e02c3bc2d5", null ],
+    [ "consoleLoadSramWithOffset", "console_8h.html#ae0dffef580d764d61fe92d2bbb937f1e", null ],
+    [ "consoleMesenBreakpoint", "console_8h.html#a8620fbe47bc2afe99a59c67fae3b7b23", null ],
+    [ "consoleNocashMessage", "console_8h.html#a3a226cebe7d59aac755e03e1061ff727", null ],
+    [ "consoleRegionIsOK", "console_8h.html#a14e4c8469b2423b8512dad9592deaa8f", null ],
+    [ "consoleSetTextOffset", "console_8h.html#a37db69241c89a67e061c00f698c4e669", null ],
+    [ "consoleSetTextPal", "console_8h.html#ab47daf211d07482c1b99d8f9bd06ad77", null ],
+    [ "consoleSetTextVramAdr", "console_8h.html#ae00694243a8a8f2eda262f5212aa132a", null ],
+    [ "consoleSetTextVramBGAdr", "console_8h.html#aa02fd3ef69d43fa1a9227147b85ee70f", null ],
+    [ "consoleUpdate", "console_8h.html#a702d3ea82e9344f6021b7a11a128ea9b", null ],
+    [ "rand", "console_8h.html#af907eeb70a7322d16123cbab3094c2a2", null ],
+    [ "scr_txt_dirty", "console_8h.html#a73c5f483e71c951f267ad0375084242f", null ],
+    [ "scr_txt_font_map", "console_8h.html#ad3897ef4ed73fa003953d4a979ed50b0", null ],
+    [ "snes_50hz", "console_8h.html#aef3bf9522613bca02b4a00ea910d492f", null ],
+    [ "snes_fps", "console_8h.html#a2f267aa4dde2e613c3d2bc961104b531", null ],
+    [ "snes_vblank_count", "console_8h.html#a5e14b74b621c822db9af978d0ad31d1a", null ]
+];

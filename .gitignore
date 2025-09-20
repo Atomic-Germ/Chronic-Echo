@@ -1,0 +1,39 @@
+# Build artifacts
+*.sfc
+*.sym
+*.obj
+*.asm
+*.ps
+*.asp
+*.lst
+linkfile
+
+# macOS
+.DS_Store
+._*
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# IDE files
+.vscode/
+.idea/
+*.code-workspace
+
+# Logs
+*.log
+
+# MacOS crud
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Archives (keep the current one for reference)
+# pvsneslib_*.zip
+
+# Development notes (optional - uncomment if you want to ignore)
+# .copilot/
