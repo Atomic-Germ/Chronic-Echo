@@ -1,14 +1,18 @@
 /*---------------------------------------------------------------------------------
 
 
-    Minimal SNES Test
-    -- Basic console text test
+    Chronic Echo - SNES Game
+    -- Title screen with intro sequence
 
 
 ---------------------------------------------------------------------------------*/
 #include <snes.h>
 
 extern char tilfont, palfont;
+
+// Screen states
+#define SCREEN_INTRO 0
+#define SCREEN_TITLE 1
 
 //---------------------------------------------------------------------------------
 int main(void)
@@ -28,33 +32,54 @@ int main(void)
     bgSetDisable(1);
     bgSetDisable(2);
 
-    // Display centered text at middle of screen
-    consoleDrawText(8, 14, "Made with Copilot");
+    // Initialize screen state
+    int currentScreen = SCREEN_INTRO;
+    int introFrameCount = 0;
+    int fadeFrameCount = 0;
+    int brightness = 15;
 
-    // Turn screen on
-    setScreenOn();
-
-    // Wait for 2.5 seconds (150 frames at 60fps, 125 at 50fps)
-    int frames_to_wait = (snes_fps == 60) ? 150 : 125;
-    int i;
-    for (i = 0; i < frames_to_wait; i++) {
-        WaitForVBlank();
-    }
-
-    // Fade out gradually
-    int brightness;
-    for (brightness = 15; brightness >= 0; brightness--) {
-        setBrightness(brightness);
-        // Wait a few frames between brightness changes for smooth fade
-        int j;
-        for (j = 0; j < 4; j++) {
-            WaitForVBlank();
-        }
-    }
-
-    // Main loop (screen will be black now)
+    // Main game loop
     while (1) {
-        // Just wait for VBlank
+        switch (currentScreen) {
+            case SCREEN_INTRO:
+                // Intro screen: "Made with Copilot"
+                if (introFrameCount == 0) {
+                    consoleDrawText(8, 14, "Made with Copilot");
+                    setScreenOn();
+                }
+
+                introFrameCount++;
+
+                // Wait 2.5 seconds (150 frames at 60fps, 125 at 50fps)
+                int frames_to_wait = (snes_fps == 60) ? 150 : 125;
+                if (introFrameCount >= frames_to_wait) {
+                    currentScreen = SCREEN_TITLE;
+                    fadeFrameCount = 0;
+                    brightness = 15;
+                }
+                break;
+
+            case SCREEN_TITLE:
+                // Title screen
+                if (fadeFrameCount == 0) {
+                    // Clear screen and draw title
+                    consoleDrawText(1, 1, ""); // Clear any remaining text
+                    consoleDrawText(10, 8, "CHRONIC ECHO");
+                    consoleDrawText(12, 12, "PRESS START");
+                    consoleDrawText(8, 16, "MADE WITH COPILOT");
+                }
+
+                // Fade in effect
+                if (brightness < 15) {
+                    brightness++;
+                    setBrightness(brightness);
+                }
+
+                fadeFrameCount++;
+                break;
+        }
+
+        // Wait for VBlank
         WaitForVBlank();
     }
 
