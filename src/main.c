@@ -9,16 +9,20 @@
 #include <snes.h>
 #include <snes/input.h>
 
+// Include our sprite management system
+#include "sprites.h"
+
 extern char tilfont, palfont;
+
+// New graphics data
+extern char tileset, tileset_pal, tileset_pal_end;
+extern char sprites_new, sprites_new_pal, sprites_new_pal_end;
 
 //---------------------------------------------------------------------------------
 // Game States
 typedef enum {
     GAME_STATE_TITLE,
-    GAME_STATE_MENU,
-    GAME_STATE_PLAYING,
-    GAME_STATE_PAUSE,
-    GAME_STATE_GAME_OVER
+    GAME_STATE_PLAYING
 } GameState;
 
 //---------------------------------------------------------------------------------
@@ -29,12 +33,10 @@ GameState previousState = GAME_STATE_TITLE; // Track state changes
 //---------------------------------------------------------------------------------
 // Function declarations
 void initGame(void);
+void initBackground(void);
 void clearScreen(void);
 void handleTitleScreen(void);
-void handleMenu(void);
 void handleGameplay(void);
-void handlePause(void);
-void handleGameOver(void);
 
 //---------------------------------------------------------------------------------
 int main(void)
@@ -50,6 +52,29 @@ int main(void)
         {
             clearScreen();
             previousState = currentState;
+
+            // Handle sprite initialization and visibility based on game state
+            if (currentState == GAME_STATE_PLAYING)
+            {
+                // Initialize player when entering gameplay
+                if (player.spriteId != PLAYER_SPRITE_ID) {  // Only initialize once
+                    initPlayer();
+                }
+                // Show all 4 OAM entries for the 32x32 sprite
+                oamSetVisible(PLAYER_SPRITE_ID, OBJ_SHOW);
+                oamSetVisible(PLAYER_SPRITE_ID + 1, OBJ_SHOW);
+                oamSetVisible(PLAYER_SPRITE_ID + 2, OBJ_SHOW);
+                oamSetVisible(PLAYER_SPRITE_ID + 3, OBJ_SHOW);
+            }
+            else
+            {
+                // Hide all 4 OAM entries for the 32x32 sprite
+                oamSetVisible(PLAYER_SPRITE_ID, OBJ_HIDE);
+                oamSetVisible(PLAYER_SPRITE_ID + 1, OBJ_HIDE);
+                oamSetVisible(PLAYER_SPRITE_ID + 2, OBJ_HIDE);
+                oamSetVisible(PLAYER_SPRITE_ID + 3, OBJ_HIDE);
+            }
+            oamUpdate();
         }
 
         // Handle current game state
@@ -58,17 +83,8 @@ int main(void)
             case GAME_STATE_TITLE:
                 handleTitleScreen();
                 break;
-            case GAME_STATE_MENU:
-                handleMenu();
-                break;
             case GAME_STATE_PLAYING:
                 handleGameplay();
-                break;
-            case GAME_STATE_PAUSE:
-                handlePause();
-                break;
-            case GAME_STATE_GAME_OVER:
-                handleGameOver();
                 break;
         }
 
@@ -83,22 +99,62 @@ int main(void)
 void initGame(void)
 {
     // Initialize text console with our font
-    consoleSetTextMapPtr(0x6800);
+    consoleSetTextMapPtr(0x7000);  // Changed from 0x6800 to avoid conflict
     consoleSetTextGfxPtr(0x3000);
     consoleSetTextOffset(0x0100);
     consoleInitText(0, 16 * 2, &tilfont, &palfont);
 
     // Init background
     bgSetGfxPtr(0, 0x2000);
-    bgSetMapPtr(0, 0x6800, SC_32x32);
+    bgSetMapPtr(0, 0x6800, SC_32x32);  // Background uses 0x6800
 
-    // Now Put in 16 color mode and disable Bgs except current
-    setMode(BG_MODE1, 0);
+    // Now Put in 16 color mode and enable BG1 and sprites
+    setMode(BG_MODE1, BG1_ENABLE | OBJ_ENABLE);
     bgSetDisable(1);
     bgSetDisable(2);
 
-    // Turn on the screen
+    // Load background tileset graphics and palette
+    dmaCopyVram(&tileset, 0x2000, 8192);  // Load tileset to VRAM 0x2000 (256 tiles * 32 bytes each)
+    dmaCopyCGram(&tileset_pal, 0, (&tileset_pal_end - &tileset_pal));  // Load tileset palette to CGram 0
+
+    // Load sprite graphics and palette using the new compass sprite
+    // Keep as 16x16 size but we'll handle the 32x32 sprite with multiple OAM entries
+    oamInitGfxSet(&sprites_new, 2048, &sprites_new_pal, (&sprites_new_pal_end - &sprites_new_pal), 0, 0x4000, OBJ_SIZE16_L32);
+
+    // Initialize sprite system
+    initSprites();
+
+    // Initialize player character at a more visible position (only for gameplay)
+    // Note: Player will be initialized when entering gameplay state
+    // initPlayer();
+
+    // Initialize projectile system
+    initProjectiles();
+
+    // Turn on the screen with sprites enabled
     setScreenOn();
+}
+
+//---------------------------------------------------------------------------------
+void initBackground(void)
+{
+    // Create a simple 32x32 tilemap using our tileset
+    // We'll create a checkerboard pattern with different colored tiles
+    u16 tilemap[32 * 32];  // 32x32 tilemap
+
+    int x, y;
+    for (y = 0; y < 32; y++) {
+        for (x = 0; x < 32; x++) {
+            // Create a simple pattern using different tile indices
+            u16 tileIndex = ((x + y) % 16);  // Cycle through first 16 tiles
+            u16 tileAttributes = 0;  // No flip, palette 0, priority 0
+
+            tilemap[y * 32 + x] = tileIndex | tileAttributes;
+        }
+    }
+
+    // Copy tilemap to VRAM
+    dmaCopyVram(tilemap, 0x6800, sizeof(tilemap));
 }
 
 //---------------------------------------------------------------------------------
@@ -117,98 +173,70 @@ void clearScreen(void)
 //---------------------------------------------------------------------------------
 void handleTitleScreen(void)
 {
+    // Initialize background if not already done
+    static bool backgroundInitialized = false;
+    if (!backgroundInitialized) {
+        initBackground();
+        backgroundInitialized = true;
+    }
+
     // Draw the title screen
     consoleDrawText(8, 8, "CHRONIC ECHOS");
     consoleDrawText(4, 12, "TIME MANIPULATION RPG");
     consoleDrawText(2, 16, "FOR SUPER NINTENDO ENTERTAINMENT SYSTEM");
     consoleDrawText(6, 20, "PRESS START TO BEGIN");
 
-    // Check for START button press to transition to menu
+    // Add copyright
+    consoleDrawText(4, 24, "(C) 2025 NOBODY");
+    consoleDrawText(6, 25, "ALL RIGHTS RESERVED");
+
+    // Check for START button press to transition to gameplay
     if (pad_keysdown[0] & KEY_START)
     {
-        currentState = GAME_STATE_MENU;
-    }
-}
-
-//---------------------------------------------------------------------------------
-void handleMenu(void)
-{
-    // Draw menu
-    consoleDrawText(10, 8, "MAIN MENU");
-    consoleDrawText(8, 12, "1. NEW GAME");
-    consoleDrawText(8, 14, "2. LOAD GAME");
-    consoleDrawText(8, 16, "3. SETTINGS");
-    consoleDrawText(8, 18, "4. QUIT");
-
-    // Check for menu selections
-    if (pad_keysdown[0] & KEY_A)
-    {
-        // For now, any selection goes to gameplay
-        // TODO: Implement proper menu selection logic
         currentState = GAME_STATE_PLAYING;
-    }
-
-    // Check for B button to go back to title
-    if (pad_keysdown[0] & KEY_B)
-    {
-        currentState = GAME_STATE_TITLE;
     }
 }
 
 //---------------------------------------------------------------------------------
 void handleGameplay(void)
 {
-    // Show gameplay placeholder
-    consoleDrawText(10, 10, "GAMEPLAY");
-    consoleDrawText(8, 12, "Time manipulation RPG");
-    consoleDrawText(6, 14, "coming soon...");
-    consoleDrawText(8, 16, "PRESS START TO PAUSE");
+    // Update player character
+    updatePlayer();
 
-    // Check for START to pause
+    // Update projectiles
+    updateProjectiles();
+
+    // Handle shooting
+    if (pad_keysdown[0] & KEY_A) {
+        // Shoot in the direction the player is facing
+        s16 vx = 0, vy = 0;
+        switch (player.facing) {
+            case 0: vx = PROJECTILE_SPEED; break;  // Right
+            case 1: vx = -PROJECTILE_SPEED; break; // Left
+            case 2: vy = -PROJECTILE_SPEED; break; // Up
+            case 3: vy = PROJECTILE_SPEED; break;  // Down
+        }
+        createProjectile(player.x + PLAYER_WIDTH/2, player.y + PLAYER_HEIGHT/2, vx, vy);
+    }
+
+    // Draw player sprite
+    drawPlayer();
+
+    // Draw projectiles
+    drawProjectiles();
+
+    // Display gameplay HUD
+    consoleDrawText(0, 0, "CHRONIC ECHOS - DEMO");
+    consoleDrawText(0, 1, "D-Pad: Move  A: Shoot");
+    consoleDrawText(0, 2, "START: Return to Title");
+
+    // Show debug information
+    debugPlayerInfo();
+
+    // Check for START to return to title
     if (pad_keysdown[0] & KEY_START)
     {
-        currentState = GAME_STATE_PAUSE;
+        currentState = GAME_STATE_TITLE;
     }
 }
 
-//---------------------------------------------------------------------------------
-void handlePause(void)
-{
-    // Draw pause screen
-    consoleDrawText(12, 10, "PAUSED");
-    consoleDrawText(8, 12, "PRESS START TO RESUME");
-    consoleDrawText(10, 14, "PRESS B TO QUIT");
-
-    // Check for START to resume
-    if (pad_keysdown[0] & KEY_START)
-    {
-        currentState = GAME_STATE_PLAYING;
-    }
-
-    // Check for B to go back to menu
-    if (pad_keysdown[0] & KEY_B)
-    {
-        currentState = GAME_STATE_MENU;
-    }
-}
-
-//---------------------------------------------------------------------------------
-void handleGameOver(void)
-{
-    // Draw game over screen
-    consoleDrawText(10, 10, "GAME OVER");
-    consoleDrawText(8, 12, "PRESS START TO CONTINUE");
-    consoleDrawText(10, 14, "PRESS B TO MENU");
-
-    // Check for START to restart
-    if (pad_keysdown[0] & KEY_START)
-    {
-        currentState = GAME_STATE_PLAYING;
-    }
-
-    // Check for B to go back to menu
-    if (pad_keysdown[0] & KEY_B)
-    {
-        currentState = GAME_STATE_MENU;
-    }
-}

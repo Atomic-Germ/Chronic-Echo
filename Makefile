@@ -39,11 +39,49 @@ cleanRom:
 	@rm -f $(BUILD_DIR)/$(ROMNAME).sfc $(BUILD_DIR)/$(ROMNAME).sym
 
 #---------------------------------------------------------------------------------
-pvsneslibfont.pic: pvsneslibfont.png
+pvsneslibfont.pic: assets/graphics/fonts/pvsneslibfont.png
 	@echo convert font with no tile reduction ... $(notdir $@)
 	$(GFXCONV) -s 8 -o 16 -u 16 -p -e 0 -i $<
 
 bitmaps : pvsneslibfont.pic
+
+#---------------------------------------------------------------------------------
+# Graphics conversion targets
+#---------------------------------------------------------------------------------
+
+# Convert tileset PNG to SNES format
+assets/graphics/backgrounds/tileset.pic assets/graphics/backgrounds/tileset.pal: assets/graphics/backgrounds/tileset.png
+	@echo "Converting tileset $(notdir $<) to SNES format..."
+	$(GFXCONV) -i $< -p
+
+# Convert sprites PNG to SNES format  
+assets/graphics/sprites/sprites_simple.pic assets/graphics/sprites/sprites_simple.pal: assets/graphics/sprites/sprites_simple.png
+	@echo "Converting sprites $(notdir $<) to SNES format..."
+	$(GFXCONV) -i $< -p
+
+# Convert any PNG to SNES format (usage: make convert PNG=image.png)
+convert:
+	@if [ -z "$(PNG)" ]; then \
+		echo "Usage: make convert PNG=image.png"; \
+		exit 1; \
+	fi
+	@echo "Converting $(PNG) to SNES format..."
+	$(GFXCONV) -i $(PNG) -p
+
+# Clean graphics files
+clean-gfx:
+	@echo "Cleaning generated graphics files..."
+	@rm -f assets/graphics/backgrounds/*.pic assets/graphics/backgrounds/*.pal
+	@rm -f assets/graphics/sprites/*.pic assets/graphics/sprites/*.pal
+	@rm -f assets/graphics/fonts/*.pic assets/graphics/fonts/*.pal
+
+# Rebuild all graphics and ROM
+rebuild-graphics: clean-gfx assets/graphics/backgrounds/tileset.pic assets/graphics/sprites/sprites_simple.pic
+	@echo "Graphics rebuilt successfully!"
+
+# Full rebuild including graphics
+full-rebuild: clean rebuild-graphics all
+	@echo "Full rebuild completed!"
 
 #---------------------------------------------------------------------------------
 # Override the default .sfc rule to output to build directory

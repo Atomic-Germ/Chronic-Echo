@@ -8,6 +8,18 @@
 *.lst
 linkfile
 
+# Intermediate graphics files
+crop*.png
+*sprites_fixed.png
+*sprites_temp*.png
+
+# Build directories
+build/
+src/*.obj
+src/*.asm
+src/*.ps
+src/*.asp
+
 # macOS
 .DS_Store
 ._*
