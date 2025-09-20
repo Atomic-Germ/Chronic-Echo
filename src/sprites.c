@@ -63,9 +63,9 @@ void initSprites(void)
 //---------------------------------------------------------------------------------
 void initPlayer(void)
 {
-    // Initialize player at center of screen with better positioning
-    player.x = 120;  // Center X minus 16 for 32x32 sprite centering
-    player.y = 104;  // Center Y minus 16 for 32x32 sprite centering
+    // Initialize player at center of screen
+    player.x = 120;  // Center X
+    player.y = 104;  // Center Y
     player.vx = 0;
     player.vy = 0;
     player.facing = 0;  // Face right
@@ -73,8 +73,8 @@ void initPlayer(void)
     player.spriteId = PLAYER_SPRITE_ID;
     player.active = 1;
 
-    // Clear all 4 OAM entries for the 32x32 sprite
-    oamClear(PLAYER_SPRITE_ID, 4);  // Clear 4 consecutive OAM entries
+    // Clear the OAM entry for the sprite
+    oamClear(PLAYER_SPRITE_ID, 1);  // Clear 1 OAM entry
 
     // The actual OAM setup will be done in drawPlayer()
     oamUpdate();
@@ -121,11 +121,11 @@ void movePlayer(s16 dx, s16 dy)
     player.x += dx;
     player.y += dy;
 
-    // Basic boundary checking (screen bounds for 32x32 sprite)
+    // Basic boundary checking (screen bounds for 16x16 sprite)
     if (player.x < 0) player.x = 0;
-    if (player.x > 256 - 32) player.x = 256 - 32;  // 32 for 32x32 sprite
+    if (player.x > 256 - 16) player.x = 256 - 16;  // 16 for 16x16 sprite
     if (player.y < 0) player.y = 0;
-    if (player.y > 224 - 32) player.y = 224 - 32;  // 32 for 32x32 sprite
+    if (player.y > 224 - 16) player.y = 224 - 16;  // 16 for 16x16 sprite
 
     // Position updates will be handled in drawPlayer()
 }
@@ -133,49 +133,20 @@ void movePlayer(s16 dx, s16 dy)
 //---------------------------------------------------------------------------------
 void drawPlayer(void)
 {
-    // For 32x32 sprite (4x4 grid of 8x8 tiles), we use 16 tiles arranged as 4 quadrants
-    // Each quadrant is a 16x16 sprite (OBJ_LARGE) using 4 tiles in a 2x2 pattern
-
-    // Get the correct tile offsets for current direction (16 tiles per direction)
-    const u8* tileOffsets = animationTiles[player.facing];
-
-    // Determine flip settings based on direction
-    u8 flipX = (player.facing == 1) ? 1 : 0;  // Flip horizontally for left
-    u8 flipY = (player.facing == 3) ? 1 : 0;  // Flip vertically for down
-
-    // Set up the 4 OAM entries for the 2x2 grid of 16x16 sprites
-    // Each quadrant uses 4 consecutive tiles from the animationTiles array
-
-    // Top-left quadrant (OAM 0) - uses tiles 0,1,8,9 as 2x2 grid
-    oamSet(PLAYER_SPRITE_ID,
-           player.x, player.y,
-           3, flipX, flipY,
-           tileOffsets[0], 0);  // Starting tile for 16x16 sprite
-    oamSetEx(PLAYER_SPRITE_ID, OBJ_LARGE, OBJ_SHOW);
-
-    // Top-right quadrant (OAM 1) - uses tiles 2,3,10,11 as 2x2 grid
-    oamSet(PLAYER_SPRITE_ID + 1,
-           player.x + 16, player.y,
-           3, flipX, flipY,
-           tileOffsets[4], 0);  // Starting tile for 16x16 sprite
-    oamSetEx(PLAYER_SPRITE_ID + 1, OBJ_LARGE, OBJ_SHOW);
-
-    // Bottom-left quadrant (OAM 2) - uses tiles 16,17,24,25 as 2x2 grid
-    oamSet(PLAYER_SPRITE_ID + 2,
-           player.x, player.y + 16,
-           3, flipX, flipY,
-           tileOffsets[8], 0);  // Starting tile for 16x16 sprite
-    oamSetEx(PLAYER_SPRITE_ID + 2, OBJ_LARGE, OBJ_SHOW);
-
-    // Bottom-right quadrant (OAM 3) - uses tiles 18,19,26,27 as 2x2 grid
-    oamSet(PLAYER_SPRITE_ID + 3,
-           player.x + 16, player.y + 16,
-           3, flipX, flipY,
-           tileOffsets[12], 0);  // Starting tile for 16x16 sprite
-    oamSetEx(PLAYER_SPRITE_ID + 3, OBJ_LARGE, OBJ_SHOW);
-
+    // Simple 16x16 sprite - use tile 0 for now (first tile in sprite sheet)
+    u8 tileIndex = 0;
+    
+    // Set sprite position and properties
+    oamSet(PLAYER_SPRITE_ID, player.x, player.y, 3, 0, 0, tileIndex, 0);
+    oamSetEx(PLAYER_SPRITE_ID, OBJ_SMALL, OBJ_SHOW);
+    
     // Update OAM
     oamUpdate();
+    
+    // Debug output
+    char buffer[32];
+    sprintf(buffer, "SPRITE: X=%d Y=%d", player.x, player.y);
+    consoleDrawText(0, 21, buffer);
 }
 
 //---------------------------------------------------------------------------------

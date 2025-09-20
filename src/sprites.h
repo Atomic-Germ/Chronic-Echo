@@ -14,8 +14,8 @@
 //---------------------------------------------------------------------------------
 // Sprite Constants
 #define PLAYER_SPRITE_ID 0
-#define PLAYER_WIDTH 32
-#define PLAYER_HEIGHT 32
+#define PLAYER_WIDTH 16
+#define PLAYER_HEIGHT 16
 #define PLAYER_SPEED 2
 #define PROJECTILE_SPEED 4
 #define PROJECTILE_WIDTH 8
