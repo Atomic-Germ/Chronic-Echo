@@ -52,8 +52,8 @@ extern Player player;
 extern Projectile projectiles[MAX_PROJECTILES];
 
 // Sprite graphics data
-extern char sprites_new, sprites_new_end;
-extern char sprites_new_pal, sprites_new_pal_end;
+extern char sprites_simple, sprites_simple_end;
+extern char sprites_simple_pal, sprites_simple_pal_end;
 
 //---------------------------------------------------------------------------------
 // Function declarations

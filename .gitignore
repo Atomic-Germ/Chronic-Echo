@@ -48,4 +48,5 @@ src/*.asp
 # pvsneslib_*.zip
 
 # Development notes (optional - uncomment if you want to ignore)
-# .copilot/
+# .copilot/pvsneslib
+Mesen.app

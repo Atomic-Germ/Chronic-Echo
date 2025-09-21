@@ -10,7 +10,7 @@
 #include <snes/sprite.h>
 
 extern char tilfont, palfont;
-extern char sprites_new, sprites_new_pal;
+extern char sprites_simple, sprites_simple_pal;
 
 // Include our sprite system
 #include "sprites.h"

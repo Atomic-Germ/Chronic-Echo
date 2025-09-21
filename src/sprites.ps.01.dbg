@@ -1,0 +1,2791 @@
+.include "hdr.asm"
+.accu 16
+.index 16
+.16bit
+.define __initSprites_locals 0
+.define __initPlayer_locals 0
+.define __updatePlayer_locals 4
+.define __movePlayer_locals 4
+.define __drawPlayer_locals 1
+.define __debugPlayerInfo_locals 0
+.define __initProjectiles_locals 2
+.define __createProjectile_locals 2
+.define __updateProjectiles_locals 2
+.define __drawProjectiles_locals 2
+
+.SECTION ".initSpritestext_0x0" SUPERFREE
+
+initSprites:
+; sub sp,#__initSprites_locals
+.ifgr __initSprites_locals 0
+tsa
+sec
+sbc #__initSprites_locals
+tas
+.endif
+; load 0
+; type 132 reg 0x12f0 extra 0x0
+; ld4 #sprites_simple_end + 0, tcc__r0 (type 0x84)
+lda.w #:sprites_simple_end
+sta.b tcc__r0h
+lda.w #sprites_simple_end + 0
+sta.b tcc__r0
+; load 1
+; type 132 reg 0x12f0 extra 0x0
+; ld4 #sprites_simple + 0, tcc__r1 (type 0x84)
+lda.w #:sprites_simple
+sta.b tcc__r1h
+lda.w #sprites_simple + 0
+sta.b tcc__r1
+; gen_opi len 4 op -
+; sbc tcc__r1 (0x1), tcc__r0 (0x0) (fr type 0x84 c 0 r type 0x4)
+; length xxy 4 vtop->type 0x84
+sec
+lda.b tcc__r0
+sbc.b tcc__r1
+sta.b tcc__r0
+; load 1
+; type 132 reg 0x12f0 extra 0x0
+; ld4 #sprites_simple_pal_end + 0, tcc__r1 (type 0x84)
+lda.w #:sprites_simple_pal_end
+sta.b tcc__r1h
+lda.w #sprites_simple_pal_end + 0
+sta.b tcc__r1
+; load 2
+; type 132 reg 0x12f0 extra 0x0
+; ld4 #sprites_simple_pal + 0, tcc__r2 (type 0x84)
+lda.w #:sprites_simple_pal
+sta.b tcc__r2h
+lda.w #sprites_simple_pal + 0
+sta.b tcc__r2
+; gen_opi len 4 op -
+; sbc tcc__r2 (0x2), tcc__r1 (0x1) (fr type 0x84 c 0 r type 0x4)
+; length xxy 4 vtop->type 0x84
+sec
+lda.b tcc__r1
+sbc.b tcc__r2
+sta.b tcc__r1
+; push1 imm r 0xf0
+sep #$20
+lda #96
+pha
+rep #$20
+; push2 imm r 0xf0
+pea.w 16384
+; push1 imm r 0xf0
+sep #$20
+lda #0
+pha
+rep #$20
+; ldpush before load type 0x10 reg 0x1
+; ldpush2 (type 0x10 reg 0x1) tcc__r1
+pei (tcc__r1)
+; push4 imm r 0x52f0
+pea.w :sprites_simple_pal
+pea.w sprites_simple_pal + 0
+; ldpush before load type 0x10 reg 0x0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; push4 imm r 0x52f0
+pea.w :sprites_simple
+pea.w sprites_simple + 0
+; call r 0x2f0
+jsr.l oamInitGfxSet
+; add sp, #16
+tsa
+clc
+adc #16
+tas
+; push1 imm r 0xf0
+sep #$20
+lda #0
+pha
+rep #$20
+; push2 imm r 0xf0
+pea.w 0
+; call r 0x2f0
+jsr.l oamClear
+; add sp, #3
+tsa
+clc
+adc #3
+tas
+; gsym_addr t 0 a 1860 ind 1860
+; ERROR no jump found to patch
+; add sp, #__initSprites_locals
+.ifgr __initSprites_locals 0
+tsa
+clc
+adc #__initSprites_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".initPlayertext_0x1" SUPERFREE
+
+initPlayer:
+; sub sp,#__initPlayer_locals
+.ifgr __initPlayer_locals 0
+tsa
+sec
+sbc #__initPlayer_locals
+tas
+.endif
+; load 0
+; type 0 reg 0xf0 extra 0x0
+; ld2 #120,tcc__r0
+lda.w #120
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x0 fc 0x0
+; st2 tcc__r0, [player,0]
+lda.b tcc__r0
+sta.l player + 0
+; load 0
+; type 0 reg 0xf0 extra 0x0
+; ld2 #104,tcc__r0
+lda.w #104
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x0 fc 0x2
+; st2 tcc__r0, [player,2]
+lda.b tcc__r0
+sta.l player + 2
+; load 0
+; type 0 reg 0xf0 extra 0x0
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x0 fc 0x4
+; st2 tcc__r0, [player,4]
+lda.b tcc__r0
+sta.l player + 4
+; load 0
+; type 0 reg 0xf0 extra 0x0
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x0 fc 0x6
+; st2 tcc__r0, [player,6]
+lda.b tcc__r0
+sta.l player + 6
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x8
+; st1 tcc__r0, [player,8]
+sep #$20
+lda.b tcc__r0
+sta.l player + 8
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x9
+; st1 tcc__r0, [player,9]
+sep #$20
+lda.b tcc__r0
+sta.l player + 9
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0xa
+; st1 tcc__r0, [player,10]
+sep #$20
+lda.b tcc__r0
+sta.l player + 10
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0xb
+; st1 tcc__r0, [player,11]
+sep #$20
+lda.b tcc__r0
+sta.l player + 11
+rep #$20
+; push1 imm r 0xf0
+sep #$20
+lda #1
+pha
+rep #$20
+; push2 imm r 0xf0
+pea.w 0
+; call r 0x2f0
+jsr.l oamClear
+; add sp, #3
+tsa
+clc
+adc #3
+tas
+; call r 0x2f0
+jsr.l oamUpdate
+; gsym_addr t 0 a 3828 ind 3828
+; ERROR no jump found to patch
+; add sp, #__initPlayer_locals
+.ifgr __initPlayer_locals 0
+tsa
+clc
+adc #__initPlayer_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".updatePlayertext_0x2" SUPERFREE
+
+updatePlayer:
+; sub sp,#__updatePlayer_locals
+.ifgr __updatePlayer_locals 0
+tsa
+sec
+sbc #__updatePlayer_locals
+tas
+.endif
+; load 0
+; type 0 reg 0xf0 extra 0x4655000
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffe
+; st2 tcc__r0, [sp,-2]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -2 + __updatePlayer_locals + 1,s
+; load 0
+; type 0 reg 0xf0 extra 0x4655000
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffc
+; st2 tcc__r0, [sp,-4]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -4 + __updatePlayer_locals + 1,s
+; load 0
+; type 16 reg 0x3f0 extra 0x3a5400d4
+; ld2 [pad_keys + 0], tcc__r0
+lda.l pad_keys + 0
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 0 r type 0x3bb07d0)
+; length xxy 2 vtop->type 0x10
+; nop
+lda.b tcc__r0
+and.w #512
+sta.b tcc__r0
+; gtst inv 1 t 0 v 0 r 4939 ind 4939
+; gsym_addr t 0 a 4976 ind 4976
+; ERROR no jump found to patch
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 5095 ind 5095
+; cmp op 0x95 inv 1 v 243 r 5095
+; cmp ne
+bne +
+; gsym_addr t 0 a 5182 ind 5182
+; ERROR no jump found to patch
+brl __local_0
++
+; gtst finished; t 5095
+; load 0
+; type 0 reg 0xf0 extra 0x76287265
+; ld2 #-2,tcc__r0
+lda.w #65534
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffe
+; st2 tcc__r0, [sp,-2]
+; stack adjust: fc + disp - loc - 256 -252
+lda.b tcc__r0
+sta -2 + __updatePlayer_locals + 1,s
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x8
+; st1 tcc__r0, [player,8]
+sep #$20
+lda.b tcc__r0
+sta.l player + 8
+rep #$20
+__local_0:
+; gsym_addr t 5095 a 5727 ind 5727
+; load 0
+; type 16 reg 0x3f0 extra 0x3a5400d4
+; ld2 [pad_keys + 0], tcc__r0
+lda.l pad_keys + 0
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 0 r type 0x3bb07d0)
+; length xxy 2 vtop->type 0x10
+; nop
+lda.b tcc__r0
+and.w #256
+sta.b tcc__r0
+; gtst inv 1 t 0 v 0 r 6042 ind 6042
+; gsym_addr t 0 a 6079 ind 6079
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 6167 ind 6167
+; cmp op 0x95 inv 1 v 243 r 6167
+; cmp ne
+bne +
+; gsym_addr t 0 a 6254 ind 6254
+brl __local_1
++
+; gtst finished; t 6167
+; load 0
+; type 0 reg 0xf0 extra 0x76287265
+; ld2 #2,tcc__r0
+lda.w #2
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffe
+; st2 tcc__r0, [sp,-2]
+; stack adjust: fc + disp - loc - 256 -252
+lda.b tcc__r0
+sta -2 + __updatePlayer_locals + 1,s
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x8
+; st1 tcc__r0, [player,8]
+sep #$20
+lda.b tcc__r0
+sta.l player + 8
+rep #$20
+__local_1:
+; gsym_addr t 6167 a 6763 ind 6763
+; load 0
+; type 16 reg 0x3f0 extra 0x3a5400d4
+; ld2 [pad_keys + 0], tcc__r0
+lda.l pad_keys + 0
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 0 r type 0x3bb07d0)
+; length xxy 2 vtop->type 0x10
+; nop
+lda.b tcc__r0
+and.w #2048
+sta.b tcc__r0
+; gtst inv 1 t 0 v 0 r 7079 ind 7079
+; gsym_addr t 0 a 7116 ind 7116
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 7204 ind 7204
+; cmp op 0x95 inv 1 v 243 r 7204
+; cmp ne
+bne +
+; gsym_addr t 0 a 7291 ind 7291
+brl __local_2
++
+; gtst finished; t 7204
+; load 0
+; type 0 reg 0xf0 extra 0x6f207472
+; ld2 #-2,tcc__r0
+lda.w #65534
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffc
+; st2 tcc__r0, [sp,-4]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -4 + __updatePlayer_locals + 1,s
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #2,tcc__r0
+lda.w #2
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x8
+; st1 tcc__r0, [player,8]
+sep #$20
+lda.b tcc__r0
+sta.l player + 8
+rep #$20
+__local_2:
+; gsym_addr t 7204 a 7805 ind 7805
+; load 0
+; type 16 reg 0x3f0 extra 0x3a5400d4
+; ld2 [pad_keys + 0], tcc__r0
+lda.l pad_keys + 0
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 0 r type 0x3bb07d0)
+; length xxy 2 vtop->type 0x10
+; nop
+lda.b tcc__r0
+and.w #1024
+sta.b tcc__r0
+; gtst inv 1 t 0 v 0 r 8121 ind 8121
+; gsym_addr t 0 a 8158 ind 8158
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 8246 ind 8246
+; cmp op 0x95 inv 1 v 243 r 8246
+; cmp ne
+bne +
+; gsym_addr t 0 a 8333 ind 8333
+brl __local_3
++
+; gtst finished; t 8246
+; load 0
+; type 0 reg 0xf0 extra 0x6f207472
+; ld2 #2,tcc__r0
+lda.w #2
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffc
+; st2 tcc__r0, [sp,-4]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -4 + __updatePlayer_locals + 1,s
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #3,tcc__r0
+lda.w #3
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x8
+; st1 tcc__r0, [player,8]
+sep #$20
+lda.b tcc__r0
+sta.l player + 8
+rep #$20
+__local_3:
+; gsym_addr t 8246 a 8842 ind 8842
+; ldpush before load type 0x0 reg 0x1f2
+; load 0
+; type 0 reg 0x1f2 extra 0x0
+; ld2 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -4 + __updatePlayer_locals + 1,s
+sta.b tcc__r0
+; ldpush2 (type 0x0 reg 0x0) tcc__r0
+pei (tcc__r0)
+; ldpush before load type 0x0 reg 0x1f2
+; load 0
+; type 0 reg 0x1f2 extra 0x0
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -250
+lda 0 + __updatePlayer_locals + 1,s
+sta.b tcc__r0
+; ldpush2 (type 0x0 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l movePlayer
+; add sp, #4
+tsa
+clc
+adc #4
+tas
+; gsym_addr t 0 a 9430 ind 9430
+; add sp, #__updatePlayer_locals
+.ifgr __updatePlayer_locals 0
+tsa
+clc
+adc #__updatePlayer_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".movePlayertext_0x3" SUPERFREE
+
+movePlayer:
+; sub sp,#__movePlayer_locals
+.ifgr __movePlayer_locals 0
+tsa
+sec
+sbc #__movePlayer_locals
+tas
+.endif
+; load 0
+; type 0 reg 0x3f0 extra 0x4655000
+; ld2 [player + 0], tcc__r0
+lda.l player + 0
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffe
+; st2 tcc__r0, [sp,-2]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -2 + __movePlayer_locals + 1,s
+; load 0
+; type 0 reg 0x3f0 extra 0x4655000
+; ld2 [player + 2], tcc__r0
+lda.l player + 2
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffc
+; st2 tcc__r0, [sp,-4]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -4 + __movePlayer_locals + 1,s
+; load 0
+; type 0 reg 0x3f0 extra 0x4669000
+; ld2 [player + 0], tcc__r0
+lda.l player + 0
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x1f2 extra 0x4669000
+; ld2 [sp,3],tcc__r1
+; stack adjust: fc + disp - loc - 256 -247
+lda 3 + __movePlayer_locals + 1,s
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r1 (0x1), tcc__r0 (0x0) (fr type 0x0 c 0 r type 0x0)
+; length xxy 2 vtop->type 0x0
+clc
+lda.b tcc__r0
+adc.b tcc__r1
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x0 fc 0x0
+; st2 tcc__r0, [player,0]
+lda.b tcc__r0
+sta.l player + 0
+; load 0
+; type 0 reg 0x3f0 extra 0x4669000
+; ld2 [player + 2], tcc__r0
+lda.l player + 2
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x1f2 extra 0x4669000
+; ld2 [sp,5],tcc__r1
+; stack adjust: fc + disp - loc - 256 -245
+lda 5 + __movePlayer_locals + 1,s
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r1 (0x1), tcc__r0 (0x0) (fr type 0x0 c 2 r type 0x0)
+; length xxy 2 vtop->type 0x0
+clc
+lda.b tcc__r0
+adc.b tcc__r1
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x0 fc 0x2
+; st2 tcc__r0, [player,2]
+lda.b tcc__r0
+sta.l player + 2
+; load 0
+; type 0 reg 0x3f0 extra 0x4669000
+; ld2 [player + 0], tcc__r0
+lda.l player + 0
+sta.b tcc__r0
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #0
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 11527 ind 11527
+; gsym_addr t 0 a 11566 ind 11566
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 11656 ind 11656
+; cmp op 0x95 inv 1 v 243 r 11656
+; cmp ne
+bne +
+; gsym_addr t 0 a 11746 ind 11746
+brl __local_4
++
+; gtst finished; t 11656
+; load 0
+; type 0 reg 0xf0 extra 0x0
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x0 fc 0x0
+; st2 tcc__r0, [player,0]
+lda.b tcc__r0
+sta.l player + 0
+__local_4:
+; gsym_addr t 11656 a 11992 ind 11992
+; load 0
+; type 0 reg 0x3f0 extra 0x6b885970
+; ld2 [player + 0], tcc__r0
+lda.l player + 0
+sta.b tcc__r0
+; gen_opi len 2 op 0x9f
+; cmpcd tcc__r0, #240
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #240
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 12279 ind 12279
+; gsym_addr t 0 a 12318 ind 12318
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 12408 ind 12408
+; cmp op 0x95 inv 1 v 243 r 12408
+; cmp ne
+bne +
+; gsym_addr t 0 a 12498 ind 12498
+brl __local_5
++
+; gtst finished; t 12408
+; load 0
+; type 0 reg 0xf0 extra 0x0
+; ld2 #240,tcc__r0
+lda.w #240
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x0 fc 0x0
+; st2 tcc__r0, [player,0]
+lda.b tcc__r0
+sta.l player + 0
+__local_5:
+; gsym_addr t 12408 a 12748 ind 12748
+; load 0
+; type 0 reg 0x3f0 extra 0x4669000
+; ld2 [player + 2], tcc__r0
+lda.l player + 2
+sta.b tcc__r0
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #0
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 13023 ind 13023
+; gsym_addr t 0 a 13062 ind 13062
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 13152 ind 13152
+; cmp op 0x95 inv 1 v 243 r 13152
+; cmp ne
+bne +
+; gsym_addr t 0 a 13242 ind 13242
+brl __local_6
++
+; gtst finished; t 13152
+; load 0
+; type 0 reg 0xf0 extra 0x0
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x0 fc 0x2
+; st2 tcc__r0, [player,2]
+lda.b tcc__r0
+sta.l player + 2
+__local_6:
+; gsym_addr t 13152 a 13488 ind 13488
+; load 0
+; type 0 reg 0x3f0 extra 0x6b885970
+; ld2 [player + 2], tcc__r0
+lda.l player + 2
+sta.b tcc__r0
+; gen_opi len 2 op 0x9f
+; cmpcd tcc__r0, #208
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #208
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 13775 ind 13775
+; gsym_addr t 0 a 13814 ind 13814
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 13904 ind 13904
+; cmp op 0x95 inv 1 v 243 r 13904
+; cmp ne
+bne +
+; gsym_addr t 0 a 13994 ind 13994
+brl __local_7
++
+; gtst finished; t 13904
+; load 0
+; type 0 reg 0xf0 extra 0x0
+; ld2 #208,tcc__r0
+lda.w #208
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x0 fc 0x2
+; st2 tcc__r0, [player,2]
+lda.b tcc__r0
+sta.l player + 2
+__local_7:
+; gsym_addr t 13904 a 14244 ind 14244
+; gsym_addr t 0 a 14282 ind 14282
+; add sp, #__movePlayer_locals
+.ifgr __movePlayer_locals 0
+tsa
+clc
+adc #__movePlayer_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".drawPlayertext_0x4" SUPERFREE
+
+drawPlayer:
+; sub sp,#__drawPlayer_locals
+.ifgr __drawPlayer_locals 0
+tsa
+sec
+sbc #__drawPlayer_locals
+tas
+.endif
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x11 fc 0xffffffff
+; st1 tcc__r0, [sp,-1]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -1 + __drawPlayer_locals + 1,s
+rep #$20
+; load 0
+; type 17 reg 0x51f2 extra 0x705c2020
+; ld1 [sp,-1],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -1 + __drawPlayer_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; push1 imm r 0xf0
+sep #$20
+lda #0
+pha
+rep #$20
+; ldpush before load type 0x10 reg 0x0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; push1 imm r 0xf0
+sep #$20
+lda #0
+pha
+rep #$20
+; push1 imm r 0xf0
+sep #$20
+lda #0
+pha
+rep #$20
+; push1 imm r 0xf0
+sep #$20
+lda #3
+pha
+rep #$20
+; ldpush before load type 0x10 reg 0x3f0
+; load 0
+; type 16 reg 0x3f0 extra 0x0
+; ld2 [player + 2], tcc__r0
+lda.l player + 2
+sta.b tcc__r0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; ldpush before load type 0x10 reg 0x3f0
+; load 0
+; type 16 reg 0x3f0 extra 0x0
+; ld2 [player + 0], tcc__r0
+lda.l player + 0
+sta.b tcc__r0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; push2 imm r 0xf0
+pea.w 0
+; call r 0x2f0
+jsr.l oamSet
+; add sp, #12
+tsa
+clc
+adc #12
+tas
+; push1 imm r 0xf0
+sep #$20
+lda #0
+pha
+rep #$20
+; push1 imm r 0xf0
+sep #$20
+lda #0
+pha
+rep #$20
+; push2 imm r 0xf0
+pea.w 0
+; call r 0x2f0
+jsr.l oamSetEx
+; add sp, #4
+tsa
+clc
+adc #4
+tas
+; call r 0x2f0
+jsr.l oamUpdate
+; gsym_addr t 0 a 16000 ind 16000
+; add sp, #__drawPlayer_locals
+.ifgr __drawPlayer_locals 0
+tsa
+clc
+adc #__drawPlayer_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".debugPlayerInfotext_0x5" SUPERFREE
+
+debugPlayerInfo:
+; sub sp,#__debugPlayerInfo_locals
+.ifgr __debugPlayerInfo_locals 0
+tsa
+sec
+sbc #__debugPlayerInfo_locals
+tas
+.endif
+; gsym_addr t 0 a 16329 ind 16329
+; add sp, #__debugPlayerInfo_locals
+.ifgr __debugPlayerInfo_locals 0
+tsa
+clc
+adc #__debugPlayerInfo_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".initProjectilestext_0x6" SUPERFREE
+
+initProjectiles:
+; sub sp,#__initProjectiles_locals
+.ifgr __initProjectiles_locals 0
+tsa
+sec
+sbc #__initProjectiles_locals
+tas
+.endif
+; load 0
+; type 0 reg 0xf0 extra 0x6c617620
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffe
+; st2 tcc__r0, [sp,-2]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -2 + __initProjectiles_locals + 1,s
+__local_10:
+; load 0
+; type 0 reg 0x1f2 extra 0x4669000
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __initProjectiles_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, #8
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #8
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 17218 ind 17218
+; gsym_addr t 0 a 17257 ind 17257
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 17347 ind 17347
+; cmp op 0x95 inv 1 v 243 r 17347
+; cmp ne
+bne +
+; gsym_addr t 0 a 17437 ind 17437
+brl __local_8
++
+; gtst finished; t 17347
+; gjmp_addr 0 at 17512
+jmp.w __local_9
+; gsym_addr t 17512 a 0 ind 17551
+__local_11:
+; load 0
+; type 0 reg 0x1f2 extra 0x6c617620
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __initProjectiles_locals + 1,s
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x0
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -2 r type 0x0)
+; length xxy 2 vtop->type 0x0
+inc.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffe
+; st2 tcc__r0, [sp,-2]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -2 + __initProjectiles_locals + 1,s
+; gjmp_addr 16921 at 18163
+jmp.w __local_10
+; gsym_addr t 18163 a 16921 ind 18207
+__local_9:
+; gsym_addr t 17512 a 18245 ind 18245
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __initProjectiles_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x3bb07d0)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x3bb07d0)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #8
+sta.b tcc__r1
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x5101 ft 0x11 fc 0x0
+; st1 tcc__r0, [tcc__r1,0]
+sep #$20
+lda.b tcc__r0
+sta.b [tcc__r1]
+rep #$20
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __initProjectiles_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x3bb07d0)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x3bb07d0)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #9
+sta.b tcc__r1
+; load 0
+; type 0 reg 0x1f2 extra 0x4669000
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __initProjectiles_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -2 r type 0x11)
+; length xxy 2 vtop->type 0x0
+inc.b tcc__r0
+; store r 0x0 fr 0x5101 ft 0x11 fc 0x0
+; st1 tcc__r0, [tcc__r1,0]
+sep #$20
+lda.b tcc__r0
+sta.b [tcc__r1]
+rep #$20
+; gjmp_addr 17585 at 20534
+jmp.w __local_11
+; gsym_addr t 20534 a 17585 ind 20578
+__local_8:
+; gsym_addr t 17347 a 20616 ind 20616
+; gsym_addr t 0 a 17585 ind 20654
+; gsym_addr t 0 a 20688 ind 20688
+; add sp, #__initProjectiles_locals
+.ifgr __initProjectiles_locals 0
+tsa
+clc
+adc #__initProjectiles_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".createProjectiletext_0x7" SUPERFREE
+
+createProjectile:
+; sub sp,#__createProjectile_locals
+.ifgr __createProjectile_locals 0
+tsa
+sec
+sbc #__createProjectile_locals
+tas
+.endif
+; load 0
+; type 0 reg 0xf0 extra 0x20387528
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffe
+; st2 tcc__r0, [sp,-2]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -2 + __createProjectile_locals + 1,s
+__local_14:
+; load 0
+; type 0 reg 0x1f2 extra 0x4669000
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __createProjectile_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, #8
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #8
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 21584 ind 21584
+; gsym_addr t 0 a 21623 ind 21623
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 21713 ind 21713
+; cmp op 0x95 inv 1 v 243 r 21713
+; cmp ne
+bne +
+; gsym_addr t 0 a 21803 ind 21803
+brl __local_12
++
+; gtst finished; t 21713
+; gjmp_addr 0 at 21879
+jmp.w __local_13
+; gsym_addr t 21879 a 0 ind 21919
+__local_18:
+; load 0
+; type 0 reg 0x1f2 extra 0x20387528
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __createProjectile_locals + 1,s
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x0
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -2 r type 0x0)
+; length xxy 2 vtop->type 0x0
+inc.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffe
+; st2 tcc__r0, [sp,-2]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -2 + __createProjectile_locals + 1,s
+; gjmp_addr 21286 at 22533
+jmp.w __local_14
+; gsym_addr t 22533 a 21286 ind 22577
+__local_13:
+; gsym_addr t 21879 a 22615 ind 22615
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __createProjectile_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x3bb07d0)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x3bb07d0)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #8
+sta.b tcc__r1
+; gtst inv 1 t 0 v 1 r 23478 ind 23478
+; load 0
+; type 17 reg 0x5101 extra 0x0
+; ld1 [tcc__r1,0],tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r1]
+rep #$20
+sta.b tcc__r0
+; gsym_addr t 0 a 23640 ind 23640
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 23730 ind 23730
+; cmp op 0x95 inv 1 v 243 r 23730
+; cmp ne
+bne +
+; gsym_addr t 0 a 23820 ind 23820
+brl __local_15
++
+; gtst finished; t 23730
+; gtst inv 1 t 0 v 244 r 23896 ind 23896
+; VT_jmp r 23896 t 0 ji 0 inv 1 vtop->c.i 23730
+; gjmp_addr 0 at 23985
+jmp.w __local_16
+; gsym_addr t 23985 a 0 ind 24025
+__local_15:
+; gsym_addr t 23730 a 24059 ind 24059
+; gtst finished; t 23985
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __createProjectile_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x3bb07d0)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; load 0
+; type 0 reg 0x1f2 extra 0x0
+; ld2 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -249
+lda 3 + __createProjectile_locals + 1,s
+sta.b tcc__r0
+; store r 0x0 fr 0x101 ft 0x0 fc 0x0
+; st2 tcc__r0, [tcc__r1,0]
+lda.b tcc__r0
+sta.b [tcc__r1]
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __createProjectile_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x3bb07d0)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x3bb07d0)
+; length xxy 4 vtop->type 0x4
+inc.b tcc__r1
+inc.b tcc__r1
+; load 0
+; type 0 reg 0x1f2 extra 0x0
+; ld2 [sp,5],tcc__r0
+; stack adjust: fc + disp - loc - 256 -247
+lda 5 + __createProjectile_locals + 1,s
+sta.b tcc__r0
+; store r 0x0 fr 0x101 ft 0x0 fc 0x0
+; st2 tcc__r0, [tcc__r1,0]
+lda.b tcc__r0
+sta.b [tcc__r1]
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __createProjectile_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x3bb07d0)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x3bb07d0)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #4
+sta.b tcc__r1
+; load 0
+; type 0 reg 0x1f2 extra 0x0
+; ld2 [sp,7],tcc__r0
+; stack adjust: fc + disp - loc - 256 -245
+lda 7 + __createProjectile_locals + 1,s
+sta.b tcc__r0
+; store r 0x0 fr 0x101 ft 0x0 fc 0x0
+; st2 tcc__r0, [tcc__r1,0]
+lda.b tcc__r0
+sta.b [tcc__r1]
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __createProjectile_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x3bb07d0)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x3bb07d0)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #6
+sta.b tcc__r1
+; load 0
+; type 0 reg 0x1f2 extra 0x0
+; ld2 [sp,9],tcc__r0
+; stack adjust: fc + disp - loc - 256 -243
+lda 9 + __createProjectile_locals + 1,s
+sta.b tcc__r0
+; store r 0x0 fr 0x101 ft 0x0 fc 0x0
+; st2 tcc__r0, [tcc__r1,0]
+lda.b tcc__r0
+sta.b [tcc__r1]
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __createProjectile_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x3bb07d0)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x3bb07d0)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #8
+sta.b tcc__r1
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x5101 ft 0x11 fc 0x0
+; st1 tcc__r0, [tcc__r1,0]
+sep #$20
+lda.b tcc__r0
+sta.b [tcc__r1]
+rep #$20
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __createProjectile_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x86)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x86)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #9
+sta.b tcc__r1
+; load 0
+; type 17 reg 0x5101 extra 0x0
+; ld1 [tcc__r1,0],tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r1]
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r1
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __createProjectile_locals + 1,s
+sta.b tcc__r1
+; gen_opi len 2 op *
+; mul #10, tcc__r1
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r1
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r1
+; load 2
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r2 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r2h
+lda.w #projectiles + 0
+sta.b tcc__r2
+; gen_opi len 2 op +
+; adc tcc__r1 (0x1), tcc__r2 (0x2) (fr type 0x24 c 0 r type 0x10)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r2
+adc.b tcc__r1
+sta.b tcc__r2
+; load 1
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r1
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __createProjectile_locals + 1,s
+sta.b tcc__r1
+; gen_opi len 2 op *
+; mul #10, tcc__r1
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r1
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r1
+; load 3
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r3 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r3h
+lda.w #projectiles + 0
+sta.b tcc__r3
+; gen_opi len 2 op +
+; adc tcc__r1 (0x1), tcc__r3 (0x3) (fr type 0x24 c 0 r type 0x10)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r3
+adc.b tcc__r1
+sta.b tcc__r3
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r3 (0x3) (fr type 0x4 c 0 r type 0x10)
+; length xxy 4 vtop->type 0x4
+inc.b tcc__r3
+inc.b tcc__r3
+; push1 imm r 0xf0
+sep #$20
+lda #1
+pha
+rep #$20
+; push2 imm r 0xf0
+pea.w 1
+; push1 imm r 0xf0
+sep #$20
+lda #0
+pha
+rep #$20
+; push1 imm r 0xf0
+sep #$20
+lda #0
+pha
+rep #$20
+; push1 imm r 0xf0
+sep #$20
+lda #3
+pha
+rep #$20
+; ldpush before load type 0x10 reg 0x103
+; load 1
+; type 16 reg 0x103 extra 0x0
+; ld2 [tcc__r3,0],tcc__r1
+lda.b [tcc__r3]
+sta.b tcc__r1
+; ldpush2 (type 0x10 reg 0x1) tcc__r1
+pei (tcc__r1)
+; ldpush before load type 0x10 reg 0x102
+; load 1
+; type 16 reg 0x102 extra 0x0
+; ld2 [tcc__r2,0],tcc__r1
+lda.b [tcc__r2]
+sta.b tcc__r1
+; ldpush2 (type 0x10 reg 0x1) tcc__r1
+pei (tcc__r1)
+; ldpush before load type 0x10 reg 0x0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l oamSet
+; add sp, #12
+tsa
+clc
+adc #12
+tas
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __createProjectile_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x86)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x86)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #9
+sta.b tcc__r1
+; load 0
+; type 17 reg 0x5101 extra 0x0
+; ld1 [tcc__r1,0],tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r1]
+rep #$20
+sta.b tcc__r0
+; push1 imm r 0xf0
+sep #$20
+lda #0
+pha
+rep #$20
+; push1 imm r 0xf0
+sep #$20
+lda #0
+pha
+rep #$20
+; ldpush before load type 0x10 reg 0x0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l oamSetEx
+; add sp, #4
+tsa
+clc
+adc #4
+tas
+; gjmp_addr 21713 at 33591
+jmp.w __local_17
+; gsym_addr t 33591 a 21713 ind 33635
+__local_16:
+; gsym_addr t 23985 a 33673 ind 33673
+; gjmp_addr 21953 at 33711
+jmp.w __local_18
+; gsym_addr t 33711 a 21953 ind 33755
+__local_12:
+__local_17:
+; gsym_addr t 33591 a 33793 ind 33793
+; gsym_addr t 0 a 21953 ind 33831
+; gsym_addr t 0 a 33865 ind 33865
+; add sp, #__createProjectile_locals
+.ifgr __createProjectile_locals 0
+tsa
+clc
+adc #__createProjectile_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".updateProjectilestext_0x8" SUPERFREE
+
+updateProjectiles:
+; sub sp,#__updateProjectiles_locals
+.ifgr __updateProjectiles_locals 0
+tsa
+sec
+sbc #__updateProjectiles_locals
+tas
+.endif
+; load 0
+; type 0 reg 0xf0 extra 0x726f6620
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffe
+; st2 tcc__r0, [sp,-2]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -2 + __updateProjectiles_locals + 1,s
+__local_21:
+; load 0
+; type 0 reg 0x1f2 extra 0x4669000
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __updateProjectiles_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, #8
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #8
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 34771 ind 34771
+; gsym_addr t 0 a 34810 ind 34810
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 34900 ind 34900
+; cmp op 0x95 inv 1 v 243 r 34900
+; cmp ne
+bne +
+; gsym_addr t 0 a 34990 ind 34990
+brl __local_19
++
+; gtst finished; t 34900
+; gjmp_addr 0 at 35066
+jmp.w __local_20
+; gsym_addr t 35066 a 0 ind 35106
+__local_29:
+; load 0
+; type 0 reg 0x1f2 extra 0x726f6620
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __updateProjectiles_locals + 1,s
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x0
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -2 r type 0x0)
+; length xxy 2 vtop->type 0x0
+inc.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffe
+; st2 tcc__r0, [sp,-2]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -2 + __updateProjectiles_locals + 1,s
+; gjmp_addr 34472 at 35722
+jmp.w __local_21
+; gsym_addr t 35722 a 34472 ind 35766
+__local_20:
+; gsym_addr t 35066 a 35804 ind 35804
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __updateProjectiles_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x3bb07d0)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x3bb07d0)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #8
+sta.b tcc__r1
+; gtst inv 1 t 0 v 1 r 36668 ind 36668
+; load 0
+; type 17 reg 0x5101 extra 0x0
+; ld1 [tcc__r1,0],tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r1]
+rep #$20
+sta.b tcc__r0
+; gsym_addr t 0 a 36830 ind 36830
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 36920 ind 36920
+; cmp op 0x95 inv 1 v 243 r 36920
+; cmp ne
+bne +
+; gsym_addr t 0 a 37010 ind 37010
+brl __local_22
++
+; gtst finished; t 36920
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __updateProjectiles_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x3bb07d0)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __updateProjectiles_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 2
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r2 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r2h
+lda.w #projectiles + 0
+sta.b tcc__r2
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r2 (0x2) (fr type 0x24 c 0 r type 0x0)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r2
+adc.b tcc__r0
+sta.b tcc__r2
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r2 (0x2) (fr type 0x4 c 0 r type 0x0)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r2
+adc.w #4
+sta.b tcc__r2
+; load 0
+; type 0 reg 0x101 extra 0x4669000
+; ld2 [tcc__r1,0],tcc__r0
+lda.b [tcc__r1]
+sta.b tcc__r0
+; load 3
+; type 0 reg 0x102 extra 0x4669000
+; ld2 [tcc__r2,0],tcc__r3
+lda.b [tcc__r2]
+sta.b tcc__r3
+; gen_opi len 2 op +
+; adc tcc__r3 (0x3), tcc__r0 (0x0) (fr type 0x0 c 0 r type 0x0)
+; length xxy 2 vtop->type 0x0
+clc
+lda.b tcc__r0
+adc.b tcc__r3
+sta.b tcc__r0
+; store r 0x0 fr 0x101 ft 0x0 fc 0x0
+; st2 tcc__r0, [tcc__r1,0]
+lda.b tcc__r0
+sta.b [tcc__r1]
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __updateProjectiles_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x3bb07d0)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x3bb07d0)
+; length xxy 4 vtop->type 0x4
+inc.b tcc__r1
+inc.b tcc__r1
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __updateProjectiles_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 2
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r2 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r2h
+lda.w #projectiles + 0
+sta.b tcc__r2
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r2 (0x2) (fr type 0x24 c 0 r type 0x0)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r2
+adc.b tcc__r0
+sta.b tcc__r2
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r2 (0x2) (fr type 0x4 c 0 r type 0x0)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r2
+adc.w #6
+sta.b tcc__r2
+; load 0
+; type 0 reg 0x101 extra 0x4669000
+; ld2 [tcc__r1,0],tcc__r0
+lda.b [tcc__r1]
+sta.b tcc__r0
+; load 3
+; type 0 reg 0x102 extra 0x4669000
+; ld2 [tcc__r2,0],tcc__r3
+lda.b [tcc__r2]
+sta.b tcc__r3
+; gen_opi len 2 op +
+; adc tcc__r3 (0x3), tcc__r0 (0x0) (fr type 0x0 c 0 r type 0x0)
+; length xxy 2 vtop->type 0x0
+clc
+lda.b tcc__r0
+adc.b tcc__r3
+sta.b tcc__r0
+; store r 0x0 fr 0x101 ft 0x0 fc 0x0
+; st2 tcc__r0, [tcc__r1,0]
+lda.b tcc__r0
+sta.b [tcc__r1]
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __updateProjectiles_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x3bb07d0)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; load 0
+; type 0 reg 0x101 extra 0x0
+; ld2 [tcc__r1,0],tcc__r0
+lda.b [tcc__r1]
+sta.b tcc__r0
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, #-8
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #-8
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 0 t 0 v 5 r 41989 ind 41989
+; gsym_addr t 0 a 42028 ind 42028
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 0 t 0 v 243 r 42118 ind 42118
+; cmp op 0x95 inv 0 v 243 r 42118
+; cmp ne
+beq +
+; gsym_addr t 0 a 42208 ind 42208
+brl __local_23
++
+; gtst finished; t 42118
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __updateProjectiles_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x3bb07d0)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; load 0
+; type 0 reg 0x101 extra 0x6b885630
+; ld2 [tcc__r1,0],tcc__r0
+lda.b [tcc__r1]
+sta.b tcc__r0
+; gen_opi len 2 op 0x9f
+; cmpcd tcc__r0, #264
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #264
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 0 t 42118 v 5 r 43191 ind 43191
+; gsym_addr t 42118 a 43234 ind 43234
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 0 t 42118 v 243 r 43328 ind 43328
+; cmp op 0x95 inv 0 v 243 r 43328
+; cmp ne
+beq +
+__local_23:
+; gsym_addr t 42118 a 43422 ind 43422
+brl __local_24
++
+; gtst finished; t 43328
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __updateProjectiles_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x3bb07d0)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x3bb07d0)
+; length xxy 4 vtop->type 0x4
+inc.b tcc__r1
+inc.b tcc__r1
+; load 0
+; type 0 reg 0x101 extra 0x0
+; ld2 [tcc__r1,0],tcc__r0
+lda.b [tcc__r1]
+sta.b tcc__r0
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, #-8
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #-8
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 0 t 43328 v 5 r 44545 ind 44545
+; gsym_addr t 43328 a 44588 ind 44588
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 0 t 43328 v 243 r 44682 ind 44682
+; cmp op 0x95 inv 0 v 243 r 44682
+; cmp ne
+beq +
+__local_24:
+; gsym_addr t 43328 a 44776 ind 44776
+brl __local_25
++
+; gtst finished; t 44682
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __updateProjectiles_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x3bb07d0)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x3bb07d0)
+; length xxy 4 vtop->type 0x4
+inc.b tcc__r1
+inc.b tcc__r1
+; load 0
+; type 0 reg 0x101 extra 0x6b885630
+; ld2 [tcc__r1,0],tcc__r0
+lda.b [tcc__r1]
+sta.b tcc__r0
+; gen_opi len 2 op 0x9f
+; cmpcd tcc__r0, #232
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #232
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 0 t 44682 v 5 r 45915 ind 45915
+; gsym_addr t 44682 a 45958 ind 45958
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 0 t 44682 v 243 r 46052 ind 46052
+; cmp op 0x95 inv 0 v 243 r 46052
+; cmp ne
+beq +
+__local_25:
+; gsym_addr t 44682 a 46146 ind 46146
+brl __local_26
++
+; gtst finished; t 46052
+; gtst inv 1 t 0 v 244 r 46226 ind 46226
+; VT_jmp r 46226 t 0 ji 0 inv 1 vtop->c.i 46052
+; gjmp_addr 0 at 46315
+jmp.w __local_27
+; gsym_addr t 46315 a 0 ind 46355
+__local_26:
+; gsym_addr t 46052 a 46389 ind 46389
+; gtst finished; t 46315
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __updateProjectiles_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x3bb07d0)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x3bb07d0)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #8
+sta.b tcc__r1
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x5101 ft 0x11 fc 0x0
+; st1 tcc__r0, [tcc__r1,0]
+sep #$20
+lda.b tcc__r0
+sta.b [tcc__r1]
+rep #$20
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __updateProjectiles_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x86)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x86)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #9
+sta.b tcc__r1
+; load 0
+; type 17 reg 0x5101 extra 0x0
+; ld1 [tcc__r1,0],tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r1]
+rep #$20
+sta.b tcc__r0
+; push1 imm r 0xf0
+sep #$20
+lda #1
+pha
+rep #$20
+; ldpush before load type 0x10 reg 0x0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l oamSetVisible
+; add sp, #3
+tsa
+clc
+adc #3
+tas
+; gjmp_addr 0 at 48615
+jmp.w __local_28
+; gsym_addr t 48615 a 0 ind 48655
+__local_27:
+; gsym_addr t 46315 a 48689 ind 48689
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __updateProjectiles_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x86)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x86)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #9
+sta.b tcc__r1
+; load 0
+; type 17 reg 0x5101 extra 0x0
+; ld1 [tcc__r1,0],tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r1]
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r1
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __updateProjectiles_locals + 1,s
+sta.b tcc__r1
+; gen_opi len 2 op *
+; mul #10, tcc__r1
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r1
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r1
+; load 2
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r2 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r2h
+lda.w #projectiles + 0
+sta.b tcc__r2
+; gen_opi len 2 op +
+; adc tcc__r1 (0x1), tcc__r2 (0x2) (fr type 0x24 c 0 r type 0x10)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r2
+adc.b tcc__r1
+sta.b tcc__r2
+; load 1
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r1
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __updateProjectiles_locals + 1,s
+sta.b tcc__r1
+; gen_opi len 2 op *
+; mul #10, tcc__r1
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r1
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r1
+; load 3
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r3 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r3h
+lda.w #projectiles + 0
+sta.b tcc__r3
+; gen_opi len 2 op +
+; adc tcc__r1 (0x1), tcc__r3 (0x3) (fr type 0x24 c 0 r type 0x10)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r3
+adc.b tcc__r1
+sta.b tcc__r3
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r3 (0x3) (fr type 0x4 c 0 r type 0x10)
+; length xxy 4 vtop->type 0x4
+inc.b tcc__r3
+inc.b tcc__r3
+; ldpush before load type 0x10 reg 0x103
+; load 1
+; type 16 reg 0x103 extra 0x0
+; ld2 [tcc__r3,0],tcc__r1
+lda.b [tcc__r3]
+sta.b tcc__r1
+; ldpush2 (type 0x10 reg 0x1) tcc__r1
+pei (tcc__r1)
+; ldpush before load type 0x10 reg 0x102
+; load 1
+; type 16 reg 0x102 extra 0x0
+; ld2 [tcc__r2,0],tcc__r1
+lda.b [tcc__r2]
+sta.b tcc__r1
+; ldpush2 (type 0x10 reg 0x1) tcc__r1
+pei (tcc__r1)
+; ldpush before load type 0x10 reg 0x0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l oamSetXY
+; add sp, #6
+tsa
+clc
+adc #6
+tas
+__local_28:
+; gsym_addr t 48615 a 51654 ind 51654
+__local_22:
+; gsym_addr t 36920 a 51692 ind 51692
+; gjmp_addr 35140 at 51730
+jmp.w __local_29
+; gsym_addr t 51730 a 35140 ind 51774
+__local_19:
+; gsym_addr t 34900 a 51812 ind 51812
+; gsym_addr t 0 a 35140 ind 51850
+; gsym_addr t 0 a 51884 ind 51884
+; add sp, #__updateProjectiles_locals
+.ifgr __updateProjectiles_locals 0
+tsa
+clc
+adc #__updateProjectiles_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".drawProjectilestext_0x9" SUPERFREE
+
+drawProjectiles:
+; sub sp,#__drawProjectiles_locals
+.ifgr __drawProjectiles_locals 0
+tsa
+sec
+sbc #__drawProjectiles_locals
+tas
+.endif
+; load 0
+; type 0 reg 0xf0 extra 0x665c2021
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffe
+; st2 tcc__r0, [sp,-2]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -2 + __drawProjectiles_locals + 1,s
+__local_32:
+; load 0
+; type 0 reg 0x1f2 extra 0x4669000
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __drawProjectiles_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, #8
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #8
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 52779 ind 52779
+; gsym_addr t 0 a 52818 ind 52818
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 52908 ind 52908
+; cmp op 0x95 inv 1 v 243 r 52908
+; cmp ne
+bne +
+; gsym_addr t 0 a 52998 ind 52998
+brl __local_30
++
+; gtst finished; t 52908
+; gjmp_addr 0 at 53074
+jmp.w __local_31
+; gsym_addr t 53074 a 0 ind 53114
+__local_34:
+; load 0
+; type 0 reg 0x1f2 extra 0x665c2021
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __drawProjectiles_locals + 1,s
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x0
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -2 r type 0x0)
+; length xxy 2 vtop->type 0x0
+inc.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffe
+; st2 tcc__r0, [sp,-2]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -2 + __drawProjectiles_locals + 1,s
+; gjmp_addr 52482 at 53726
+jmp.w __local_32
+; gsym_addr t 53726 a 52482 ind 53770
+__local_31:
+; gsym_addr t 53074 a 53808 ind 53808
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __drawProjectiles_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x3bb07d0)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x3bb07d0)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #8
+sta.b tcc__r1
+; gtst inv 1 t 0 v 1 r 54670 ind 54670
+; load 0
+; type 17 reg 0x5101 extra 0x0
+; ld1 [tcc__r1,0],tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r1]
+rep #$20
+sta.b tcc__r0
+; gsym_addr t 0 a 54832 ind 54832
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 54922 ind 54922
+; cmp op 0x95 inv 1 v 243 r 54922
+; cmp ne
+bne +
+; gsym_addr t 0 a 55012 ind 55012
+brl __local_33
++
+; gtst finished; t 54922
+; load 0
+; type 0 reg 0x1f2 extra 0x1e8293e8
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __drawProjectiles_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld80 #projectiles + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:projectiles
+sta.b tcc__r1h
+lda.w #projectiles + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x86)
+; length xxy 80 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x86)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #9
+sta.b tcc__r1
+; load 0
+; type 17 reg 0x5101 extra 0x0
+; ld1 [tcc__r1,0],tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r1]
+rep #$20
+sta.b tcc__r0
+; push1 imm r 0xf0
+sep #$20
+lda #0
+pha
+rep #$20
+; ldpush before load type 0x10 reg 0x0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l oamSetVisible
+; add sp, #3
+tsa
+clc
+adc #3
+tas
+__local_33:
+; gsym_addr t 54922 a 56231 ind 56231
+; gjmp_addr 53148 at 56269
+jmp.w __local_34
+; gsym_addr t 56269 a 53148 ind 56313
+__local_30:
+; gsym_addr t 52908 a 56351 ind 56351
+; gsym_addr t 0 a 53148 ind 56389
+; gsym_addr t 0 a 56423 ind 56423
+; add sp, #__drawProjectiles_locals
+.ifgr __drawProjectiles_locals 0
+tsa
+clc
+adc #__drawProjectiles_locals
+tas
+.endif
+rtl
+.ENDS
+.RAMSECTION "ram{WLA_FILENAME}.data" APPENDTO "globram.data"
+
+player dsb 12
+animationTiles dsb 64
+
+.ENDS
+
+.SECTION "{WLA_FILENAME}.data" APPENDTO "glob.data"
+
+.db $0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0
+.db $0,$1,$8,$9,$2,$3,$a,$b,$10,$11,$18,$19,$12,$13,$1a,$1b,$4,$5,$c,$d,$6,$7,$e,$f,$14,$15,$1c,$1d,$16,$17,$1e,$1f,$20,$21,$28,$29,$22,$23,$2a,$2b,$30,$31,$38,$39,$32,$33,$3a,$3b,$24,$25,$2c,$2d,$26,$27,$2e,$2f,$34,$35,$3c,$3d,$36,$37,$3e,$3f
+.ENDS
+
+.SECTION ".rodata" SUPERFREE
+
+.ENDS
+
+.RAMSECTION ".bss" BANK $7e SLOT 2
+projectiles dsb 80
+.ENDS

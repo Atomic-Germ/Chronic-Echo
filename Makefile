@@ -2,9 +2,30 @@ ifeq ($(strip $(PVSNESLIB_HOME)),)
 PVSNESLIB_HOME = $(CURDIR)/pvsneslib
 endif
 
-include ${PVSNESLIB_HOME}/devkitsnes/snes_rules
+# Export PATH to include PVSnesLib tools if dependencies are installed
+ifneq ($(wildcard ${PVSNESLIB_HOME}/devkitsnes/snes_rules),)
+export PATH := ${PVSNESLIB_HOME}/devkitsnes/bin:${PVSNESLIB_HOME}/devkitsnes/tools:$(PATH)
+export PVSNESLIB_DEBUG=1
+endif
 
-.PHONY: bitmaps all run clean
+# Only include snes_rules if it exists (after deps are installed)
+ifneq ($(wildcard ${PVSNESLIB_HOME}/devkitsnes/snes_rules),)
+include ${PVSNESLIB_HOME}/devkitsnes/snes_rules
+endif
+
+.PHONY: bitmaps all run clean deps check-deps
+
+#---------------------------------------------------------------------------------
+# Check if dependencies are installed
+check-deps:
+	@if [ ! -d "pvsneslib" ]; then \
+		echo "Error: PVSnesLib not found. Run 'make deps' first."; \
+		exit 1; \
+	fi
+	@if [ ! -f "pvsneslib/devkitsnes/snes_rules" ]; then \
+		echo "Error: PVSnesLib installation incomplete. Run 'make deps' first."; \
+		exit 1; \
+	fi
 
 #---------------------------------------------------------------------------------
 # Build directory setup
@@ -18,11 +39,39 @@ $(BUILD_DIR):
 
 #---------------------------------------------------------------------------------
 # ROMNAME is used in snes_rules file
-all: bitmaps $(BUILD_DIR) $(BUILD_DIR)/$(ROMNAME).sfc
+all: check-deps bitmaps $(BUILD_DIR) $(BUILD_DIR)/$(ROMNAME).sfc
 
-validate: $(BUILD_DIR)/$(ROMNAME).sfc
+validate: check-deps $(BUILD_DIR)/$(ROMNAME).sfc
 	@echo "Validating $(ROMNAME).sfc..."
 	./scripts/validate_rom.sh $(BUILD_DIR)/$(ROMNAME).sfc
+
+deps: 
+	@echo "Setting up dependencies..."
+	@if [ ! -d "pvsneslib" ]; then \
+		echo "Downloading PVSnesLib..."; \
+		wget https://github.com/alekmaul/pvsneslib/releases/download/4.4.0/pvsneslib_440_64b_darwin.zip -O pvsneslib.zip || curl -L https://github.com/alekmaul/pvsneslib/releases/download/4.4.0/pvsneslib_440_64b_darwin.zip -o pvsneslib.zip; \
+		unzip pvsneslib.zip; \
+		chmod +x pvsneslib/devkitsnes/bin/*; \
+		chmod +x pvsneslib/devkitsnes/tools/*; \
+		rm pvsneslib.zip; \
+		echo "PVSnesLib installed successfully!"; \
+	else \
+		echo "PVSnesLib already installed."; \
+	fi
+	@if [ ! -d "Mesen.app" ]; then \
+		echo "Downloading Mesen emulator..."; \
+		wget https://github.com/SourMesen/Mesen2/releases/download/2.1.1/Mesen_2.1.1_macOS_x64_Intel.zip -O mesen.zip || curl -L https://github.com/SourMesen/Mesen2/releases/download/2.1.1/Mesen_2.1.1_macOS_x64_Intel.zip -o mesen.zip; \
+		unzip mesen.zip; \
+		if [ -f "Mesen.app.zip" ]; then unzip Mesen.app.zip; rm Mesen.app.zip; fi; \
+		chmod +x Mesen.app/Contents/MacOS/Mesen; \
+		rm mesen.zip; \
+		echo "Mesen emulator installed successfully!"; \
+	else \
+		echo "Mesen emulator already installed."; \
+	fi
+	@echo "Setting up PATH for PVSnesLib tools..."
+	sh ./setup_path.sh
+	@echo "Dependencies setup complete!"
 
 run: $(BUILD_DIR)/$(ROMNAME).sfc
 	@echo "Running $(ROMNAME).sfc in Mednafen..."
@@ -61,7 +110,7 @@ pvsneslibfont.pic: assets/graphics/fonts/pvsneslibfont.png
 	@mv assets/graphics/fonts/pvsneslibfont.pic .
 	@mv assets/graphics/fonts/pvsneslibfont.pal .
 
-bitmaps : pvsneslibfont.pic
+bitmaps : check-deps pvsneslibfont.pic
 
 #---------------------------------------------------------------------------------
 # Graphics conversion targets
