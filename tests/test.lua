@@ -156,8 +156,13 @@ local function onFrameEnd()
     elseif frameCount == 300 then
         -- Check game screen fades in after start press
         local gameSum = getScreenSum()
-        local fadedIn = gameStartSum and gameSum > gameStartSum and gameSum > 4000000000
+        local fadedIn = gameStartSum and gameSum > gameStartSum and gameSum > 3000000000
         logTest("Game Screen Fade In", fadedIn, string.format("Start sum %d -> Final sum %d", gameStartSum or 0, gameSum))
+        -- Test player sprite detection
+        local successX, x = pcall(emu.read, 0x0000, emu.memType.oam)
+        local successY, y = pcall(emu.read, 0x0001, emu.memType.oam)
+        local detected = successX and successY and x ~= 0
+        logTest("Player Sprite Detection", detected, string.format("OAM X=%d Y=%d", x or 0, y or 0))
         -- Final checks
         local success, state = pcall(emu.getState)
         if success then

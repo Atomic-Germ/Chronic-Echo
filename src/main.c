@@ -173,41 +173,55 @@ int main(void)
                     clearScreenForTransition();
                     currentScreen = SCREEN_GAME;
                     fadeFrameCount = 0;
-                    brightness = 15;
+                    brightness = 0;
                 }
                 break;
 
             case SCREEN_GAME:
-                // Game screen - update and draw sprites
-                // Initialize game state on first frame
+                // Game screen - fade in then update and draw sprites
                 if (fadeFrameCount == 0) {
-                    // Game initialization happens here if needed
-                    fadeFrameCount = 1; // Prevent re-initialization
+                    // Initialize game content
+                    updatePlayer();
+                    drawPlayer();
+                    setScreenOn();
+                    brightness = 0;
                 }
 
+                // Fade in game screen
+                if (fadeFrameCount % 4 == 0 && brightness < 15) {
+                    brightness++;
+                    setBrightness(brightness);
+                }
+
+                fadeFrameCount++;
+
+                // Only handle game input after fade in is complete
+                if (brightness >= 15) {
+                    // Handle input for player movement
+                    if (padsCurrent(0) & KEY_LEFT) {
+                        movePlayer(-2, 0);
+                    }
+                    if (padsCurrent(0) & KEY_RIGHT) {
+                        movePlayer(2, 0);
+                    }
+                    if (padsCurrent(0) & KEY_UP) {
+                        movePlayer(0, -2);
+                    }
+                    if (padsCurrent(0) & KEY_DOWN) {
+                        movePlayer(0, 2);
+                    }
+
+                    // Press B to return to title
+                    if (padsCurrent(0) & KEY_B) {
+                        currentScreen = SCREEN_GAME_FADEOUT;
+                        fadeFrameCount = 0;
+                        brightness = 15;
+                    }
+                }
+
+                // Always update and draw sprites
                 updatePlayer();
                 drawPlayer();
-
-                // Handle input for player movement
-                if (padsCurrent(0) & KEY_LEFT) {
-                    movePlayer(-2, 0);
-                }
-                if (padsCurrent(0) & KEY_RIGHT) {
-                    movePlayer(2, 0);
-                }
-                if (padsCurrent(0) & KEY_UP) {
-                    movePlayer(0, -2);
-                }
-                if (padsCurrent(0) & KEY_DOWN) {
-                    movePlayer(0, 2);
-                }
-
-                // Press B to return to title
-                if (padsCurrent(0) & KEY_B) {
-                    currentScreen = SCREEN_GAME_FADEOUT;
-                    fadeFrameCount = 0;
-                    brightness = 15;
-                }
                 break;
 
             case SCREEN_GAME_FADEOUT:
