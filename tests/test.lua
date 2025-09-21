@@ -141,6 +141,10 @@ local function onFrameEnd()
         -- Check final fade out (screen should be black after clear)
         local finalSum = getScreenSum()
         logTest("Fade Complete", finalSum == 0, string.format("Screen sum = %d", finalSum))
+
+        -- Test that the first screen fades out
+        local firstScreenFaded = brightScreenSum and brightScreenSum > 0 and finalSum == 0
+        logTest("First Screen Fade Out", firstScreenFaded, string.format("Bright sum %d -> Final sum %d", brightScreenSum or 0, finalSum))
     elseif frameCount == 280 then
         -- Check title fade in (screen should brighten with title text)
         titleScreenSum = getScreenSum()
