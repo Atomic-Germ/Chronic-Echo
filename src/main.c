@@ -15,11 +15,25 @@ extern char sprites_new, sprites_new_pal;
 // Include our sprite system
 #include "sprites.h"
 
+// Screen states
+#define SCREEN_INTRO 0
+#define SCREEN_FADEOUT 1
+#define SCREEN_BLACK 2
+#define SCREEN_TITLE 3
+#define SCREEN_GAME 4
+#define SCREEN_GAME_FADEOUT 5
+
 //---------------------------------------------------------------------------------
 // Screen clearing helper function
 void clearScreenForTransition(void) {
-    // Clear all console text
-    consoleClear();
+    // Clear all console text by drawing spaces over the entire console area
+    // Console is typically 32x28 characters, but we'll clear a safe area
+    int y, x;
+    for (y = 0; y < 32; y++) {
+        for (x = 0; x < 32; x += 20) {  // Draw in chunks of 20 spaces
+            consoleDrawText(x, y, "                    ");
+        }
+    }
 
     // Clear all sprites
     oamClear(0, 0);

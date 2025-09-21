@@ -28,20 +28,38 @@ run: $(BUILD_DIR)/$(ROMNAME).sfc
 	@echo "Running $(ROMNAME).sfc in Mednafen..."
 	mednafen $(BUILD_DIR)/$(ROMNAME).sfc
 
-clean: cleanBuildRes cleanRom cleanGfx
-	@echo clean build directory
+test: $(BUILD_DIR)/$(ROMNAME).sfc
+	@echo "Running unit tests headlessly with Mesen..."
+	mesen --testRunner tests/test.lua $<
+
+clean: cleanBuildRes cleanRomTemp cleanGfx
+	@echo clean intermediate files preserving ROM
+	@rm -rf src/*.ps src/*.obj src/*.asp linkfile hdr.obj src/hdr.obj src/data.obj
+	@rm -f src/main.asm src/sprites.asm
+
+# New target for full clean including ROM
+cleanAll: cleanBuildRes cleanRom cleanGfx
+	@echo clean ALL build files including ROM
 	@rm -rf $(BUILD_DIR)
 
 #---------------------------------------------------------------------------------
-# Override cleanRom to clean from build directory
-cleanRom:
-	@echo clean rom
-	@rm -f $(BUILD_DIR)/$(ROMNAME).sfc $(BUILD_DIR)/$(ROMNAME).sym
+# Override cleanGfx to preserve essential converted graphics files
+cleanGfx:
+	@echo clean graphics data but preserve essentials
+	@rm -f *.map *.pc7 *.mp7 *.til *.m16 *.b16 *.o16 *.t16
+	@echo preserved pvsneslibfont.pic and pvsneslibfont.pal for build
+
+# New target to clean ROM from build directory
+cleanRomTemp:
+	@echo clean temporary rom files
+	@rm -f $(ROMNAME).sfc $(ROMNAME).sym
 
 #---------------------------------------------------------------------------------
 pvsneslibfont.pic: assets/graphics/fonts/pvsneslibfont.png
 	@echo convert font with no tile reduction ... $(notdir $@)
 	$(GFXCONV) -s 8 -o 16 -u 16 -p -e 0 -i $<
+	@mv assets/graphics/fonts/pvsneslibfont.pic .
+	@mv assets/graphics/fonts/pvsneslibfont.pal .
 
 bitmaps : pvsneslibfont.pic
 
