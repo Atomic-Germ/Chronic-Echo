@@ -8,31 +8,44 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
-    - name: Checkout repository with submodules
+    - name: Checkout repository
       uses: actions/checkout@v3
-      with:
-        submodules: true
+
     
     - name: Set up environment
       run: |
         echo "PVSNESLIB_HOME=$PWD/pvsneslib" >> $GITHUB_ENV
         echo "$PWD/pvsneslib/devkitsnes/tools:$PWD/pvsneslib/devkitsnes/bin" >> $GITHUB_PATH
     
-    - name: Install dependencies
+    - name: Install dependencies for MacOS
       run: |
-        sudo apt-get update
-        sudo apt-get install -y mednafen wget unzip
+        brew update
+        brew upgrade
+        brew install doxygen gnu-sed
+        sudo ln -s /usr/local/bin/gcc-12 /usr/local/bin/gcc
+        sudo ln -s /usr/local/bin/g++-12 /usr/local/bin/g++
     
+    - name: Install PVSNESLib
+      run: |
+        wget https://github.com/alekmaul/pvsneslib/releases/download/4.4.0/pvsneslib_440_64b_darwin.zip -O pvsneslib.zip
+        unzip pvsneslib.zip
+        chmod +x pvsneslib/devkitsnes/bin/*
+
+    - name: Fix snes_rules include path
+      run: |
+        sed -i '' 's/$(LD) -s -x -o $@/$& -I./' pvsneslib/devkitsnes/snes_rules
+
     - name: Install Mesen
       run: |
-        wget https://github.com/SourMesen/Mesen2/releases/download/v0.4.0/Mesen2.4.0.zip -O mesen.zip
+        wget https://github.com/SourMesen/Mesen2/releases/download/2.1.1/Mesen_2.1.1_macOS_x64_Intel.zip -O mesen.zip
         unzip mesen.zip
-        chmod +x Mesen2
-        sudo mv Mesen2 /usr/local/bin/mesen
-    
+        unzip Mesen.app.zip
+        chmod +x Mesen.app/Contents/MacOS/Mesen
+        echo "$PWD/Mesen.app/Contents/MacOS" >> $GITHUB_PATH
+
     - name: Run make
       run: make
 
