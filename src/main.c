@@ -22,6 +22,7 @@ extern char sprites_new, sprites_new_pal;
 #define SCREEN_TITLE 3
 #define SCREEN_GAME 4
 #define SCREEN_GAME_FADEOUT 5
+#define SCREEN_TITLE_FADEOUT 6
 
 //---------------------------------------------------------------------------------
 // Screen clearing helper function
@@ -151,12 +152,29 @@ int main(void)
 
                 // Check for start button to begin game
                 if (padsCurrent(0) & KEY_START) {
-                    // Clear screen before game starts
-                    clearScreenForTransition();
-                    currentScreen = SCREEN_GAME;
+                    // Start fade out before game
+                    currentScreen = SCREEN_TITLE_FADEOUT;
+                    fadeFrameCount = 0;
                 }
 
                 fadeFrameCount++;
+                break;
+
+            case SCREEN_TITLE_FADEOUT:
+                // Fade out from title screen
+                if (fadeFrameCount % 4 == 0 && brightness > 0) {
+                    brightness--;
+                    setBrightness(brightness);
+                }
+
+                fadeFrameCount++;
+                if (brightness <= 0) {
+                    // Clear screen before game starts
+                    clearScreenForTransition();
+                    currentScreen = SCREEN_GAME;
+                    fadeFrameCount = 0;
+                    brightness = 15;
+                }
                 break;
 
             case SCREEN_GAME:
