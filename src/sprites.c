@@ -55,8 +55,10 @@ void drawProjectiles(void);
 //---------------------------------------------------------------------------------
 void initSprites(void)
 {
-    // OAM is already initialized by oamInitGfxSet() in main.c
-    // Just clear all sprites initially
+    // Initialize sprite engine with 16x16 sprites, 16 colors
+    oamInitGfxSet(&sprites_new, (&sprites_new_end - &sprites_new), &sprites_new_pal, (&sprites_new_pal_end - &sprites_new_pal), 0, 0x4000, OBJ_SIZE16_L32);
+
+    // Clear all sprites initially
     oamClear(0, 0);
 }
 

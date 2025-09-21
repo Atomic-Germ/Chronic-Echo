@@ -7,14 +7,20 @@
 
 ---------------------------------------------------------------------------------*/
 #include <snes.h>
+#include <snes/sprite.h>
 
 extern char tilfont, palfont;
+extern char sprites_new, sprites_new_pal;
+
+// Include our sprite system
+#include "sprites.h"
 
 // Screen states
 #define SCREEN_INTRO 0
 #define SCREEN_FADEOUT 1
 #define SCREEN_BLACK 2
 #define SCREEN_TITLE 3
+#define SCREEN_GAME 4
 
 //---------------------------------------------------------------------------------
 int main(void)
@@ -27,6 +33,10 @@ int main(void)
 
     // Explicitly load font graphics into VRAM
     dmaCopyVram(&tilfont, 0x3000, sizeof(tilfont));
+
+    // Initialize sprites
+    initSprites();
+    initPlayer();
 
     // Init background
     bgSetGfxPtr(0, 0x2000);
@@ -95,6 +105,7 @@ int main(void)
                     // Clear the area where "Made with Copilot" was displayed
                     consoleDrawText(8, 14, "                    ");
                     consoleDrawText(10, 12, "CHRONIC ECHO");
+                    consoleDrawText(8, 16, "PRESS START");
                     setScreenOn();
                 }
 
@@ -104,7 +115,43 @@ int main(void)
                     setBrightness(brightness);
                 }
 
+                // Check for start button to begin game
+                if (padsCurrent(0) & KEY_START) {
+                    currentScreen = SCREEN_GAME;
+                    // Clear text and prepare for game
+                    consoleDrawText(8, 14, "                    ");
+                    consoleDrawText(10, 12, "                    ");
+                    consoleDrawText(8, 16, "                    ");
+                }
+
                 fadeFrameCount++;
+                break;
+
+            case SCREEN_GAME:
+                // Game screen - update and draw sprites
+                updatePlayer();
+                drawPlayer();
+
+                // Handle input for player movement
+                if (padsCurrent(0) & KEY_LEFT) {
+                    movePlayer(-2, 0);
+                }
+                if (padsCurrent(0) & KEY_RIGHT) {
+                    movePlayer(2, 0);
+                }
+                if (padsCurrent(0) & KEY_UP) {
+                    movePlayer(0, -2);
+                }
+                if (padsCurrent(0) & KEY_DOWN) {
+                    movePlayer(0, 2);
+                }
+
+                // Press B to return to title
+                if (padsCurrent(0) & KEY_B) {
+                    currentScreen = SCREEN_TITLE;
+                    fadeFrameCount = 0;
+                    brightness = 15;
+                }
                 break;
         }
 

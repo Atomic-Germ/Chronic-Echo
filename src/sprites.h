@@ -51,12 +51,17 @@ typedef struct {
 extern Player player;
 extern Projectile projectiles[MAX_PROJECTILES];
 
+// Sprite graphics data
+extern char sprites_new, sprites_new_end;
+extern char sprites_new_pal, sprites_new_pal_end;
+
 //---------------------------------------------------------------------------------
 // Function declarations
 void initSprites(void);
 void initPlayer(void);
 void updatePlayer(void);
 void drawPlayer(void);
+void movePlayer(s16 dx, s16 dy);
 void debugPlayerInfo(void);
 void initProjectiles(void);
 void createProjectile(s16 x, s16 y, s16 vx, s16 vy);
