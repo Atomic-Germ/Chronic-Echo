@@ -160,6 +160,12 @@ int main(void)
                 if (fadeFrameCount % 4 == 0 && brightness > 0) {
                     brightness--;
                     setBrightness(brightness);
+
+                    // Clear sprites halfway through fade-out (when brightness reaches ~7)
+                    if (brightness == 7) {
+                        oamClear(0, 0);
+                        oamUpdate();
+                    }
                 }
 
                 fadeFrameCount++;
@@ -167,9 +173,6 @@ int main(void)
                     currentScreen = SCREEN_TITLE;
                     fadeFrameCount = 0;
                     brightness = 0;
-                    // Clear game sprites when transitioning to title
-                    oamClear(0, 0);
-                    oamUpdate();
                 }
                 break;
         }
