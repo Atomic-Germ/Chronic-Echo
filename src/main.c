@@ -73,6 +73,9 @@ int main(void)
     bgSetDisable(1);
     bgSetDisable(2);
 
+    // Set initial brightness
+    setBrightness(15);
+
     // Initialize screen state
     int currentScreen = SCREEN_INTRO;
     int introFrameCount = 0;
@@ -95,8 +98,7 @@ int main(void)
                 // Wait 2.5 seconds (150 frames at 60fps, 125 at 50fps)
                 int frames_to_wait = (snes_fps == 60) ? 150 : 125;
                 if (introFrameCount >= frames_to_wait) {
-                    // Clear screen before fade out
-                    clearScreenForTransition();
+                    // Start fade out without clearing screen yet
                     currentScreen = SCREEN_FADEOUT;
                     fadeFrameCount = 0;
                     brightness = 15;
