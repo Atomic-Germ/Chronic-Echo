@@ -140,7 +140,11 @@ local function onFrameEnd()
         -- Check final fade out (screen should be black after clear)
         local finalSum = getScreenSum()
         logTest("Fade Complete", finalSum == 0, string.format("Screen sum = %d", finalSum))
-    elseif frameCount == 300 then
+    elseif frameCount == 280 then
+        -- Check title fade in (screen should brighten with title text)
+        local titleSum = getScreenSum()
+        local brightening = titleSum > 0
+        logTest("Title Fade In", brightening, string.format("Screen sum = %d", titleSum))
         -- Final checks
         local success, state = pcall(emu.getState)
         if success then
