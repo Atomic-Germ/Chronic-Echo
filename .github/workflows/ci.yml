@@ -1,0 +1,46 @@
+name: CI Workflow
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository with submodules
+      uses: actions/checkout@v3
+      with:
+        submodules: true
+    
+    - name: Set up environment
+      run: |
+        echo "PVSNESLIB_HOME=$PWD/pvsneslib" >> $GITHUB_ENV
+        echo "$PWD/pvsneslib/devkitsnes/tools:$PWD/pvsneslib/devkitsnes/bin" >> $GITHUB_PATH
+    
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y mednafen wget unzip
+    
+    - name: Install Mesen
+      run: |
+        wget https://github.com/SourMesen/Mesen2/releases/download/v0.4.0/Mesen2.4.0.zip -O mesen.zip
+        unzip mesen.zip
+        chmod +x Mesen2
+        sudo mv Mesen2 /usr/local/bin/mesen
+    
+    - name: Run make
+      run: make
+
+    - name: Run make test
+      run: make test
+
+    - name: Upload build artifacts (optional)
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-logs-and-artifacts
+        path: ./build/ChronicEchos.sfc  # Adjust the path as needed
