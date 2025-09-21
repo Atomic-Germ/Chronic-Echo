@@ -15,13 +15,21 @@ extern char sprites_new, sprites_new_pal;
 // Include our sprite system
 #include "sprites.h"
 
-// Screen states
-#define SCREEN_INTRO 0
-#define SCREEN_FADEOUT 1
-#define SCREEN_BLACK 2
-#define SCREEN_TITLE 3
-#define SCREEN_GAME 4
-#define SCREEN_GAME_FADEOUT 5
+//---------------------------------------------------------------------------------
+// Screen clearing helper function
+void clearScreenForTransition(void) {
+    // Clear all console text
+    consoleClear();
+
+    // Clear all sprites
+    oamClear(0, 0);
+    oamUpdate();
+
+    // Reset any other screen state as needed
+    // (Add more clearing logic here as the game grows)
+}
+
+//---------------------------------------------------------------------------------
 
 //---------------------------------------------------------------------------------
 int main(void)
@@ -70,6 +78,8 @@ int main(void)
                 // Wait 2.5 seconds (150 frames at 60fps, 125 at 50fps)
                 int frames_to_wait = (snes_fps == 60) ? 150 : 125;
                 if (introFrameCount >= frames_to_wait) {
+                    // Clear screen before fade out
+                    clearScreenForTransition();
                     currentScreen = SCREEN_FADEOUT;
                     fadeFrameCount = 0;
                     brightness = 15;
@@ -85,6 +95,8 @@ int main(void)
 
                 fadeFrameCount++;
                 if (brightness <= 0) {
+                    // Clear screen during black screen transition
+                    clearScreenForTransition();
                     currentScreen = SCREEN_BLACK;
                     blackFrameCount = 0;
                 }
@@ -94,6 +106,8 @@ int main(void)
                 // Brief black screen
                 blackFrameCount++;
                 if (blackFrameCount >= 30) { // ~0.5 seconds at 60fps
+                    // Clear screen before title appears
+                    clearScreenForTransition();
                     currentScreen = SCREEN_TITLE;
                     fadeFrameCount = 0;
                     brightness = 0;
@@ -118,11 +132,9 @@ int main(void)
 
                 // Check for start button to begin game
                 if (padsCurrent(0) & KEY_START) {
+                    // Clear screen before game starts
+                    clearScreenForTransition();
                     currentScreen = SCREEN_GAME;
-                    // Clear text and prepare for game
-                    consoleDrawText(8, 14, "                    ");
-                    consoleDrawText(10, 12, "                    ");
-                    consoleDrawText(8, 16, "                    ");
                 }
 
                 fadeFrameCount++;
@@ -130,6 +142,12 @@ int main(void)
 
             case SCREEN_GAME:
                 // Game screen - update and draw sprites
+                // Initialize game state on first frame
+                if (fadeFrameCount == 0) {
+                    // Game initialization happens here if needed
+                    fadeFrameCount = 1; // Prevent re-initialization
+                }
+
                 updatePlayer();
                 drawPlayer();
 
@@ -160,16 +178,12 @@ int main(void)
                 if (fadeFrameCount % 4 == 0 && brightness > 0) {
                     brightness--;
                     setBrightness(brightness);
-
-                    // Clear sprites halfway through fade-out (when brightness reaches ~7)
-                    if (brightness == 7) {
-                        oamClear(0, 0);
-                        oamUpdate();
-                    }
                 }
 
                 fadeFrameCount++;
                 if (brightness <= 0) {
+                    // Clear screen before title fades in
+                    clearScreenForTransition();
                     currentScreen = SCREEN_TITLE;
                     fadeFrameCount = 0;
                     brightness = 0;
