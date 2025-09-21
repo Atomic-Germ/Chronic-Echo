@@ -145,16 +145,19 @@ void drawPlayer(void)
     // Update OAM
     oamUpdate();
     
-    // Debug output
+    // Debug output (only in debug builds)
+    #ifdef PVSNESLIB_DEBUG
     char buffer[32];
     sprintf(buffer, "SPRITE: X=%d Y=%d", player.x, player.y);
     consoleDrawText(0, 21, buffer);
+    #endif
 }
 
 //---------------------------------------------------------------------------------
 // Debug function to display player info
 void debugPlayerInfo(void)
 {
+    #ifdef PVSNESLIB_DEBUG
     consoleDrawText(0, 26, "PLAYER DEBUG:");
     consoleDrawText(0, 27, "X:     Y:     ");
     consoleDrawText(0, 28, "VX:    VY:    ");
@@ -177,6 +180,7 @@ void debugPlayerInfo(void)
     // Y velocity
     sprintf(buffer, "%d", player.vy);
     consoleDrawText(10, 28, buffer);
+    #endif
 }
 
 //---------------------------------------------------------------------------------

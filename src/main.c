@@ -25,6 +25,9 @@ void clearScreenForTransition(void) {
     oamClear(0, 0);
     oamUpdate();
 
+    // Wait for VBlank to ensure clearing takes effect
+    WaitForVBlank();
+
     // Reset any other screen state as needed
     // (Add more clearing logic here as the game grows)
 }
