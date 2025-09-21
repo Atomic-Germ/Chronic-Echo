@@ -20,11 +20,7 @@
 
 local frameCount = 0
 local testResults = {}
-local initialScreenSum = nil
-local brightScreenSum = nil
-local titleScreenSum = nil
-local inputSimulated = false
-local testFailed = false
+local gameStartSum = nil
 
 -- Helper: Summarize and exit
 local function summarizeAndExit()
@@ -151,16 +147,17 @@ local function onFrameEnd()
         local brightening = titleScreenSum > 0
         logTest("Title Fade In", brightening, string.format("Screen sum = %d", titleScreenSum))
     elseif frameCount == 290 then
-        -- Simulate pressing start on title screen
+        -- Simulate pressing start on title screen to fade out and progress
         pcall(emu.setInput, 0, "start", true)
         logTest("Start Press Simulated", true, "Start button press attempted")
+    elseif frameCount == 291 then
+        gameStartSum = getScreenSum()
+        print("Game start sum=" .. gameStartSum)
     elseif frameCount == 300 then
-        -- Check title fade out (fade implemented, but input simulation may not trigger in test)
-        logTest("Title Fade Out", true, "Title fade-out code implemented")
-    elseif frameCount == 360 then
-        -- Check game start (screen has game content after fade and clear)
+        -- Check game screen fades in after start press
         local gameSum = getScreenSum()
-        logTest("Game Start", gameSum > 0, string.format("Screen sum = %d", gameSum))
+        local fadedIn = gameStartSum and gameSum > gameStartSum and gameSum > 4000000000
+        logTest("Game Screen Fade In", fadedIn, string.format("Start sum %d -> Final sum %d", gameStartSum or 0, gameSum))
         -- Final checks
         local success, state = pcall(emu.getState)
         if success then
