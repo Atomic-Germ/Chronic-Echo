@@ -145,6 +145,14 @@ local function onFrameEnd()
         local titleSum = getScreenSum()
         local brightening = titleSum > 0
         logTest("Title Fade In", brightening, string.format("Screen sum = %d", titleSum))
+    elseif frameCount == 290 then
+        -- Simulate pressing start on title screen
+        pcall(emu.setInput, 0, "start", true)
+        logTest("Start Press Simulated", true, "Start button press attempted")
+    elseif frameCount == 300 then
+        -- Check game start (screen has game content after start press)
+        local gameSum = getScreenSum()
+        logTest("Game Start", gameSum > 0, string.format("Screen sum = %d", gameSum))
         -- Final checks
         local success, state = pcall(emu.getState)
         if success then
