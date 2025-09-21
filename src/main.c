@@ -25,6 +25,9 @@ int main(void)
     consoleSetTextOffset(0x0100);
     consoleInitText(0, 16 * 2, &tilfont, &palfont);
 
+    // Explicitly load font graphics into VRAM
+    dmaCopyVram(&tilfont, 0x3000, sizeof(tilfont));
+
     // Init background
     bgSetGfxPtr(0, 0x2000);
     bgSetMapPtr(0, 0x6800, SC_32x32);
@@ -92,6 +95,7 @@ int main(void)
                     // Clear the area where "Made with Copilot" was displayed
                     consoleDrawText(8, 14, "                    ");
                     consoleDrawText(10, 12, "CHRONIC ECHO");
+                    setScreenOn();
                 }
 
                 // Fade in title screen
