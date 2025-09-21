@@ -21,6 +21,7 @@ extern char sprites_new, sprites_new_pal;
 #define SCREEN_BLACK 2
 #define SCREEN_TITLE 3
 #define SCREEN_GAME 4
+#define SCREEN_GAME_FADEOUT 5
 
 //---------------------------------------------------------------------------------
 int main(void)
@@ -148,9 +149,27 @@ int main(void)
 
                 // Press B to return to title
                 if (padsCurrent(0) & KEY_B) {
-                    currentScreen = SCREEN_TITLE;
+                    currentScreen = SCREEN_GAME_FADEOUT;
                     fadeFrameCount = 0;
                     brightness = 15;
+                }
+                break;
+
+            case SCREEN_GAME_FADEOUT:
+                // Fade out from game screen
+                if (fadeFrameCount % 4 == 0 && brightness > 0) {
+                    brightness--;
+                    setBrightness(brightness);
+                }
+
+                fadeFrameCount++;
+                if (brightness <= 0) {
+                    currentScreen = SCREEN_TITLE;
+                    fadeFrameCount = 0;
+                    brightness = 0;
+                    // Clear game sprites when transitioning to title
+                    oamClear(0, 0);
+                    oamUpdate();
                 }
                 break;
         }
