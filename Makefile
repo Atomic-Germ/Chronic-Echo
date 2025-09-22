@@ -17,7 +17,7 @@ endif
 	@echo Doing obj files ... $(notdir $<)
 	$(AS) -I$(PVSNESLIB_HOME)/devkitsnes/include -d -s -x -o $@ $<
 
-.PHONY: bitmaps all run clean deps check-deps
+.PHONY: bitmaps all run clean deps check-deps test test-build
 
 #---------------------------------------------------------------------------------
 # Check if dependencies are installed
@@ -84,6 +84,10 @@ run: $(BUILD_DIR)/$(ROMNAME).sfc
 test: $(BUILD_DIR)/$(ROMNAME).sfc
 	@echo "Running unit tests headlessly with Mesen..."
 	mesen --testRunner tests/test.lua $<
+
+test-build: cleanAll
+	@echo "Running build validation tests..."
+	./test_build.sh
 
 clean: cleanBuildRes cleanRomTemp cleanGfx
 	@echo clean intermediate files preserving ROM and tools

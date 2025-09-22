@@ -35,6 +35,29 @@ open -a Mesen build/ChronicEchos.sfc
 ./validate_rom.sh build/ChronicEchos.sfc
 ```
 
+### Build Testing
+
+The project includes comprehensive automated build tests to ensure build system reliability:
+
+```bash
+# Run the full build test suite (cleans, builds, and validates)
+make test-build
+
+# Or run the test script directly
+./test_build.sh
+```
+
+The test suite validates:
+
+- Clean build environment
+- Dependency installation
+- Successful compilation and linking
+- ROM size and content validation
+- Build reproducibility
+- Clean artifact removal
+- Incremental build functionality
+- Debug build support
+
 ## Continuous Integration
 
 This project uses GitHub Actions for automated building and testing.
@@ -98,6 +121,7 @@ Chronic-Echo/
 
 **Problem**: Tools not found in PATH
 **Solution**: Run `./setup_path.sh` after `make deps` to add pvsneslib tools to your PATH, or add the following to your `~/.zshrc`:
+
 ```bash
 export PATH="/path/to/Chronic-Echo/pvsneslib/devkitsnes/bin:$PATH"
 export PATH="/path/to/Chronic-Echo/pvsneslib/devkitsnes/tools:$PATH"
