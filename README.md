@@ -146,4 +146,9 @@ See `.copilot/` directory for detailed design documents:
 
 ## License
 
-This project is part of the Chronic Echos game development effort.
+This project is mostly AI. Speaking of:
+<img width="1496" height="845" alt="Screenshot 2025-09-22 at 4 09 42 PM" src="https://github.com/user-attachments/assets/726bdc5b-010b-4e4e-b3be-225ce4131822" />
+
+wtf did it just say?
+
+
