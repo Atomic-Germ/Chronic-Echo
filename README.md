@@ -2,6 +2,8 @@
 
 A time manipulation RPG for the Super Nintendo Entertainment System, built using pvsneslib.
 
+[![CI Workflow](https://github.com/Atomic-Germ/Chronic-Echo/actions/workflows/ci.yml/badge.svg)](https://github.com/Atomic-Germ/Chronic-Echo/actions/workflows/ci.yml)
+
 
 
 ## Quick Start

@@ -115,7 +115,7 @@ cleanRomTemp:
 cleanBuildRes:
 	@echo clean build resources
 	@rm -rf src/*.ps src/*.obj src/*.asp linkfile hdr.obj src/hdr.obj src/data.obj
-	@rm -f src/main.asm src/sprites.asm
+	@rm -f src/main.asm src/sprites.asm src/state_manager.asm src/states.asm
 
 # New target to clean ROM
 cleanRom:
