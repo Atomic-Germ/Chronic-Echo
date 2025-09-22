@@ -91,6 +91,7 @@ int main(void)
                 // Intro screen: "Made with Copilot"
                 if (introFrameCount == 0) {
                     consoleDrawText(8, 14, "Made with Copilot");
+                    consoleDrawText(8, 16, "  and pvsneslib  ");
                     setScreenOn();
                 }
 
@@ -139,8 +140,8 @@ int main(void)
                 if (fadeFrameCount == 0) {
                     // Clear the area where "Made with Copilot" was displayed
                     consoleDrawText(8, 14, "                    ");
-                    consoleDrawText(10, 12, "CHRONIC ECHO");
-                    consoleDrawText(8, 16, "PRESS START");
+                    consoleDrawText(9, 10, "CHRONIC ECHOES");
+                    consoleDrawText(10, 24, "PRESS START");
                     setScreenOn();
                 }
 

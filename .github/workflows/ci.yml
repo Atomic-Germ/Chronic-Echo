@@ -14,13 +14,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Install dependencies for MacOS
-      run: |
-        brew update
-        brew install doxygen gnu-sed
-        sudo ln -s /usr/local/bin/gcc-12 /usr/local/bin/gcc
-        sudo ln -s /usr/local/bin/g++-12 /usr/local/bin/g++
-
     - name: Download libraries and tools
       run: make deps
 

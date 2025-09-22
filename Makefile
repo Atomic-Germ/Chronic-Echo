@@ -87,15 +87,15 @@ test: $(BUILD_DIR)/$(ROMNAME).sfc
 	mesen --testRunner tests/test.lua $<
 
 clean: cleanBuildRes cleanRomTemp cleanGfx
-	@echo clean intermediate files preserving ROM
+	@echo clean intermediate files preserving ROM and tools
 	@rm -rf src/*.ps src/*.obj src/*.asp linkfile hdr.obj src/hdr.obj src/data.obj
 	@rm -f src/main.asm src/sprites.asm
 
 # New target for full clean including ROM
 cleanAll: cleanBuildRes cleanRom cleanGfx
-	@echo clean ALL build files including ROM
+	@echo clean ALL build files including ROM and tools
 	@rm -rf $(BUILD_DIR)
-
+	@rm -rf Mesen.app pvsneslib
 #---------------------------------------------------------------------------------
 # Override cleanGfx to preserve essential converted graphics files
 cleanGfx:
