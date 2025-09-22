@@ -8,29 +8,31 @@ A time manipulation RPG for the Super Nintendo Entertainment System, built using
 
 ### Prerequisites
 - macOS with Homebrew
-- SNES9x emulator (installed via `brew install --cask snes9x`)
+- SNES emulator (SNES9x: `brew install --cask snes9x` or Mesen)
 
 ### Build the ROM
 ```bash
 # Clone or navigate to the project directory
-cd ./TestNES
+cd Chronic-Echo
 
-# Run the build script
-./scripts/build.sh
-
-# Or build manually
-export PVSNESLIB_HOME="$(pwd)/pvsneslib"
-export PATH="$PATH:$PVSNESLIB_HOME/devkitsnes/tools:$PVSNESLIB_HOME/devkitsnes/bin"
-make
+# Install dependencies and build
+make deps && make
 ```
 
 ### Test the ROM
+
 ```bash
-# Quick test with make run (requires SNES9x)
+# Test with Mesen emulator (installed by make deps)
 make run
 
-# Or open manually
+# Or open manually with SNES9x
 open -a Snes9x build/ChronicEchos.sfc
+
+# Or open manually with Mesen
+open -a Mesen build/ChronicEchos.sfc
+
+# Validate ROM integrity
+./validate_rom.sh build/ChronicEchos.sfc
 ```
 
 ## Continuous Integration
@@ -49,40 +51,64 @@ This project uses GitHub Actions for automated building and testing.
 - **Testing**: Attempts headless ROM testing with available emulators
 - **Artifacts**: Built ROM and symbols uploaded for download
 
-### Local CI Validation
-
-```bash
-# Run the same validation as CI
-./scripts/validate_rom.sh build/ChronicEchos.sfc
-```
-
 ### CI Status
 
 [![CI](https://github.com/Atomic-Germ/Echos/actions/workflows/ci.yml/badge.svg)](https://github.com/Atomic-Germ/Echos/actions/workflows/ci.yml)
 
 ## Project Structure
 
-```
-TestNES/
+```text
+Chronic-Echo/
 ├── pvsneslib/          # pvsneslib library and tools (v4.3.0)
-├── src/main.c          # Main C source file
+├── src/
+│   ├── main.c          # Main C source file
+│   └── sprites.c       # Sprite management system
 ├── data.asm            # Data includes (fonts, graphics)
 ├── hdr.asm             # ROM header and memory configuration
 ├── Makefile            # Build configuration
-├── scripts/
-│   └── build.sh        # Automated build script
 ├── assets/             # Graphics, audio, and other assets
+├── build/              # Build output directory
 ├── docs/               # Documentation
 ├── .copilot/           # Design documents and development notes
 └── ChronicEchos.sfc    # Output ROM file (262KB LoROM)
 ```
 
+## Troubleshooting
+
+### Build Issues
+
+**Problem**: `make: *** No rule to make target 'cleanBuildRes'. Stop.`
+**Solution**: This occurs when `PVSNESLIB_HOME` is not set correctly. Run `make deps` first to install pvsneslib, then `make`.
+
+**Problem**: Build works in CI but fails locally
+**Solution**: The Makefile was updated to use local paths instead of environment variables. Ensure you're using the latest Makefile from the repository.
+
+**Problem**: Duplicate label warnings during linking
+**Solution**: These warnings are expected with pvsneslib and harmless. The build will complete successfully.
+
+### Emulator Issues
+
+**Problem**: ROM doesn't load in emulator
+**Solution**: Ensure you're using a compatible SNES emulator like SNES9x or Mesen. The ROM is built as LoROM format.
+
+**Problem**: No sound or graphics
+**Solution**: Check that your emulator settings are correct for SNES games. Try different video filters if graphics appear corrupted.
+
+### Development Setup
+
+**Problem**: Tools not found in PATH
+**Solution**: Run `./setup_path.sh` after `make deps` to add pvsneslib tools to your PATH, or add the following to your `~/.zshrc`:
+```bash
+export PATH="/path/to/Chronic-Echo/pvsneslib/devkitsnes/bin:$PATH"
+export PATH="/path/to/Chronic-Echo/pvsneslib/devkitsnes/tools:$PATH"
+```
+
 ## Development Workflow
 
-1. **Setup Environment**: Set PVSNESLIB_HOME and PATH variables
-2. **Edit Source**: Modify `src/main.c` and other source files
+1. **Setup Environment**: Run `make deps` to install pvsneslib and tools
+2. **Edit Source**: Modify `src/main.c`, `src/sprites.c` and other source files
 3. **Build**: Run `make` to compile C to assembly to ROM
-4. **Test**: Open ROM in SNES9x emulator
+4. **Test**: Run `make run` to test in emulator
 5. **Iterate**: Repeat steps 2-4
 
 ## Toolchain
