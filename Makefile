@@ -1,6 +1,5 @@
-ifeq ($(strip $(PVSNESLIB_HOME)),)
+# Always use local pvsneslib installation
 PVSNESLIB_HOME = $(CURDIR)/pvsneslib
-endif
 
 # Export PATH to include PVSnesLib tools if dependencies are installed
 ifneq ($(wildcard ${PVSNESLIB_HOME}/devkitsnes/snes_rules),)
@@ -107,6 +106,17 @@ cleanGfx:
 cleanRomTemp:
 	@echo clean temporary rom files
 	@rm -f $(ROMNAME).sfc $(ROMNAME).sym
+
+# New target to clean build resources
+cleanBuildRes:
+	@echo clean build resources
+	@rm -rf src/*.ps src/*.obj src/*.asp linkfile hdr.obj src/hdr.obj src/data.obj
+	@rm -f src/main.asm src/sprites.asm
+
+# New target to clean ROM
+cleanRom:
+	@echo clean ROM files
+	@rm -f $(BUILD_DIR)/$(ROMNAME).sfc $(BUILD_DIR)/$(ROMNAME).sym
 
 #---------------------------------------------------------------------------------
 pvsneslibfont.pic: assets/graphics/fonts/pvsneslibfont.png
