@@ -173,7 +173,7 @@ $(BUILD_DIR)/$(ROMNAME).sfc: $(BUILD_DIR) $(OFILES)
 # -c should be removed ASAP ! It allow duplicate labels and definitions
 	$(LD) -d -s -v -A -c -L ${LIBDIRSOBJS} linkfile $(BUILD_DIR)/$(ROMNAME).sfc
 
-	@sed -i 's/://' $(BUILD_DIR)/$(ROMNAME).sym
+	@gsed -i 's/://' $(BUILD_DIR)/$(ROMNAME).sym
 
 	@echo
 	@echo Build finished successfully !

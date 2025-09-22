@@ -2,7 +2,7 @@
 *.sfc
 *.sym
 *.obj
-*.asm
+src/*.asm
 *.ps
 *.asp
 *.lst
@@ -16,7 +16,6 @@ crop*.png
 # Build directories
 build/
 src/*.obj
-src/*.asm
 src/*.ps
 src/*.asp
 
