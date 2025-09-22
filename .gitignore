@@ -45,8 +45,10 @@ src/*.asp
 ._*
 
 # Archives (keep the current one for reference)
-# pvsneslib_*.zip
+pvsneslib.zip
+pvsneslib
 
 # Development notes (optional - uncomment if you want to ignore)
 # .copilot/pvsneslib
 Mesen.app
+mesen.zip

@@ -13,6 +13,11 @@ ifneq ($(wildcard ${PVSNESLIB_HOME}/devkitsnes/snes_rules),)
 include ${PVSNESLIB_HOME}/devkitsnes/snes_rules
 endif
 
+# Override assembler rule to include pvsneslib headers
+%.obj: %.asm
+	@echo Doing obj files ... $(notdir $<)
+	$(AS) -I$(PVSNESLIB_HOME)/devkitsnes/include -d -s -x -o $@ $<
+
 .PHONY: bitmaps all run clean deps check-deps
 
 #---------------------------------------------------------------------------------
