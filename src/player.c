@@ -44,6 +44,10 @@ void initPlayerCharacter(void)
     playerCharacter.experience = 0;
     playerCharacter.expToNext = 100;  // Simple leveling curve
 
+    // Initialize combat stats
+    playerCharacter.attack = 10;   // Base attack
+    playerCharacter.defense = 5;   // Base defense
+
     // Clear inventory
     memset(playerCharacter.inventory, 0, sizeof(playerCharacter.inventory));
     playerCharacter.inventoryCount = 0;

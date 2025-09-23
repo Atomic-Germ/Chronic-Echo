@@ -23,9 +23,9 @@ sbc #__initPlayerCharacter_locals
 tas
 .endif
 lda.w #120
-sta.l playerCharacter + 14
-lda.w #104
 sta.l playerCharacter + 16
+lda.w #104
+sta.l playerCharacter + 18
 lda.w #100
 sta.l playerCharacter + 0
 lda.w #100
@@ -43,10 +43,18 @@ lda.b tcc__r0
 sta.l playerCharacter + 8
 lda.w #100
 sta.l playerCharacter + 10
+lda.w #10
+sep #$20
+sta.l playerCharacter + 13
+rep #$20
+lda.w #5
+sep #$20
+sta.l playerCharacter + 14
+rep #$20
 pea.w 320
 pea.w 0
 pea.w :playerCharacter
-pea.w playerCharacter + 18
+pea.w playerCharacter + 20
 jsr.l memset
 tsa
 clc
@@ -54,12 +62,12 @@ adc #8
 tas
 lda.w #0
 sep #$20
-sta.l playerCharacter + 338
+sta.l playerCharacter + 340
 rep #$20
 lda.w #1
 sta.b tcc__r0
 sep #$20
-sta.l playerCharacter + 339
+sta.l playerCharacter + 341
 rep #$20
 .ifgr __initPlayerCharacter_locals 0
 tsa
@@ -221,7 +229,7 @@ jsr.l tcc__mul
 sta.b tcc__r0
 lda.w #:playerCharacter
 sta.b tcc__r1h
-lda.w #playerCharacter + 18
+lda.w #playerCharacter + 20
 clc
 adc.b tcc__r0
 sta.b tcc__r1
@@ -255,7 +263,7 @@ jsr.l tcc__mul
 sta.b tcc__r0
 lda.w #:playerCharacter
 sta.b tcc__r1h
-lda.w #playerCharacter + 18
+lda.w #playerCharacter + 20
 clc
 adc.b tcc__r0
 inc a
@@ -296,7 +304,7 @@ jsr.l tcc__mul
 sta.b tcc__r0
 lda.w #:playerCharacter
 sta.b tcc__r1h
-lda.w #playerCharacter + 18
+lda.w #playerCharacter + 20
 clc
 adc.b tcc__r0
 inc a
@@ -354,7 +362,7 @@ jsr.l tcc__mul
 sta.b tcc__r0
 lda.w #:playerCharacter
 sta.b tcc__r1h
-lda.w #playerCharacter + 18
+lda.w #playerCharacter + 20
 clc
 adc.b tcc__r0
 inc a
@@ -393,7 +401,7 @@ jsr.l tcc__mul
 sta.b tcc__r0
 lda.w #:playerCharacter
 sta.b tcc__r1h
-lda.w #playerCharacter + 18
+lda.w #playerCharacter + 20
 clc
 adc.b tcc__r0
 inc a
@@ -448,7 +456,7 @@ brl __local_14
 +
 lda.w #0
 sep #$20
-lda.l playerCharacter + 338
+lda.l playerCharacter + 340
 rep #$20
 sta.b tcc__r0
 ldx #1
@@ -517,7 +525,7 @@ jsr.l tcc__mul
 sta.b tcc__r0
 lda.w #:playerCharacter
 sta.b tcc__r1h
-lda.w #playerCharacter + 18
+lda.w #playerCharacter + 20
 clc
 adc.b tcc__r0
 sta.b tcc__r1
@@ -540,7 +548,7 @@ jsr.l tcc__mul
 sta.b tcc__r0
 lda.w #:playerCharacter
 sta.b tcc__r1h
-lda.w #playerCharacter + 18
+lda.w #playerCharacter + 20
 clc
 adc.b tcc__r0
 sta.b tcc__r1
@@ -559,7 +567,7 @@ jsr.l tcc__mul
 sta.b tcc__r0
 lda.w #:playerCharacter
 sta.b tcc__r1h
-lda.w #playerCharacter + 18
+lda.w #playerCharacter + 20
 clc
 adc.b tcc__r0
 inc a
@@ -624,7 +632,7 @@ jsr.l tcc__mul
 sta.b tcc__r0
 lda.w #:playerCharacter
 sta.b tcc__r1h
-lda.w #playerCharacter + 18
+lda.w #playerCharacter + 20
 clc
 adc.b tcc__r0
 clc
@@ -657,7 +665,7 @@ adc #8
 tas
 lda.w #0
 sep #$20
-lda.l playerCharacter + 338
+lda.l playerCharacter + 340
 rep #$20
 sta.b tcc__r0
 sta.b tcc__r1
@@ -666,7 +674,7 @@ sta.b tcc__r1h
 inc.b tcc__r0
 sep #$20
 lda.b tcc__r0
-sta.l playerCharacter + 338
+sta.l playerCharacter + 340
 rep #$20
 lda.w #1
 sta.b tcc__r0
@@ -732,7 +740,7 @@ jsr.l tcc__mul
 sta.b tcc__r0
 lda.w #:playerCharacter
 sta.b tcc__r1h
-lda.w #playerCharacter + 18
+lda.w #playerCharacter + 20
 clc
 adc.b tcc__r0
 sta.b tcc__r1
@@ -770,7 +778,7 @@ jsr.l tcc__mul
 sta.b tcc__r0
 lda.w #:playerCharacter
 sta.b tcc__r1h
-lda.w #playerCharacter + 18
+lda.w #playerCharacter + 20
 clc
 adc.b tcc__r0
 inc a
@@ -816,7 +824,7 @@ jsr.l tcc__mul
 sta.b tcc__r0
 lda.w #:playerCharacter
 sta.b tcc__r1h
-lda.w #playerCharacter + 18
+lda.w #playerCharacter + 20
 clc
 adc.b tcc__r0
 inc a
@@ -851,7 +859,7 @@ jsr.l tcc__mul
 sta.b tcc__r0
 lda.w #:playerCharacter
 sta.b tcc__r1h
-lda.w #playerCharacter + 18
+lda.w #playerCharacter + 20
 clc
 adc.b tcc__r0
 inc a
@@ -879,7 +887,7 @@ jsr.l tcc__mul
 sta.b tcc__r0
 lda.w #:playerCharacter
 sta.b tcc__r1h
-lda.w #playerCharacter + 18
+lda.w #playerCharacter + 20
 clc
 adc.b tcc__r0
 sta.b tcc__r1
@@ -888,7 +896,7 @@ lda.b tcc__r0
 sta.b [tcc__r1]
 lda.w #0
 sep #$20
-lda.l playerCharacter + 338
+lda.l playerCharacter + 340
 rep #$20
 sta.b tcc__r0
 sta.b tcc__r1
@@ -897,7 +905,7 @@ sta.b tcc__r1h
 dec.b tcc__r0
 sep #$20
 lda.b tcc__r0
-sta.l playerCharacter + 338
+sta.l playerCharacter + 340
 rep #$20
 __local_31:
 lda.w #1
@@ -965,7 +973,7 @@ jsr.l tcc__mul
 sta.b tcc__r0
 lda.w #:playerCharacter
 sta.b tcc__r1h
-lda.w #playerCharacter + 18
+lda.w #playerCharacter + 20
 clc
 adc.b tcc__r0
 sta.b tcc__r1
@@ -993,10 +1001,10 @@ sbc #__setPlayerCharacterPosition_locals
 tas
 .endif
 lda 3 + __setPlayerCharacterPosition_locals + 1,s
-sta.l playerCharacter + 14
+sta.l playerCharacter + 16
 lda 5 + __setPlayerCharacterPosition_locals + 1,s
 sta.b tcc__r0
-sta.l playerCharacter + 16
+sta.l playerCharacter + 18
 .ifgr __setPlayerCharacterPosition_locals 0
 tsa
 clc
@@ -1027,7 +1035,7 @@ lda 3 + __getPlayerCharacterPosition_locals + 1,s
 sta.b tcc__r0
 lda 5 + __getPlayerCharacterPosition_locals + 1,s
 sta.b tcc__r0h
-lda.l playerCharacter + 14
+lda.l playerCharacter + 16
 sta.b tcc__r1
 sta.b [tcc__r0]
 __local_37:
@@ -1043,7 +1051,7 @@ lda 7 + __getPlayerCharacterPosition_locals + 1,s
 sta.b tcc__r0
 lda 9 + __getPlayerCharacterPosition_locals + 1,s
 sta.b tcc__r0h
-lda.l playerCharacter + 16
+lda.l playerCharacter + 18
 sta.b tcc__r1
 sta.b [tcc__r0]
 __local_38:
@@ -1228,14 +1236,14 @@ rtl
 .ENDS
 .RAMSECTION "ram{WLA_FILENAME}.data" APPENDTO "globram.data"
 
-playerCharacter dsb 340
+playerCharacter dsb 344
 tccs_{WLA_FILENAME}_itemNames dsb 24
 
 .ENDS
 
 .SECTION "{WLA_FILENAME}.data" APPENDTO "glob.data"
 
-.db $0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0
+.db $0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0
 .dw tccs_{WLA_FILENAME}_L.{WLA_FILENAME}11 + 0, :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}11
 .dw tccs_{WLA_FILENAME}_L.{WLA_FILENAME}12 + 0
 .dw :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}12

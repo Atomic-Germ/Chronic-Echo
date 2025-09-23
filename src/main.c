@@ -21,6 +21,9 @@ extern char sprites_simple, sprites_simple_pal;
 // Include our time manipulation system
 #include "time_manipulation.h"
 
+// Include our battle system
+#include "battle.h"
+
 // Screen states
 #define SCREEN_INTRO 0
 #define SCREEN_FADEOUT 1
@@ -29,9 +32,40 @@ extern char sprites_simple, sprites_simple_pal;
 #define SCREEN_GAME 4
 #define SCREEN_GAME_FADEOUT 5
 #define SCREEN_TITLE_FADEOUT 6
+#define SCREEN_BATTLE 7
+#define SCREEN_BATTLE_FADEOUT 8
 
 //---------------------------------------------------------------------------------
-// Screen clearing helper function
+// Random encounter system
+#define ENCOUNTER_CHANCE 5  // 5% chance per movement
+
+void checkRandomEncounter(int* currentScreen, int* fadeFrameCount, int* brightness) {
+    // Only trigger encounters if not already in battle
+    if (isBattleActive()) {
+        return;
+    }
+
+    // Simple random encounter check
+    u8 roll = rand() % 100;
+    if (roll < ENCOUNTER_CHANCE) {
+        // Determine enemy type based on player level (simple for now)
+        EnemyType enemyType = ENEMY_TYPE_SLIME; // Default to slime
+
+        if (playerCharacter.level >= 2) {
+            enemyType = ENEMY_TYPE_GOBLIN;
+        }
+        if (playerCharacter.level >= 3) {
+            enemyType = ENEMY_TYPE_ORC;
+        }
+
+        // Start the battle
+        startBattle(enemyType);
+        *currentScreen = SCREEN_BATTLE_FADEOUT;
+        *fadeFrameCount = 0;
+        *brightness = 15;
+    }
+}
+
 void clearScreenForTransition(void) {
     // Clear all console text by drawing spaces over the entire console area
     // Console is typically 32x28 characters, but we'll clear a safe area
@@ -76,6 +110,9 @@ int main(void)
 
     // Initialize time manipulation system
     initPositionHistory();
+
+    // Initialize battle system
+    initBattleSystem();
 
     // Init background
     bgSetGfxPtr(0, 0x2000);
@@ -216,20 +253,32 @@ int main(void)
                     // Handle input for player movement
                     if (padsCurrent(0) & KEY_LEFT) {
                         movePlayer(-2, 0);
+                        checkRandomEncounter(&currentScreen, &fadeFrameCount, &brightness);
                     }
                     if (padsCurrent(0) & KEY_RIGHT) {
                         movePlayer(2, 0);
+                        checkRandomEncounter(&currentScreen, &fadeFrameCount, &brightness);
                     }
                     if (padsCurrent(0) & KEY_UP) {
                         movePlayer(0, -2);
+                        checkRandomEncounter(&currentScreen, &fadeFrameCount, &brightness);
                     }
                     if (padsCurrent(0) & KEY_DOWN) {
                         movePlayer(0, 2);
+                        checkRandomEncounter(&currentScreen, &fadeFrameCount, &brightness);
                     }
 
                     // Press B to return to title
                     if (padsCurrent(0) & KEY_B) {
                         currentScreen = SCREEN_GAME_FADEOUT;
+                        fadeFrameCount = 0;
+                        brightness = 15;
+                    }
+
+                    // Press Y to start battle (temporary trigger)
+                    if (padsCurrent(0) & KEY_Y) {
+                        startBattle(ENEMY_TYPE_SLIME); // Start battle with slime
+                        currentScreen = SCREEN_BATTLE_FADEOUT; // Fade out game first
                         fadeFrameCount = 0;
                         brightness = 15;
                     }
@@ -247,6 +296,67 @@ int main(void)
                 // Always update and draw sprites
                 updatePlayer();
                 drawPlayer();
+                break;
+
+            case SCREEN_BATTLE:
+                // Battle screen
+                if (fadeFrameCount == 0) {
+                    // Initialize battle display
+                    drawBattleScreen();
+                    setScreenOn();
+                    brightness = 0;
+                }
+
+                // Fade in battle screen
+                if (fadeFrameCount % 4 == 0 && brightness < 15) {
+                    brightness++;
+                    setBrightness(brightness);
+                }
+
+                fadeFrameCount++;
+
+                // Handle battle logic after fade in
+                if (brightness >= 15) {
+                    // Update battle state
+                    updateBattle();
+
+                    // Handle battle input
+                    handleBattleInput(padsCurrent(0), previousPadState);
+
+                    // Check for battle end
+                    if (!isBattleActive()) {
+                        // Battle ended, return to game
+                        currentScreen = SCREEN_GAME_FADEOUT;
+                        fadeFrameCount = 0;
+                        brightness = 15;
+                    }
+                }
+
+                // Draw battle UI
+                drawBattleUI();
+                drawEnemySprite();
+                updateBattleAnimations();
+
+                // Update previous pad state
+                previousPadState = padsCurrent(0);
+                break;
+
+            case SCREEN_BATTLE_FADEOUT:
+                // Fade out from battle screen
+                if (fadeFrameCount % 4 == 0 && brightness > 0) {
+                    brightness--;
+                    setBrightness(brightness);
+                }
+
+                fadeFrameCount++;
+                if (brightness <= 0) {
+                    // Clear screen before game fades in
+                    clearScreenForTransition();
+                    endBattle(); // Clean up battle state
+                    currentScreen = SCREEN_GAME;
+                    fadeFrameCount = 0;
+                    brightness = 0;
+                }
                 break;
 
             case SCREEN_GAME_FADEOUT:
