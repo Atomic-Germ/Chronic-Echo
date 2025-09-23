@@ -1,0 +1,2715 @@
+.include "hdr.asm"
+.accu 16
+.index 16
+.16bit
+.define __initBattleSystem_locals 0
+.define __initEnemyDefinitions_locals 0
+.define __createEnemy_locals 36
+.define __startBattle_locals 30
+.define __updateBattle_locals 0
+.define __endBattle_locals 0
+.define __isBattleActive_locals 0
+.define __setBattleAction_locals 0
+.define __processBattleTurn_locals 0
+.define __tccs_{WLA_FILENAME}_processPlayerAttack_locals 1
+.define __tccs_{WLA_FILENAME}_processPlayerDefend_locals 0
+.define __tccs_{WLA_FILENAME}_processEnemyTurn_locals 1
+.define __calculateDamage_locals 0
+.define __attemptEscape_locals 2
+.define __applyTimeStop_locals 0
+.define __applySlowMotion_locals 0
+.define __rewindBattleTurn_locals 2
+.define __tccs_{WLA_FILENAME}_updateTimeEffects_locals 0
+.define __tccs_{WLA_FILENAME}_checkBattleEndConditions_locals 0
+.define __handleBattleInput_locals 0
+.define __drawBattleScreen_locals 4
+.define __drawBattleUI_locals 38
+.define __drawEnemySprite_locals 8
+.define __updateBattleAnimations_locals 0
+
+.SECTION ".initBattleSystemtext_0x0" SUPERFREE
+
+initBattleSystem:
+.ifgr __initBattleSystem_locals 0
+tsa
+sec
+sbc #__initBattleSystem_locals
+tas
+.endif
+stz.b tcc__r0
+lda.b tcc__r0
+sta.l currentBattle + 0
+jsr.l initEnemyDefinitions
+.ifgr __initBattleSystem_locals 0
+tsa
+clc
+adc #__initBattleSystem_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".initEnemyDefinitionstext_0x1" SUPERFREE
+
+initEnemyDefinitions:
+.ifgr __initEnemyDefinitions_locals 0
+tsa
+sec
+sbc #__initEnemyDefinitions_locals
+tas
+.endif
+stz.b tcc__r0
+lda.b tcc__r0
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}17
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}17 + 0
+pea.w :tccs_{WLA_FILENAME}_enemyDefinitions
+pea.w tccs_{WLA_FILENAME}_enemyDefinitions + 2
+jsr.l strcpy
+tsa
+clc
+adc #8
+tas
+lda.w #20
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 20
+lda.w #8
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 22
+lda.w #2
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 24
+lda.w #10
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 26
+lda.w #1
+sep #$20
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 28
+rep #$20
+lda.w #0
+sep #$20
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 29
+rep #$20
+lda.w #1
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 30
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}18
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}18 + 0
+pea.w :tccs_{WLA_FILENAME}_enemyDefinitions
+pea.w tccs_{WLA_FILENAME}_enemyDefinitions + 32
+jsr.l strcpy
+tsa
+clc
+adc #8
+tas
+lda.w #35
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 50
+lda.w #12
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 52
+lda.w #4
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 54
+lda.w #20
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 56
+lda.w #2
+sep #$20
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 58
+rep #$20
+lda.w #1
+sep #$20
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 59
+rep #$20
+lda.w #2
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 60
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}19
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}19 + 0
+pea.w :tccs_{WLA_FILENAME}_enemyDefinitions
+pea.w tccs_{WLA_FILENAME}_enemyDefinitions + 62
+jsr.l strcpy
+tsa
+clc
+adc #8
+tas
+lda.w #60
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 80
+lda.w #18
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 82
+lda.w #8
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 84
+lda.w #35
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 86
+lda.w #3
+sep #$20
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 88
+rep #$20
+lda.w #2
+sep #$20
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 89
+rep #$20
+lda.w #3
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 90
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}20
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}20 + 0
+pea.w :tccs_{WLA_FILENAME}_enemyDefinitions
+pea.w tccs_{WLA_FILENAME}_enemyDefinitions + 92
+jsr.l strcpy
+tsa
+clc
+adc #8
+tas
+lda.w #45
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 110
+lda.w #15
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 112
+lda.w #6
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 114
+lda.w #25
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 116
+lda.w #2
+sep #$20
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 118
+rep #$20
+lda.w #3
+sep #$20
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 119
+rep #$20
+lda.w #4
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 120
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}21
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}21 + 0
+pea.w :tccs_{WLA_FILENAME}_enemyDefinitions
+pea.w tccs_{WLA_FILENAME}_enemyDefinitions + 122
+jsr.l strcpy
+tsa
+clc
+adc #8
+tas
+lda.w #120
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 140
+lda.w #25
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 142
+lda.w #15
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 144
+lda.w #80
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 146
+lda.w #5
+sep #$20
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 148
+rep #$20
+lda.w #4
+sep #$20
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 149
+rep #$20
+lda.w #5
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 150
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}22
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}22 + 0
+pea.w :tccs_{WLA_FILENAME}_enemyDefinitions
+pea.w tccs_{WLA_FILENAME}_enemyDefinitions + 152
+jsr.l strcpy
+tsa
+clc
+adc #8
+tas
+lda.w #200
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 170
+lda.w #35
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 172
+lda.w #20
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 174
+lda.w #150
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 176
+lda.w #8
+sep #$20
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 178
+rep #$20
+lda.w #5
+sta.b tcc__r0
+sep #$20
+sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 179
+rep #$20
+.ifgr __initEnemyDefinitions_locals 0
+tsa
+clc
+adc #__initEnemyDefinitions_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".createEnemytext_0x2" SUPERFREE
+
+createEnemy:
+.ifgr __createEnemy_locals 0
+tsa
+sec
+sbc #__createEnemy_locals
+tas
+.endif
+lda 7 + __createEnemy_locals + 1,s
+sta.b tcc__r0
+lda.w #30
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:tccs_{WLA_FILENAME}_enemyDefinitions
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_enemyDefinitions + 0
+clc
+adc.b tcc__r0
+sta.b tcc__r1
+pea.w 30
+pei (tcc__r1h)
+pei (tcc__r1)
+stz.b tcc__r0h
+tsa
+clc
+adc #(-24 + __createEnemy_locals + 1)
+pei (tcc__r0h)
+pha
+lda.b tcc__r1
+sta -26 + __createEnemy_locals + 1,s
+lda.b tcc__r1h
+sta -24 + __createEnemy_locals + 1,s
+jsr.l memcpy
+tsa
+clc
+adc #10
+tas
+stz.b tcc__r0h
+tsa
+clc
+adc #(-30 + __createEnemy_locals + 1)
+clc
+adc.w #18
+sta.b tcc__r0
+stz.b tcc__r1h
+tsa
+clc
+adc #(-30 + __createEnemy_locals + 1)
+clc
+adc.w #20
+sta.b tcc__r1
+lda.b [tcc__r1]
+sta.b [tcc__r0]
+lda 3 + __createEnemy_locals + 1,s
+sta.b tcc__r0
+lda 5 + __createEnemy_locals + 1,s
+sta.b tcc__r0h
+pea.w 30
+stz.b tcc__r1h
+tsa
+clc
+adc #(-28 + __createEnemy_locals + 1)
+pei (tcc__r1h)
+pha
+pei (tcc__r0h)
+pei (tcc__r0)
+jsr.l memcpy
+tsa
+clc
+adc #10
+tas
+__local_0:
+.ifgr __createEnemy_locals 0
+tsa
+clc
+adc #__createEnemy_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".startBattletext_0x3" SUPERFREE
+
+startBattle:
+.ifgr __startBattle_locals 0
+tsa
+sec
+sbc #__startBattle_locals
+tas
+.endif
+lda.l currentBattle + 0
+sta.b tcc__r0
+ldx #1
+sec
+sbc #0
+tay
+bne +
+dex
++
+stx.b tcc__r5
+txa
+bne +
+brl __local_1
++
+jmp.w __local_2
+__local_1:
+lda.w #1
+sta.l currentBattle + 0
+lda 3 + __startBattle_locals + 1,s
+sta.b tcc__r0
+pha
+stz.b tcc__r0h
+tsa
+clc
+adc #(-28 + __startBattle_locals + 1)
+pei (tcc__r0h)
+pha
+jsr.l createEnemy
+tsa
+clc
+adc #6
+tas
+pea.w 30
+stz.b tcc__r0h
+tsa
+clc
+adc #(-28 + __startBattle_locals + 1)
+pei (tcc__r0h)
+pha
+pea.w :currentBattle
+pea.w currentBattle + 2
+jsr.l memcpy
+tsa
+clc
+adc #10
+tas
+stz.b tcc__r0
+lda.b tcc__r0
+sta.l currentBattle + 32
+lda.w #0
+sep #$20
+sta.l currentBattle + 34
+rep #$20
+lda.w #1
+sep #$20
+sta.l currentBattle + 36
+rep #$20
+lda.w #0
+sep #$20
+sta.l currentBattle + 37
+rep #$20
+lda.w #0
+sep #$20
+sta.l currentBattle + 38
+rep #$20
+lda.w #0
+sta.b tcc__r0
+sep #$20
+sta.l currentBattle + 35
+rep #$20
+__local_2:
+.ifgr __startBattle_locals 0
+tsa
+clc
+adc #__startBattle_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".updateBattletext_0x4" SUPERFREE
+
+updateBattle:
+.ifgr __updateBattle_locals 0
+tsa
+sec
+sbc #__updateBattle_locals
+tas
+.endif
+lda.l currentBattle + 0
+sta.b tcc__r0
+bra __local_3
+bra __local_4
+__local_3:
+lda.b tcc__r0
+cmp #0
+beq +
+brl __local_5
++
+__local_4:
+jmp.w __local_6
+bra __local_7
+__local_5:
+lda.b tcc__r0
+cmp #1
+beq +
+brl __local_8
++
+__local_7:
+lda.w #2
+sta.b tcc__r0
+sta.l currentBattle + 0
+jmp.w __local_9
+bra __local_10
+__local_8:
+lda.b tcc__r0
+cmp #2
+beq +
+brl __local_11
++
+__local_10:
+lda.w #0
+sep #$20
+lda.l currentBattle + 36
+rep #$20
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_12
++
+bra __local_13
+__local_12:
+jsr.l tccs_{WLA_FILENAME}_processEnemyTurn
+lda.w #1
+sta.b tcc__r0
+sep #$20
+sta.l currentBattle + 36
+rep #$20
+__local_13:
+jsr.l tccs_{WLA_FILENAME}_updateTimeEffects
+bra __local_14
+bra __local_15
+__local_11:
+lda.b tcc__r0
+cmp #3
+beq +
+brl __local_16
++
+__local_15:
+bra __local_17
+__local_16:
+lda.b tcc__r0
+cmp #4
+beq +
+brl __local_18
++
+__local_17:
+bra __local_19
+__local_18:
+lda.b tcc__r0
+cmp #5
+beq +
+brl __local_20
++
+__local_19:
+__local_20:
+__local_6:
+__local_9:
+__local_14:
+__local_21:
+.ifgr __updateBattle_locals 0
+tsa
+clc
+adc #__updateBattle_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".endBattletext_0x5" SUPERFREE
+
+endBattle:
+.ifgr __endBattle_locals 0
+tsa
+sec
+sbc #__endBattle_locals
+tas
+.endif
+stz.b tcc__r0
+lda.b tcc__r0
+sta.l currentBattle + 0
+lda.w #0
+sep #$20
+sta.l currentBattle + 37
+rep #$20
+lda.w #0
+sta.b tcc__r0
+sep #$20
+sta.l currentBattle + 38
+rep #$20
+.ifgr __endBattle_locals 0
+tsa
+clc
+adc #__endBattle_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".isBattleActivetext_0x6" SUPERFREE
+
+isBattleActive:
+.ifgr __isBattleActive_locals 0
+tsa
+sec
+sbc #__isBattleActive_locals
+tas
+.endif
+lda.l currentBattle + 0
+sta.b tcc__r0
+ldx #1
+sec
+sbc #0
+tay
+bne +
+dex
++
+txa
+and.w #255
+sta.b tcc__r5
+sta.b tcc__r0
+lda.b tcc__r5h
+sta.b tcc__r0h
+__local_22:
+.ifgr __isBattleActive_locals 0
+tsa
+clc
+adc #__isBattleActive_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".setBattleActiontext_0x7" SUPERFREE
+
+setBattleAction:
+.ifgr __setBattleAction_locals 0
+tsa
+sec
+sbc #__setBattleAction_locals
+tas
+.endif
+lda.l currentBattle + 0
+sta.b tcc__r0
+ldx #1
+sec
+sbc #2
+tay
+bne +
+dex
++
+stx.b tcc__r5
+txa
+beq +
+brl __local_23
++
+lda.w #0
+sep #$20
+lda.l currentBattle + 36
+rep #$20
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_24
++
+__local_23:
+bra __local_25
+__local_24:
+bra __local_26
+__local_25:
+lda.w #0
+sep #$20
+lda 3 + __setBattleAction_locals + 1,s
+rep #$20
+sta.b tcc__r0
+sep #$20
+sta.l currentBattle + 34
+rep #$20
+__local_26:
+.ifgr __setBattleAction_locals 0
+tsa
+clc
+adc #__setBattleAction_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".processBattleTurntext_0x8" SUPERFREE
+
+processBattleTurn:
+.ifgr __processBattleTurn_locals 0
+tsa
+sec
+sbc #__processBattleTurn_locals
+tas
+.endif
+lda.l currentBattle + 0
+sta.b tcc__r0
+ldx #1
+sec
+sbc #2
+tay
+bne +
+dex
++
+stx.b tcc__r5
+txa
+bne +
+brl __local_27
++
+jmp.w __local_28
+__local_27:
+lda.l currentBattle + 32
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+lda.b tcc__r0
+sta.l currentBattle + 32
+lda.w #0
+sep #$20
+lda.l currentBattle + 34
+rep #$20
+sta.b tcc__r0
+bra __local_29
+bra __local_30
+__local_29:
+lda.b tcc__r0
+cmp #0
+beq +
+brl __local_31
++
+__local_30:
+jsr.l tccs_{WLA_FILENAME}_processPlayerAttack
+jmp.w __local_32
+bra __local_33
+__local_31:
+lda.b tcc__r0
+cmp #1
+beq +
+brl __local_34
++
+__local_33:
+jsr.l tccs_{WLA_FILENAME}_processPlayerDefend
+jmp.w __local_35
+bra __local_36
+__local_34:
+lda.b tcc__r0
+cmp #2
+beq +
+brl __local_37
++
+__local_36:
+jsr.l applyTimeStop
+jmp.w __local_38
+bra __local_39
+__local_37:
+lda.b tcc__r0
+cmp #3
+beq +
+brl __local_40
++
+__local_39:
+jsr.l applySlowMotion
+jmp.w __local_41
+bra __local_42
+__local_40:
+lda.b tcc__r0
+cmp #4
+beq +
+brl __local_43
++
+__local_42:
+jsr.l rewindBattleTurn
+bra __local_44
+bra __local_45
+__local_43:
+lda.b tcc__r0
+cmp #5
+beq +
+brl __local_46
++
+__local_45:
+jsr.l attemptEscape
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_47
++
+lda.w #5
+sta.b tcc__r0
+sta.l currentBattle + 0
+bra __local_48
+__local_47:
+jsr.l tccs_{WLA_FILENAME}_processEnemyTurn
+__local_48:
+__local_46:
+__local_32:
+__local_35:
+__local_38:
+__local_41:
+__local_44:
+__local_49:
+jsr.l tccs_{WLA_FILENAME}_checkBattleEndConditions
+lda.w #0
+sep #$20
+lda.l currentBattle + 36
+rep #$20
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_50
++
+lda #0
+bra +
+__local_50:
+lda #1
++
+sta.b tcc__r0
+sep #$20
+sta.l currentBattle + 36
+rep #$20
+__local_28:
+.ifgr __processBattleTurn_locals 0
+tsa
+clc
+adc #__processBattleTurn_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".tccs_{WLA_FILENAME}_processPlayerAttacktext_0x9" SUPERFREE
+
+tccs_{WLA_FILENAME}_processPlayerAttack:
+.ifgr __tccs_{WLA_FILENAME}_processPlayerAttack_locals 0
+tsa
+sec
+sbc #__tccs_{WLA_FILENAME}_processPlayerAttack_locals
+tas
+.endif
+lda.w #0
+sep #$20
+lda.l playerCharacter + 13
+rep #$20
+sta.b tcc__r0
+lda.l currentBattle + 26
+pha
+pei (tcc__r0)
+jsr.l calculateDamage
+tsa
+clc
+adc #4
+tas
+sep #$20
+lda.b tcc__r0
+sta -1 + __tccs_{WLA_FILENAME}_processPlayerAttack_locals + 1,s
+rep #$20
+lda.w #0
+sep #$20
+lda -1 + __tccs_{WLA_FILENAME}_processPlayerAttack_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.l currentBattle + 20
+sta.b tcc__r1
+lda.b tcc__r0
+cmp.b tcc__r1
+beq +
+bcc +
+brl ++
++
+brl __local_51
+++
+stz.b tcc__r0
+lda.b tcc__r0
+sta.l currentBattle + 20
+bra __local_52
+__local_51:
+lda.w #0
+sep #$20
+lda -1 + __tccs_{WLA_FILENAME}_processPlayerAttack_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.l currentBattle + 20
+sec
+sbc.b tcc__r0
+sta.b tcc__r1
+sta.l currentBattle + 20
+__local_52:
+.ifgr __tccs_{WLA_FILENAME}_processPlayerAttack_locals 0
+tsa
+clc
+adc #__tccs_{WLA_FILENAME}_processPlayerAttack_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".tccs_{WLA_FILENAME}_processPlayerDefendtext_0xa" SUPERFREE
+
+tccs_{WLA_FILENAME}_processPlayerDefend:
+.ifgr __tccs_{WLA_FILENAME}_processPlayerDefend_locals 0
+tsa
+sec
+sbc #__tccs_{WLA_FILENAME}_processPlayerDefend_locals
+tas
+.endif
+.ifgr __tccs_{WLA_FILENAME}_processPlayerDefend_locals 0
+tsa
+clc
+adc #__tccs_{WLA_FILENAME}_processPlayerDefend_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".tccs_{WLA_FILENAME}_processEnemyTurntext_0xb" SUPERFREE
+
+tccs_{WLA_FILENAME}_processEnemyTurn:
+.ifgr __tccs_{WLA_FILENAME}_processEnemyTurn_locals 0
+tsa
+sec
+sbc #__tccs_{WLA_FILENAME}_processEnemyTurn_locals
+tas
+.endif
+lda.w #0
+sep #$20
+lda.l playerCharacter + 14
+rep #$20
+pha
+lda.l currentBattle + 24
+pha
+jsr.l calculateDamage
+tsa
+clc
+adc #4
+tas
+sep #$20
+lda.b tcc__r0
+sta -1 + __tccs_{WLA_FILENAME}_processEnemyTurn_locals + 1,s
+rep #$20
+lda.w #0
+sep #$20
+lda -1 + __tccs_{WLA_FILENAME}_processEnemyTurn_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.l playerCharacter + 0
+sta.b tcc__r1
+lda.b tcc__r0
+cmp.b tcc__r1
+beq +
+bcc +
+brl ++
++
+brl __local_53
+++
+stz.b tcc__r0
+lda.b tcc__r0
+sta.l playerCharacter + 0
+bra __local_54
+__local_53:
+lda.w #0
+sep #$20
+lda -1 + __tccs_{WLA_FILENAME}_processEnemyTurn_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.l playerCharacter + 0
+sec
+sbc.b tcc__r0
+sta.b tcc__r1
+sta.l playerCharacter + 0
+__local_54:
+.ifgr __tccs_{WLA_FILENAME}_processEnemyTurn_locals 0
+tsa
+clc
+adc #__tccs_{WLA_FILENAME}_processEnemyTurn_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".calculateDamagetext_0xc" SUPERFREE
+
+calculateDamage:
+.ifgr __calculateDamage_locals 0
+tsa
+sec
+sbc #__calculateDamage_locals
+tas
+.endif
+lda 3 + __calculateDamage_locals + 1,s
+sta.b tcc__r0
+lda 5 + __calculateDamage_locals + 1,s
+sta.b tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+beq ++
+bcc ++
++ dex
+++
+stx.b tcc__r5
+txa
+bne +
+brl __local_55
++
+lda.w #1
+sta.b tcc__r0
+bra __local_56
+__local_55:
+lda 3 + __calculateDamage_locals + 1,s
+sta.b tcc__r0
+lda 5 + __calculateDamage_locals + 1,s
+sta.b tcc__r1
+sec
+lda.b tcc__r0
+sbc.b tcc__r1
+and.w #255
+sta.b tcc__r0
+__local_56:
+__local_57:
+.ifgr __calculateDamage_locals 0
+tsa
+clc
+adc #__calculateDamage_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".attemptEscapetext_0xd" SUPERFREE
+
+attemptEscape:
+.ifgr __attemptEscape_locals 0
+tsa
+sec
+sbc #__attemptEscape_locals
+tas
+.endif
+lda.w #30
+sep #$20
+sta -1 + __attemptEscape_locals + 1,s
+rep #$20
+jsr.l rand
+ldx.b tcc__r0
+lda.w #100
+jsr.l tcc__udiv
+stx.b tcc__r0
+sep #$20
+lda.b tcc__r0
+sta -2 + __attemptEscape_locals + 1,s
+rep #$20
+lda.w #0
+sep #$20
+lda -2 + __attemptEscape_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda -1 + __attemptEscape_locals + 1,s
+rep #$20
+sta.b tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+txa
+and.w #255
+sta.b tcc__r5
+sta.b tcc__r0
+lda.b tcc__r5h
+sta.b tcc__r0h
+__local_58:
+.ifgr __attemptEscape_locals 0
+tsa
+clc
+adc #__attemptEscape_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".applyTimeStoptext_0xe" SUPERFREE
+
+applyTimeStop:
+.ifgr __applyTimeStop_locals 0
+tsa
+sec
+sbc #__applyTimeStop_locals
+tas
+.endif
+lda.l playerCharacter + 4
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #15
+tay
+bcc ++
++ dex
+++
+stx.b tcc__r5
+txa
+bne +
+brl __local_59
++
+bra __local_60
+__local_59:
+lda.l playerCharacter + 4
+sec
+sbc.w #15
+sta.l playerCharacter + 4
+lda.w #3
+sta.b tcc__r0
+sep #$20
+sta.l currentBattle + 37
+rep #$20
+__local_60:
+.ifgr __applyTimeStop_locals 0
+tsa
+clc
+adc #__applyTimeStop_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".applySlowMotiontext_0xf" SUPERFREE
+
+applySlowMotion:
+.ifgr __applySlowMotion_locals 0
+tsa
+sec
+sbc #__applySlowMotion_locals
+tas
+.endif
+lda.l playerCharacter + 4
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #10
+tay
+bcc ++
++ dex
+++
+stx.b tcc__r5
+txa
+bne +
+brl __local_61
++
+bra __local_62
+__local_61:
+lda.l playerCharacter + 4
+sec
+sbc.w #10
+sta.l playerCharacter + 4
+lda.w #2
+sta.b tcc__r0
+sep #$20
+sta.l currentBattle + 38
+rep #$20
+__local_62:
+.ifgr __applySlowMotion_locals 0
+tsa
+clc
+adc #__applySlowMotion_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".rewindBattleTurntext_0x10" SUPERFREE
+
+rewindBattleTurn:
+.ifgr __rewindBattleTurn_locals 0
+tsa
+sec
+sbc #__rewindBattleTurn_locals
+tas
+.endif
+lda.l playerCharacter + 4
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #5
+tay
+bcc ++
++ dex
+++
+stx.b tcc__r5
+txa
+bne +
+brl __local_63
++
+jmp.w __local_64
+__local_63:
+lda.w #10
+sta -2 + __rewindBattleTurn_locals + 1,s
+lda.l playerCharacter + 0
+sta.b tcc__r0
+lda -2 + __rewindBattleTurn_locals + 1,s
+clc
+adc.b tcc__r0
+sta.b tcc__r0
+lda.l playerCharacter + 2
+sta.b tcc__r1
+lda.b tcc__r0
+cmp.b tcc__r1
+beq +
+bcc +
+brl ++
++
+brl __local_65
+++
+lda.l playerCharacter + 2
+sta.b tcc__r0
+sta.l playerCharacter + 0
+bra __local_66
+__local_65:
+lda.l playerCharacter + 0
+sta.b tcc__r0
+lda -2 + __rewindBattleTurn_locals + 1,s
+sta.b tcc__r1
+clc
+adc.b tcc__r0
+sta.b tcc__r0
+sta.l playerCharacter + 0
+__local_66:
+lda.l playerCharacter + 4
+sec
+sbc.w #5
+sta.l playerCharacter + 4
+lda.w #1
+sta.b tcc__r0
+sep #$20
+sta.l currentBattle + 36
+rep #$20
+__local_64:
+.ifgr __rewindBattleTurn_locals 0
+tsa
+clc
+adc #__rewindBattleTurn_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".tccs_{WLA_FILENAME}_updateTimeEffectstext_0x11" SUPERFREE
+
+tccs_{WLA_FILENAME}_updateTimeEffects:
+.ifgr __tccs_{WLA_FILENAME}_updateTimeEffects_locals 0
+tsa
+sec
+sbc #__tccs_{WLA_FILENAME}_updateTimeEffects_locals
+tas
+.endif
+lda.w #0
+sep #$20
+lda.l currentBattle + 37
+rep #$20
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #0
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_67
++
+lda.w #0
+sep #$20
+lda.l currentBattle + 37
+rep #$20
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+dec.b tcc__r0
+sep #$20
+lda.b tcc__r0
+sta.l currentBattle + 37
+rep #$20
+lda.w #0
+sep #$20
+lda.l currentBattle + 37
+rep #$20
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #0
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_68
++
+lda.w #0
+sep #$20
+lda.l currentBattle + 36
+rep #$20
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_69
++
+bra __local_70
+__local_69:
+lda.w #1
+sta.b tcc__r0
+sep #$20
+sta.l currentBattle + 36
+rep #$20
+__local_68:
+__local_70:
+__local_67:
+lda.w #0
+sep #$20
+lda.l currentBattle + 38
+rep #$20
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #0
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_71
++
+lda.w #0
+sep #$20
+lda.l currentBattle + 38
+rep #$20
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+dec.b tcc__r0
+sep #$20
+lda.b tcc__r0
+sta.l currentBattle + 38
+rep #$20
+__local_71:
+.ifgr __tccs_{WLA_FILENAME}_updateTimeEffects_locals 0
+tsa
+clc
+adc #__tccs_{WLA_FILENAME}_updateTimeEffects_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".tccs_{WLA_FILENAME}_checkBattleEndConditionstext_0x12" SUPERFREE
+
+tccs_{WLA_FILENAME}_checkBattleEndConditions:
+.ifgr __tccs_{WLA_FILENAME}_checkBattleEndConditions_locals 0
+tsa
+sec
+sbc #__tccs_{WLA_FILENAME}_checkBattleEndConditions_locals
+tas
+.endif
+lda.l playerCharacter + 0
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #0
+tay
+beq ++
+bcc ++
++ dex
+++
+stx.b tcc__r5
+txa
+bne +
+brl __local_72
++
+lda.w #4
+sta.b tcc__r0
+sta.l currentBattle + 0
+bra __local_73
+__local_72:
+lda.l currentBattle + 20
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #0
+tay
+beq ++
+bcc ++
++ dex
+++
+stx.b tcc__r5
+txa
+bne +
+brl __local_74
++
+lda.w #3
+sta.l currentBattle + 0
+lda.l playerCharacter + 8
+sta.b tcc__r0
+lda.l currentBattle + 28
+clc
+adc.b tcc__r0
+sta.l playerCharacter + 8
+jsr.l levelUpPlayerCharacter
+__local_74:
+__local_73:
+.ifgr __tccs_{WLA_FILENAME}_checkBattleEndConditions_locals 0
+tsa
+clc
+adc #__tccs_{WLA_FILENAME}_checkBattleEndConditions_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".handleBattleInputtext_0x13" SUPERFREE
+
+handleBattleInput:
+.ifgr __handleBattleInput_locals 0
+tsa
+sec
+sbc #__handleBattleInput_locals
+tas
+.endif
+lda.l currentBattle + 0
+sta.b tcc__r0
+ldx #1
+sec
+sbc #2
+tay
+bne +
+dex
++
+stx.b tcc__r5
+txa
+beq +
+brl __local_75
++
+lda.w #0
+sep #$20
+lda.l currentBattle + 36
+rep #$20
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_76
++
+__local_75:
+bra __local_77
+__local_76:
+jmp.w __local_78
+__local_77:
+lda 3 + __handleBattleInput_locals + 1,s
+and.w #128
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_79
++
+lda 5 + __handleBattleInput_locals + 1,s
+and.w #128
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_80
++
+bra __local_81
+__local_80:
+sep #$20
+lda #0
+pha
+rep #$20
+jsr.l setBattleAction
+tsa
+clc
+adc #1
+tas
+jsr.l processBattleTurn
+jmp.w __local_82
+__local_79:
+__local_81:
+lda 3 + __handleBattleInput_locals + 1,s
+and.w #32768
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_83
++
+lda 5 + __handleBattleInput_locals + 1,s
+and.w #32768
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_84
++
+bra __local_85
+__local_84:
+sep #$20
+lda #1
+pha
+rep #$20
+jsr.l setBattleAction
+tsa
+clc
+adc #1
+tas
+jsr.l processBattleTurn
+jmp.w __local_86
+__local_83:
+__local_85:
+lda 3 + __handleBattleInput_locals + 1,s
+and.w #64
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_87
++
+lda 5 + __handleBattleInput_locals + 1,s
+and.w #64
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_88
++
+bra __local_89
+__local_88:
+lda.l playerCharacter + 4
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #15
+tay
+bcs ++
++ dex
+++
+stx.b tcc__r5
+txa
+bne +
+brl __local_90
++
+sep #$20
+lda #2
+pha
+rep #$20
+jsr.l setBattleAction
+tsa
+clc
+adc #1
+tas
+jsr.l processBattleTurn
+__local_90:
+jmp.w __local_91
+__local_87:
+__local_89:
+lda 3 + __handleBattleInput_locals + 1,s
+and.w #16384
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_92
++
+lda 5 + __handleBattleInput_locals + 1,s
+and.w #16384
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_93
++
+bra __local_94
+__local_93:
+lda.l playerCharacter + 4
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #10
+tay
+bcs ++
++ dex
+++
+stx.b tcc__r5
+txa
+bne +
+brl __local_95
++
+sep #$20
+lda #3
+pha
+rep #$20
+jsr.l setBattleAction
+tsa
+clc
+adc #1
+tas
+jsr.l processBattleTurn
+__local_95:
+jmp.w __local_96
+__local_92:
+__local_94:
+lda 3 + __handleBattleInput_locals + 1,s
+and.w #32
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_97
++
+lda 5 + __handleBattleInput_locals + 1,s
+and.w #32
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_98
++
+bra __local_99
+__local_98:
+lda.l playerCharacter + 4
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #5
+tay
+bcs ++
++ dex
+++
+stx.b tcc__r5
+txa
+bne +
+brl __local_100
++
+sep #$20
+lda #4
+pha
+rep #$20
+jsr.l setBattleAction
+tsa
+clc
+adc #1
+tas
+jsr.l processBattleTurn
+__local_100:
+bra __local_101
+__local_97:
+__local_99:
+lda 3 + __handleBattleInput_locals + 1,s
+and.w #16
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_102
++
+lda 5 + __handleBattleInput_locals + 1,s
+and.w #16
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_103
++
+bra __local_104
+__local_103:
+sep #$20
+lda #5
+pha
+rep #$20
+jsr.l setBattleAction
+tsa
+clc
+adc #1
+tas
+jsr.l processBattleTurn
+__local_102:
+__local_104:
+__local_101:
+__local_96:
+__local_91:
+__local_86:
+__local_82:
+__local_78:
+.ifgr __handleBattleInput_locals 0
+tsa
+clc
+adc #__handleBattleInput_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".drawBattleScreentext_0x14" SUPERFREE
+
+drawBattleScreen:
+.ifgr __drawBattleScreen_locals 0
+tsa
+sec
+sbc #__drawBattleScreen_locals
+tas
+.endif
+stz.b tcc__r0
+lda.b tcc__r0
+sta -4 + __drawBattleScreen_locals + 1,s
+__local_107:
+lda -4 + __drawBattleScreen_locals + 1,s
+sta.b tcc__r0
+sec
+sbc.w #28
+bvc +
+eor #$8000
++
+bmi +
+brl __local_105
++
+bra __local_106
+__local_112:
+lda -4 + __drawBattleScreen_locals + 1,s
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+lda.b tcc__r0
+sta -4 + __drawBattleScreen_locals + 1,s
+bra __local_107
+__local_106:
+stz.b tcc__r0
+lda.b tcc__r0
+sta -2 + __drawBattleScreen_locals + 1,s
+__local_110:
+lda -2 + __drawBattleScreen_locals + 1,s
+sta.b tcc__r0
+sec
+sbc.w #32
+bvc +
+eor #$8000
++
+bmi +
+brl __local_108
++
+bra __local_109
+__local_111:
+lda -2 + __drawBattleScreen_locals + 1,s
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+lda.b tcc__r0
+sta -2 + __drawBattleScreen_locals + 1,s
+bra __local_110
+__local_109:
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23 + 0
+lda 0 + __drawBattleScreen_locals + 1,s
+pha
+lda 4 + __drawBattleScreen_locals + 1,s
+pha
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+bra __local_111
+__local_108:
+jmp.w __local_112
+__local_105:
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24 + 0
+pea.w 2
+pea.w 10
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+pea.w :currentBattle
+pea.w currentBattle + 4
+pea.w 4
+pea.w 10
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}25
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}25 + 0
+pea.w 8
+pea.w 2
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}26
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}26 + 0
+pea.w 8
+pea.w 20
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+jsr.l drawBattleUI
+jsr.l drawEnemySprite
+.ifgr __drawBattleScreen_locals 0
+tsa
+clc
+adc #__drawBattleScreen_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".drawBattleUItext_0x15" SUPERFREE
+
+drawBattleUI:
+.ifgr __drawBattleUI_locals 0
+tsa
+sec
+sbc #__drawBattleUI_locals
+tas
+.endif
+lda.w #18
+sta.b tcc__r0
+sta -34 + __drawBattleUI_locals + 1,s
+__local_115:
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+sec
+sbc.w #28
+bvc +
+eor #$8000
++
+bmi +
+brl __local_113
++
+bra __local_114
+__local_116:
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+lda.b tcc__r0
+sta -34 + __drawBattleUI_locals + 1,s
+bra __local_115
+__local_114:
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}27
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}27 + 0
+lda -30 + __drawBattleUI_locals + 1,s
+pha
+pea.w 0
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+bra __local_116
+__local_113:
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}28
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}28 + 0
+pea.w 19
+pea.w 1
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+lda.l playerCharacter + 2
+pha
+lda.l playerCharacter + 0
+sta.b tcc__r0
+pha
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}29
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}29 + 0
+stz.b tcc__r0h
+tsa
+clc
+adc #(-24 + __drawBattleUI_locals + 1)
+pei (tcc__r0h)
+pha
+jsr.l sprintf
+tsa
+clc
+adc #12
+tas
+stz.b tcc__r0h
+tsa
+clc
+adc #(-32 + __drawBattleUI_locals + 1)
+pei (tcc__r0h)
+pha
+pea.w 19
+pea.w 12
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+lda.l playerCharacter + 0
+sta.b tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.l playerCharacter + 2
+sta.b tcc__r1
+ldx.b tcc__r0
+jsr.l tcc__udiv
+lda.b tcc__r9
+sta -36 + __drawBattleUI_locals + 1,s
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}30
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}30 + 0
+pea.w 20
+pea.w 1
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+stz.b tcc__r0
+lda.b tcc__r0
+sta -34 + __drawBattleUI_locals + 1,s
+__local_119:
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+sec
+sbc.w #10
+bvc +
+eor #$8000
++
+bmi +
+brl __local_117
++
+bra __local_118
+__local_122:
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+lda.b tcc__r0
+sta -34 + __drawBattleUI_locals + 1,s
+bra __local_119
+__local_118:
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+lda -36 + __drawBattleUI_locals + 1,s
+sta.b tcc__r1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+bvc +
+eor #$8000
++
+bmi +
+brl __local_120
++
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+inc.b tcc__r0
+inc.b tcc__r0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}31
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}31 + 0
+pea.w 20
+pei (tcc__r0)
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+bra __local_121
+__local_120:
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+inc.b tcc__r0
+inc.b tcc__r0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}32
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}32 + 0
+pea.w 20
+pei (tcc__r0)
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+__local_121:
+jmp.w __local_122
+__local_117:
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}33
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}33 + 0
+pea.w 20
+pea.w 12
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34 + 0
+pea.w 19
+pea.w 15
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+lda.l currentBattle + 22
+pha
+lda.l currentBattle + 20
+sta.b tcc__r0
+pha
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}35
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}35 + 0
+stz.b tcc__r0h
+tsa
+clc
+adc #(-24 + __drawBattleUI_locals + 1)
+pei (tcc__r0h)
+pha
+jsr.l sprintf
+tsa
+clc
+adc #12
+tas
+stz.b tcc__r0h
+tsa
+clc
+adc #(-32 + __drawBattleUI_locals + 1)
+pei (tcc__r0h)
+pha
+pea.w 19
+pea.w 26
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+lda.l currentBattle + 20
+sta.b tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.l currentBattle + 22
+sta.b tcc__r1
+ldx.b tcc__r0
+jsr.l tcc__udiv
+lda.b tcc__r9
+sta -38 + __drawBattleUI_locals + 1,s
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}36
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}36 + 0
+pea.w 20
+pea.w 15
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+stz.b tcc__r0
+lda.b tcc__r0
+sta -34 + __drawBattleUI_locals + 1,s
+__local_125:
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+sec
+sbc.w #10
+bvc +
+eor #$8000
++
+bmi +
+brl __local_123
++
+bra __local_124
+__local_128:
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+lda.b tcc__r0
+sta -34 + __drawBattleUI_locals + 1,s
+bra __local_125
+__local_124:
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+lda -38 + __drawBattleUI_locals + 1,s
+sta.b tcc__r1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+bvc +
+eor #$8000
++
+bmi +
+brl __local_126
++
+lda -34 + __drawBattleUI_locals + 1,s
+clc
+adc.w #16
+sta.b tcc__r0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}37
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}37 + 0
+pea.w 20
+pei (tcc__r0)
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+bra __local_127
+__local_126:
+lda -34 + __drawBattleUI_locals + 1,s
+clc
+adc.w #16
+sta.b tcc__r0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}38
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}38 + 0
+pea.w 20
+pei (tcc__r0)
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+__local_127:
+jmp.w __local_128
+__local_123:
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}39
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}39 + 0
+pea.w 20
+pea.w 26
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}40
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}40 + 0
+pea.w 22
+pea.w 1
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+lda.l playerCharacter + 6
+pha
+lda.l playerCharacter + 4
+sta.b tcc__r0
+pha
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}41
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}41 + 0
+stz.b tcc__r0h
+tsa
+clc
+adc #(-24 + __drawBattleUI_locals + 1)
+pei (tcc__r0h)
+pha
+jsr.l sprintf
+tsa
+clc
+adc #12
+tas
+stz.b tcc__r0h
+tsa
+clc
+adc #(-32 + __drawBattleUI_locals + 1)
+pei (tcc__r0h)
+pha
+pea.w 22
+pea.w 14
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}42
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}42 + 0
+pea.w 24
+pea.w 1
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}43
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}43 + 0
+pea.w 25
+pea.w 1
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}44
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}44 + 0
+pea.w 26
+pea.w 1
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+lda.l currentBattle + 32
+sta.b tcc__r0
+pha
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}45
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}45 + 0
+stz.b tcc__r0h
+tsa
+clc
+adc #(-26 + __drawBattleUI_locals + 1)
+pei (tcc__r0h)
+pha
+jsr.l sprintf
+tsa
+clc
+adc #10
+tas
+stz.b tcc__r0h
+tsa
+clc
+adc #(-32 + __drawBattleUI_locals + 1)
+pei (tcc__r0h)
+pha
+pea.w 24
+pea.w 20
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+lda.w #0
+sep #$20
+lda.l currentBattle + 37
+rep #$20
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_129
++
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}46
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}46 + 0
+pea.w 25
+pea.w 20
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+jmp.w __local_130
+__local_129:
+lda.w #0
+sep #$20
+lda.l currentBattle + 38
+rep #$20
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_131
++
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}47
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}47 + 0
+pea.w 25
+pea.w 20
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+bra __local_132
+__local_131:
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}48
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}48 + 0
+pea.w 25
+pea.w 20
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+__local_132:
+__local_130:
+.ifgr __drawBattleUI_locals 0
+tsa
+clc
+adc #__drawBattleUI_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".drawEnemySpritetext_0x16" SUPERFREE
+
+drawEnemySprite:
+.ifgr __drawEnemySprite_locals 0
+tsa
+sec
+sbc #__drawEnemySprite_locals
+tas
+.endif
+lda.l currentBattle + 0
+sta.b tcc__r0
+cmp #0
+beq +
+brl __local_133
++
+jmp.w __local_134
+__local_133:
+sep #$20
+lda.b #1
+sta -1 + __drawEnemySprite_locals + 1,s
+rep #$20
+lda.w #200
+sta -4 + __drawEnemySprite_locals + 1,s
+lda.w #80
+sta -6 + __drawEnemySprite_locals + 1,s
+lda.w #0
+sep #$20
+lda -1 + __drawEnemySprite_locals + 1,s
+rep #$20
+sta.b tcc__r0
+sep #$20
+lda #1
+pha
+rep #$20
+pei (tcc__r0)
+jsr.l oamClear
+tsa
+clc
+adc #3
+tas
+lda.w #0
+sep #$20
+sta -7 + __drawEnemySprite_locals + 1,s
+rep #$20
+lda.w #0
+sep #$20
+sta -8 + __drawEnemySprite_locals + 1,s
+rep #$20
+lda.l currentBattle + 2
+sta.b tcc__r0
+bra __local_135
+bra __local_136
+__local_135:
+lda.b tcc__r0
+cmp #0
+beq +
+brl __local_137
++
+__local_136:
+lda.w #16
+sta.b tcc__r0
+sep #$20
+sta -7 + __drawEnemySprite_locals + 1,s
+rep #$20
+jmp.w __local_138
+bra __local_139
+__local_137:
+lda.b tcc__r0
+cmp #1
+beq +
+brl __local_140
++
+__local_139:
+lda.w #32
+sta.b tcc__r0
+sep #$20
+sta -7 + __drawEnemySprite_locals + 1,s
+rep #$20
+bra __local_141
+bra __local_142
+__local_140:
+lda.b tcc__r0
+cmp #2
+beq +
+brl __local_143
++
+__local_142:
+lda.w #48
+sta.b tcc__r0
+sep #$20
+sta -7 + __drawEnemySprite_locals + 1,s
+rep #$20
+bra __local_144
+__local_143:
+lda.w #16
+sta.b tcc__r0
+sep #$20
+sta -7 + __drawEnemySprite_locals + 1,s
+rep #$20
+__local_138:
+__local_141:
+__local_144:
+__local_145:
+lda.w #0
+sep #$20
+lda -1 + __drawEnemySprite_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda -7 + __drawEnemySprite_locals + 1,s
+rep #$20
+sta.b tcc__r1
+lda.w #0
+sep #$20
+lda -8 + __drawEnemySprite_locals + 1,s
+pha
+rep #$20
+pei (tcc__r1)
+pea.w (0 * 256 + 0)
+sep #$20
+lda #3
+pha
+rep #$20
+lda 0 + __drawEnemySprite_locals + 1,s
+pha
+lda 4 + __drawEnemySprite_locals + 1,s
+pha
+pei (tcc__r0)
+jsr.l oamSet
+tsa
+clc
+adc #12
+tas
+jsr.l oamUpdate
+__local_134:
+.ifgr __drawEnemySprite_locals 0
+tsa
+clc
+adc #__drawEnemySprite_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".updateBattleAnimationstext_0x17" SUPERFREE
+
+updateBattleAnimations:
+.ifgr __updateBattleAnimations_locals 0
+tsa
+sec
+sbc #__updateBattleAnimations_locals
+tas
+.endif
+lda.w #0
+sep #$20
+lda.l tccs__FUNC_updateBattleAnimations_animationFrame + 0
+rep #$20
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+sep #$20
+lda.b tcc__r0
+sta.l tccs__FUNC_updateBattleAnimations_animationFrame + 0
+rep #$20
+lda.l currentBattle + 20
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #0
+tay
+beq +
+bcs ++
++ dex
+++
+stx.b tcc__r5
+txa
+bne +
+brl __local_146
++
+lda.w #0
+sep #$20
+lda.l tccs__FUNC_updateBattleAnimations_animationFrame + 0
+rep #$20
+sta.b tcc__r0
+tax
+lda.w #8
+jsr.l tcc__div
+stx.b tcc__r0
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #4
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+__local_146:
+brl __local_147
++
+jsr.l drawEnemySprite
+__local_147:
+lda.l currentBattle + 0
+sta.b tcc__r0
+bra __local_148
+bra __local_149
+__local_148:
+lda.b tcc__r0
+cmp #1
+beq +
+brl __local_150
++
+__local_149:
+lda.w #0
+sep #$20
+lda.l tccs__FUNC_updateBattleAnimations_animationFrame + 0
+rep #$20
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #30
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_151
++
+lda.w #2
+sta.l currentBattle + 0
+lda.w #1
+sta.b tcc__r0
+sep #$20
+sta.l currentBattle + 36
+rep #$20
+__local_151:
+jmp.w __local_152
+bra __local_153
+__local_150:
+lda.b tcc__r0
+cmp #3
+beq +
+brl __local_154
++
+__local_153:
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}49
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}49 + 0
+pea.w 10
+pea.w 10
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+lda.w #0
+sep #$20
+lda.l tccs__FUNC_updateBattleAnimations_animationFrame + 0
+rep #$20
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #120
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_155
++
+jsr.l endBattle
+__local_155:
+jmp.w __local_156
+bra __local_157
+__local_154:
+lda.b tcc__r0
+cmp #4
+beq +
+brl __local_158
++
+__local_157:
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}50
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}50 + 0
+pea.w 10
+pea.w 10
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+lda.w #0
+sep #$20
+lda.l tccs__FUNC_updateBattleAnimations_animationFrame + 0
+rep #$20
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #120
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_159
++
+jsr.l endBattle
+__local_159:
+jmp.w __local_160
+bra __local_161
+__local_158:
+lda.b tcc__r0
+cmp #5
+beq +
+brl __local_162
++
+__local_161:
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}51
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}51 + 0
+pea.w 10
+pea.w 10
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+lda.w #0
+sep #$20
+lda.l tccs__FUNC_updateBattleAnimations_animationFrame + 0
+rep #$20
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #120
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_163
++
+jsr.l endBattle
+__local_163:
+__local_162:
+__local_152:
+__local_156:
+__local_160:
+__local_164:
+__local_165:
+.ifgr __updateBattleAnimations_locals 0
+tsa
+clc
+adc #__updateBattleAnimations_locals
+tas
+.endif
+rtl
+.ENDS
+.RAMSECTION "ram{WLA_FILENAME}.data" APPENDTO "globram.data"
+
+currentBattle dsb 40
+tccs__FUNC_updateBattleAnimations_animationFrame dsb 1
+
+.ENDS
+
+.SECTION "{WLA_FILENAME}.data" APPENDTO "glob.data"
+
+.db $0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0
+.db $0
+.ENDS
+
+.SECTION ".rodata" SUPERFREE
+
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}17: .db $53,$4c,$49,$4d,$45,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}18: .db $47,$4f,$42,$4c,$49,$4e,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}19: .db $4f,$52,$43,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}20: .db $53,$4b,$45,$4c,$45,$54,$4f,$4e,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}21: .db $44,$52,$41,$47,$4f,$4e,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}22: .db $54,$49,$4d,$45,$20,$4c,$4f,$52,$44,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23: .db $20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24: .db $3d,$3d,$3d,$20,$42,$41,$54,$54,$4c,$45,$20,$3d,$3d,$3d,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}25: .db $50,$4c,$41,$59,$45,$52,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}26: .db $45,$4e,$45,$4d,$59,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}27: .db $20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}28: .db $50,$4c,$41,$59,$45,$52,$20,$48,$50,$3a,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}29: .db $25,$64,$2f,$25,$64,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}30: .db $5b,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}31: .db $3d,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}32: .db $20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}33: .db $5d,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34: .db $45,$4e,$45,$4d,$59,$20,$48,$50,$3a,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}35: .db $25,$64,$2f,$25,$64,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}36: .db $5b,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}37: .db $3d,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}38: .db $20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}39: .db $5d,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}40: .db $54,$49,$4d,$45,$20,$45,$4e,$45,$52,$47,$59,$3a,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}41: .db $25,$64,$2f,$25,$64,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}42: .db $41,$3a,$41,$54,$54,$41,$43,$4b,$20,$20,$42,$3a,$44,$45,$46,$45,$4e,$44,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}43: .db $58,$3a,$54,$49,$4d,$45,$20,$53,$54,$4f,$50,$20,$20,$59,$3a,$53,$4c,$4f,$57,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}44: .db $4c,$3a,$52,$45,$57,$49,$4e,$44,$20,$20,$52,$3a,$45,$53,$43,$41,$50,$45,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}45: .db $54,$55,$52,$4e,$3a,$20,$25,$64,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}46: .db $54,$49,$4d,$45,$20,$53,$54,$4f,$50,$21,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}47: .db $53,$4c,$4f,$57,$20,$4d,$4f,$54,$49,$4f,$4e,$21,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}48: .db $20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}49: .db $56,$49,$43,$54,$4f,$52,$59,$21,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}50: .db $44,$45,$46,$45,$41,$54,$21,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}51: .db $45,$53,$43,$41,$50,$45,$44,$21,$0
+.ENDS
+
+.RAMSECTION ".bss" BANK $7e SLOT 2
+tccs_{WLA_FILENAME}_enemyDefinitions dsb 180
+.ENDS

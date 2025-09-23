@@ -48,6 +48,8 @@ typedef struct {
     u16 experience;
     u16 expToNext;      // Experience needed for next level
     u8 level;
+    u8 attack;          // Attack power
+    u8 defense;         // Defense power
 
     // Position (for time manipulation tracking)
     s16 x;

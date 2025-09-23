@@ -15,6 +15,7 @@
 .define __getNewestFrame_locals 2
 .define __calculateFrameDistance_locals 0
 .define __getRewindEnergyCost_locals 0
+.define __handleTimeManipulationInput_locals 0
 
 .SECTION ".initPositionHistorytext_0x0" SUPERFREE
 
@@ -390,7 +391,7 @@ sta.b tcc__r0
 lda -2 + __rewindToFrame_locals + 1,s
 sta.b tcc__r0h
 lda.b [tcc__r0]
-sta.l playerCharacter + 14
+sta.l playerCharacter + 16
 lda -2 + __rewindToFrame_locals + 1,s
 sta.b tcc__r0h
 lda -4 + __rewindToFrame_locals + 1,s
@@ -398,7 +399,7 @@ inc a
 inc a
 sta.b tcc__r0
 lda.b [tcc__r0]
-sta.l playerCharacter + 16
+sta.l playerCharacter + 18
 lda.l playerCharacter + 4
 sta.b tcc__r0
 lda -8 + __rewindToFrame_locals + 1,s
@@ -835,6 +836,78 @@ __local_49:
 tsa
 clc
 adc #__getRewindEnergyCost_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".handleTimeManipulationInputtext_0xd" SUPERFREE
+
+handleTimeManipulationInput:
+.ifgr __handleTimeManipulationInput_locals 0
+tsa
+sec
+sbc #__handleTimeManipulationInput_locals
+tas
+.endif
+lda 3 + __handleTimeManipulationInput_locals + 1,s
+and.w #32
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_50
++
+lda 5 + __handleTimeManipulationInput_locals + 1,s
+and.w #32
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_51
++
+bra __local_52
+__local_51:
+pea.w 1
+jsr.l canRewindDistance
+pla
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_53
++
+pea.w 1
+jsr.l rewindByFrames
+pla
+__local_53:
+__local_50:
+__local_52:
+lda 3 + __handleTimeManipulationInput_locals + 1,s
+and.w #16
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_54
++
+lda 5 + __handleTimeManipulationInput_locals + 1,s
+and.w #16
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_55
++
+__local_55:
+__local_54:
+__local_56:
+lda 3 + __handleTimeManipulationInput_locals + 1,s
+and.w #32
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_57
++
+__local_57:
+.ifgr __handleTimeManipulationInput_locals 0
+tsa
+clc
+adc #__handleTimeManipulationInput_locals
 tas
 .endif
 rtl

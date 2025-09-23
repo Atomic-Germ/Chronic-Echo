@@ -1,0 +1,5844 @@
+.include "hdr.asm"
+.accu 16
+.index 16
+.16bit
+.define __initBattleSystem_locals 0
+.define __initEnemyDefinitions_locals 0
+.define __createEnemy_locals 36
+.define __startBattle_locals 30
+.define __updateBattle_locals 0
+.define __endBattle_locals 0
+.define __isBattleActive_locals 0
+.define __setBattleAction_locals 0
+.define __processBattleTurn_locals 0
+.define __tccs_{WLA_FILENAME}_processPlayerAttack_locals 1
+.define __tccs_{WLA_FILENAME}_processPlayerDefend_locals 0
+.define __tccs_{WLA_FILENAME}_processEnemyTurn_locals 1
+.define __calculateDamage_locals 0
+.define __attemptEscape_locals 2
+.define __applyTimeStop_locals 0
+.define __applySlowMotion_locals 0
+.define __rewindBattleTurn_locals 2
+.define __tccs_{WLA_FILENAME}_updateTimeEffects_locals 0
+.define __tccs_{WLA_FILENAME}_checkBattleEndConditions_locals 0
+.define __handleBattleInput_locals 0
+.define __drawBattleScreen_locals 4
+.define __drawBattleUI_locals 38
+.define __drawEnemySprite_locals 8
+.define __updateBattleAnimations_locals 0
+
+.SECTION ".initBattleSystemtext_0x0" SUPERFREE
+
+initBattleSystem:
+; sub sp,#__initBattleSystem_locals
+.ifgr __initBattleSystem_locals 0
+tsa
+sec
+sbc #__initBattleSystem_locals
+tas
+.endif
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x0
+; st2 tcc__r0, [currentBattle,0]
+lda.b tcc__r0
+sta.l currentBattle + 0
+; call r 0x2f0
+jsr.l initEnemyDefinitions
+; gsym_addr t 0 a 414 ind 414
+; ERROR no jump found to patch
+; add sp, #__initBattleSystem_locals
+.ifgr __initBattleSystem_locals 0
+tsa
+clc
+adc #__initBattleSystem_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".initEnemyDefinitionstext_0x1" SUPERFREE
+
+initEnemyDefinitions:
+; sub sp,#__initEnemyDefinitions_locals
+.ifgr __initEnemyDefinitions_locals 0
+tsa
+sec
+sbc #__initEnemyDefinitions_locals
+tas
+.endif
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x0
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,0]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}17
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}17 + 0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_enemyDefinitions
+pea.w tccs_{WLA_FILENAME}_enemyDefinitions + 2
+; call r 0x2f0
+jsr.l strcpy
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #20,tcc__r0
+lda.w #20
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x14
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,20]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 20
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #8,tcc__r0
+lda.w #8
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x16
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,22]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 22
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #2,tcc__r0
+lda.w #2
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x18
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,24]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 24
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #10,tcc__r0
+lda.w #10
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x1a
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,26]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 26
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x1c
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,28]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 28
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x1d
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,29]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 29
+rep #$20
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x1e
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,30]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 30
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}18
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}18 + 0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_enemyDefinitions
+pea.w tccs_{WLA_FILENAME}_enemyDefinitions + 32
+; call r 0x2f0
+jsr.l strcpy
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #35,tcc__r0
+lda.w #35
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x32
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,50]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 50
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #12,tcc__r0
+lda.w #12
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x34
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,52]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 52
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #4,tcc__r0
+lda.w #4
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x36
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,54]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 54
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #20,tcc__r0
+lda.w #20
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x38
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,56]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 56
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #2,tcc__r0
+lda.w #2
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x3a
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,58]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 58
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x3b
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,59]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 59
+rep #$20
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #2,tcc__r0
+lda.w #2
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x3c
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,60]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 60
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}19
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}19 + 0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_enemyDefinitions
+pea.w tccs_{WLA_FILENAME}_enemyDefinitions + 62
+; call r 0x2f0
+jsr.l strcpy
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #60,tcc__r0
+lda.w #60
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x50
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,80]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 80
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #18,tcc__r0
+lda.w #18
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x52
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,82]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 82
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #8,tcc__r0
+lda.w #8
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x54
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,84]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 84
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #35,tcc__r0
+lda.w #35
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x56
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,86]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 86
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #3,tcc__r0
+lda.w #3
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x58
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,88]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 88
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #2,tcc__r0
+lda.w #2
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x59
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,89]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 89
+rep #$20
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #3,tcc__r0
+lda.w #3
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x5a
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,90]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 90
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}20
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}20 + 0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_enemyDefinitions
+pea.w tccs_{WLA_FILENAME}_enemyDefinitions + 92
+; call r 0x2f0
+jsr.l strcpy
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #45,tcc__r0
+lda.w #45
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x6e
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,110]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 110
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #15,tcc__r0
+lda.w #15
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x70
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,112]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 112
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #6,tcc__r0
+lda.w #6
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x72
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,114]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 114
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #25,tcc__r0
+lda.w #25
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x74
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,116]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 116
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #2,tcc__r0
+lda.w #2
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x76
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,118]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 118
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #3,tcc__r0
+lda.w #3
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x77
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,119]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 119
+rep #$20
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #4,tcc__r0
+lda.w #4
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x78
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,120]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 120
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}21
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}21 + 0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_enemyDefinitions
+pea.w tccs_{WLA_FILENAME}_enemyDefinitions + 122
+; call r 0x2f0
+jsr.l strcpy
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #120,tcc__r0
+lda.w #120
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x8c
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,140]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 140
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #25,tcc__r0
+lda.w #25
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x8e
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,142]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 142
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #15,tcc__r0
+lda.w #15
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x90
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,144]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 144
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #80,tcc__r0
+lda.w #80
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x92
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,146]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 146
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #5,tcc__r0
+lda.w #5
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x94
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,148]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 148
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #4,tcc__r0
+lda.w #4
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x95
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,149]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 149
+rep #$20
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #5,tcc__r0
+lda.w #5
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x96
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,150]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 150
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}22
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}22 + 0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_enemyDefinitions
+pea.w tccs_{WLA_FILENAME}_enemyDefinitions + 152
+; call r 0x2f0
+jsr.l strcpy
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #200,tcc__r0
+lda.w #200
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0xaa
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,170]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 170
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #35,tcc__r0
+lda.w #35
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0xac
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,172]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 172
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #20,tcc__r0
+lda.w #20
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0xae
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,174]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 174
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #150,tcc__r0
+lda.w #150
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0xb0
+; st2 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,176]
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 176
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #8,tcc__r0
+lda.w #8
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0xb2
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,178]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 178
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #5,tcc__r0
+lda.w #5
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0xb3
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_enemyDefinitions,179]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_enemyDefinitions + 179
+rep #$20
+; gsym_addr t 0 a 12757 ind 12757
+; ERROR no jump found to patch
+; add sp, #__initEnemyDefinitions_locals
+.ifgr __initEnemyDefinitions_locals 0
+tsa
+clc
+adc #__initEnemyDefinitions_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".createEnemytext_0x2" SUPERFREE
+
+createEnemy:
+; sub sp,#__createEnemy_locals
+.ifgr __createEnemy_locals 0
+tsa
+sec
+sbc #__createEnemy_locals
+tas
+.endif
+; load 0
+; type 0 reg 0x1f2 extra 0x3c81ce08
+; ld2 [sp,7],tcc__r0
+; stack adjust: fc + disp - loc - 256 -217
+lda 7 + __createEnemy_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #30, tcc__r0
+lda.w #30
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 292 reg 0x2f0 extra 0x3c611fd0
+; ld180 #tccs_{WLA_FILENAME}_enemyDefinitions + 0, tcc__r1 (type 0x124)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:tccs_{WLA_FILENAME}_enemyDefinitions
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_enemyDefinitions + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x124 c 0 r type 0x3c6178c0)
+; length xxy 180 vtop->type 0x124
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; push2 imm r 0xf0
+pea.w 30
+; ldpush before load type 0x4 reg 0x1
+; ldpush4 (type 0x4 reg 0x1) tcc__r1
+pei (tcc__r1h)
+pei (tcc__r1)
+; ldpush before load type 0x4 reg 0xf2
+; load 0
+; type 4 reg 0xf2 extra 0xf8d000
+; ld4 #(sp) + -30,tcc__r0 (fr 0xf2 ft 0x4 fc 0xffffffe2)
+stz.b tcc__r0h
+tsa
+clc
+adc #(-24 + __createEnemy_locals + 1)
+sta.b tcc__r0
+; ldpush4 (type 0x4 reg 0x0) tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+; saveregging
+; store r 0x1 fr 0x1f2 ft 0x4 fc 0xffffffdc
+; st4 tcc__r1, [sp,-36]
+; stack adjust: fc + disp - loc - 256 -244
+lda.b tcc__r1
+sta -26 + __createEnemy_locals + 1,s
+lda.b tcc__r1h
+sta -24 + __createEnemy_locals + 1,s
+; call r 0x2f0
+jsr.l memcpy
+; add sp, #10
+tsa
+clc
+adc #10
+tas
+; load 0
+; type 4 reg 0xf2 extra 0x0
+; ld4 #(sp) + -30,tcc__r0 (fr 0xf2 ft 0x4 fc 0xffffffe2)
+stz.b tcc__r0h
+tsa
+clc
+adc #(-30 + __createEnemy_locals + 1)
+sta.b tcc__r0
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -30 r type 0x3c6178c0)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r0
+adc.w #18
+sta.b tcc__r0
+; load 1
+; type 4 reg 0xf2 extra 0x0
+; ld4 #(sp) + -30,tcc__r1 (fr 0xf2 ft 0x4 fc 0xffffffe2)
+stz.b tcc__r1h
+tsa
+clc
+adc #(-30 + __createEnemy_locals + 1)
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c -30 r type 0x10)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #20
+sta.b tcc__r1
+; load 2
+; type 16 reg 0x101 extra 0x0
+; ld2 [tcc__r1,0],tcc__r2
+lda.b [tcc__r1]
+sta.b tcc__r2
+; store r 0x2 fr 0x100 ft 0x10 fc 0xffffffe2
+; st2 tcc__r2, [tcc__r0,0]
+lda.b tcc__r2
+sta.b [tcc__r0]
+; load 0
+; type 4 reg 0x1f2 extra 0x3c60d3d0
+; ld4 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -215
+lda 3 + __createEnemy_locals + 1,s
+sta.b tcc__r0
+lda 5 + __createEnemy_locals + 1,s
+sta.b tcc__r0h
+; push2 imm r 0xf0
+pea.w 30
+; ldpush before load type 0x4 reg 0xf2
+; load 1
+; type 4 reg 0xf2 extra 0x3c60a6f0
+; ld4 #(sp) + -30,tcc__r1 (fr 0xf2 ft 0x4 fc 0xffffffe2)
+stz.b tcc__r1h
+tsa
+clc
+adc #(-28 + __createEnemy_locals + 1)
+sta.b tcc__r1
+; ldpush4 (type 0x4 reg 0x1) tcc__r1
+pei (tcc__r1h)
+pei (tcc__r1)
+; ldpush before load type 0x4 reg 0x0
+; ldpush4 (type 0x4 reg 0x0) tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l memcpy
+; add sp, #10
+tsa
+clc
+adc #10
+tas
+; gjmp_addr 0 at 16120
+jmp.w __local_0
+; gsym_addr t 16120 a 0 ind 16159
+__local_0:
+; gsym_addr t 16120 a 16193 ind 16193
+; add sp, #__createEnemy_locals
+.ifgr __createEnemy_locals 0
+tsa
+clc
+adc #__createEnemy_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".startBattletext_0x3" SUPERFREE
+
+startBattle:
+; sub sp,#__startBattle_locals
+.ifgr __startBattle_locals 0
+tsa
+sec
+sbc #__startBattle_locals
+tas
+.endif
+; load 0
+; type 0 reg 0x3f0 extra 0xfa1000
+; ld2 [currentBattle + 0], tcc__r0
+lda.l currentBattle + 0
+sta.b tcc__r0
+; gen_opi len 2 op 0x95
+; cmpr(n)eq tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+bne +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 16735 ind 16735
+; gsym_addr t 0 a 16774 ind 16774
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 16864 ind 16864
+; cmp op 0x95 inv 1 v 243 r 16864
+; cmp ne
+bne +
+; gsym_addr t 0 a 16954 ind 16954
+brl __local_1
++
+; gtst finished; t 16864
+; gjmp_addr 0 at 17029
+jmp.w __local_2
+; gsym_addr t 17029 a 0 ind 17068
+__local_1:
+; gsym_addr t 16864 a 17102 ind 17102
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x0
+; st2 tcc__r0, [currentBattle,0]
+lda.b tcc__r0
+sta.l currentBattle + 0
+; ldpush before load type 0x5 reg 0x1f2
+; load 0
+; type 5 reg 0x1f2 extra 0x3c60d670
+; ld2 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -221
+lda 3 + __startBattle_locals + 1,s
+sta.b tcc__r0
+; ldpush2 (type 0x5 reg 0x0) tcc__r0
+pei (tcc__r0)
+; ldpush before load type 0x4 reg 0xf2
+; load 0
+; type 4 reg 0xf2 extra 0x0
+; ld4 #(sp) + -30,tcc__r0 (fr 0xf2 ft 0x4 fc 0xffffffe2)
+stz.b tcc__r0h
+tsa
+clc
+adc #(-28 + __startBattle_locals + 1)
+sta.b tcc__r0
+; ldpush4 (type 0x4 reg 0x0) tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l createEnemy
+; add sp, #6
+tsa
+clc
+adc #6
+tas
+; push2 imm r 0xf0
+pea.w 30
+; ldpush before load type 0x4 reg 0xf2
+; load 0
+; type 4 reg 0xf2 extra 0x0
+; ld4 #(sp) + -30,tcc__r0 (fr 0xf2 ft 0x4 fc 0xffffffe2)
+stz.b tcc__r0h
+tsa
+clc
+adc #(-28 + __startBattle_locals + 1)
+sta.b tcc__r0
+; ldpush4 (type 0x4 reg 0x0) tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+; push4 imm r 0x2f0
+pea.w :currentBattle
+pea.w currentBattle + 2
+; call r 0x2f0
+jsr.l memcpy
+; add sp, #10
+tsa
+clc
+adc #10
+tas
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x20
+; st2 tcc__r0, [currentBattle,32]
+lda.b tcc__r0
+sta.l currentBattle + 32
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x22
+; st1 tcc__r0, [currentBattle,34]
+sep #$20
+lda.b tcc__r0
+sta.l currentBattle + 34
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x24
+; st1 tcc__r0, [currentBattle,36]
+sep #$20
+lda.b tcc__r0
+sta.l currentBattle + 36
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x25
+; st1 tcc__r0, [currentBattle,37]
+sep #$20
+lda.b tcc__r0
+sta.l currentBattle + 37
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x26
+; st1 tcc__r0, [currentBattle,38]
+sep #$20
+lda.b tcc__r0
+sta.l currentBattle + 38
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x23
+; st1 tcc__r0, [currentBattle,35]
+sep #$20
+lda.b tcc__r0
+sta.l currentBattle + 35
+rep #$20
+__local_2:
+; gsym_addr t 17029 a 19577 ind 19577
+; add sp, #__startBattle_locals
+.ifgr __startBattle_locals 0
+tsa
+clc
+adc #__startBattle_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".updateBattletext_0x4" SUPERFREE
+
+updateBattle:
+; sub sp,#__updateBattle_locals
+.ifgr __updateBattle_locals 0
+tsa
+sec
+sbc #__updateBattle_locals
+tas
+.endif
+; load 0
+; type 5 reg 0x3f0 extra 0x0
+; ld2 [currentBattle + 0], tcc__r0
+lda.l currentBattle + 0
+sta.b tcc__r0
+; gjmp_addr 0 at 20009
+jmp.w __local_3
+; gsym_addr t 20009 a 0 ind 20048
+; gjmp_addr 0 at 20082
+jmp.w __local_4
+; gsym_addr t 20082 a 0 ind 20121
+__local_3:
+; gsym_addr t 20009 a 20155 ind 20155
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 20303 ind 20303
+; gsym_addr t 0 a 20342 ind 20342
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 20432 ind 20432
+; cmp op 0x95 inv 1 v 243 r 20432
+; cmp ne
+bne +
+; gsym_addr t 0 a 20522 ind 20522
+brl __local_5
++
+; gtst finished; t 20432
+__local_4:
+; gsym_addr t 20082 a 20597 ind 20597
+; gjmp_addr 0 at 20635
+jmp.w __local_6
+; gsym_addr t 20635 a 0 ind 20674
+; gjmp_addr 0 at 20708
+jmp.w __local_7
+; gsym_addr t 20708 a 0 ind 20747
+__local_5:
+; gsym_addr t 20432 a 20781 ind 20781
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #1
+ldx #1
+lda.b tcc__r0
+sec
+sbc #1
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 20929 ind 20929
+; gsym_addr t 0 a 20968 ind 20968
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 21058 ind 21058
+; cmp op 0x95 inv 1 v 243 r 21058
+; cmp ne
+bne +
+; gsym_addr t 0 a 21148 ind 21148
+brl __local_8
++
+; gtst finished; t 21058
+__local_7:
+; gsym_addr t 20708 a 21223 ind 21223
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #2,tcc__r0
+lda.w #2
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x0
+; st2 tcc__r0, [currentBattle,0]
+lda.b tcc__r0
+sta.l currentBattle + 0
+; gjmp_addr 20635 at 21446
+jmp.w __local_9
+; gsym_addr t 21446 a 20635 ind 21489
+; gjmp_addr 0 at 21527
+jmp.w __local_10
+; gsym_addr t 21527 a 0 ind 21567
+__local_8:
+; gsym_addr t 21058 a 21601 ind 21601
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #2
+ldx #1
+lda.b tcc__r0
+sec
+sbc #2
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 21749 ind 21749
+; gsym_addr t 0 a 21788 ind 21788
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 21878 ind 21878
+; cmp op 0x95 inv 1 v 243 r 21878
+; cmp ne
+bne +
+; gsym_addr t 0 a 21968 ind 21968
+brl __local_11
++
+; gtst finished; t 21878
+__local_10:
+; gsym_addr t 21527 a 22044 ind 22044
+; gtst inv 1 t 0 v 240 r 22082 ind 22082
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentBattle + 36], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentBattle + 36
+rep #$20
+sta.b tcc__r0
+; gsym_addr t 0 a 22265 ind 22265
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 22355 ind 22355
+; cmp op 0x95 inv 1 v 243 r 22355
+; cmp ne
+bne +
+; gsym_addr t 0 a 22445 ind 22445
+brl __local_12
++
+; gtst finished; t 22355
+; gjmp_addr 0 at 22521
+jmp.w __local_13
+; gsym_addr t 22521 a 0 ind 22561
+__local_12:
+; gsym_addr t 22355 a 22595 ind 22595
+; call r 0x2f0
+jsr.l tccs_{WLA_FILENAME}_processEnemyTurn
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x24
+; st1 tcc__r0, [currentBattle,36]
+sep #$20
+lda.b tcc__r0
+sta.l currentBattle + 36
+rep #$20
+__local_13:
+; gsym_addr t 22521 a 22900 ind 22900
+; call r 0x2f0
+jsr.l tccs_{WLA_FILENAME}_updateTimeEffects
+; gjmp_addr 21446 at 22997
+jmp.w __local_14
+; gsym_addr t 22997 a 21446 ind 23041
+; gjmp_addr 0 at 23079
+jmp.w __local_15
+; gsym_addr t 23079 a 0 ind 23119
+__local_11:
+; gsym_addr t 21878 a 23153 ind 23153
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #3
+ldx #1
+lda.b tcc__r0
+sec
+sbc #3
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 23301 ind 23301
+; gsym_addr t 0 a 23340 ind 23340
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 23430 ind 23430
+; cmp op 0x95 inv 1 v 243 r 23430
+; cmp ne
+bne +
+; gsym_addr t 0 a 23520 ind 23520
+brl __local_16
++
+; gtst finished; t 23430
+__local_15:
+; gsym_addr t 23079 a 23596 ind 23596
+; gjmp_addr 0 at 23634
+jmp.w __local_17
+; gsym_addr t 23634 a 0 ind 23674
+__local_16:
+; gsym_addr t 23430 a 23708 ind 23708
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #4
+ldx #1
+lda.b tcc__r0
+sec
+sbc #4
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 23856 ind 23856
+; gsym_addr t 0 a 23895 ind 23895
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 23985 ind 23985
+; cmp op 0x95 inv 1 v 243 r 23985
+; cmp ne
+bne +
+; gsym_addr t 0 a 24075 ind 24075
+brl __local_18
++
+; gtst finished; t 23985
+__local_17:
+; gsym_addr t 23634 a 24151 ind 24151
+; gjmp_addr 0 at 24189
+jmp.w __local_19
+; gsym_addr t 24189 a 0 ind 24229
+__local_18:
+; gsym_addr t 23985 a 24263 ind 24263
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #5
+ldx #1
+lda.b tcc__r0
+sec
+sbc #5
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 24411 ind 24411
+; gsym_addr t 0 a 24450 ind 24450
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 24540 ind 24540
+; cmp op 0x95 inv 1 v 243 r 24540
+; cmp ne
+bne +
+; gsym_addr t 0 a 24630 ind 24630
+brl __local_20
++
+; gtst finished; t 24540
+__local_19:
+; gsym_addr t 24189 a 24706 ind 24706
+; gjmp_addr 22997 at 24744
+jmp.w __local_21
+; gsym_addr t 24744 a 22997 ind 24788
+__local_20:
+; gsym_addr t 24540 a 24826 ind 24826
+__local_6:
+__local_9:
+__local_14:
+__local_21:
+; gsym_addr t 24744 a 24864 ind 24864
+; gsym_addr t 0 a 24902 ind 24902
+; add sp, #__updateBattle_locals
+.ifgr __updateBattle_locals 0
+tsa
+clc
+adc #__updateBattle_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".endBattletext_0x5" SUPERFREE
+
+endBattle:
+; sub sp,#__endBattle_locals
+.ifgr __endBattle_locals 0
+tsa
+sec
+sbc #__endBattle_locals
+tas
+.endif
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x0
+; st2 tcc__r0, [currentBattle,0]
+lda.b tcc__r0
+sta.l currentBattle + 0
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x25
+; st1 tcc__r0, [currentBattle,37]
+sep #$20
+lda.b tcc__r0
+sta.l currentBattle + 37
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x26
+; st1 tcc__r0, [currentBattle,38]
+sep #$20
+lda.b tcc__r0
+sta.l currentBattle + 38
+rep #$20
+; gsym_addr t 0 a 25810 ind 25810
+; add sp, #__endBattle_locals
+.ifgr __endBattle_locals 0
+tsa
+clc
+adc #__endBattle_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".isBattleActivetext_0x6" SUPERFREE
+
+isBattleActive:
+; sub sp,#__isBattleActive_locals
+.ifgr __isBattleActive_locals 0
+tsa
+sec
+sbc #__isBattleActive_locals
+tas
+.endif
+; load 0
+; type 0 reg 0x3f0 extra 0xfa1000
+; ld2 [currentBattle + 0], tcc__r0
+lda.l currentBattle + 0
+sta.b tcc__r0
+; gen_opi len 2 op 0x95
+; cmpr(n)eq tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+bne +
+dex
++
+stx.b tcc__r5
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r5 (0x5) (fr type 0x0 c 0 r type 0x3c6178c0)
+; length xxy 2 vtop->type 0x0
+; nop
+lda.b tcc__r5
+and.w #255
+sta.b tcc__r5
+; load 0
+; type 17 reg 0x5 extra 0x3c609850
+; mov tcc__r5, tcc__r0
+lda.b tcc__r5
+sta.b tcc__r0
+lda.b tcc__r5h
+sta.b tcc__r0h
+; gjmp_addr 0 at 26652
+jmp.w __local_22
+; gsym_addr t 26652 a 0 ind 26692
+__local_22:
+; gsym_addr t 26652 a 26726 ind 26726
+; add sp, #__isBattleActive_locals
+.ifgr __isBattleActive_locals 0
+tsa
+clc
+adc #__isBattleActive_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".setBattleActiontext_0x7" SUPERFREE
+
+setBattleAction:
+; sub sp,#__setBattleAction_locals
+.ifgr __setBattleAction_locals 0
+tsa
+sec
+sbc #__setBattleAction_locals
+tas
+.endif
+; load 0
+; type 0 reg 0x3f0 extra 0xfa1000
+; ld2 [currentBattle + 0], tcc__r0
+lda.l currentBattle + 0
+sta.b tcc__r0
+; gen_opi len 2 op 0x95
+; cmpr(n)eq tcc__r0, #2
+ldx #1
+lda.b tcc__r0
+sec
+sbc #2
+tay
+bne +
+dex
++
+stx.b tcc__r5
+; gtst inv 0 t 0 v 5 r 27297 ind 27297
+; gsym_addr t 0 a 27336 ind 27336
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 0 t 0 v 243 r 27426 ind 27426
+; cmp op 0x95 inv 0 v 243 r 27426
+; cmp ne
+beq +
+; gsym_addr t 0 a 27516 ind 27516
+brl __local_23
++
+; gtst finished; t 27426
+; gtst inv 1 t 0 v 240 r 27592 ind 27592
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentBattle + 36], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentBattle + 36
+rep #$20
+sta.b tcc__r0
+; gsym_addr t 0 a 27775 ind 27775
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 27865 ind 27865
+; cmp op 0x95 inv 1 v 243 r 27865
+; cmp ne
+bne +
+; gsym_addr t 0 a 27955 ind 27955
+brl __local_24
++
+; gtst finished; t 27865
+; gtst inv 0 t 27426 v 244 r 28031 ind 28031
+; VT_jmp r 28031 t 27426 ji 0 inv 0 vtop->c.i 27865
+__local_23:
+; gsym_addr t 27426 a 28128 ind 28128
+; gtst finished; t 27865
+; gtst inv 1 t 0 v 244 r 28191 ind 28191
+; VT_jmp r 28191 t 0 ji 0 inv 1 vtop->c.i 27865
+; gjmp_addr 0 at 28280
+jmp.w __local_25
+; gsym_addr t 28280 a 0 ind 28320
+__local_24:
+; gsym_addr t 27865 a 28354 ind 28354
+; gtst finished; t 28280
+; gjmp_addr 0 at 28417
+jmp.w __local_26
+; gsym_addr t 28417 a 0 ind 28457
+__local_25:
+; gsym_addr t 28280 a 28491 ind 28491
+; load 0
+; type 17 reg 0x1f2 extra 0x0
+; ld1 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -251
+lda.w #0
+sep #$20
+lda 3 + __setBattleAction_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x22
+; st1 tcc__r0, [currentBattle,34]
+sep #$20
+lda.b tcc__r0
+sta.l currentBattle + 34
+rep #$20
+__local_26:
+; gsym_addr t 28417 a 28843 ind 28843
+; add sp, #__setBattleAction_locals
+.ifgr __setBattleAction_locals 0
+tsa
+clc
+adc #__setBattleAction_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".processBattleTurntext_0x8" SUPERFREE
+
+processBattleTurn:
+; sub sp,#__processBattleTurn_locals
+.ifgr __processBattleTurn_locals 0
+tsa
+sec
+sbc #__processBattleTurn_locals
+tas
+.endif
+; load 0
+; type 0 reg 0x3f0 extra 0xfa1000
+; ld2 [currentBattle + 0], tcc__r0
+lda.l currentBattle + 0
+sta.b tcc__r0
+; gen_opi len 2 op 0x95
+; cmpr(n)eq tcc__r0, #2
+ldx #1
+lda.b tcc__r0
+sec
+sbc #2
+tay
+bne +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 29427 ind 29427
+; gsym_addr t 0 a 29466 ind 29466
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 29556 ind 29556
+; cmp op 0x95 inv 1 v 243 r 29556
+; cmp ne
+bne +
+; gsym_addr t 0 a 29646 ind 29646
+brl __local_27
++
+; gtst finished; t 29556
+; gjmp_addr 0 at 29722
+jmp.w __local_28
+; gsym_addr t 29722 a 0 ind 29762
+__local_27:
+; gsym_addr t 29556 a 29796 ind 29796
+; load 0
+; type 16 reg 0x3f0 extra 0x0
+; ld2 [currentBattle + 32], tcc__r0
+lda.l currentBattle + 32
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x6ef4d334
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 32 r type 0x10)
+; length xxy 2 vtop->type 0x10
+inc.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x20
+; st2 tcc__r0, [currentBattle,32]
+lda.b tcc__r0
+sta.l currentBattle + 32
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentBattle + 34], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentBattle + 34
+rep #$20
+sta.b tcc__r0
+; gjmp_addr 0 at 30462
+jmp.w __local_29
+; gsym_addr t 30462 a 0 ind 30502
+; gjmp_addr 0 at 30536
+jmp.w __local_30
+; gsym_addr t 30536 a 0 ind 30576
+__local_29:
+; gsym_addr t 30462 a 30610 ind 30610
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 30758 ind 30758
+; gsym_addr t 0 a 30797 ind 30797
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 30887 ind 30887
+; cmp op 0x95 inv 1 v 243 r 30887
+; cmp ne
+bne +
+; gsym_addr t 0 a 30977 ind 30977
+brl __local_31
++
+; gtst finished; t 30887
+__local_30:
+; gsym_addr t 30536 a 31053 ind 31053
+; call r 0x2f0
+jsr.l tccs_{WLA_FILENAME}_processPlayerAttack
+; gjmp_addr 0 at 31152
+jmp.w __local_32
+; gsym_addr t 31152 a 0 ind 31192
+; gjmp_addr 0 at 31226
+jmp.w __local_33
+; gsym_addr t 31226 a 0 ind 31266
+__local_31:
+; gsym_addr t 30887 a 31300 ind 31300
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #1
+ldx #1
+lda.b tcc__r0
+sec
+sbc #1
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 31448 ind 31448
+; gsym_addr t 0 a 31487 ind 31487
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 31577 ind 31577
+; cmp op 0x95 inv 1 v 243 r 31577
+; cmp ne
+bne +
+; gsym_addr t 0 a 31667 ind 31667
+brl __local_34
++
+; gtst finished; t 31577
+__local_33:
+; gsym_addr t 31226 a 31743 ind 31743
+; call r 0x2f0
+jsr.l tccs_{WLA_FILENAME}_processPlayerDefend
+; gjmp_addr 31152 at 31842
+jmp.w __local_35
+; gsym_addr t 31842 a 31152 ind 31886
+; gjmp_addr 0 at 31924
+jmp.w __local_36
+; gsym_addr t 31924 a 0 ind 31964
+__local_34:
+; gsym_addr t 31577 a 31998 ind 31998
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #2
+ldx #1
+lda.b tcc__r0
+sec
+sbc #2
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 32146 ind 32146
+; gsym_addr t 0 a 32185 ind 32185
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 32275 ind 32275
+; cmp op 0x95 inv 1 v 243 r 32275
+; cmp ne
+bne +
+; gsym_addr t 0 a 32365 ind 32365
+brl __local_37
++
+; gtst finished; t 32275
+__local_36:
+; gsym_addr t 31924 a 32441 ind 32441
+; call r 0x2f0
+jsr.l applyTimeStop
+; gjmp_addr 31842 at 32514
+jmp.w __local_38
+; gsym_addr t 32514 a 31842 ind 32558
+; gjmp_addr 0 at 32596
+jmp.w __local_39
+; gsym_addr t 32596 a 0 ind 32636
+__local_37:
+; gsym_addr t 32275 a 32670 ind 32670
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #3
+ldx #1
+lda.b tcc__r0
+sec
+sbc #3
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 32818 ind 32818
+; gsym_addr t 0 a 32857 ind 32857
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 32947 ind 32947
+; cmp op 0x95 inv 1 v 243 r 32947
+; cmp ne
+bne +
+; gsym_addr t 0 a 33037 ind 33037
+brl __local_40
++
+; gtst finished; t 32947
+__local_39:
+; gsym_addr t 32596 a 33113 ind 33113
+; call r 0x2f0
+jsr.l applySlowMotion
+; gjmp_addr 32514 at 33188
+jmp.w __local_41
+; gsym_addr t 33188 a 32514 ind 33232
+; gjmp_addr 0 at 33270
+jmp.w __local_42
+; gsym_addr t 33270 a 0 ind 33310
+__local_40:
+; gsym_addr t 32947 a 33344 ind 33344
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #4
+ldx #1
+lda.b tcc__r0
+sec
+sbc #4
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 33492 ind 33492
+; gsym_addr t 0 a 33531 ind 33531
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 33621 ind 33621
+; cmp op 0x95 inv 1 v 243 r 33621
+; cmp ne
+bne +
+; gsym_addr t 0 a 33711 ind 33711
+brl __local_43
++
+; gtst finished; t 33621
+__local_42:
+; gsym_addr t 33270 a 33787 ind 33787
+; call r 0x2f0
+jsr.l rewindBattleTurn
+; gjmp_addr 33188 at 33863
+jmp.w __local_44
+; gsym_addr t 33863 a 33188 ind 33907
+; gjmp_addr 0 at 33945
+jmp.w __local_45
+; gsym_addr t 33945 a 0 ind 33985
+__local_43:
+; gsym_addr t 33621 a 34019 ind 34019
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #5
+ldx #1
+lda.b tcc__r0
+sec
+sbc #5
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 34167 ind 34167
+; gsym_addr t 0 a 34206 ind 34206
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 34296 ind 34296
+; cmp op 0x95 inv 1 v 243 r 34296
+; cmp ne
+bne +
+; gsym_addr t 0 a 34386 ind 34386
+brl __local_46
++
+; gtst finished; t 34296
+__local_45:
+; gsym_addr t 33945 a 34462 ind 34462
+; call r 0x2f0
+jsr.l attemptEscape
+; gtst inv 1 t 0 v 0 r 34535 ind 34535
+; gsym_addr t 0 a 34574 ind 34574
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 34664 ind 34664
+; cmp op 0x95 inv 1 v 243 r 34664
+; cmp ne
+bne +
+; gsym_addr t 0 a 34754 ind 34754
+brl __local_47
++
+; gtst finished; t 34664
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #5,tcc__r0
+lda.w #5
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x0
+; st2 tcc__r0, [currentBattle,0]
+lda.b tcc__r0
+sta.l currentBattle + 0
+; gjmp_addr 0 at 35015
+jmp.w __local_48
+; gsym_addr t 35015 a 0 ind 35055
+__local_47:
+; gsym_addr t 34664 a 35089 ind 35089
+; call r 0x2f0
+jsr.l tccs_{WLA_FILENAME}_processEnemyTurn
+__local_48:
+; gsym_addr t 35015 a 35185 ind 35185
+; gjmp_addr 33863 at 35223
+jmp.w __local_49
+; gsym_addr t 35223 a 33863 ind 35267
+__local_46:
+; gsym_addr t 34296 a 35305 ind 35305
+__local_32:
+__local_35:
+__local_38:
+__local_41:
+__local_44:
+__local_49:
+; gsym_addr t 35223 a 35343 ind 35343
+; call r 0x2f0
+jsr.l tccs_{WLA_FILENAME}_checkBattleEndConditions
+; gtst inv 1 t 0 v 240 r 35447 ind 35447
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentBattle + 36], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentBattle + 36
+rep #$20
+sta.b tcc__r0
+; gsym_addr t 0 a 35630 ind 35630
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 35720 ind 35720
+; cmp op 0x95 inv 1 v 243 r 35720
+; cmp ne
+bne +
+; gsym_addr t 0 a 35810 ind 35810
+brl __local_50
++
+; gtst finished; t 35720
+; load 0
+; type 17 reg 0xf4 extra 0x0
+; jmpr(i) v 0xf4 r 0x0 fc 0x8b88
+lda #0
+bra +
+__local_50:
+; gsym_addr t 35720 a 35970 ind 35970
+lda #1
++
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x24
+; st1 tcc__r0, [currentBattle,36]
+sep #$20
+lda.b tcc__r0
+sta.l currentBattle + 36
+rep #$20
+__local_28:
+; gsym_addr t 29722 a 36162 ind 36162
+; add sp, #__processBattleTurn_locals
+.ifgr __processBattleTurn_locals 0
+tsa
+clc
+adc #__processBattleTurn_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".tccs_{WLA_FILENAME}_processPlayerAttacktext_0x9" SUPERFREE
+
+tccs_{WLA_FILENAME}_processPlayerAttack:
+; sub sp,#__tccs_{WLA_FILENAME}_processPlayerAttack_locals
+.ifgr __tccs_{WLA_FILENAME}_processPlayerAttack_locals 0
+tsa
+sec
+sbc #__tccs_{WLA_FILENAME}_processPlayerAttack_locals
+tas
+.endif
+; load 0
+; type 17 reg 0x53f0 extra 0x200a7765
+; ld1 [playerCharacter + 13], tcc__r0
+lda.w #0
+sep #$20
+lda.l playerCharacter + 13
+rep #$20
+sta.b tcc__r0
+; ldpush before load type 0x10 reg 0x3f0
+; load 1
+; type 16 reg 0x3f0 extra 0x0
+; ld2 [currentBattle + 26], tcc__r1
+lda.l currentBattle + 26
+sta.b tcc__r1
+; ldpush2 (type 0x10 reg 0x1) tcc__r1
+pei (tcc__r1)
+; ldpush before load type 0x10 reg 0x0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l calculateDamage
+; add sp, #4
+tsa
+clc
+adc #4
+tas
+; store r 0x0 fr 0x1f2 ft 0x11 fc 0xffffffff
+; st1 tcc__r0, [sp,-1]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -1 + __tccs_{WLA_FILENAME}_processPlayerAttack_locals + 1,s
+rep #$20
+; load 0
+; type 17 reg 0x51f2 extra 0x3c6080c0
+; ld1 [sp,-1],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -1 + __tccs_{WLA_FILENAME}_processPlayerAttack_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [currentBattle + 20], tcc__r1
+lda.l currentBattle + 20
+sta.b tcc__r1
+; gen_opi len 2 op 0x97
+; ucmpcd tcc__r0, tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+beq +
+bcs ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 37828 ind 37828
+; gsym_addr t 0 a 37867 ind 37867
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 37957 ind 37957
+; cmp op 0x95 inv 1 v 243 r 37957
+; cmp ne
+bne +
+; gsym_addr t 0 a 38047 ind 38047
+brl __local_51
++
+; gtst finished; t 37957
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x14
+; st2 tcc__r0, [currentBattle,20]
+lda.b tcc__r0
+sta.l currentBattle + 20
+; gjmp_addr 0 at 38313
+jmp.w __local_52
+; gsym_addr t 38313 a 0 ind 38353
+__local_51:
+; gsym_addr t 37957 a 38387 ind 38387
+; load 0
+; type 17 reg 0x51f2 extra 0x3c6080c0
+; ld1 [sp,-1],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -1 + __tccs_{WLA_FILENAME}_processPlayerAttack_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [currentBattle + 20], tcc__r1
+lda.l currentBattle + 20
+sta.b tcc__r1
+; gen_opi len 2 op -
+; sbc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x10 c 20 r type 0x10)
+; length xxy 2 vtop->type 0x10
+sec
+lda.b tcc__r1
+sbc.b tcc__r0
+sta.b tcc__r1
+; store r 0x1 fr 0x3f0 ft 0x10 fc 0x14
+; st2 tcc__r1, [currentBattle,20]
+lda.b tcc__r1
+sta.l currentBattle + 20
+__local_52:
+; gsym_addr t 38313 a 39038 ind 39038
+; gsym_addr t 0 a 39076 ind 39076
+; add sp, #__tccs_{WLA_FILENAME}_processPlayerAttack_locals
+.ifgr __tccs_{WLA_FILENAME}_processPlayerAttack_locals 0
+tsa
+clc
+adc #__tccs_{WLA_FILENAME}_processPlayerAttack_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".tccs_{WLA_FILENAME}_processPlayerDefendtext_0xa" SUPERFREE
+
+tccs_{WLA_FILENAME}_processPlayerDefend:
+; sub sp,#__tccs_{WLA_FILENAME}_processPlayerDefend_locals
+.ifgr __tccs_{WLA_FILENAME}_processPlayerDefend_locals 0
+tsa
+sec
+sbc #__tccs_{WLA_FILENAME}_processPlayerDefend_locals
+tas
+.endif
+; gsym_addr t 0 a 39612 ind 39612
+; add sp, #__tccs_{WLA_FILENAME}_processPlayerDefend_locals
+.ifgr __tccs_{WLA_FILENAME}_processPlayerDefend_locals 0
+tsa
+clc
+adc #__tccs_{WLA_FILENAME}_processPlayerDefend_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".tccs_{WLA_FILENAME}_processEnemyTurntext_0xb" SUPERFREE
+
+tccs_{WLA_FILENAME}_processEnemyTurn:
+; sub sp,#__tccs_{WLA_FILENAME}_processEnemyTurn_locals
+.ifgr __tccs_{WLA_FILENAME}_processEnemyTurn_locals 0
+tsa
+sec
+sbc #__tccs_{WLA_FILENAME}_processEnemyTurn_locals
+tas
+.endif
+; load 0
+; type 17 reg 0x53f0 extra 0x69687320
+; ld1 [playerCharacter + 14], tcc__r0
+lda.w #0
+sep #$20
+lda.l playerCharacter + 14
+rep #$20
+sta.b tcc__r0
+; ldpush before load type 0x10 reg 0x0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; ldpush before load type 0x10 reg 0x3f0
+; load 0
+; type 16 reg 0x3f0 extra 0x0
+; ld2 [currentBattle + 24], tcc__r0
+lda.l currentBattle + 24
+sta.b tcc__r0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l calculateDamage
+; add sp, #4
+tsa
+clc
+adc #4
+tas
+; store r 0x0 fr 0x1f2 ft 0x11 fc 0xffffffff
+; st1 tcc__r0, [sp,-1]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -1 + __tccs_{WLA_FILENAME}_processEnemyTurn_locals + 1,s
+rep #$20
+; load 0
+; type 17 reg 0x51f2 extra 0x3c607910
+; ld1 [sp,-1],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -1 + __tccs_{WLA_FILENAME}_processEnemyTurn_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [playerCharacter + 0], tcc__r1
+lda.l playerCharacter + 0
+sta.b tcc__r1
+; gen_opi len 2 op 0x97
+; ucmpcd tcc__r0, tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+beq +
+bcs ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 41321 ind 41321
+; gsym_addr t 0 a 41360 ind 41360
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 41450 ind 41450
+; cmp op 0x95 inv 1 v 243 r 41450
+; cmp ne
+bne +
+; gsym_addr t 0 a 41540 ind 41540
+brl __local_53
++
+; gtst finished; t 41450
+; load 0
+; type 16 reg 0xf0 extra 0x61666564
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x0
+; st2 tcc__r0, [playerCharacter,0]
+lda.b tcc__r0
+sta.l playerCharacter + 0
+; gjmp_addr 0 at 41814
+jmp.w __local_54
+; gsym_addr t 41814 a 0 ind 41854
+__local_53:
+; gsym_addr t 41450 a 41888 ind 41888
+; load 0
+; type 17 reg 0x51f2 extra 0x3c607910
+; ld1 [sp,-1],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -1 + __tccs_{WLA_FILENAME}_processEnemyTurn_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [playerCharacter + 0], tcc__r1
+lda.l playerCharacter + 0
+sta.b tcc__r1
+; gen_opi len 2 op -
+; sbc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x10 c 0 r type 0x10)
+; length xxy 2 vtop->type 0x10
+sec
+lda.b tcc__r1
+sbc.b tcc__r0
+sta.b tcc__r1
+; store r 0x1 fr 0x3f0 ft 0x10 fc 0x0
+; st2 tcc__r1, [playerCharacter,0]
+lda.b tcc__r1
+sta.l playerCharacter + 0
+__local_54:
+; gsym_addr t 41814 a 42538 ind 42538
+; gsym_addr t 0 a 42576 ind 42576
+; add sp, #__tccs_{WLA_FILENAME}_processEnemyTurn_locals
+.ifgr __tccs_{WLA_FILENAME}_processEnemyTurn_locals 0
+tsa
+clc
+adc #__tccs_{WLA_FILENAME}_processEnemyTurn_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".calculateDamagetext_0xc" SUPERFREE
+
+calculateDamage:
+; sub sp,#__calculateDamage_locals
+.ifgr __calculateDamage_locals 0
+tsa
+sec
+sbc #__calculateDamage_locals
+tas
+.endif
+; load 0
+; type 16 reg 0x1f2 extra 0xfa1000
+; ld2 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -251
+lda 3 + __calculateDamage_locals + 1,s
+sta.b tcc__r0
+; load 1
+; type 16 reg 0x1f2 extra 0xfa1000
+; ld2 [sp,5],tcc__r1
+; stack adjust: fc + disp - loc - 256 -249
+lda 5 + __calculateDamage_locals + 1,s
+sta.b tcc__r1
+; gen_opi len 2 op 0x96
+; ucmpcd tcc__r0, tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+beq ++
+bcc ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 43435 ind 43435
+; gsym_addr t 0 a 43474 ind 43474
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 43564 ind 43564
+; cmp op 0x95 inv 1 v 243 r 43564
+; cmp ne
+bne +
+; gsym_addr t 0 a 43654 ind 43654
+brl __local_55
++
+; gtst finished; t 43564
+; load 0
+; type 17 reg 0xf0 extra 0x3c607660
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; gjmp_addr 0 at 43815
+jmp.w __local_56
+; gsym_addr t 43815 a 0 ind 43855
+__local_55:
+; gsym_addr t 43564 a 43889 ind 43889
+; load 0
+; type 16 reg 0x1f2 extra 0xfa1000
+; ld2 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -251
+lda 3 + __calculateDamage_locals + 1,s
+sta.b tcc__r0
+; load 1
+; type 16 reg 0x1f2 extra 0xfa1000
+; ld2 [sp,5],tcc__r1
+; stack adjust: fc + disp - loc - 256 -249
+lda 5 + __calculateDamage_locals + 1,s
+sta.b tcc__r1
+; gen_opi len 2 op -
+; sbc tcc__r1 (0x1), tcc__r0 (0x0) (fr type 0x10 c 3 r type 0x3c6178c0)
+; length xxy 2 vtop->type 0x10
+sec
+lda.b tcc__r0
+sbc.b tcc__r1
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 3 r type 0x3c6178c0)
+; length xxy 2 vtop->type 0x10
+; nop
+lda.b tcc__r0
+and.w #255
+sta.b tcc__r0
+; gjmp_addr 43815 at 44591
+jmp.w __local_57
+; gsym_addr t 44591 a 43815 ind 44635
+__local_56:
+__local_57:
+; gsym_addr t 44591 a 44673 ind 44673
+; add sp, #__calculateDamage_locals
+.ifgr __calculateDamage_locals 0
+tsa
+clc
+adc #__calculateDamage_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".attemptEscapetext_0xd" SUPERFREE
+
+attemptEscape:
+; sub sp,#__attemptEscape_locals
+.ifgr __attemptEscape_locals 0
+tsa
+sec
+sbc #__attemptEscape_locals
+tas
+.endif
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #30,tcc__r0
+lda.w #30
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x11 fc 0xffffffff
+; st1 tcc__r0, [sp,-1]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -1 + __attemptEscape_locals + 1,s
+rep #$20
+; call r 0x2f0
+jsr.l rand
+; gen_opi len 2 op 0xb1
+; div #100, tcc__r0
+ldx.b tcc__r0
+lda.w #100
+jsr.l tcc__udiv
+stx.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x11 fc 0xfffffffe
+; st1 tcc__r0, [sp,-2]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -2 + __attemptEscape_locals + 1,s
+rep #$20
+; load 0
+; type 17 reg 0x51f2 extra 0x3c606510
+; ld1 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -2 + __attemptEscape_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x51f2 extra 0x3c606750
+; ld1 [sp,-1],tcc__r1
+; stack adjust: fc + disp - loc - 256 -253
+lda.w #0
+sep #$20
+lda -1 + __attemptEscape_locals + 1,s
+rep #$20
+sta.b tcc__r1
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r5 (0x5) (fr type 0x0 c -2 r type 0x3c6178c0)
+; length xxy 2 vtop->type 0x0
+; nop
+lda.b tcc__r5
+and.w #255
+sta.b tcc__r5
+; load 0
+; type 17 reg 0x5 extra 0x3c6072c0
+; mov tcc__r5, tcc__r0
+lda.b tcc__r5
+sta.b tcc__r0
+lda.b tcc__r5h
+sta.b tcc__r0h
+; gjmp_addr 0 at 46400
+jmp.w __local_58
+; gsym_addr t 46400 a 0 ind 46440
+__local_58:
+; gsym_addr t 46400 a 46474 ind 46474
+; add sp, #__attemptEscape_locals
+.ifgr __attemptEscape_locals 0
+tsa
+clc
+adc #__attemptEscape_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".applyTimeStoptext_0xe" SUPERFREE
+
+applyTimeStop:
+; sub sp,#__applyTimeStop_locals
+.ifgr __applyTimeStop_locals 0
+tsa
+sec
+sbc #__applyTimeStop_locals
+tas
+.endif
+; load 0
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [playerCharacter + 4], tcc__r0
+lda.l playerCharacter + 4
+sta.b tcc__r0
+; gen_opi len 2 op 0x92
+; ucmpcd tcc__r0, #15
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #15
+tay
+bcc ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 47042 ind 47042
+; gsym_addr t 0 a 47081 ind 47081
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 47171 ind 47171
+; cmp op 0x95 inv 1 v 243 r 47171
+; cmp ne
+bne +
+; gsym_addr t 0 a 47261 ind 47261
+brl __local_59
++
+; gtst finished; t 47171
+; gjmp_addr 0 at 47337
+jmp.w __local_60
+; gsym_addr t 47337 a 0 ind 47377
+__local_59:
+; gsym_addr t 47171 a 47411 ind 47411
+; load 0
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [playerCharacter + 4], tcc__r0
+lda.l playerCharacter + 4
+sta.b tcc__r0
+; gen_opi len 2 op -
+; sbc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 4 r type 0x10)
+; length xxy 2 vtop->type 0x10
+sec
+lda.b tcc__r0
+sbc.w #15
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x4
+; st2 tcc__r0, [playerCharacter,4]
+lda.b tcc__r0
+sta.l playerCharacter + 4
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #3,tcc__r0
+lda.w #3
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x25
+; st1 tcc__r0, [currentBattle,37]
+sep #$20
+lda.b tcc__r0
+sta.l currentBattle + 37
+rep #$20
+__local_60:
+; gsym_addr t 47337 a 48055 ind 48055
+; add sp, #__applyTimeStop_locals
+.ifgr __applyTimeStop_locals 0
+tsa
+clc
+adc #__applyTimeStop_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".applySlowMotiontext_0xf" SUPERFREE
+
+applySlowMotion:
+; sub sp,#__applySlowMotion_locals
+.ifgr __applySlowMotion_locals 0
+tsa
+sec
+sbc #__applySlowMotion_locals
+tas
+.endif
+; load 0
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [playerCharacter + 4], tcc__r0
+lda.l playerCharacter + 4
+sta.b tcc__r0
+; gen_opi len 2 op 0x92
+; ucmpcd tcc__r0, #10
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #10
+tay
+bcc ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 48633 ind 48633
+; gsym_addr t 0 a 48672 ind 48672
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 48762 ind 48762
+; cmp op 0x95 inv 1 v 243 r 48762
+; cmp ne
+bne +
+; gsym_addr t 0 a 48852 ind 48852
+brl __local_61
++
+; gtst finished; t 48762
+; gjmp_addr 0 at 48928
+jmp.w __local_62
+; gsym_addr t 48928 a 0 ind 48968
+__local_61:
+; gsym_addr t 48762 a 49002 ind 49002
+; load 0
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [playerCharacter + 4], tcc__r0
+lda.l playerCharacter + 4
+sta.b tcc__r0
+; gen_opi len 2 op -
+; sbc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 4 r type 0x10)
+; length xxy 2 vtop->type 0x10
+sec
+lda.b tcc__r0
+sbc.w #10
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x4
+; st2 tcc__r0, [playerCharacter,4]
+lda.b tcc__r0
+sta.l playerCharacter + 4
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #2,tcc__r0
+lda.w #2
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x26
+; st1 tcc__r0, [currentBattle,38]
+sep #$20
+lda.b tcc__r0
+sta.l currentBattle + 38
+rep #$20
+__local_62:
+; gsym_addr t 48928 a 49646 ind 49646
+; add sp, #__applySlowMotion_locals
+.ifgr __applySlowMotion_locals 0
+tsa
+clc
+adc #__applySlowMotion_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".rewindBattleTurntext_0x10" SUPERFREE
+
+rewindBattleTurn:
+; sub sp,#__rewindBattleTurn_locals
+.ifgr __rewindBattleTurn_locals 0
+tsa
+sec
+sbc #__rewindBattleTurn_locals
+tas
+.endif
+; load 0
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [playerCharacter + 4], tcc__r0
+lda.l playerCharacter + 4
+sta.b tcc__r0
+; gen_opi len 2 op 0x92
+; ucmpcd tcc__r0, #5
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #5
+tay
+bcc ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 50234 ind 50234
+; gsym_addr t 0 a 50273 ind 50273
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 50363 ind 50363
+; cmp op 0x95 inv 1 v 243 r 50363
+; cmp ne
+bne +
+; gsym_addr t 0 a 50453 ind 50453
+brl __local_63
++
+; gtst finished; t 50363
+; gjmp_addr 0 at 50529
+jmp.w __local_64
+; gsym_addr t 50529 a 0 ind 50569
+__local_63:
+; gsym_addr t 50363 a 50603 ind 50603
+; load 0
+; type 16 reg 0xf0 extra 0xf8d000
+; ld2 #10,tcc__r0
+lda.w #10
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x10 fc 0xfffffffe
+; st2 tcc__r0, [sp,-2]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -2 + __rewindBattleTurn_locals + 1,s
+; load 0
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [playerCharacter + 0], tcc__r0
+lda.l playerCharacter + 0
+sta.b tcc__r0
+; load 1
+; type 16 reg 0x1f2 extra 0xfa1000
+; ld2 [sp,-2],tcc__r1
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __rewindBattleTurn_locals + 1,s
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r1 (0x1), tcc__r0 (0x0) (fr type 0x10 c 0 r type 0x3c6178c0)
+; length xxy 2 vtop->type 0x10
+clc
+lda.b tcc__r0
+adc.b tcc__r1
+sta.b tcc__r0
+; load 1
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [playerCharacter + 2], tcc__r1
+lda.l playerCharacter + 2
+sta.b tcc__r1
+; gen_opi len 2 op 0x97
+; ucmpcd tcc__r0, tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+beq +
+bcs ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 51597 ind 51597
+; gsym_addr t 0 a 51636 ind 51636
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 51726 ind 51726
+; cmp op 0x95 inv 1 v 243 r 51726
+; cmp ne
+bne +
+; gsym_addr t 0 a 51816 ind 51816
+brl __local_65
++
+; gtst finished; t 51726
+; load 0
+; type 16 reg 0x3f0 extra 0x61666564
+; ld2 [playerCharacter + 2], tcc__r0
+lda.l playerCharacter + 2
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x0
+; st2 tcc__r0, [playerCharacter,0]
+lda.b tcc__r0
+sta.l playerCharacter + 0
+; gjmp_addr 0 at 52128
+jmp.w __local_66
+; gsym_addr t 52128 a 0 ind 52168
+__local_65:
+; gsym_addr t 51726 a 52202 ind 52202
+; load 0
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [playerCharacter + 0], tcc__r0
+lda.l playerCharacter + 0
+sta.b tcc__r0
+; load 1
+; type 16 reg 0x1f2 extra 0xfa1000
+; ld2 [sp,-2],tcc__r1
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __rewindBattleTurn_locals + 1,s
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r1 (0x1), tcc__r0 (0x0) (fr type 0x10 c 0 r type 0x10)
+; length xxy 2 vtop->type 0x10
+clc
+lda.b tcc__r0
+adc.b tcc__r1
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x0
+; st2 tcc__r0, [playerCharacter,0]
+lda.b tcc__r0
+sta.l playerCharacter + 0
+__local_66:
+; gsym_addr t 52128 a 52802 ind 52802
+; load 0
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [playerCharacter + 4], tcc__r0
+lda.l playerCharacter + 4
+sta.b tcc__r0
+; gen_opi len 2 op -
+; sbc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 4 r type 0x10)
+; length xxy 2 vtop->type 0x10
+sec
+lda.b tcc__r0
+sbc.w #5
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x4
+; st2 tcc__r0, [playerCharacter,4]
+lda.b tcc__r0
+sta.l playerCharacter + 4
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x24
+; st1 tcc__r0, [currentBattle,36]
+sep #$20
+lda.b tcc__r0
+sta.l currentBattle + 36
+rep #$20
+__local_64:
+; gsym_addr t 50529 a 53445 ind 53445
+; add sp, #__rewindBattleTurn_locals
+.ifgr __rewindBattleTurn_locals 0
+tsa
+clc
+adc #__rewindBattleTurn_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".tccs_{WLA_FILENAME}_updateTimeEffectstext_0x11" SUPERFREE
+
+tccs_{WLA_FILENAME}_updateTimeEffects:
+; sub sp,#__tccs_{WLA_FILENAME}_updateTimeEffects_locals
+.ifgr __tccs_{WLA_FILENAME}_updateTimeEffects_locals 0
+tsa
+sec
+sbc #__tccs_{WLA_FILENAME}_updateTimeEffects_locals
+tas
+.endif
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentBattle + 37], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentBattle + 37
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x9f
+; cmpcd tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #0
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 54190 ind 54190
+; gsym_addr t 0 a 54229 ind 54229
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 54319 ind 54319
+; cmp op 0x95 inv 1 v 243 r 54319
+; cmp ne
+bne +
+; gsym_addr t 0 a 54409 ind 54409
+brl __local_67
++
+; gtst finished; t 54319
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentBattle + 37], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentBattle + 37
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x0
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; sbc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c 37 r type 0x11)
+; length xxy 2 vtop->type 0x0
+dec.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x25
+; st1 tcc__r0, [currentBattle,37]
+sep #$20
+lda.b tcc__r0
+sta.l currentBattle + 37
+rep #$20
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentBattle + 37], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentBattle + 37
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x9f
+; cmpcd tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #0
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 55292 ind 55292
+; gsym_addr t 0 a 55331 ind 55331
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 55421 ind 55421
+; cmp op 0x95 inv 1 v 243 r 55421
+; cmp ne
+bne +
+; gsym_addr t 0 a 55511 ind 55511
+brl __local_68
++
+; gtst finished; t 55421
+; gtst inv 1 t 0 v 240 r 55587 ind 55587
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentBattle + 36], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentBattle + 36
+rep #$20
+sta.b tcc__r0
+; gsym_addr t 0 a 55770 ind 55770
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 55860 ind 55860
+; cmp op 0x95 inv 1 v 243 r 55860
+; cmp ne
+bne +
+; gsym_addr t 0 a 55950 ind 55950
+brl __local_69
++
+; gtst finished; t 55860
+; gtst inv 1 t 55421 v 244 r 56026 ind 56026
+; VT_jmp r 56026 t 55421 ji 0 inv 1 vtop->c.i 55860
+; gjmp_addr 55421 at 56123
+jmp.w __local_70
+; gsym_addr t 56123 a 55421 ind 56167
+__local_69:
+; gsym_addr t 55860 a 56205 ind 56205
+; gtst finished; t 56123
+; gtst inv 1 t 0 v 245 r 56268 ind 56268
+; VT_jmp r 56268 t 0 ji 1 inv 1 vtop->c.i 56123
+; gsym_addr t 0 a 56357 ind 56357
+; gtst finished; t 56123
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x24
+; st1 tcc__r0, [currentBattle,36]
+sep #$20
+lda.b tcc__r0
+sta.l currentBattle + 36
+rep #$20
+__local_68:
+__local_70:
+; gsym_addr t 56123 a 56625 ind 56625
+__local_67:
+; gsym_addr t 54319 a 56663 ind 56663
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentBattle + 38], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentBattle + 38
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x9f
+; cmpcd tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #0
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 56984 ind 56984
+; gsym_addr t 0 a 57023 ind 57023
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 57113 ind 57113
+; cmp op 0x95 inv 1 v 243 r 57113
+; cmp ne
+bne +
+; gsym_addr t 0 a 57203 ind 57203
+brl __local_71
++
+; gtst finished; t 57113
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentBattle + 38], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentBattle + 38
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x6ef4d194
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; sbc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c 38 r type 0x11)
+; length xxy 2 vtop->type 0x0
+dec.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x26
+; st1 tcc__r0, [currentBattle,38]
+sep #$20
+lda.b tcc__r0
+sta.l currentBattle + 38
+rep #$20
+__local_71:
+; gsym_addr t 57113 a 57810 ind 57810
+; gsym_addr t 0 a 57848 ind 57848
+; add sp, #__tccs_{WLA_FILENAME}_updateTimeEffects_locals
+.ifgr __tccs_{WLA_FILENAME}_updateTimeEffects_locals 0
+tsa
+clc
+adc #__tccs_{WLA_FILENAME}_updateTimeEffects_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".tccs_{WLA_FILENAME}_checkBattleEndConditionstext_0x12" SUPERFREE
+
+tccs_{WLA_FILENAME}_checkBattleEndConditions:
+; sub sp,#__tccs_{WLA_FILENAME}_checkBattleEndConditions_locals
+.ifgr __tccs_{WLA_FILENAME}_checkBattleEndConditions_locals 0
+tsa
+sec
+sbc #__tccs_{WLA_FILENAME}_checkBattleEndConditions_locals
+tas
+.endif
+; load 0
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [playerCharacter + 0], tcc__r0
+lda.l playerCharacter + 0
+sta.b tcc__r0
+; gen_opi len 2 op 0x96
+; ucmpcd tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #0
+tay
+beq ++
+bcc ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 58645 ind 58645
+; gsym_addr t 0 a 58684 ind 58684
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 58774 ind 58774
+; cmp op 0x95 inv 1 v 243 r 58774
+; cmp ne
+bne +
+; gsym_addr t 0 a 58864 ind 58864
+brl __local_72
++
+; gtst finished; t 58774
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #4,tcc__r0
+lda.w #4
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x0
+; st2 tcc__r0, [currentBattle,0]
+lda.b tcc__r0
+sta.l currentBattle + 0
+; gjmp_addr 0 at 59125
+jmp.w __local_73
+; gsym_addr t 59125 a 0 ind 59165
+__local_72:
+; gsym_addr t 58774 a 59199 ind 59199
+; load 0
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [currentBattle + 20], tcc__r0
+lda.l currentBattle + 20
+sta.b tcc__r0
+; gen_opi len 2 op 0x96
+; ucmpcd tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #0
+tay
+beq ++
+bcc ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 59476 ind 59476
+; gsym_addr t 0 a 59515 ind 59515
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 59605 ind 59605
+; cmp op 0x95 inv 1 v 243 r 59605
+; cmp ne
+bne +
+; gsym_addr t 0 a 59695 ind 59695
+brl __local_74
++
+; gtst finished; t 59605
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #3,tcc__r0
+lda.w #3
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x0
+; st2 tcc__r0, [currentBattle,0]
+lda.b tcc__r0
+sta.l currentBattle + 0
+; load 0
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [playerCharacter + 8], tcc__r0
+lda.l playerCharacter + 8
+sta.b tcc__r0
+; load 1
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [currentBattle + 28], tcc__r1
+lda.l currentBattle + 28
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r1 (0x1), tcc__r0 (0x0) (fr type 0x10 c 8 r type 0x10)
+; length xxy 2 vtop->type 0x10
+clc
+lda.b tcc__r0
+adc.b tcc__r1
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x8
+; st2 tcc__r0, [playerCharacter,8]
+lda.b tcc__r0
+sta.l playerCharacter + 8
+; call r 0x2f0
+jsr.l levelUpPlayerCharacter
+__local_74:
+; gsym_addr t 59605 a 60517 ind 60517
+__local_73:
+; gsym_addr t 59125 a 60555 ind 60555
+; gsym_addr t 0 a 60593 ind 60593
+; add sp, #__tccs_{WLA_FILENAME}_checkBattleEndConditions_locals
+.ifgr __tccs_{WLA_FILENAME}_checkBattleEndConditions_locals 0
+tsa
+clc
+adc #__tccs_{WLA_FILENAME}_checkBattleEndConditions_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".handleBattleInputtext_0x13" SUPERFREE
+
+handleBattleInput:
+; sub sp,#__handleBattleInput_locals
+.ifgr __handleBattleInput_locals 0
+tsa
+sec
+sbc #__handleBattleInput_locals
+tas
+.endif
+; load 0
+; type 0 reg 0x3f0 extra 0xfa1000
+; ld2 [currentBattle + 0], tcc__r0
+lda.l currentBattle + 0
+sta.b tcc__r0
+; gen_opi len 2 op 0x95
+; cmpr(n)eq tcc__r0, #2
+ldx #1
+lda.b tcc__r0
+sec
+sbc #2
+tay
+bne +
+dex
++
+stx.b tcc__r5
+; gtst inv 0 t 0 v 5 r 61261 ind 61261
+; gsym_addr t 0 a 61300 ind 61300
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 0 t 0 v 243 r 61390 ind 61390
+; cmp op 0x95 inv 0 v 243 r 61390
+; cmp ne
+beq +
+; gsym_addr t 0 a 61480 ind 61480
+brl __local_75
++
+; gtst finished; t 61390
+; gtst inv 1 t 0 v 240 r 61556 ind 61556
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentBattle + 36], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentBattle + 36
+rep #$20
+sta.b tcc__r0
+; gsym_addr t 0 a 61739 ind 61739
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 61829 ind 61829
+; cmp op 0x95 inv 1 v 243 r 61829
+; cmp ne
+bne +
+; gsym_addr t 0 a 61919 ind 61919
+brl __local_76
++
+; gtst finished; t 61829
+; gtst inv 0 t 61390 v 244 r 61995 ind 61995
+; VT_jmp r 61995 t 61390 ji 0 inv 0 vtop->c.i 61829
+__local_75:
+; gsym_addr t 61390 a 62092 ind 62092
+; gtst finished; t 61829
+; gtst inv 1 t 0 v 244 r 62155 ind 62155
+; VT_jmp r 62155 t 0 ji 0 inv 1 vtop->c.i 61829
+; gjmp_addr 0 at 62244
+jmp.w __local_77
+; gsym_addr t 62244 a 0 ind 62284
+__local_76:
+; gsym_addr t 61829 a 62318 ind 62318
+; gtst finished; t 62244
+; gjmp_addr 0 at 62381
+jmp.w __local_78
+; gsym_addr t 62381 a 0 ind 62421
+__local_77:
+; gsym_addr t 62244 a 62455 ind 62455
+; load 0
+; type 16 reg 0x1f2 extra 0x5cce00a2
+; ld2 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -251
+lda 3 + __handleBattleInput_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 3 r type 0x3c6178c0)
+; length xxy 2 vtop->type 0x10
+; nop
+lda.b tcc__r0
+and.w #128
+sta.b tcc__r0
+; gtst inv 1 t 0 v 0 r 62830 ind 62830
+; gsym_addr t 0 a 62869 ind 62869
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 62959 ind 62959
+; cmp op 0x95 inv 1 v 243 r 62959
+; cmp ne
+bne +
+; gsym_addr t 0 a 63049 ind 63049
+brl __local_79
++
+; gtst finished; t 62959
+; load 0
+; type 16 reg 0x1f2 extra 0x5cce00a2
+; ld2 [sp,5],tcc__r0
+; stack adjust: fc + disp - loc - 256 -249
+lda 5 + __handleBattleInput_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 5 r type 0x3c6178c0)
+; length xxy 2 vtop->type 0x10
+; nop
+lda.b tcc__r0
+and.w #128
+sta.b tcc__r0
+; gtst inv 1 t 0 v 0 r 63462 ind 63462
+; gsym_addr t 0 a 63501 ind 63501
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 63591 ind 63591
+; cmp op 0x95 inv 1 v 243 r 63591
+; cmp ne
+bne +
+; gsym_addr t 0 a 63681 ind 63681
+brl __local_80
++
+; gtst finished; t 63591
+; gtst inv 1 t 62959 v 244 r 63757 ind 63757
+; VT_jmp r 63757 t 62959 ji 0 inv 1 vtop->c.i 63591
+; gjmp_addr 62959 at 63854
+jmp.w __local_81
+; gsym_addr t 63854 a 62959 ind 63898
+__local_80:
+; gsym_addr t 63591 a 63936 ind 63936
+; gtst finished; t 63854
+; gtst inv 1 t 0 v 245 r 63999 ind 63999
+; VT_jmp r 63999 t 0 ji 1 inv 1 vtop->c.i 63854
+; gsym_addr t 0 a 64088 ind 64088
+; gtst finished; t 63854
+; push1 imm r 0xf0
+sep #$20
+lda #0
+pha
+rep #$20
+; call r 0x2f0
+jsr.l setBattleAction
+; add sp, #1
+tsa
+clc
+adc #1
+tas
+; call r 0x2f0
+jsr.l processBattleTurn
+; gjmp_addr 0 at 64303
+jmp.w __local_82
+; gsym_addr t 64303 a 0 ind 64343
+__local_79:
+__local_81:
+; gsym_addr t 63854 a 64377 ind 64377
+; load 0
+; type 16 reg 0x1f2 extra 0x5cce00a2
+; ld2 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -251
+lda 3 + __handleBattleInput_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 3 r type 0x3c6178c0)
+; length xxy 2 vtop->type 0x10
+; nop
+lda.b tcc__r0
+and.w #32768
+sta.b tcc__r0
+; gtst inv 1 t 0 v 0 r 64754 ind 64754
+; gsym_addr t 0 a 64793 ind 64793
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 64883 ind 64883
+; cmp op 0x95 inv 1 v 243 r 64883
+; cmp ne
+bne +
+; gsym_addr t 0 a 64973 ind 64973
+brl __local_83
++
+; gtst finished; t 64883
+; load 0
+; type 16 reg 0x1f2 extra 0x5cce00a2
+; ld2 [sp,5],tcc__r0
+; stack adjust: fc + disp - loc - 256 -249
+lda 5 + __handleBattleInput_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 5 r type 0x3c6178c0)
+; length xxy 2 vtop->type 0x10
+; nop
+lda.b tcc__r0
+and.w #32768
+sta.b tcc__r0
+; gtst inv 1 t 0 v 0 r 65388 ind 65388
+; gsym_addr t 0 a 65427 ind 65427
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 65517 ind 65517
+; cmp op 0x95 inv 1 v 243 r 65517
+; cmp ne
+bne +
+; gsym_addr t 0 a 65607 ind 65607
+brl __local_84
++
+; gtst finished; t 65517
+; gtst inv 1 t 64883 v 244 r 65683 ind 65683
+; VT_jmp r 65683 t 64883 ji 0 inv 1 vtop->c.i 65517
+; gjmp_addr 64883 at 65780
+jmp.w __local_85
+; gsym_addr t 65780 a 64883 ind 65824
+__local_84:
+; gsym_addr t 65517 a 65862 ind 65862
+; gtst finished; t 65780
+; gtst inv 1 t 0 v 245 r 65925 ind 65925
+; VT_jmp r 65925 t 0 ji 1 inv 1 vtop->c.i 65780
+; gsym_addr t 0 a 66014 ind 66014
+; gtst finished; t 65780
+; push1 imm r 0xf0
+sep #$20
+lda #1
+pha
+rep #$20
+; call r 0x2f0
+jsr.l setBattleAction
+; add sp, #1
+tsa
+clc
+adc #1
+tas
+; call r 0x2f0
+jsr.l processBattleTurn
+; gjmp_addr 0 at 66229
+jmp.w __local_86
+; gsym_addr t 66229 a 0 ind 66269
+__local_83:
+__local_85:
+; gsym_addr t 65780 a 66303 ind 66303
+; load 0
+; type 16 reg 0x1f2 extra 0x5cce00a2
+; ld2 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -251
+lda 3 + __handleBattleInput_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 3 r type 0x3c6178c0)
+; length xxy 2 vtop->type 0x10
+; nop
+lda.b tcc__r0
+and.w #64
+sta.b tcc__r0
+; gtst inv 1 t 0 v 0 r 66677 ind 66677
+; gsym_addr t 0 a 66716 ind 66716
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 66806 ind 66806
+; cmp op 0x95 inv 1 v 243 r 66806
+; cmp ne
+bne +
+; gsym_addr t 0 a 66896 ind 66896
+brl __local_87
++
+; gtst finished; t 66806
+; load 0
+; type 16 reg 0x1f2 extra 0x5cce00a2
+; ld2 [sp,5],tcc__r0
+; stack adjust: fc + disp - loc - 256 -249
+lda 5 + __handleBattleInput_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 5 r type 0x3c6178c0)
+; length xxy 2 vtop->type 0x10
+; nop
+lda.b tcc__r0
+and.w #64
+sta.b tcc__r0
+; gtst inv 1 t 0 v 0 r 67308 ind 67308
+; gsym_addr t 0 a 67347 ind 67347
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 67437 ind 67437
+; cmp op 0x95 inv 1 v 243 r 67437
+; cmp ne
+bne +
+; gsym_addr t 0 a 67527 ind 67527
+brl __local_88
++
+; gtst finished; t 67437
+; gtst inv 1 t 66806 v 244 r 67603 ind 67603
+; VT_jmp r 67603 t 66806 ji 0 inv 1 vtop->c.i 67437
+; gjmp_addr 66806 at 67700
+jmp.w __local_89
+; gsym_addr t 67700 a 66806 ind 67744
+__local_88:
+; gsym_addr t 67437 a 67782 ind 67782
+; gtst finished; t 67700
+; gtst inv 1 t 0 v 245 r 67845 ind 67845
+; VT_jmp r 67845 t 0 ji 1 inv 1 vtop->c.i 67700
+; gsym_addr t 0 a 67934 ind 67934
+; gtst finished; t 67700
+; load 0
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [playerCharacter + 4], tcc__r0
+lda.l playerCharacter + 4
+sta.b tcc__r0
+; gen_opi len 2 op 0x93
+; ucmpcd tcc__r0, #15
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #15
+tay
+bcs ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 68229 ind 68229
+; gsym_addr t 0 a 68268 ind 68268
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 68358 ind 68358
+; cmp op 0x95 inv 1 v 243 r 68358
+; cmp ne
+bne +
+; gsym_addr t 0 a 68448 ind 68448
+brl __local_90
++
+; gtst finished; t 68358
+; push1 imm r 0xf0
+sep #$20
+lda #2
+pha
+rep #$20
+; call r 0x2f0
+jsr.l setBattleAction
+; add sp, #1
+tsa
+clc
+adc #1
+tas
+; call r 0x2f0
+jsr.l processBattleTurn
+__local_90:
+; gsym_addr t 68358 a 68680 ind 68680
+; gjmp_addr 0 at 68718
+jmp.w __local_91
+; gsym_addr t 68718 a 0 ind 68758
+__local_87:
+__local_89:
+; gsym_addr t 67700 a 68792 ind 68792
+; load 0
+; type 16 reg 0x1f2 extra 0x5cce00a2
+; ld2 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -251
+lda 3 + __handleBattleInput_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 3 r type 0x3c6178c0)
+; length xxy 2 vtop->type 0x10
+; nop
+lda.b tcc__r0
+and.w #16384
+sta.b tcc__r0
+; gtst inv 1 t 0 v 0 r 69169 ind 69169
+; gsym_addr t 0 a 69208 ind 69208
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 69298 ind 69298
+; cmp op 0x95 inv 1 v 243 r 69298
+; cmp ne
+bne +
+; gsym_addr t 0 a 69388 ind 69388
+brl __local_92
++
+; gtst finished; t 69298
+; load 0
+; type 16 reg 0x1f2 extra 0x5cce00a2
+; ld2 [sp,5],tcc__r0
+; stack adjust: fc + disp - loc - 256 -249
+lda 5 + __handleBattleInput_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 5 r type 0x3c6178c0)
+; length xxy 2 vtop->type 0x10
+; nop
+lda.b tcc__r0
+and.w #16384
+sta.b tcc__r0
+; gtst inv 1 t 0 v 0 r 69803 ind 69803
+; gsym_addr t 0 a 69842 ind 69842
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 69932 ind 69932
+; cmp op 0x95 inv 1 v 243 r 69932
+; cmp ne
+bne +
+; gsym_addr t 0 a 70022 ind 70022
+brl __local_93
++
+; gtst finished; t 69932
+; gtst inv 1 t 69298 v 244 r 70098 ind 70098
+; VT_jmp r 70098 t 69298 ji 0 inv 1 vtop->c.i 69932
+; gjmp_addr 69298 at 70195
+jmp.w __local_94
+; gsym_addr t 70195 a 69298 ind 70239
+__local_93:
+; gsym_addr t 69932 a 70277 ind 70277
+; gtst finished; t 70195
+; gtst inv 1 t 0 v 245 r 70340 ind 70340
+; VT_jmp r 70340 t 0 ji 1 inv 1 vtop->c.i 70195
+; gsym_addr t 0 a 70429 ind 70429
+; gtst finished; t 70195
+; load 0
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [playerCharacter + 4], tcc__r0
+lda.l playerCharacter + 4
+sta.b tcc__r0
+; gen_opi len 2 op 0x93
+; ucmpcd tcc__r0, #10
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #10
+tay
+bcs ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 70724 ind 70724
+; gsym_addr t 0 a 70763 ind 70763
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 70853 ind 70853
+; cmp op 0x95 inv 1 v 243 r 70853
+; cmp ne
+bne +
+; gsym_addr t 0 a 70943 ind 70943
+brl __local_95
++
+; gtst finished; t 70853
+; push1 imm r 0xf0
+sep #$20
+lda #3
+pha
+rep #$20
+; call r 0x2f0
+jsr.l setBattleAction
+; add sp, #1
+tsa
+clc
+adc #1
+tas
+; call r 0x2f0
+jsr.l processBattleTurn
+__local_95:
+; gsym_addr t 70853 a 71175 ind 71175
+; gjmp_addr 0 at 71213
+jmp.w __local_96
+; gsym_addr t 71213 a 0 ind 71253
+__local_92:
+__local_94:
+; gsym_addr t 70195 a 71287 ind 71287
+; load 0
+; type 16 reg 0x1f2 extra 0x5cce00a2
+; ld2 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -251
+lda 3 + __handleBattleInput_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 3 r type 0x3c6178c0)
+; length xxy 2 vtop->type 0x10
+; nop
+lda.b tcc__r0
+and.w #32
+sta.b tcc__r0
+; gtst inv 1 t 0 v 0 r 71661 ind 71661
+; gsym_addr t 0 a 71700 ind 71700
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 71790 ind 71790
+; cmp op 0x95 inv 1 v 243 r 71790
+; cmp ne
+bne +
+; gsym_addr t 0 a 71880 ind 71880
+brl __local_97
++
+; gtst finished; t 71790
+; load 0
+; type 16 reg 0x1f2 extra 0x5cce00a2
+; ld2 [sp,5],tcc__r0
+; stack adjust: fc + disp - loc - 256 -249
+lda 5 + __handleBattleInput_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 5 r type 0x3c6178c0)
+; length xxy 2 vtop->type 0x10
+; nop
+lda.b tcc__r0
+and.w #32
+sta.b tcc__r0
+; gtst inv 1 t 0 v 0 r 72292 ind 72292
+; gsym_addr t 0 a 72331 ind 72331
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 72421 ind 72421
+; cmp op 0x95 inv 1 v 243 r 72421
+; cmp ne
+bne +
+; gsym_addr t 0 a 72511 ind 72511
+brl __local_98
++
+; gtst finished; t 72421
+; gtst inv 1 t 71790 v 244 r 72587 ind 72587
+; VT_jmp r 72587 t 71790 ji 0 inv 1 vtop->c.i 72421
+; gjmp_addr 71790 at 72684
+jmp.w __local_99
+; gsym_addr t 72684 a 71790 ind 72728
+__local_98:
+; gsym_addr t 72421 a 72766 ind 72766
+; gtst finished; t 72684
+; gtst inv 1 t 0 v 245 r 72829 ind 72829
+; VT_jmp r 72829 t 0 ji 1 inv 1 vtop->c.i 72684
+; gsym_addr t 0 a 72918 ind 72918
+; gtst finished; t 72684
+; load 0
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [playerCharacter + 4], tcc__r0
+lda.l playerCharacter + 4
+sta.b tcc__r0
+; gen_opi len 2 op 0x93
+; ucmpcd tcc__r0, #5
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #5
+tay
+bcs ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 73211 ind 73211
+; gsym_addr t 0 a 73250 ind 73250
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 73340 ind 73340
+; cmp op 0x95 inv 1 v 243 r 73340
+; cmp ne
+bne +
+; gsym_addr t 0 a 73430 ind 73430
+brl __local_100
++
+; gtst finished; t 73340
+; push1 imm r 0xf0
+sep #$20
+lda #4
+pha
+rep #$20
+; call r 0x2f0
+jsr.l setBattleAction
+; add sp, #1
+tsa
+clc
+adc #1
+tas
+; call r 0x2f0
+jsr.l processBattleTurn
+__local_100:
+; gsym_addr t 73340 a 73663 ind 73663
+; gjmp_addr 0 at 73701
+jmp.w __local_101
+; gsym_addr t 73701 a 0 ind 73742
+__local_97:
+__local_99:
+; gsym_addr t 72684 a 73776 ind 73776
+; load 0
+; type 16 reg 0x1f2 extra 0x5cce00a2
+; ld2 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -251
+lda 3 + __handleBattleInput_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 3 r type 0x3c6178c0)
+; length xxy 2 vtop->type 0x10
+; nop
+lda.b tcc__r0
+and.w #16
+sta.b tcc__r0
+; gtst inv 1 t 0 v 0 r 74150 ind 74150
+; gsym_addr t 0 a 74189 ind 74189
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 74279 ind 74279
+; cmp op 0x95 inv 1 v 243 r 74279
+; cmp ne
+bne +
+; gsym_addr t 0 a 74369 ind 74369
+brl __local_102
++
+; gtst finished; t 74279
+; load 0
+; type 16 reg 0x1f2 extra 0x5cce00a2
+; ld2 [sp,5],tcc__r0
+; stack adjust: fc + disp - loc - 256 -249
+lda 5 + __handleBattleInput_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 5 r type 0x3c6178c0)
+; length xxy 2 vtop->type 0x10
+; nop
+lda.b tcc__r0
+and.w #16
+sta.b tcc__r0
+; gtst inv 1 t 0 v 0 r 74782 ind 74782
+; gsym_addr t 0 a 74821 ind 74821
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 74911 ind 74911
+; cmp op 0x95 inv 1 v 243 r 74911
+; cmp ne
+bne +
+; gsym_addr t 0 a 75001 ind 75001
+brl __local_103
++
+; gtst finished; t 74911
+; gtst inv 1 t 74279 v 244 r 75078 ind 75078
+; VT_jmp r 75078 t 74279 ji 0 inv 1 vtop->c.i 74911
+; gjmp_addr 74279 at 75175
+jmp.w __local_104
+; gsym_addr t 75175 a 74279 ind 75220
+__local_103:
+; gsym_addr t 74911 a 75258 ind 75258
+; gtst finished; t 75175
+; gtst inv 1 t 0 v 245 r 75321 ind 75321
+; VT_jmp r 75321 t 0 ji 1 inv 1 vtop->c.i 75175
+; gsym_addr t 0 a 75410 ind 75410
+; gtst finished; t 75175
+; push1 imm r 0xf0
+sep #$20
+lda #5
+pha
+rep #$20
+; call r 0x2f0
+jsr.l setBattleAction
+; add sp, #1
+tsa
+clc
+adc #1
+tas
+; call r 0x2f0
+jsr.l processBattleTurn
+__local_102:
+__local_104:
+; gsym_addr t 75175 a 75625 ind 75625
+__local_101:
+; gsym_addr t 73701 a 75663 ind 75663
+__local_96:
+; gsym_addr t 71213 a 75701 ind 75701
+__local_91:
+; gsym_addr t 68718 a 75739 ind 75739
+__local_86:
+; gsym_addr t 66229 a 75777 ind 75777
+__local_82:
+; gsym_addr t 64303 a 75815 ind 75815
+__local_78:
+; gsym_addr t 62381 a 75853 ind 75853
+; add sp, #__handleBattleInput_locals
+.ifgr __handleBattleInput_locals 0
+tsa
+clc
+adc #__handleBattleInput_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".drawBattleScreentext_0x14" SUPERFREE
+
+drawBattleScreen:
+; sub sp,#__drawBattleScreen_locals
+.ifgr __drawBattleScreen_locals 0
+tsa
+sec
+sbc #__drawBattleScreen_locals
+tas
+.endif
+; load 0
+; type 0 reg 0xf0 extra 0x3d805740
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffc
+; st2 tcc__r0, [sp,-4]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -4 + __drawBattleScreen_locals + 1,s
+__local_107:
+; load 0
+; type 0 reg 0x1f2 extra 0xfa1000
+; ld2 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -4 + __drawBattleScreen_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, #28
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #28
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 76761 ind 76761
+; gsym_addr t 0 a 76800 ind 76800
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 76890 ind 76890
+; cmp op 0x95 inv 1 v 243 r 76890
+; cmp ne
+bne +
+; gsym_addr t 0 a 76980 ind 76980
+brl __local_105
++
+; gtst finished; t 76890
+; gjmp_addr 0 at 77057
+jmp.w __local_106
+; gsym_addr t 77057 a 0 ind 77098
+__local_112:
+; load 0
+; type 0 reg 0x1f2 extra 0x3d805740
+; ld2 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -4 + __drawBattleScreen_locals + 1,s
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x0
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -4 r type 0x0)
+; length xxy 2 vtop->type 0x0
+inc.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffc
+; st2 tcc__r0, [sp,-4]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -4 + __drawBattleScreen_locals + 1,s
+; gjmp_addr 76462 at 77712
+jmp.w __local_107
+; gsym_addr t 77712 a 76462 ind 77757
+__local_106:
+; gsym_addr t 77057 a 77795 ind 77795
+; load 0
+; type 0 reg 0xf0 extra 0x3d8059e0
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffe
+; st2 tcc__r0, [sp,-2]
+; stack adjust: fc + disp - loc - 256 -252
+lda.b tcc__r0
+sta -2 + __drawBattleScreen_locals + 1,s
+__local_110:
+; load 0
+; type 0 reg 0x1f2 extra 0xfa1000
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -252
+lda -2 + __drawBattleScreen_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, #32
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #32
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 78381 ind 78381
+; gsym_addr t 0 a 78420 ind 78420
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 78510 ind 78510
+; cmp op 0x95 inv 1 v 243 r 78510
+; cmp ne
+bne +
+; gsym_addr t 0 a 78600 ind 78600
+brl __local_108
++
+; gtst finished; t 78510
+; gjmp_addr 0 at 78677
+jmp.w __local_109
+; gsym_addr t 78677 a 0 ind 78718
+__local_111:
+; load 0
+; type 0 reg 0x1f2 extra 0x3d8059e0
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -252
+lda -2 + __drawBattleScreen_locals + 1,s
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x0
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -2 r type 0x0)
+; length xxy 2 vtop->type 0x0
+inc.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffe
+; st2 tcc__r0, [sp,-2]
+; stack adjust: fc + disp - loc - 256 -252
+lda.b tcc__r0
+sta -2 + __drawBattleScreen_locals + 1,s
+; gjmp_addr 78082 at 79332
+jmp.w __local_110
+; gsym_addr t 79332 a 78082 ind 79377
+__local_109:
+; gsym_addr t 78677 a 79415 ind 79415
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23 + 0
+; ldpush before load type 0x10 reg 0x1f2
+; load 0
+; type 16 reg 0x1f2 extra 0x0
+; ld2 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -250
+lda 0 + __drawBattleScreen_locals + 1,s
+sta.b tcc__r0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; ldpush before load type 0x10 reg 0x1f2
+; load 0
+; type 16 reg 0x1f2 extra 0x0
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -246
+lda 4 + __drawBattleScreen_locals + 1,s
+sta.b tcc__r0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; gjmp_addr 78752 at 80140
+jmp.w __local_111
+; gsym_addr t 80140 a 78752 ind 80185
+__local_108:
+; gsym_addr t 78510 a 80223 ind 80223
+; gsym_addr t 0 a 78752 ind 80261
+; gjmp_addr 77132 at 80295
+jmp.w __local_112
+; gsym_addr t 80295 a 77132 ind 80340
+__local_105:
+; gsym_addr t 76890 a 80378 ind 80378
+; gsym_addr t 0 a 77132 ind 80416
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24 + 0
+; push2 imm r 0xf0
+pea.w 2
+; push2 imm r 0xf0
+pea.w 10
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; push4 imm r 0x12f0
+pea.w :currentBattle
+pea.w currentBattle + 4
+; push2 imm r 0xf0
+pea.w 4
+; push2 imm r 0xf0
+pea.w 10
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}25
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}25 + 0
+; push2 imm r 0xf0
+pea.w 8
+; push2 imm r 0xf0
+pea.w 2
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}26
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}26 + 0
+; push2 imm r 0xf0
+pea.w 8
+; push2 imm r 0xf0
+pea.w 20
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; call r 0x2f0
+jsr.l drawBattleUI
+; call r 0x2f0
+jsr.l drawEnemySprite
+; gsym_addr t 0 a 81430 ind 81430
+; add sp, #__drawBattleScreen_locals
+.ifgr __drawBattleScreen_locals 0
+tsa
+clc
+adc #__drawBattleScreen_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".drawBattleUItext_0x15" SUPERFREE
+
+drawBattleUI:
+; sub sp,#__drawBattleUI_locals
+.ifgr __drawBattleUI_locals 0
+tsa
+sec
+sbc #__drawBattleUI_locals
+tas
+.endif
+; load 0
+; type 0 reg 0xf0 extra 0x3d804d80
+; ld2 #18,tcc__r0
+lda.w #18
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xffffffde
+; st2 tcc__r0, [sp,-34]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -34 + __drawBattleUI_locals + 1,s
+__local_115:
+; load 0
+; type 0 reg 0x1f2 extra 0xfa1000
+; ld2 [sp,-34],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, #28
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #28
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 82309 ind 82309
+; gsym_addr t 0 a 82348 ind 82348
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 82438 ind 82438
+; cmp op 0x95 inv 1 v 243 r 82438
+; cmp ne
+bne +
+; gsym_addr t 0 a 82528 ind 82528
+brl __local_113
++
+; gtst finished; t 82438
+; gjmp_addr 0 at 82605
+jmp.w __local_114
+; gsym_addr t 82605 a 0 ind 82646
+__local_116:
+; load 0
+; type 0 reg 0x1f2 extra 0x3d804d80
+; ld2 [sp,-34],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x0
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -34 r type 0x0)
+; length xxy 2 vtop->type 0x0
+inc.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xffffffde
+; st2 tcc__r0, [sp,-34]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -34 + __drawBattleUI_locals + 1,s
+; gjmp_addr 82012 at 83257
+jmp.w __local_115
+; gsym_addr t 83257 a 82012 ind 83302
+__local_114:
+; gsym_addr t 82605 a 83340 ind 83340
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}27
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}27 + 0
+; ldpush before load type 0x10 reg 0x1f2
+; load 0
+; type 16 reg 0x1f2 extra 0x0
+; ld2 [sp,-34],tcc__r0
+; stack adjust: fc + disp - loc - 256 -250
+lda -30 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; push2 imm r 0xf0
+pea.w 0
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; gjmp_addr 82680 at 83840
+jmp.w __local_116
+; gsym_addr t 83840 a 82680 ind 83885
+__local_113:
+; gsym_addr t 82438 a 83923 ind 83923
+; gsym_addr t 0 a 82680 ind 83961
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}28
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}28 + 0
+; push2 imm r 0xf0
+pea.w 19
+; push2 imm r 0xf0
+pea.w 1
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; ldpush before load type 0x10 reg 0x3f0
+; load 0
+; type 16 reg 0x3f0 extra 0x2a2f2020
+; ld2 [playerCharacter + 2], tcc__r0
+lda.l playerCharacter + 2
+sta.b tcc__r0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; ldpush before load type 0x10 reg 0x3f0
+; load 0
+; type 16 reg 0x3f0 extra 0x61666564
+; ld2 [playerCharacter + 0], tcc__r0
+lda.l playerCharacter + 0
+sta.b tcc__r0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}29
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}29 + 0
+; ldpush before load type 0x4 reg 0x10f2
+; load 0
+; type 4 reg 0x10f2 extra 0x0
+; ld4 #(sp) + -32,tcc__r0 (fr 0x10f2 ft 0x4 fc 0xffffffe0)
+stz.b tcc__r0h
+tsa
+clc
+adc #(-24 + __drawBattleUI_locals + 1)
+sta.b tcc__r0
+; ldpush4 (type 0x4 reg 0x0) tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l sprintf
+; add sp, #12
+tsa
+clc
+adc #12
+tas
+; ldpush before load type 0x4 reg 0x10f2
+; load 0
+; type 4 reg 0x10f2 extra 0x0
+; ld4 #(sp) + -32,tcc__r0 (fr 0x10f2 ft 0x4 fc 0xffffffe0)
+stz.b tcc__r0h
+tsa
+clc
+adc #(-32 + __drawBattleUI_locals + 1)
+sta.b tcc__r0
+; ldpush4 (type 0x4 reg 0x0) tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+; push2 imm r 0xf0
+pea.w 19
+; push2 imm r 0xf0
+pea.w 12
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [playerCharacter + 0], tcc__r0
+lda.l playerCharacter + 0
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [playerCharacter + 2], tcc__r1
+lda.l playerCharacter + 2
+sta.b tcc__r1
+; gen_opi len 2 op 0xb0
+; div tcc__r1,tcc__r0
+ldx.b tcc__r0
+lda.b tcc__r1
+jsr.l tcc__udiv
+lda.b tcc__r9
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xffffffdc
+; st2 tcc__r0, [sp,-36]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -36 + __drawBattleUI_locals + 1,s
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}30
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}30 + 0
+; push2 imm r 0xf0
+pea.w 20
+; push2 imm r 0xf0
+pea.w 1
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 0 reg 0xf0 extra 0x3d804d80
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xffffffde
+; st2 tcc__r0, [sp,-34]
+; stack adjust: fc + disp - loc - 256 -252
+lda.b tcc__r0
+sta -34 + __drawBattleUI_locals + 1,s
+__local_119:
+; load 0
+; type 0 reg 0x1f2 extra 0xfa1000
+; ld2 [sp,-34],tcc__r0
+; stack adjust: fc + disp - loc - 256 -252
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, #10
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #10
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 86962 ind 86962
+; gsym_addr t 0 a 87001 ind 87001
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 87091 ind 87091
+; cmp op 0x95 inv 1 v 243 r 87091
+; cmp ne
+bne +
+; gsym_addr t 0 a 87181 ind 87181
+brl __local_117
++
+; gtst finished; t 87091
+; gjmp_addr 0 at 87258
+jmp.w __local_118
+; gsym_addr t 87258 a 0 ind 87299
+__local_122:
+; load 0
+; type 0 reg 0x1f2 extra 0x3d804d80
+; ld2 [sp,-34],tcc__r0
+; stack adjust: fc + disp - loc - 256 -252
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x0
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -34 r type 0x0)
+; length xxy 2 vtop->type 0x0
+inc.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xffffffde
+; st2 tcc__r0, [sp,-34]
+; stack adjust: fc + disp - loc - 256 -252
+lda.b tcc__r0
+sta -34 + __drawBattleUI_locals + 1,s
+; gjmp_addr 86665 at 87910
+jmp.w __local_119
+; gsym_addr t 87910 a 86665 ind 87955
+__local_118:
+; gsym_addr t 87258 a 87993 ind 87993
+; load 0
+; type 0 reg 0x1f2 extra 0xfa1000
+; ld2 [sp,-34],tcc__r0
+; stack adjust: fc + disp - loc - 256 -252
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x1f2 extra 0xfa1000
+; ld2 [sp,-36],tcc__r1
+; stack adjust: fc + disp - loc - 256 -254
+lda -36 + __drawBattleUI_locals + 1,s
+sta.b tcc__r1
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 88497 ind 88497
+; gsym_addr t 0 a 88536 ind 88536
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 88626 ind 88626
+; cmp op 0x95 inv 1 v 243 r 88626
+; cmp ne
+bne +
+; gsym_addr t 0 a 88716 ind 88716
+brl __local_120
++
+; gtst finished; t 88626
+; load 0
+; type 0 reg 0x1f2 extra 0xfa1000
+; ld2 [sp,-34],tcc__r0
+; stack adjust: fc + disp - loc - 256 -252
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -34 r type 0x86)
+; length xxy 2 vtop->type 0x0
+inc.b tcc__r0
+inc.b tcc__r0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}31
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}31 + 0
+; push2 imm r 0xf0
+pea.w 20
+; ldpush before load type 0x10 reg 0x0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; gjmp_addr 0 at 89407
+jmp.w __local_121
+; gsym_addr t 89407 a 0 ind 89448
+__local_120:
+; gsym_addr t 88626 a 89482 ind 89482
+; load 0
+; type 0 reg 0x1f2 extra 0xfa1000
+; ld2 [sp,-34],tcc__r0
+; stack adjust: fc + disp - loc - 256 -252
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -34 r type 0x86)
+; length xxy 2 vtop->type 0x0
+inc.b tcc__r0
+inc.b tcc__r0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}32
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}32 + 0
+; push2 imm r 0xf0
+pea.w 20
+; ldpush before load type 0x10 reg 0x0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+__local_121:
+; gsym_addr t 89407 a 90134 ind 90134
+; gjmp_addr 87333 at 90172
+jmp.w __local_122
+; gsym_addr t 90172 a 87333 ind 90217
+__local_117:
+; gsym_addr t 87091 a 90255 ind 90255
+; gsym_addr t 0 a 87333 ind 90293
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}33
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}33 + 0
+; push2 imm r 0xf0
+pea.w 20
+; push2 imm r 0xf0
+pea.w 12
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34 + 0
+; push2 imm r 0xf0
+pea.w 19
+; push2 imm r 0xf0
+pea.w 15
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; ldpush before load type 0x10 reg 0x3f0
+; load 0
+; type 16 reg 0x3f0 extra 0x0
+; ld2 [currentBattle + 22], tcc__r0
+lda.l currentBattle + 22
+sta.b tcc__r0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; ldpush before load type 0x10 reg 0x3f0
+; load 0
+; type 16 reg 0x3f0 extra 0x0
+; ld2 [currentBattle + 20], tcc__r0
+lda.l currentBattle + 20
+sta.b tcc__r0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}35
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}35 + 0
+; ldpush before load type 0x4 reg 0x10f2
+; load 0
+; type 4 reg 0x10f2 extra 0x0
+; ld4 #(sp) + -32,tcc__r0 (fr 0x10f2 ft 0x4 fc 0xffffffe0)
+stz.b tcc__r0h
+tsa
+clc
+adc #(-24 + __drawBattleUI_locals + 1)
+sta.b tcc__r0
+; ldpush4 (type 0x4 reg 0x0) tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l sprintf
+; add sp, #12
+tsa
+clc
+adc #12
+tas
+; ldpush before load type 0x4 reg 0x10f2
+; load 0
+; type 4 reg 0x10f2 extra 0x0
+; ld4 #(sp) + -32,tcc__r0 (fr 0x10f2 ft 0x4 fc 0xffffffe0)
+stz.b tcc__r0h
+tsa
+clc
+adc #(-32 + __drawBattleUI_locals + 1)
+sta.b tcc__r0
+; ldpush4 (type 0x4 reg 0x0) tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+; push2 imm r 0xf0
+pea.w 19
+; push2 imm r 0xf0
+pea.w 26
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [currentBattle + 20], tcc__r0
+lda.l currentBattle + 20
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #10, tcc__r0
+lda.w #10
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [currentBattle + 22], tcc__r1
+lda.l currentBattle + 22
+sta.b tcc__r1
+; gen_opi len 2 op 0xb0
+; div tcc__r1,tcc__r0
+ldx.b tcc__r0
+lda.b tcc__r1
+jsr.l tcc__udiv
+lda.b tcc__r9
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xffffffda
+; st2 tcc__r0, [sp,-38]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -38 + __drawBattleUI_locals + 1,s
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}36
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}36 + 0
+; push2 imm r 0xf0
+pea.w 20
+; push2 imm r 0xf0
+pea.w 15
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 0 reg 0xf0 extra 0x3d804d80
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xffffffde
+; st2 tcc__r0, [sp,-34]
+; stack adjust: fc + disp - loc - 256 -250
+lda.b tcc__r0
+sta -34 + __drawBattleUI_locals + 1,s
+__local_125:
+; load 0
+; type 0 reg 0x1f2 extra 0xfa1000
+; ld2 [sp,-34],tcc__r0
+; stack adjust: fc + disp - loc - 256 -250
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, #10
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #10
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 93515 ind 93515
+; gsym_addr t 0 a 93554 ind 93554
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 93644 ind 93644
+; cmp op 0x95 inv 1 v 243 r 93644
+; cmp ne
+bne +
+; gsym_addr t 0 a 93734 ind 93734
+brl __local_123
++
+; gtst finished; t 93644
+; gjmp_addr 0 at 93811
+jmp.w __local_124
+; gsym_addr t 93811 a 0 ind 93852
+__local_128:
+; load 0
+; type 0 reg 0x1f2 extra 0x3d804d80
+; ld2 [sp,-34],tcc__r0
+; stack adjust: fc + disp - loc - 256 -250
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x0
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -34 r type 0x0)
+; length xxy 2 vtop->type 0x0
+inc.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xffffffde
+; st2 tcc__r0, [sp,-34]
+; stack adjust: fc + disp - loc - 256 -250
+lda.b tcc__r0
+sta -34 + __drawBattleUI_locals + 1,s
+; gjmp_addr 93218 at 94463
+jmp.w __local_125
+; gsym_addr t 94463 a 93218 ind 94508
+__local_124:
+; gsym_addr t 93811 a 94546 ind 94546
+; load 0
+; type 0 reg 0x1f2 extra 0xfa1000
+; ld2 [sp,-34],tcc__r0
+; stack adjust: fc + disp - loc - 256 -250
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x1f2 extra 0xfa1000
+; ld2 [sp,-38],tcc__r1
+; stack adjust: fc + disp - loc - 256 -254
+lda -38 + __drawBattleUI_locals + 1,s
+sta.b tcc__r1
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 95050 ind 95050
+; gsym_addr t 0 a 95089 ind 95089
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 95179 ind 95179
+; cmp op 0x95 inv 1 v 243 r 95179
+; cmp ne
+bne +
+; gsym_addr t 0 a 95269 ind 95269
+brl __local_126
++
+; gtst finished; t 95179
+; load 0
+; type 0 reg 0x1f2 extra 0xfa1000
+; ld2 [sp,-34],tcc__r0
+; stack adjust: fc + disp - loc - 256 -250
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -34 r type 0x86)
+; length xxy 2 vtop->type 0x0
+clc
+lda.b tcc__r0
+adc.w #16
+sta.b tcc__r0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}37
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}37 + 0
+; push2 imm r 0xf0
+pea.w 20
+; ldpush before load type 0x10 reg 0x0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; gjmp_addr 0 at 95974
+jmp.w __local_127
+; gsym_addr t 95974 a 0 ind 96015
+__local_126:
+; gsym_addr t 95179 a 96049 ind 96049
+; load 0
+; type 0 reg 0x1f2 extra 0xfa1000
+; ld2 [sp,-34],tcc__r0
+; stack adjust: fc + disp - loc - 256 -250
+lda -34 + __drawBattleUI_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -34 r type 0x86)
+; length xxy 2 vtop->type 0x0
+clc
+lda.b tcc__r0
+adc.w #16
+sta.b tcc__r0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}38
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}38 + 0
+; push2 imm r 0xf0
+pea.w 20
+; ldpush before load type 0x10 reg 0x0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+__local_127:
+; gsym_addr t 95974 a 96715 ind 96715
+; gjmp_addr 93886 at 96753
+jmp.w __local_128
+; gsym_addr t 96753 a 93886 ind 96798
+__local_123:
+; gsym_addr t 93644 a 96836 ind 96836
+; gsym_addr t 0 a 93886 ind 96874
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}39
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}39 + 0
+; push2 imm r 0xf0
+pea.w 20
+; push2 imm r 0xf0
+pea.w 26
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}40
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}40 + 0
+; push2 imm r 0xf0
+pea.w 22
+; push2 imm r 0xf0
+pea.w 1
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; ldpush before load type 0x10 reg 0x3f0
+; load 0
+; type 16 reg 0x3f0 extra 0x656e732f
+; ld2 [playerCharacter + 6], tcc__r0
+lda.l playerCharacter + 6
+sta.b tcc__r0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; ldpush before load type 0x10 reg 0x3f0
+; load 0
+; type 16 reg 0x3f0 extra 0x66656972
+; ld2 [playerCharacter + 4], tcc__r0
+lda.l playerCharacter + 4
+sta.b tcc__r0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}41
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}41 + 0
+; ldpush before load type 0x4 reg 0x10f2
+; load 0
+; type 4 reg 0x10f2 extra 0x0
+; ld4 #(sp) + -32,tcc__r0 (fr 0x10f2 ft 0x4 fc 0xffffffe0)
+stz.b tcc__r0h
+tsa
+clc
+adc #(-24 + __drawBattleUI_locals + 1)
+sta.b tcc__r0
+; ldpush4 (type 0x4 reg 0x0) tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l sprintf
+; add sp, #12
+tsa
+clc
+adc #12
+tas
+; ldpush before load type 0x4 reg 0x10f2
+; load 0
+; type 4 reg 0x10f2 extra 0x0
+; ld4 #(sp) + -32,tcc__r0 (fr 0x10f2 ft 0x4 fc 0xffffffe0)
+stz.b tcc__r0h
+tsa
+clc
+adc #(-32 + __drawBattleUI_locals + 1)
+sta.b tcc__r0
+; ldpush4 (type 0x4 reg 0x0) tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+; push2 imm r 0xf0
+pea.w 22
+; push2 imm r 0xf0
+pea.w 14
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}42
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}42 + 0
+; push2 imm r 0xf0
+pea.w 24
+; push2 imm r 0xf0
+pea.w 1
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}43
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}43 + 0
+; push2 imm r 0xf0
+pea.w 25
+; push2 imm r 0xf0
+pea.w 1
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}44
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}44 + 0
+; push2 imm r 0xf0
+pea.w 26
+; push2 imm r 0xf0
+pea.w 1
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; ldpush before load type 0x10 reg 0x3f0
+; load 0
+; type 16 reg 0x3f0 extra 0x0
+; ld2 [currentBattle + 32], tcc__r0
+lda.l currentBattle + 32
+sta.b tcc__r0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}45
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}45 + 0
+; ldpush before load type 0x4 reg 0x10f2
+; load 0
+; type 4 reg 0x10f2 extra 0x0
+; ld4 #(sp) + -32,tcc__r0 (fr 0x10f2 ft 0x4 fc 0xffffffe0)
+stz.b tcc__r0h
+tsa
+clc
+adc #(-26 + __drawBattleUI_locals + 1)
+sta.b tcc__r0
+; ldpush4 (type 0x4 reg 0x0) tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l sprintf
+; add sp, #10
+tsa
+clc
+adc #10
+tas
+; ldpush before load type 0x4 reg 0x10f2
+; load 0
+; type 4 reg 0x10f2 extra 0x0
+; ld4 #(sp) + -32,tcc__r0 (fr 0x10f2 ft 0x4 fc 0xffffffe0)
+stz.b tcc__r0h
+tsa
+clc
+adc #(-32 + __drawBattleUI_locals + 1)
+sta.b tcc__r0
+; ldpush4 (type 0x4 reg 0x0) tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+; push2 imm r 0xf0
+pea.w 24
+; push2 imm r 0xf0
+pea.w 20
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; gtst inv 1 t 0 v 240 r 100480 ind 100480
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentBattle + 37], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentBattle + 37
+rep #$20
+sta.b tcc__r0
+; gsym_addr t 0 a 100665 ind 100665
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 100757 ind 100757
+; cmp op 0x95 inv 1 v 243 r 100757
+; cmp ne
+bne +
+; gsym_addr t 0 a 100850 ind 100850
+brl __local_129
++
+; gtst finished; t 100757
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}46
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}46 + 0
+; push2 imm r 0xf0
+pea.w 25
+; push2 imm r 0xf0
+pea.w 20
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; gjmp_addr 0 at 101171
+jmp.w __local_130
+; gsym_addr t 101171 a 0 ind 101213
+__local_129:
+; gsym_addr t 100757 a 101249 ind 101249
+; gtst inv 1 t 0 v 240 r 101290 ind 101290
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentBattle + 38], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentBattle + 38
+rep #$20
+sta.b tcc__r0
+; gsym_addr t 0 a 101475 ind 101475
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 101567 ind 101567
+; cmp op 0x95 inv 1 v 243 r 101567
+; cmp ne
+bne +
+; gsym_addr t 0 a 101660 ind 101660
+brl __local_131
++
+; gtst finished; t 101567
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}47
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}47 + 0
+; push2 imm r 0xf0
+pea.w 25
+; push2 imm r 0xf0
+pea.w 20
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; gjmp_addr 0 at 101981
+jmp.w __local_132
+; gsym_addr t 101981 a 0 ind 102023
+__local_131:
+; gsym_addr t 101567 a 102059 ind 102059
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}48
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}48 + 0
+; push2 imm r 0xf0
+pea.w 25
+; push2 imm r 0xf0
+pea.w 20
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+__local_132:
+; gsym_addr t 101981 a 102341 ind 102341
+__local_130:
+; gsym_addr t 101171 a 102382 ind 102382
+; gsym_addr t 0 a 102423 ind 102423
+; add sp, #__drawBattleUI_locals
+.ifgr __drawBattleUI_locals 0
+tsa
+clc
+adc #__drawBattleUI_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".drawEnemySpritetext_0x16" SUPERFREE
+
+drawEnemySprite:
+; sub sp,#__drawEnemySprite_locals
+.ifgr __drawEnemySprite_locals 0
+tsa
+sec
+sbc #__drawEnemySprite_locals
+tas
+.endif
+; load 0
+; type 0 reg 0x3f0 extra 0xfa1000
+; ld2 [currentBattle + 0], tcc__r0
+lda.l currentBattle + 0
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 102987 ind 102987
+; gsym_addr t 0 a 103028 ind 103028
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 103120 ind 103120
+; cmp op 0x95 inv 1 v 243 r 103120
+; cmp ne
+bne +
+; gsym_addr t 0 a 103213 ind 103213
+brl __local_133
++
+; gtst finished; t 103120
+; gjmp_addr 0 at 103293
+jmp.w __local_134
+; gsym_addr t 103293 a 0 ind 103335
+__local_133:
+; gsym_addr t 103120 a 103371 ind 103371
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x11 fc 0xffffffff
+; st1 tcc__r0, [sp,-1]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -1 + __drawEnemySprite_locals + 1,s
+rep #$20
+; load 0
+; type 0 reg 0xf0 extra 0xf8d000
+; ld2 #200,tcc__r0
+lda.w #200
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffc
+; st2 tcc__r0, [sp,-4]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -4 + __drawEnemySprite_locals + 1,s
+; load 0
+; type 0 reg 0xf0 extra 0xf8d000
+; ld2 #80,tcc__r0
+lda.w #80
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffa
+; st2 tcc__r0, [sp,-6]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -6 + __drawEnemySprite_locals + 1,s
+; load 0
+; type 17 reg 0x51f2 extra 0x3d8054b0
+; ld1 [sp,-1],tcc__r0
+; stack adjust: fc + disp - loc - 256 -249
+lda.w #0
+sep #$20
+lda -1 + __drawEnemySprite_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; push1 imm r 0xf0
+sep #$20
+lda #1
+pha
+rep #$20
+; ldpush before load type 0x10 reg 0x0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l oamClear
+; add sp, #3
+tsa
+clc
+adc #3
+tas
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x11 fc 0xfffffff9
+; st1 tcc__r0, [sp,-7]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -7 + __drawEnemySprite_locals + 1,s
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x11 fc 0xfffffff8
+; st1 tcc__r0, [sp,-8]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -8 + __drawEnemySprite_locals + 1,s
+rep #$20
+; load 0
+; type 5 reg 0x3f0 extra 0x0
+; ld2 [currentBattle + 2], tcc__r0
+lda.l currentBattle + 2
+sta.b tcc__r0
+; gjmp_addr 0 at 105198
+jmp.w __local_135
+; gsym_addr t 105198 a 0 ind 105240
+; gjmp_addr 0 at 105276
+jmp.w __local_136
+; gsym_addr t 105276 a 0 ind 105318
+__local_135:
+; gsym_addr t 105198 a 105354 ind 105354
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 105505 ind 105505
+; gsym_addr t 0 a 105546 ind 105546
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 105638 ind 105638
+; cmp op 0x95 inv 1 v 243 r 105638
+; cmp ne
+bne +
+; gsym_addr t 0 a 105731 ind 105731
+brl __local_137
++
+; gtst finished; t 105638
+__local_136:
+; gsym_addr t 105276 a 105811 ind 105811
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #16,tcc__r0
+lda.w #16
+sta.b tcc__r0
+; store r 0x0 fr 0x51f2 ft 0x11 fc 0xfffffff9
+; st1 tcc__r0, [sp,-7]
+; stack adjust: fc + disp - loc - 256 -253
+sep #$20
+lda.b tcc__r0
+sta -7 + __drawEnemySprite_locals + 1,s
+rep #$20
+; gjmp_addr 0 at 106116
+jmp.w __local_138
+; gsym_addr t 106116 a 0 ind 106158
+; gjmp_addr 0 at 106194
+jmp.w __local_139
+; gsym_addr t 106194 a 0 ind 106236
+__local_137:
+; gsym_addr t 105638 a 106272 ind 106272
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #1
+ldx #1
+lda.b tcc__r0
+sec
+sbc #1
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 106423 ind 106423
+; gsym_addr t 0 a 106464 ind 106464
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 106556 ind 106556
+; cmp op 0x95 inv 1 v 243 r 106556
+; cmp ne
+bne +
+; gsym_addr t 0 a 106649 ind 106649
+brl __local_140
++
+; gtst finished; t 106556
+__local_139:
+; gsym_addr t 106194 a 106729 ind 106729
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #32,tcc__r0
+lda.w #32
+sta.b tcc__r0
+; store r 0x0 fr 0x51f2 ft 0x11 fc 0xfffffff9
+; st1 tcc__r0, [sp,-7]
+; stack adjust: fc + disp - loc - 256 -253
+sep #$20
+lda.b tcc__r0
+sta -7 + __drawEnemySprite_locals + 1,s
+rep #$20
+; gjmp_addr 106116 at 107034
+jmp.w __local_141
+; gsym_addr t 107034 a 106116 ind 107081
+; gjmp_addr 0 at 107122
+jmp.w __local_142
+; gsym_addr t 107122 a 0 ind 107164
+__local_140:
+; gsym_addr t 106556 a 107200 ind 107200
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #2
+ldx #1
+lda.b tcc__r0
+sec
+sbc #2
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 107351 ind 107351
+; gsym_addr t 0 a 107392 ind 107392
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 107484 ind 107484
+; cmp op 0x95 inv 1 v 243 r 107484
+; cmp ne
+bne +
+; gsym_addr t 0 a 107577 ind 107577
+brl __local_143
++
+; gtst finished; t 107484
+__local_142:
+; gsym_addr t 107122 a 107657 ind 107657
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #48,tcc__r0
+lda.w #48
+sta.b tcc__r0
+; store r 0x0 fr 0x51f2 ft 0x11 fc 0xfffffff9
+; st1 tcc__r0, [sp,-7]
+; stack adjust: fc + disp - loc - 256 -253
+sep #$20
+lda.b tcc__r0
+sta -7 + __drawEnemySprite_locals + 1,s
+rep #$20
+; gjmp_addr 107034 at 107962
+jmp.w __local_144
+; gsym_addr t 107962 a 107034 ind 108009
+__local_143:
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #16,tcc__r0
+lda.w #16
+sta.b tcc__r0
+; store r 0x0 fr 0x51f2 ft 0x11 fc 0xfffffff9
+; st1 tcc__r0, [sp,-7]
+; stack adjust: fc + disp - loc - 256 -253
+sep #$20
+lda.b tcc__r0
+sta -7 + __drawEnemySprite_locals + 1,s
+rep #$20
+; gjmp_addr 107962 at 108314
+jmp.w __local_145
+; gsym_addr t 108314 a 107962 ind 108361
+; gsym_addr t 107484 a 108050 ind 108402
+__local_138:
+__local_141:
+__local_144:
+__local_145:
+; gsym_addr t 108314 a 108443 ind 108443
+; load 0
+; type 17 reg 0x51f2 extra 0x3d8054b0
+; ld1 [sp,-1],tcc__r0
+; stack adjust: fc + disp - loc - 256 -247
+lda.w #0
+sep #$20
+lda -1 + __drawEnemySprite_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x51f2 extra 0x3c605d10
+; ld1 [sp,-7],tcc__r1
+; stack adjust: fc + disp - loc - 256 -253
+lda.w #0
+sep #$20
+lda -7 + __drawEnemySprite_locals + 1,s
+rep #$20
+sta.b tcc__r1
+; ldpush before load type 0x11 reg 0x51f2
+; load 2
+; type 17 reg 0x51f2 extra 0x0
+; ld1 [sp,-8],tcc__r2
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -8 + __drawEnemySprite_locals + 1,s
+rep #$20
+sta.b tcc__r2
+; ldpush1 (type 0x11 reg 0x2) tcc__r2
+sep #$20
+lda.b tcc__r2
+pha
+rep #$20
+; ldpush before load type 0x10 reg 0x1
+; ldpush2 (type 0x10 reg 0x1) tcc__r1
+pei (tcc__r1)
+; push1 imm r 0xf0
+sep #$20
+lda #0
+pha
+rep #$20
+; push1 imm r 0xf0
+sep #$20
+lda #0
+pha
+rep #$20
+; push1 imm r 0xf0
+sep #$20
+lda #3
+pha
+rep #$20
+; ldpush before load type 0x10 reg 0x1f2
+; load 1
+; type 16 reg 0x1f2 extra 0x0
+; ld2 [sp,-6],tcc__r1
+; stack adjust: fc + disp - loc - 256 -246
+lda 0 + __drawEnemySprite_locals + 1,s
+sta.b tcc__r1
+; ldpush2 (type 0x10 reg 0x1) tcc__r1
+pei (tcc__r1)
+; ldpush before load type 0x10 reg 0x1f2
+; load 1
+; type 16 reg 0x1f2 extra 0x0
+; ld2 [sp,-4],tcc__r1
+; stack adjust: fc + disp - loc - 256 -242
+lda 4 + __drawEnemySprite_locals + 1,s
+sta.b tcc__r1
+; ldpush2 (type 0x10 reg 0x1) tcc__r1
+pei (tcc__r1)
+; ldpush before load type 0x10 reg 0x0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l oamSet
+; add sp, #12
+tsa
+clc
+adc #12
+tas
+; call r 0x2f0
+jsr.l oamUpdate
+__local_134:
+; gsym_addr t 103293 a 110091 ind 110091
+; add sp, #__drawEnemySprite_locals
+.ifgr __drawEnemySprite_locals 0
+tsa
+clc
+adc #__drawEnemySprite_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".updateBattleAnimationstext_0x17" SUPERFREE
+
+updateBattleAnimations:
+; sub sp,#__updateBattleAnimations_locals
+.ifgr __updateBattleAnimations_locals 0
+tsa
+sec
+sbc #__updateBattleAnimations_locals
+tas
+.endif
+; load 0
+; type 17 reg 0x53f0 extra 0x3d804d80
+; ld1 [tccs__FUNC_updateBattleAnimations_animationFrame + 0], tcc__r0
+lda.w #0
+sep #$20
+lda.l tccs__FUNC_updateBattleAnimations_animationFrame + 0
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x6ef4d290
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c 0 r type 0x4111)
+; length xxy 2 vtop->type 0x0
+inc.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x4111 fc 0x0
+; st1 tcc__r0, [tccs__FUNC_updateBattleAnimations_animationFrame,0]
+sep #$20
+lda.b tcc__r0
+sta.l tccs__FUNC_updateBattleAnimations_animationFrame + 0
+rep #$20
+; load 0
+; type 16 reg 0x3f0 extra 0xfa1000
+; ld2 [currentBattle + 20], tcc__r0
+lda.l currentBattle + 20
+sta.b tcc__r0
+; gen_opi len 2 op 0x97
+; ucmpcd tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #0
+tay
+beq +
+bcs ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 111392 ind 111392
+; gsym_addr t 0 a 111433 ind 111433
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 111525 ind 111525
+; cmp op 0x95 inv 1 v 243 r 111525
+; cmp ne
+bne +
+; gsym_addr t 0 a 111618 ind 111618
+brl __local_146
++
+; gtst finished; t 111525
+; load 0
+; type 17 reg 0x53f0 extra 0x3d804d80
+; ld1 [tccs__FUNC_updateBattleAnimations_animationFrame + 0], tcc__r0
+lda.w #0
+sep #$20
+lda.l tccs__FUNC_updateBattleAnimations_animationFrame + 0
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op %
+; div #8, tcc__r0
+ldx.b tcc__r0
+lda.w #8
+jsr.l tcc__div
+stx.b tcc__r0
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, #4
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #4
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 111525 v 5 r 112140 ind 112140
+; gsym_addr t 111525 a 112186 ind 112186
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 111525 v 243 r 112283 ind 112283
+; cmp op 0x95 inv 1 v 243 r 112283
+; cmp ne
+bne +
+__local_146:
+; gsym_addr t 111525 a 112381 ind 112381
+brl __local_147
++
+; gtst finished; t 112283
+; gtst inv 1 t 0 v 245 r 112466 ind 112466
+; VT_jmp r 112466 t 0 ji 1 inv 1 vtop->c.i 112283
+; gsym_addr t 0 a 112559 ind 112559
+; gtst finished; t 112283
+; call r 0x2f0
+jsr.l drawEnemySprite
+__local_147:
+; gsym_addr t 112283 a 112658 ind 112658
+; load 0
+; type 5 reg 0x3f0 extra 0x0
+; ld2 [currentBattle + 0], tcc__r0
+lda.l currentBattle + 0
+sta.b tcc__r0
+; gjmp_addr 0 at 112810
+jmp.w __local_148
+; gsym_addr t 112810 a 0 ind 112852
+; gjmp_addr 0 at 112888
+jmp.w __local_149
+; gsym_addr t 112888 a 0 ind 112930
+__local_148:
+; gsym_addr t 112810 a 112966 ind 112966
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #1
+ldx #1
+lda.b tcc__r0
+sec
+sbc #1
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 113117 ind 113117
+; gsym_addr t 0 a 113158 ind 113158
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 113250 ind 113250
+; cmp op 0x95 inv 1 v 243 r 113250
+; cmp ne
+bne +
+; gsym_addr t 0 a 113343 ind 113343
+brl __local_150
++
+; gtst finished; t 113250
+__local_149:
+; gsym_addr t 112888 a 113423 ind 113423
+; load 0
+; type 17 reg 0x53f0 extra 0x3d804d80
+; ld1 [tccs__FUNC_updateBattleAnimations_animationFrame + 0], tcc__r0
+lda.w #0
+sep #$20
+lda.l tccs__FUNC_updateBattleAnimations_animationFrame + 0
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x9f
+; cmpcd tcc__r0, #30
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #30
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 113824 ind 113824
+; gsym_addr t 0 a 113865 ind 113865
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 113957 ind 113957
+; cmp op 0x95 inv 1 v 243 r 113957
+; cmp ne
+bne +
+; gsym_addr t 0 a 114050 ind 114050
+brl __local_151
++
+; gtst finished; t 113957
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #2,tcc__r0
+lda.w #2
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x0
+; st2 tcc__r0, [currentBattle,0]
+lda.b tcc__r0
+sta.l currentBattle + 0
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x24
+; st1 tcc__r0, [currentBattle,36]
+sep #$20
+lda.b tcc__r0
+sta.l currentBattle + 36
+rep #$20
+__local_151:
+; gsym_addr t 113957 a 114524 ind 114524
+; gjmp_addr 0 at 114565
+jmp.w __local_152
+; gsym_addr t 114565 a 0 ind 114607
+; gjmp_addr 0 at 114643
+jmp.w __local_153
+; gsym_addr t 114643 a 0 ind 114685
+__local_150:
+; gsym_addr t 113250 a 114721 ind 114721
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #3
+ldx #1
+lda.b tcc__r0
+sec
+sbc #3
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 114872 ind 114872
+; gsym_addr t 0 a 114913 ind 114913
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 115005 ind 115005
+; cmp op 0x95 inv 1 v 243 r 115005
+; cmp ne
+bne +
+; gsym_addr t 0 a 115098 ind 115098
+brl __local_154
++
+; gtst finished; t 115005
+__local_153:
+; gsym_addr t 114643 a 115178 ind 115178
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}49
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}49 + 0
+; push2 imm r 0xf0
+pea.w 10
+; push2 imm r 0xf0
+pea.w 10
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 17 reg 0x53f0 extra 0x3d804d80
+; ld1 [tccs__FUNC_updateBattleAnimations_animationFrame + 0], tcc__r0
+lda.w #0
+sep #$20
+lda.l tccs__FUNC_updateBattleAnimations_animationFrame + 0
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x9f
+; cmpcd tcc__r0, #120
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #120
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 115822 ind 115822
+; gsym_addr t 0 a 115863 ind 115863
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 115955 ind 115955
+; cmp op 0x95 inv 1 v 243 r 115955
+; cmp ne
+bne +
+; gsym_addr t 0 a 116048 ind 116048
+brl __local_155
++
+; gtst finished; t 115955
+; call r 0x2f0
+jsr.l endBattle
+__local_155:
+; gsym_addr t 115955 a 116159 ind 116159
+; gjmp_addr 114565 at 116200
+jmp.w __local_156
+; gsym_addr t 116200 a 114565 ind 116247
+; gjmp_addr 0 at 116288
+jmp.w __local_157
+; gsym_addr t 116288 a 0 ind 116330
+__local_154:
+; gsym_addr t 115005 a 116366 ind 116366
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #4
+ldx #1
+lda.b tcc__r0
+sec
+sbc #4
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 116517 ind 116517
+; gsym_addr t 0 a 116558 ind 116558
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 116650 ind 116650
+; cmp op 0x95 inv 1 v 243 r 116650
+; cmp ne
+bne +
+; gsym_addr t 0 a 116743 ind 116743
+brl __local_158
++
+; gtst finished; t 116650
+__local_157:
+; gsym_addr t 116288 a 116823 ind 116823
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}50
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}50 + 0
+; push2 imm r 0xf0
+pea.w 10
+; push2 imm r 0xf0
+pea.w 10
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 17 reg 0x53f0 extra 0x3d804d80
+; ld1 [tccs__FUNC_updateBattleAnimations_animationFrame + 0], tcc__r0
+lda.w #0
+sep #$20
+lda.l tccs__FUNC_updateBattleAnimations_animationFrame + 0
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x9f
+; cmpcd tcc__r0, #120
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #120
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 117467 ind 117467
+; gsym_addr t 0 a 117508 ind 117508
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 117600 ind 117600
+; cmp op 0x95 inv 1 v 243 r 117600
+; cmp ne
+bne +
+; gsym_addr t 0 a 117693 ind 117693
+brl __local_159
++
+; gtst finished; t 117600
+; call r 0x2f0
+jsr.l endBattle
+__local_159:
+; gsym_addr t 117600 a 117804 ind 117804
+; gjmp_addr 116200 at 117845
+jmp.w __local_160
+; gsym_addr t 117845 a 116200 ind 117892
+; gjmp_addr 0 at 117933
+jmp.w __local_161
+; gsym_addr t 117933 a 0 ind 117975
+__local_158:
+; gsym_addr t 116650 a 118011 ind 118011
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #5
+ldx #1
+lda.b tcc__r0
+sec
+sbc #5
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 118162 ind 118162
+; gsym_addr t 0 a 118203 ind 118203
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 118295 ind 118295
+; cmp op 0x95 inv 1 v 243 r 118295
+; cmp ne
+bne +
+; gsym_addr t 0 a 118388 ind 118388
+brl __local_162
++
+; gtst finished; t 118295
+__local_161:
+; gsym_addr t 117933 a 118468 ind 118468
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}51
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}51 + 0
+; push2 imm r 0xf0
+pea.w 10
+; push2 imm r 0xf0
+pea.w 10
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 17 reg 0x53f0 extra 0x3d804d80
+; ld1 [tccs__FUNC_updateBattleAnimations_animationFrame + 0], tcc__r0
+lda.w #0
+sep #$20
+lda.l tccs__FUNC_updateBattleAnimations_animationFrame + 0
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x9f
+; cmpcd tcc__r0, #120
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #120
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 119112 ind 119112
+; gsym_addr t 0 a 119153 ind 119153
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 119245 ind 119245
+; cmp op 0x95 inv 1 v 243 r 119245
+; cmp ne
+bne +
+; gsym_addr t 0 a 119338 ind 119338
+brl __local_163
++
+; gtst finished; t 119245
+; call r 0x2f0
+jsr.l endBattle
+__local_163:
+; gsym_addr t 119245 a 119449 ind 119449
+; gjmp_addr 117845 at 119490
+jmp.w __local_164
+; gsym_addr t 119490 a 117845 ind 119537
+__local_162:
+; gjmp_addr 119490 at 119578
+jmp.w __local_165
+; gsym_addr t 119578 a 119490 ind 119625
+; gsym_addr t 118295 a 119578 ind 119666
+__local_152:
+__local_156:
+__local_160:
+__local_164:
+__local_165:
+; gsym_addr t 119578 a 119707 ind 119707
+; gsym_addr t 0 a 119748 ind 119748
+; add sp, #__updateBattleAnimations_locals
+.ifgr __updateBattleAnimations_locals 0
+tsa
+clc
+adc #__updateBattleAnimations_locals
+tas
+.endif
+rtl
+.ENDS
+.RAMSECTION "ram{WLA_FILENAME}.data" APPENDTO "globram.data"
+
+currentBattle dsb 40
+tccs__FUNC_updateBattleAnimations_animationFrame dsb 1
+
+.ENDS
+
+.SECTION "{WLA_FILENAME}.data" APPENDTO "glob.data"
+
+.db $0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0
+.db $0
+.ENDS
+
+.SECTION ".rodata" SUPERFREE
+
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}17: .db $53,$4c,$49,$4d,$45,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}18: .db $47,$4f,$42,$4c,$49,$4e,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}19: .db $4f,$52,$43,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}20: .db $53,$4b,$45,$4c,$45,$54,$4f,$4e,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}21: .db $44,$52,$41,$47,$4f,$4e,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}22: .db $54,$49,$4d,$45,$20,$4c,$4f,$52,$44,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23: .db $20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24: .db $3d,$3d,$3d,$20,$42,$41,$54,$54,$4c,$45,$20,$3d,$3d,$3d,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}25: .db $50,$4c,$41,$59,$45,$52,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}26: .db $45,$4e,$45,$4d,$59,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}27: .db $20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}28: .db $50,$4c,$41,$59,$45,$52,$20,$48,$50,$3a,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}29: .db $25,$64,$2f,$25,$64,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}30: .db $5b,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}31: .db $3d,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}32: .db $20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}33: .db $5d,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34: .db $45,$4e,$45,$4d,$59,$20,$48,$50,$3a,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}35: .db $25,$64,$2f,$25,$64,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}36: .db $5b,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}37: .db $3d,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}38: .db $20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}39: .db $5d,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}40: .db $54,$49,$4d,$45,$20,$45,$4e,$45,$52,$47,$59,$3a,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}41: .db $25,$64,$2f,$25,$64,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}42: .db $41,$3a,$41,$54,$54,$41,$43,$4b,$20,$20,$42,$3a,$44,$45,$46,$45,$4e,$44,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}43: .db $58,$3a,$54,$49,$4d,$45,$20,$53,$54,$4f,$50,$20,$20,$59,$3a,$53,$4c,$4f,$57,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}44: .db $4c,$3a,$52,$45,$57,$49,$4e,$44,$20,$20,$52,$3a,$45,$53,$43,$41,$50,$45,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}45: .db $54,$55,$52,$4e,$3a,$20,$25,$64,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}46: .db $54,$49,$4d,$45,$20,$53,$54,$4f,$50,$21,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}47: .db $53,$4c,$4f,$57,$20,$4d,$4f,$54,$49,$4f,$4e,$21,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}48: .db $20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}49: .db $56,$49,$43,$54,$4f,$52,$59,$21,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}50: .db $44,$45,$46,$45,$41,$54,$21,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}51: .db $45,$53,$43,$41,$50,$45,$44,$21,$0
+.ENDS
+
+.RAMSECTION ".bss" BANK $7e SLOT 2
+tccs_{WLA_FILENAME}_enemyDefinitions dsb 180
+.ENDS
