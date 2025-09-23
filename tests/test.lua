@@ -18,9 +18,50 @@
 -- Note: Separate test files not loaded due to Mesen I/O restrictions in headless mode.
 -- For TDD, add all tests here in test.lua.
 
+-- ANSI color codes for fancy terminal output
+local colors = {
+    reset = "\27[0m",
+    bold = "\27[1m",
+    red = "\27[31m",
+    green = "\27[32m",
+    yellow = "\27[33m",
+    blue = "\27[34m",
+    magenta = "\27[35m",
+    cyan = "\27[36m",
+    bright_red = "\27[91m",
+    bright_green = "\27[92m",
+    bright_yellow = "\27[93m",
+    bright_blue = "\27[94m"
+}
+
 local frameCount = 0
 local testResults = {}
 local gameStartSum = nil
+
+-- Helper functions for colored output
+local function printPass(name, details)
+    local msg = string.format("%s[PASS]%s %s: %s", colors.bright_green, colors.reset, name, details or "")
+    print(msg)
+    emu.log(msg)
+end
+
+local function printFail(name, details)
+    local msg = string.format("%s[FAIL]%s %s: %s", colors.bright_red, colors.reset, name, details or "")
+    print(msg)
+    emu.log(msg)
+end
+
+local function printHeader(text)
+    local msg = string.format("%s%s%s", colors.bold .. colors.bright_blue, text, colors.reset)
+    print(msg)
+    emu.log(msg)
+end
+
+local function printSummary(passCount, total)
+    local msg = string.format("%s=== Test Summary: %d/%d PASSED ===%s", colors.bold .. colors.bright_blue, passCount, total, colors.reset)
+    print(msg)
+    emu.log(msg)
+end
 
 -- Helper: Summarize and exit
 local function summarizeAndExit()
@@ -29,23 +70,24 @@ local function summarizeAndExit()
         if result.passed then passCount = passCount + 1 end
     end
     local total = #testResults
-    local msg = string.format("=== Test Summary: %d/%d PASSED ===", passCount, total)
-    emu.log(msg)
-    print(msg)
+    printSummary(passCount, total)
     for _, result in ipairs(testResults) do
-        local resMsg = string.format("- %s: %s", result.name, result.passed and "PASS" or "FAIL")
-        emu.log(resMsg)
-        print(resMsg)
+        local status = result.passed and "PASS" or "FAIL"
+        local color = result.passed and colors.bright_green or colors.bright_red
+        local msg = string.format("- %s: %s%s%s", result.name, color, status, colors.reset)
+        print(msg)
+        emu.log(msg)
     end
     emu.stop()
 end
 
 -- Helper: Log test result
 local function logTest(name, passed, details)
-    local status = passed and "PASS" or "FAIL"
-    local msg = string.format("[%s] %s: %s", status, name, details or "")
-    emu.log(msg)
-    print(msg)
+    if passed then
+        printPass(name, details)
+    else
+        printFail(name, details)
+    end
     table.insert(testResults, {name = name, passed = passed, details = details})
     if not passed then
         testFailed = true
@@ -79,9 +121,7 @@ local function onFrameEnd()
     end
 
     if frameCount == 2 then
-        local msg = "=== Chronic-Echo Unit Test Started ==="
-        emu.log(msg)
-        print(msg)
+        printHeader("=== Chronic-Echo Unit Test Started ===")
         initialScreenSum = getScreenSum()
         logTest("ROM Load", true, "Emulation started successfully")
 

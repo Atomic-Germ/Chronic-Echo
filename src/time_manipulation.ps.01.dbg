@@ -1,0 +1,1797 @@
+.include "hdr.asm"
+.accu 16
+.index 16
+.16bit
+.define __initPositionHistory_locals 0
+.define __recordCurrentPosition_locals 6
+.define __canRewind_locals 0
+.define __canRewindDistance_locals 0
+.define __rewindToFrame_locals 8
+.define __rewindByFrames_locals 2
+.define __stopRewind_locals 0
+.define __getPositionAtFrame_locals 4
+.define __getCurrentRewindFrame_locals 0
+.define __getOldestFrame_locals 0
+.define __getNewestFrame_locals 2
+.define __calculateFrameDistance_locals 0
+.define __getRewindEnergyCost_locals 0
+
+.SECTION ".initPositionHistorytext_0x0" SUPERFREE
+
+initPositionHistory:
+; sub sp,#__initPositionHistory_locals
+.ifgr __initPositionHistory_locals 0
+tsa
+sec
+sbc #__initPositionHistory_locals
+tas
+.endif
+; push2 imm r 0xf0
+pea.w 1810
+; push2 imm r 0xf0
+pea.w 0
+; push4 imm r 0x2f0
+pea.w :positionHistory
+pea.w positionHistory + 0
+; call r 0x2f0
+jsr.l memset
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x708
+; st2 tcc__r0, [positionHistory,1800]
+lda.b tcc__r0
+sta.l positionHistory + 1800
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x70a
+; st2 tcc__r0, [positionHistory,1802]
+lda.b tcc__r0
+sta.l positionHistory + 1802
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x70c
+; st2 tcc__r0, [positionHistory,1804]
+lda.b tcc__r0
+sta.l positionHistory + 1804
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x70e
+; st2 tcc__r0, [positionHistory,1806]
+lda.b tcc__r0
+sta.l positionHistory + 1806
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x710
+; st1 tcc__r0, [positionHistory,1808]
+sep #$20
+lda.b tcc__r0
+sta.l positionHistory + 1808
+rep #$20
+; gsym_addr t 0 a 1402 ind 1402
+; ERROR no jump found to patch
+; add sp, #__initPositionHistory_locals
+.ifgr __initPositionHistory_locals 0
+tsa
+clc
+adc #__initPositionHistory_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".recordCurrentPositiontext_0x1" SUPERFREE
+
+recordCurrentPosition:
+; sub sp,#__recordCurrentPosition_locals
+.ifgr __recordCurrentPosition_locals 0
+tsa
+sec
+sbc #__recordCurrentPosition_locals
+tas
+.endif
+; gtst inv 1 t 0 v 240 r 1817 ind 1817
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [positionHistory + 1808], tcc__r0
+lda.w #0
+sep #$20
+lda.l positionHistory + 1808
+rep #$20
+sta.b tcc__r0
+; gsym_addr t 0 a 2006 ind 2006
+; ERROR no jump found to patch
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 2125 ind 2125
+; cmp op 0x95 inv 1 v 243 r 2125
+; cmp ne
+bne +
+; gsym_addr t 0 a 2212 ind 2212
+; ERROR no jump found to patch
+brl __local_0
++
+; gtst finished; t 2125
+; gjmp_addr 0 at 2315
+jmp.w __local_1
+; gsym_addr t 2315 a 0 ind 2353
+__local_0:
+; gsym_addr t 2125 a 2385 ind 2385
+; load 0
+; type 0 reg 0x1f2 extra 0x0
+; ld2 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -245
+lda 3 + __recordCurrentPosition_locals + 1,s
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x0 fc 0xfffffffa
+; st2 tcc__r0, [sp,-6]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -6 + __recordCurrentPosition_locals + 1,s
+; load 0
+; type 4 reg 0xf2 extra 0x0
+; ld4 #(sp) + -6,tcc__r0 (fr 0xf2 ft 0x4 fc 0xfffffffa)
+stz.b tcc__r0h
+tsa
+clc
+adc #(-6 + __recordCurrentPosition_locals + 1)
+sta.b tcc__r0
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -6 r type 0x5b61afa0)
+; length xxy 4 vtop->type 0x4
+inc.b tcc__r0
+inc.b tcc__r0
+; load 1
+; type 0 reg 0x1f2 extra 0x0
+; ld2 [sp,5],tcc__r1
+; stack adjust: fc + disp - loc - 256 -243
+lda 5 + __recordCurrentPosition_locals + 1,s
+sta.b tcc__r1
+; store r 0x1 fr 0x100 ft 0x0 fc 0xfffffffa
+; st2 tcc__r1, [tcc__r0,0]
+lda.b tcc__r1
+sta.b [tcc__r0]
+; load 0
+; type 4 reg 0xf2 extra 0x0
+; ld4 #(sp) + -6,tcc__r0 (fr 0xf2 ft 0x4 fc 0xfffffffa)
+stz.b tcc__r0h
+tsa
+clc
+adc #(-6 + __recordCurrentPosition_locals + 1)
+sta.b tcc__r0
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -6 r type 0x5b61afa0)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r0
+adc.w #4
+sta.b tcc__r0
+; load 1
+; type 16 reg 0x3f0 extra 0x0
+; ld2 [positionHistory + 1806], tcc__r1
+lda.l positionHistory + 1806
+sta.b tcc__r1
+; store r 0x1 fr 0x100 ft 0x10 fc 0xfffffffa
+; st2 tcc__r1, [tcc__r0,0]
+lda.b tcc__r1
+sta.b [tcc__r0]
+; load 0
+; type 16 reg 0x3f0 extra 0x5b82c3c0
+; ld2 [positionHistory + 1800], tcc__r0
+lda.l positionHistory + 1800
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #6, tcc__r0
+lda.w #6
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld1800 #positionHistory + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:positionHistory
+sta.b tcc__r1h
+lda.w #positionHistory + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x5b61afa0)
+; length xxy 1800 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; push2 imm r 0xf0
+pea.w 6
+; ldpush before load type 0x4 reg 0xf2
+; load 0
+; type 4 reg 0xf2 extra 0x0
+; ld4 #(sp) + -6,tcc__r0 (fr 0xf2 ft 0x4 fc 0xfffffffa)
+stz.b tcc__r0h
+tsa
+clc
+adc #(-4 + __recordCurrentPosition_locals + 1)
+sta.b tcc__r0
+; ldpush4 (type 0x4 reg 0x0) tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+; ldpush before load type 0x4 reg 0x1
+; ldpush4 (type 0x4 reg 0x1) tcc__r1
+pei (tcc__r1h)
+pei (tcc__r1)
+; call r 0x2f0
+jsr.l memcpy
+; add sp, #10
+tsa
+clc
+adc #10
+tas
+; load 0
+; type 16 reg 0x3f0 extra 0x48b5000
+; ld2 [positionHistory + 1800], tcc__r0
+lda.l positionHistory + 1800
+sta.b tcc__r0
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 1800 r type 0x10)
+; length xxy 2 vtop->type 0x10
+inc.b tcc__r0
+; gen_opi len 2 op 0xb1
+; div #300, tcc__r0
+ldx.b tcc__r0
+lda.w #300
+jsr.l tcc__udiv
+stx.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x708
+; st2 tcc__r0, [positionHistory,1800]
+lda.b tcc__r0
+sta.l positionHistory + 1800
+; load 0
+; type 16 reg 0x3f0 extra 0x48b5000
+; ld2 [positionHistory + 1804], tcc__r0
+lda.l positionHistory + 1804
+sta.b tcc__r0
+; gen_opi len 2 op 0x92
+; ucmpcd tcc__r0, #300
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #300
+tay
+bcc ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 5757 ind 5757
+; gsym_addr t 0 a 5794 ind 5794
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 5882 ind 5882
+; cmp op 0x95 inv 1 v 243 r 5882
+; cmp ne
+bne +
+; gsym_addr t 0 a 5969 ind 5969
+brl __local_2
++
+; gtst finished; t 5882
+; load 0
+; type 16 reg 0x3f0 extra 0x0
+; ld2 [positionHistory + 1804], tcc__r0
+lda.l positionHistory + 1804
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x48a13a8
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 1804 r type 0x10)
+; length xxy 2 vtop->type 0x10
+inc.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x70c
+; st2 tcc__r0, [positionHistory,1804]
+lda.b tcc__r0
+sta.l positionHistory + 1804
+; gjmp_addr 0 at 6545
+jmp.w __local_3
+; gsym_addr t 6545 a 0 ind 6583
+__local_2:
+; gsym_addr t 5882 a 6615 ind 6615
+; load 0
+; type 16 reg 0x3f0 extra 0x48b5000
+; ld2 [positionHistory + 1802], tcc__r0
+lda.l positionHistory + 1802
+sta.b tcc__r0
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 1802 r type 0x10)
+; length xxy 2 vtop->type 0x10
+inc.b tcc__r0
+; gen_opi len 2 op 0xb1
+; div #300, tcc__r0
+ldx.b tcc__r0
+lda.w #300
+jsr.l tcc__udiv
+stx.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x70a
+; st2 tcc__r0, [positionHistory,1802]
+lda.b tcc__r0
+sta.l positionHistory + 1802
+__local_3:
+; gsym_addr t 6545 a 7136 ind 7136
+; load 0
+; type 16 reg 0x3f0 extra 0x0
+; ld2 [positionHistory + 1806], tcc__r0
+lda.l positionHistory + 1806
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x6b639334
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 1806 r type 0x10)
+; length xxy 2 vtop->type 0x10
+inc.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x70e
+; st2 tcc__r0, [positionHistory,1806]
+lda.b tcc__r0
+sta.l positionHistory + 1806
+__local_1:
+; gsym_addr t 2315 a 7676 ind 7676
+; add sp, #__recordCurrentPosition_locals
+.ifgr __recordCurrentPosition_locals 0
+tsa
+clc
+adc #__recordCurrentPosition_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".canRewindtext_0x2" SUPERFREE
+
+canRewind:
+; sub sp,#__canRewind_locals
+.ifgr __canRewind_locals 0
+tsa
+sec
+sbc #__canRewind_locals
+tas
+.endif
+; load 0
+; type 16 reg 0x3f0 extra 0x48b5000
+; ld2 [positionHistory + 1804], tcc__r0
+lda.l positionHistory + 1804
+sta.b tcc__r0
+; gen_opi len 2 op 0x97
+; ucmpcd tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #0
+tay
+beq +
+bcs ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 8256 ind 8256
+; gsym_addr t 0 a 8293 ind 8293
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 8381 ind 8381
+; cmp op 0x95 inv 1 v 243 r 8381
+; cmp ne
+bne +
+; gsym_addr t 0 a 8468 ind 8468
+brl __local_4
++
+; gtst finished; t 8381
+; gtst inv 1 t 0 v 240 r 8540 ind 8540
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [positionHistory + 1808], tcc__r0
+lda.w #0
+sep #$20
+lda.l positionHistory + 1808
+rep #$20
+sta.b tcc__r0
+; gsym_addr t 0 a 8729 ind 8729
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 8817 ind 8817
+; cmp op 0x95 inv 1 v 243 r 8817
+; cmp ne
+bne +
+; gsym_addr t 0 a 8904 ind 8904
+brl __local_5
++
+; gtst finished; t 8817
+; gtst inv 1 t 8381 v 244 r 8976 ind 8976
+; VT_jmp r 8976 t 8381 ji 0 inv 1 vtop->c.i 8817
+; gjmp_addr 8381 at 9067
+jmp.w __local_6
+; gsym_addr t 9067 a 8381 ind 9108
+__local_5:
+; gsym_addr t 8817 a 9143 ind 9143
+; gtst finished; t 9067
+; load 0
+; type 0 reg 0xf5 extra 0x0
+; jmpr(i) v 0xf5 r 0x0 fc 0x236b
+lda #1
+bra +
+__local_4:
+__local_6:
+; gsym_addr t 9067 a 9285 ind 9285
+lda #0
++
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c 9067 r type 0x5b61afa0)
+; length xxy 2 vtop->type 0x0
+; nop
+lda.b tcc__r0
+and.w #255
+sta.b tcc__r0
+; gjmp_addr 0 at 9516
+jmp.w __local_7
+; gsym_addr t 9516 a 0 ind 9554
+__local_7:
+; gsym_addr t 9516 a 9586 ind 9586
+; add sp, #__canRewind_locals
+.ifgr __canRewind_locals 0
+tsa
+clc
+adc #__canRewind_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".canRewindDistancetext_0x3" SUPERFREE
+
+canRewindDistance:
+; sub sp,#__canRewindDistance_locals
+.ifgr __canRewindDistance_locals 0
+tsa
+sec
+sbc #__canRewindDistance_locals
+tas
+.endif
+; call r 0x2f0
+jsr.l canRewind
+; gtst inv 1 t 0 v 0 r 9954 ind 9954
+; gsym_addr t 0 a 9991 ind 9991
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 10079 ind 10079
+; cmp op 0x95 inv 1 v 243 r 10079
+; cmp ne
+bne +
+; gsym_addr t 0 a 10169 ind 10169
+brl __local_8
++
+; gtst finished; t 10079
+; gtst inv 0 t 0 v 244 r 10244 ind 10244
+; VT_jmp r 10244 t 0 ji 0 inv 0 vtop->c.i 10079
+; gsym_addr t 0 a 10333 ind 10333
+; gtst finished; t 10079
+; load 0
+; type 16 reg 0x1f2 extra 0x48b5000
+; ld2 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -251
+lda 3 + __canRewindDistance_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op 0x97
+; ucmpcd tcc__r0, #180
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #180
+tay
+beq +
+bcs ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 0 t 10079 v 5 r 10679 ind 10679
+; gsym_addr t 10079 a 10722 ind 10722
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 0 t 10079 v 243 r 10816 ind 10816
+; cmp op 0x95 inv 0 v 243 r 10816
+; cmp ne
+beq +
+__local_8:
+; gsym_addr t 10079 a 10910 ind 10910
+brl __local_9
++
+; gtst finished; t 10816
+; gtst inv 1 t 0 v 244 r 10989 ind 10989
+; VT_jmp r 10989 t 0 ji 0 inv 1 vtop->c.i 10816
+; gjmp_addr 0 at 11078
+jmp.w __local_10
+; gsym_addr t 11078 a 0 ind 11118
+__local_9:
+; gsym_addr t 10816 a 11152 ind 11152
+; gtst finished; t 11078
+; load 0
+; type 17 reg 0xf0 extra 0x656c6170
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; gjmp_addr 0 at 11300
+jmp.w __local_11
+; gsym_addr t 11300 a 0 ind 11340
+__local_10:
+; gsym_addr t 11078 a 11374 ind 11374
+; load 0
+; type 16 reg 0x3f0 extra 0x48b5000
+; ld2 [positionHistory + 1804], tcc__r0
+lda.l positionHistory + 1804
+sta.b tcc__r0
+; load 1
+; type 16 reg 0x1f2 extra 0x48b5000
+; ld2 [sp,3],tcc__r1
+; stack adjust: fc + disp - loc - 256 -251
+lda 3 + __canRewindDistance_locals + 1,s
+sta.b tcc__r1
+; gen_opi len 2 op 0x93
+; ucmpcd tcc__r0, tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bcs ++
++ dex
+++
+stx.b tcc__r5
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r5 (0x5) (fr type 0x0 c 1804 r type 0x5b61afa0)
+; length xxy 2 vtop->type 0x0
+; nop
+lda.b tcc__r5
+and.w #255
+sta.b tcc__r5
+; load 0
+; type 17 reg 0x5 extra 0x656c6170
+; mov tcc__r5, tcc__r0
+lda.b tcc__r5
+sta.b tcc__r0
+lda.b tcc__r5h
+sta.b tcc__r0h
+; gjmp_addr 11300 at 12125
+jmp.w __local_12
+; gsym_addr t 12125 a 11300 ind 12169
+__local_11:
+__local_12:
+; gsym_addr t 12125 a 12207 ind 12207
+; add sp, #__canRewindDistance_locals
+.ifgr __canRewindDistance_locals 0
+tsa
+clc
+adc #__canRewindDistance_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".rewindToFrametext_0x4" SUPERFREE
+
+rewindToFrame:
+; sub sp,#__rewindToFrame_locals
+.ifgr __rewindToFrame_locals 0
+tsa
+sec
+sbc #__rewindToFrame_locals
+tas
+.endif
+; call r 0x2f0
+jsr.l canRewind
+; gtst inv 1 t 0 v 0 r 12582 ind 12582
+; gsym_addr t 0 a 12621 ind 12621
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 12711 ind 12711
+; cmp op 0x95 inv 1 v 243 r 12711
+; cmp ne
+bne +
+; gsym_addr t 0 a 12801 ind 12801
+brl __local_13
++
+; gtst finished; t 12711
+; gtst inv 1 t 0 v 244 r 12877 ind 12877
+; VT_jmp r 12877 t 0 ji 0 inv 1 vtop->c.i 12711
+; gjmp_addr 0 at 12966
+jmp.w __local_14
+; gsym_addr t 12966 a 0 ind 13006
+__local_13:
+; gsym_addr t 12711 a 13040 ind 13040
+; gtst finished; t 12966
+; load 0
+; type 17 reg 0xf0 extra 0x65747465
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; gjmp_addr 0 at 13188
+jmp.w __local_15
+; gsym_addr t 13188 a 0 ind 13228
+__local_14:
+; gsym_addr t 12966 a 13262 ind 13262
+; ldpush before load type 0x10 reg 0x1f2
+; load 0
+; type 16 reg 0x1f2 extra 0x0
+; ld2 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -247
+lda 3 + __rewindToFrame_locals + 1,s
+sta.b tcc__r0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l getPositionAtFrame
+; add sp, #2
+pla
+; store r 0x0 fr 0x1f2 ft 0x4 fc 0xfffffffc
+; st4 tcc__r0, [sp,-4]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -4 + __rewindToFrame_locals + 1,s
+lda.b tcc__r0h
+sta -2 + __rewindToFrame_locals + 1,s
+; gtst inv 1 t 0 v 242 r 13819 ind 13819
+; load 0
+; type 4 reg 0x1f2 extra 0x68746977
+; ld4 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -4 + __rewindToFrame_locals + 1,s
+sta.b tcc__r0
+lda -2 + __rewindToFrame_locals + 1,s
+sta.b tcc__r0h
+; gsym_addr t 0 a 14075 ind 14075
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 14165 ind 14165
+; cmp op 0x95 inv 1 v 243 r 14165
+; cmp ne
+bne +
+; gsym_addr t 0 a 14255 ind 14255
+brl __local_16
++
+; gtst finished; t 14165
+; gtst inv 1 t 0 v 244 r 14331 ind 14331
+; VT_jmp r 14331 t 0 ji 0 inv 1 vtop->c.i 14165
+; gjmp_addr 0 at 14420
+jmp.w __local_17
+; gsym_addr t 14420 a 0 ind 14460
+__local_16:
+; gsym_addr t 14165 a 14494 ind 14494
+; gtst finished; t 14420
+; load 0
+; type 17 reg 0xf0 extra 0x65747465
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; gjmp_addr 13188 at 14642
+jmp.w __local_18
+; gsym_addr t 14642 a 13188 ind 14686
+__local_17:
+; gsym_addr t 14420 a 14724 ind 14724
+; ldpush before load type 0x10 reg 0x1f2
+; load 0
+; type 16 reg 0x1f2 extra 0x0
+; ld2 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -245
+lda 3 + __rewindToFrame_locals + 1,s
+sta.b tcc__r0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; ldpush before load type 0x10 reg 0x3f0
+; load 0
+; type 16 reg 0x3f0 extra 0x0
+; ld2 [positionHistory + 1806], tcc__r0
+lda.l positionHistory + 1806
+sta.b tcc__r0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l calculateFrameDistance
+; add sp, #4
+tsa
+clc
+adc #4
+tas
+; store r 0x0 fr 0x1f2 ft 0x10 fc 0xfffffffa
+; st2 tcc__r0, [sp,-6]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -6 + __rewindToFrame_locals + 1,s
+; ldpush before load type 0x10 reg 0x1f2
+; load 0
+; type 16 reg 0x1f2 extra 0x0
+; ld2 [sp,-6],tcc__r0
+; stack adjust: fc + disp - loc - 256 -252
+lda -6 + __rewindToFrame_locals + 1,s
+sta.b tcc__r0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l getRewindEnergyCost
+; add sp, #2
+pla
+; store r 0x0 fr 0x1f2 ft 0x10 fc 0xfffffff8
+; st2 tcc__r0, [sp,-8]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -8 + __rewindToFrame_locals + 1,s
+; load 0
+; type 16 reg 0x3f0 extra 0x48b5000
+; ld2 [playerCharacter + 4], tcc__r0
+lda.l playerCharacter + 4
+sta.b tcc__r0
+; load 1
+; type 16 reg 0x1f2 extra 0x48b5000
+; ld2 [sp,-8],tcc__r1
+; stack adjust: fc + disp - loc - 256 -254
+lda -8 + __rewindToFrame_locals + 1,s
+sta.b tcc__r1
+; gen_opi len 2 op 0x92
+; ucmpcd tcc__r0, tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bcc ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 16340 ind 16340
+; gsym_addr t 0 a 16379 ind 16379
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 16469 ind 16469
+; cmp op 0x95 inv 1 v 243 r 16469
+; cmp ne
+bne +
+; gsym_addr t 0 a 16559 ind 16559
+brl __local_19
++
+; gtst finished; t 16469
+; load 0
+; type 17 reg 0xf0 extra 0x65747465
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; gjmp_addr 14642 at 16720
+jmp.w __local_20
+; gsym_addr t 16720 a 14642 ind 16764
+__local_19:
+; gsym_addr t 16469 a 16802 ind 16802
+; load 0
+; type 4 reg 0x1f2 extra 0x68746977
+; ld4 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -250
+lda -4 + __rewindToFrame_locals + 1,s
+sta.b tcc__r0
+lda -2 + __rewindToFrame_locals + 1,s
+sta.b tcc__r0h
+; load 1
+; type 0 reg 0x100 extra 0x754e206e
+; ld2 [tcc__r0,0],tcc__r1
+lda.b [tcc__r0]
+sta.b tcc__r1
+; store r 0x1 fr 0x3f0 ft 0x0 fc 0xe
+; st2 tcc__r1, [playerCharacter,14]
+lda.b tcc__r1
+sta.l playerCharacter + 14
+; load 0
+; type 4 reg 0x1f2 extra 0x68746977
+; ld4 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -250
+lda -4 + __rewindToFrame_locals + 1,s
+sta.b tcc__r0
+lda -2 + __rewindToFrame_locals + 1,s
+sta.b tcc__r0h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -4 r type 0x0)
+; length xxy 4 vtop->type 0x4
+inc.b tcc__r0
+inc.b tcc__r0
+; load 1
+; type 0 reg 0x100 extra 0x65706f20
+; ld2 [tcc__r0,0],tcc__r1
+lda.b [tcc__r0]
+sta.b tcc__r1
+; store r 0x1 fr 0x3f0 ft 0x0 fc 0x10
+; st2 tcc__r1, [playerCharacter,16]
+lda.b tcc__r1
+sta.l playerCharacter + 16
+; load 0
+; type 16 reg 0x3f0 extra 0x48b5000
+; ld2 [playerCharacter + 4], tcc__r0
+lda.l playerCharacter + 4
+sta.b tcc__r0
+; load 1
+; type 16 reg 0x1f2 extra 0x48b5000
+; ld2 [sp,-8],tcc__r1
+; stack adjust: fc + disp - loc - 256 -254
+lda -8 + __rewindToFrame_locals + 1,s
+sta.b tcc__r1
+; gen_opi len 2 op -
+; sbc tcc__r1 (0x1), tcc__r0 (0x0) (fr type 0x10 c 4 r type 0x10)
+; length xxy 2 vtop->type 0x10
+sec
+lda.b tcc__r0
+sbc.b tcc__r1
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x10 fc 0x4
+; st2 tcc__r0, [playerCharacter,4]
+lda.b tcc__r0
+sta.l playerCharacter + 4
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x710
+; st1 tcc__r0, [positionHistory,1808]
+sep #$20
+lda.b tcc__r0
+sta.l positionHistory + 1808
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x65747465
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; gjmp_addr 16720 at 18712
+jmp.w __local_21
+; gsym_addr t 18712 a 16720 ind 18756
+__local_15:
+__local_18:
+__local_20:
+__local_21:
+; gsym_addr t 18712 a 18794 ind 18794
+; add sp, #__rewindToFrame_locals
+.ifgr __rewindToFrame_locals 0
+tsa
+clc
+adc #__rewindToFrame_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".rewindByFramestext_0x5" SUPERFREE
+
+rewindByFrames:
+; sub sp,#__rewindByFrames_locals
+.ifgr __rewindByFrames_locals 0
+tsa
+sec
+sbc #__rewindByFrames_locals
+tas
+.endif
+; ldpush before load type 0x10 reg 0x1f2
+; load 0
+; type 16 reg 0x1f2 extra 0x656c6170
+; ld2 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -251
+lda 3 + __rewindByFrames_locals + 1,s
+sta.b tcc__r0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l canRewindDistance
+; add sp, #2
+pla
+; gtst inv 1 t 0 v 0 r 19442 ind 19442
+; gsym_addr t 0 a 19481 ind 19481
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 19571 ind 19571
+; cmp op 0x95 inv 1 v 243 r 19571
+; cmp ne
+bne +
+; gsym_addr t 0 a 19661 ind 19661
+brl __local_22
++
+; gtst finished; t 19571
+; gtst inv 1 t 0 v 244 r 19737 ind 19737
+; VT_jmp r 19737 t 0 ji 0 inv 1 vtop->c.i 19571
+; gjmp_addr 0 at 19826
+jmp.w __local_23
+; gsym_addr t 19826 a 0 ind 19866
+__local_22:
+; gsym_addr t 19571 a 19900 ind 19900
+; gtst finished; t 19826
+; load 0
+; type 17 reg 0xf0 extra 0x665c2021
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; gjmp_addr 0 at 20048
+jmp.w __local_24
+; gsym_addr t 20048 a 0 ind 20088
+__local_23:
+; gsym_addr t 19826 a 20122 ind 20122
+; load 0
+; type 16 reg 0x3f0 extra 0x48b5000
+; ld2 [positionHistory + 1806], tcc__r0
+lda.l positionHistory + 1806
+sta.b tcc__r0
+; load 1
+; type 16 reg 0x1f2 extra 0x48b5000
+; ld2 [sp,3],tcc__r1
+; stack adjust: fc + disp - loc - 256 -249
+lda 3 + __rewindByFrames_locals + 1,s
+sta.b tcc__r1
+; gen_opi len 2 op -
+; sbc tcc__r1 (0x1), tcc__r0 (0x0) (fr type 0x10 c 1806 r type 0x5b61afa0)
+; length xxy 2 vtop->type 0x10
+sec
+lda.b tcc__r0
+sbc.b tcc__r1
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x10 fc 0xfffffffe
+; st2 tcc__r0, [sp,-2]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -2 + __rewindByFrames_locals + 1,s
+; ldpush before load type 0x10 reg 0x1f2
+; load 0
+; type 16 reg 0x1f2 extra 0x20686361
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __rewindByFrames_locals + 1,s
+sta.b tcc__r0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l rewindToFrame
+; add sp, #2
+pla
+; gjmp_addr 20048 at 21095
+jmp.w __local_25
+; gsym_addr t 21095 a 20048 ind 21139
+__local_24:
+__local_25:
+; gsym_addr t 21095 a 21177 ind 21177
+; add sp, #__rewindByFrames_locals
+.ifgr __rewindByFrames_locals 0
+tsa
+clc
+adc #__rewindByFrames_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".stopRewindtext_0x6" SUPERFREE
+
+stopRewind:
+; sub sp,#__stopRewind_locals
+.ifgr __stopRewind_locals 0
+tsa
+sec
+sbc #__stopRewind_locals
+tas
+.endif
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x710
+; st1 tcc__r0, [positionHistory,1808]
+sep #$20
+lda.b tcc__r0
+sta.l positionHistory + 1808
+rep #$20
+; gsym_addr t 0 a 21715 ind 21715
+; add sp, #__stopRewind_locals
+.ifgr __stopRewind_locals 0
+tsa
+clc
+adc #__stopRewind_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".getPositionAtFrametext_0x7" SUPERFREE
+
+getPositionAtFrame:
+; sub sp,#__getPositionAtFrame_locals
+.ifgr __getPositionAtFrame_locals 0
+tsa
+sec
+sbc #__getPositionAtFrame_locals
+tas
+.endif
+; load 0
+; type 16 reg 0x3f0 extra 0x48b5000
+; ld2 [positionHistory + 1804], tcc__r0
+lda.l positionHistory + 1804
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 22297 ind 22297
+; gsym_addr t 0 a 22336 ind 22336
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 22426 ind 22426
+; cmp op 0x95 inv 1 v 243 r 22426
+; cmp ne
+bne +
+; gsym_addr t 0 a 22516 ind 22516
+brl __local_26
++
+; gtst finished; t 22426
+; load 0
+; type 4 reg 0xf0 extra 0x202c4168
+; ld4 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+lda.w #0
+sta.b tcc__r0h
+; gjmp_addr 0 at 22700
+jmp.w __local_27
+; gsym_addr t 22700 a 0 ind 22740
+__local_26:
+; gsym_addr t 22426 a 22774 ind 22774
+; load 0
+; type 16 reg 0x3f0 extra 0x48a1000
+; ld2 [positionHistory + 1800], tcc__r0
+lda.l positionHistory + 1800
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x10 fc 0xfffffffe
+; st2 tcc__r0, [sp,-2]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -2 + __getPositionAtFrame_locals + 1,s
+; load 0
+; type 16 reg 0xf0 extra 0x48a1000
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x10 fc 0xfffffffc
+; st2 tcc__r0, [sp,-4]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -4 + __getPositionAtFrame_locals + 1,s
+__local_34:
+; load 0
+; type 16 reg 0x1f2 extra 0x48b5000
+; ld2 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -4 + __getPositionAtFrame_locals + 1,s
+sta.b tcc__r0
+; load 1
+; type 16 reg 0x3f0 extra 0x48b5000
+; ld2 [positionHistory + 1804], tcc__r1
+lda.l positionHistory + 1804
+sta.b tcc__r1
+; gen_opi len 2 op 0x92
+; ucmpcd tcc__r0, tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bcc ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 23778 ind 23778
+; gsym_addr t 0 a 23817 ind 23817
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 23907 ind 23907
+; cmp op 0x95 inv 1 v 243 r 23907
+; cmp ne
+bne +
+; gsym_addr t 0 a 23997 ind 23997
+brl __local_28
++
+; gtst finished; t 23907
+; load 0
+; type 16 reg 0x1f2 extra 0x48b5000
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -252
+lda -2 + __getPositionAtFrame_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 24350 ind 24350
+; gsym_addr t 0 a 24389 ind 24389
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 24479 ind 24479
+; cmp op 0x95 inv 1 v 243 r 24479
+; cmp ne
+bne +
+; gsym_addr t 0 a 24569 ind 24569
+brl __local_29
++
+; gtst finished; t 24479
+; gjmp_addr 0 at 24645
+jmp.w __local_30
+; gsym_addr t 24645 a 0 ind 24685
+__local_29:
+; gsym_addr t 24479 a 24719 ind 24719
+; load 0
+; type 16 reg 0x1f2 extra 0x48b5000
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -252
+lda -2 + __getPositionAtFrame_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op -
+; sbc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c -2 r type 0x10)
+; length xxy 2 vtop->type 0x10
+dec.b tcc__r0
+; gjmp_addr 0 at 25060
+jmp.w __local_31
+; gsym_addr t 25060 a 0 ind 25100
+__local_30:
+; gsym_addr t 24645 a 25134 ind 25134
+; load 0
+; type 16 reg 0xf0 extra 0x47def54
+; ld2 #299,tcc__r0
+lda.w #299
+sta.b tcc__r0
+__local_31:
+; gsym_addr t 25060 a 25260 ind 25260
+; store r 0x0 fr 0x1f2 ft 0x10 fc 0xfffffffe
+; st2 tcc__r0, [sp,-2]
+; stack adjust: fc + disp - loc - 256 -252
+lda.b tcc__r0
+sta -2 + __getPositionAtFrame_locals + 1,s
+; load 0
+; type 16 reg 0x1f2 extra 0x5b82c3c0
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -252
+lda -2 + __getPositionAtFrame_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #6, tcc__r0
+lda.w #6
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld1800 #positionHistory + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:positionHistory
+sta.b tcc__r1h
+lda.w #positionHistory + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x5b61afa0)
+; length xxy 1800 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x5b61afa0)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #4
+sta.b tcc__r1
+; load 0
+; type 16 reg 0x101 extra 0x48b5000
+; ld2 [tcc__r1,0],tcc__r0
+lda.b [tcc__r1]
+sta.b tcc__r0
+; load 1
+; type 16 reg 0x1f2 extra 0x48b5000
+; ld2 [sp,3],tcc__r1
+; stack adjust: fc + disp - loc - 256 -247
+lda 3 + __getPositionAtFrame_locals + 1,s
+sta.b tcc__r1
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 26698 ind 26698
+; gsym_addr t 0 a 26737 ind 26737
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 26827 ind 26827
+; cmp op 0x95 inv 1 v 243 r 26827
+; cmp ne
+bne +
+; gsym_addr t 0 a 26917 ind 26917
+brl __local_32
++
+; gtst finished; t 26827
+; load 0
+; type 16 reg 0x1f2 extra 0x5b82c3c0
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -252
+lda -2 + __getPositionAtFrame_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #6, tcc__r0
+lda.w #6
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld1800 #positionHistory + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:positionHistory
+sta.b tcc__r1h
+lda.w #positionHistory + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x5b61afa0)
+; length xxy 1800 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; load 0
+; type 4 reg 0x1 extra 0x202c4168
+; mov tcc__r1, tcc__r0
+lda.b tcc__r1
+sta.b tcc__r0
+lda.b tcc__r1h
+sta.b tcc__r0h
+; gjmp_addr 22700 at 27795
+jmp.w __local_33
+; gsym_addr t 27795 a 22700 ind 27839
+__local_32:
+; gsym_addr t 26827 a 27877 ind 27877
+; load 0
+; type 16 reg 0x1f2 extra 0x3875202c
+; ld2 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -4 + __getPositionAtFrame_locals + 1,s
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x6b639194
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c -4 r type 0x10)
+; length xxy 2 vtop->type 0x10
+inc.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x10 fc 0xfffffffc
+; st2 tcc__r0, [sp,-4]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -4 + __getPositionAtFrame_locals + 1,s
+; gjmp_addr 23360 at 28511
+jmp.w __local_34
+; gsym_addr t 28511 a 23360 ind 28555
+__local_28:
+; gsym_addr t 23907 a 28593 ind 28593
+; gsym_addr t 0 a 23360 ind 28631
+; load 0
+; type 4 reg 0xf0 extra 0x202c4168
+; ld4 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+lda.w #0
+sta.b tcc__r0h
+; gjmp_addr 27795 at 28773
+jmp.w __local_35
+; gsym_addr t 28773 a 27795 ind 28817
+__local_27:
+__local_33:
+__local_35:
+; gsym_addr t 28773 a 28855 ind 28855
+; add sp, #__getPositionAtFrame_locals
+.ifgr __getPositionAtFrame_locals 0
+tsa
+clc
+adc #__getPositionAtFrame_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".getCurrentRewindFrametext_0x8" SUPERFREE
+
+getCurrentRewindFrame:
+; sub sp,#__getCurrentRewindFrame_locals
+.ifgr __getCurrentRewindFrame_locals 0
+tsa
+sec
+sbc #__getCurrentRewindFrame_locals
+tas
+.endif
+; load 0
+; type 16 reg 0x3f0 extra 0x6f632072
+; ld2 [positionHistory + 1806], tcc__r0
+lda.l positionHistory + 1806
+sta.b tcc__r0
+; gjmp_addr 0 at 29371
+jmp.w __local_36
+; gsym_addr t 29371 a 0 ind 29411
+__local_36:
+; gsym_addr t 29371 a 29445 ind 29445
+; add sp, #__getCurrentRewindFrame_locals
+.ifgr __getCurrentRewindFrame_locals 0
+tsa
+clc
+adc #__getCurrentRewindFrame_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".getOldestFrametext_0x9" SUPERFREE
+
+getOldestFrame:
+; sub sp,#__getOldestFrame_locals
+.ifgr __getOldestFrame_locals 0
+tsa
+sec
+sbc #__getOldestFrame_locals
+tas
+.endif
+; load 0
+; type 16 reg 0x3f0 extra 0x48b5000
+; ld2 [positionHistory + 1804], tcc__r0
+lda.l positionHistory + 1804
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 30044 ind 30044
+; gsym_addr t 0 a 30083 ind 30083
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 30173 ind 30173
+; cmp op 0x95 inv 1 v 243 r 30173
+; cmp ne
+bne +
+; gsym_addr t 0 a 30263 ind 30263
+brl __local_37
++
+; gtst finished; t 30173
+; load 0
+; type 16 reg 0xf0 extra 0x66206575
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; gjmp_addr 0 at 30424
+jmp.w __local_38
+; gsym_addr t 30424 a 0 ind 30464
+__local_37:
+; gsym_addr t 30173 a 30498 ind 30498
+; load 0
+; type 16 reg 0x3f0 extra 0x5b82c3c0
+; ld2 [positionHistory + 1802], tcc__r0
+lda.l positionHistory + 1802
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #6, tcc__r0
+lda.w #6
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld1800 #positionHistory + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:positionHistory
+sta.b tcc__r1h
+lda.w #positionHistory + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x5b61afa0)
+; length xxy 1800 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x5b61afa0)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #4
+sta.b tcc__r1
+; load 0
+; type 16 reg 0x101 extra 0x66206575
+; ld2 [tcc__r1,0],tcc__r0
+lda.b [tcc__r1]
+sta.b tcc__r0
+; gjmp_addr 30424 at 31443
+jmp.w __local_39
+; gsym_addr t 31443 a 30424 ind 31487
+__local_38:
+__local_39:
+; gsym_addr t 31443 a 31525 ind 31525
+; add sp, #__getOldestFrame_locals
+.ifgr __getOldestFrame_locals 0
+tsa
+clc
+adc #__getOldestFrame_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".getNewestFrametext_0xa" SUPERFREE
+
+getNewestFrame:
+; sub sp,#__getNewestFrame_locals
+.ifgr __getNewestFrame_locals 0
+tsa
+sec
+sbc #__getNewestFrame_locals
+tas
+.endif
+; load 0
+; type 16 reg 0x3f0 extra 0x48b5000
+; ld2 [positionHistory + 1804], tcc__r0
+lda.l positionHistory + 1804
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 32103 ind 32103
+; gsym_addr t 0 a 32142 ind 32142
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 32232 ind 32232
+; cmp op 0x95 inv 1 v 243 r 32232
+; cmp ne
+bne +
+; gsym_addr t 0 a 32322 ind 32322
+brl __local_40
++
+; gtst finished; t 32232
+; load 0
+; type 16 reg 0xf0 extra 0x20202020
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; gjmp_addr 0 at 32483
+jmp.w __local_41
+; gsym_addr t 32483 a 0 ind 32523
+__local_40:
+; gsym_addr t 32232 a 32557 ind 32557
+; load 0
+; type 16 reg 0x3f0 extra 0x48b5000
+; ld2 [positionHistory + 1800], tcc__r0
+lda.l positionHistory + 1800
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 32833 ind 32833
+; gsym_addr t 0 a 32872 ind 32872
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 32962 ind 32962
+; cmp op 0x95 inv 1 v 243 r 32962
+; cmp ne
+bne +
+; gsym_addr t 0 a 33052 ind 33052
+brl __local_42
++
+; gtst finished; t 32962
+; gjmp_addr 0 at 33128
+jmp.w __local_43
+; gsym_addr t 33128 a 0 ind 33168
+__local_42:
+; gsym_addr t 32962 a 33202 ind 33202
+; load 0
+; type 16 reg 0x3f0 extra 0x48b5000
+; ld2 [positionHistory + 1800], tcc__r0
+lda.l positionHistory + 1800
+sta.b tcc__r0
+; gen_opi len 2 op -
+; sbc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 1800 r type 0x5b61afa0)
+; length xxy 2 vtop->type 0x10
+dec.b tcc__r0
+; gjmp_addr 0 at 33512
+jmp.w __local_44
+; gsym_addr t 33512 a 0 ind 33552
+__local_43:
+; gsym_addr t 33128 a 33586 ind 33586
+; load 0
+; type 16 reg 0xf0 extra 0x0
+; ld2 #299,tcc__r0
+lda.w #299
+sta.b tcc__r0
+__local_44:
+; gsym_addr t 33512 a 33706 ind 33706
+; store r 0x0 fr 0x1f2 ft 0x10 fc 0xfffffffe
+; st2 tcc__r0, [sp,-2]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -2 + __getNewestFrame_locals + 1,s
+; load 0
+; type 16 reg 0x1f2 extra 0x5b82c3c0
+; ld2 [sp,-2],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -2 + __getNewestFrame_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #6, tcc__r0
+lda.w #6
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x0
+; ld1800 #positionHistory + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:positionHistory
+sta.b tcc__r1h
+lda.w #positionHistory + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x5b61afa0)
+; length xxy 1800 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x5b61afa0)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #4
+sta.b tcc__r1
+; load 0
+; type 16 reg 0x101 extra 0x20202020
+; ld2 [tcc__r1,0],tcc__r0
+lda.b [tcc__r1]
+sta.b tcc__r0
+; gjmp_addr 32483 at 34850
+jmp.w __local_45
+; gsym_addr t 34850 a 32483 ind 34894
+__local_41:
+__local_45:
+; gsym_addr t 34850 a 34932 ind 34932
+; add sp, #__getNewestFrame_locals
+.ifgr __getNewestFrame_locals 0
+tsa
+clc
+adc #__getNewestFrame_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".calculateFrameDistancetext_0xb" SUPERFREE
+
+calculateFrameDistance:
+; sub sp,#__calculateFrameDistance_locals
+.ifgr __calculateFrameDistance_locals 0
+tsa
+sec
+sbc #__calculateFrameDistance_locals
+tas
+.endif
+; load 0
+; type 16 reg 0x1f2 extra 0x48b5000
+; ld2 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -251
+lda 3 + __calculateFrameDistance_locals + 1,s
+sta.b tcc__r0
+; load 1
+; type 16 reg 0x1f2 extra 0x48b5000
+; ld2 [sp,5],tcc__r1
+; stack adjust: fc + disp - loc - 256 -249
+lda 5 + __calculateFrameDistance_locals + 1,s
+sta.b tcc__r1
+; gen_opi len 2 op 0x93
+; ucmpcd tcc__r0, tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bcs ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 35773 ind 35773
+; gsym_addr t 0 a 35812 ind 35812
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 35902 ind 35902
+; cmp op 0x95 inv 1 v 243 r 35902
+; cmp ne
+bne +
+; gsym_addr t 0 a 35992 ind 35992
+brl __local_46
++
+; gtst finished; t 35902
+; load 0
+; type 16 reg 0x1f2 extra 0x48b5000
+; ld2 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -251
+lda 3 + __calculateFrameDistance_locals + 1,s
+sta.b tcc__r0
+; load 1
+; type 16 reg 0x1f2 extra 0x48b5000
+; ld2 [sp,5],tcc__r1
+; stack adjust: fc + disp - loc - 256 -249
+lda 5 + __calculateFrameDistance_locals + 1,s
+sta.b tcc__r1
+; gen_opi len 2 op -
+; sbc tcc__r1 (0x1), tcc__r0 (0x0) (fr type 0x10 c 3 r type 0x5b61afa0)
+; length xxy 2 vtop->type 0x10
+sec
+lda.b tcc__r0
+sbc.b tcc__r1
+sta.b tcc__r0
+; gjmp_addr 0 at 36576
+jmp.w __local_47
+; gsym_addr t 36576 a 0 ind 36616
+__local_46:
+; gsym_addr t 35902 a 36650 ind 36650
+; load 0
+; type 16 reg 0xf0 extra 0x20686369
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; gjmp_addr 36576 at 36773
+jmp.w __local_48
+; gsym_addr t 36773 a 36576 ind 36817
+__local_47:
+__local_48:
+; gsym_addr t 36773 a 36855 ind 36855
+; add sp, #__calculateFrameDistance_locals
+.ifgr __calculateFrameDistance_locals 0
+tsa
+clc
+adc #__calculateFrameDistance_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".getRewindEnergyCosttext_0xc" SUPERFREE
+
+getRewindEnergyCost:
+; sub sp,#__getRewindEnergyCost_locals
+.ifgr __getRewindEnergyCost_locals 0
+tsa
+sec
+sbc #__getRewindEnergyCost_locals
+tas
+.endif
+; load 0
+; type 16 reg 0x1f2 extra 0x48b5000
+; ld2 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -251
+lda 3 + __getRewindEnergyCost_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op *
+lda.b tcc__r0
+asl a
+asl a
+clc
+adc.b tcc__r0
+sta.b tcc__r0
+; gjmp_addr 0 at 37489
+jmp.w __local_49
+; gsym_addr t 37489 a 0 ind 37529
+__local_49:
+; gsym_addr t 37489 a 37563 ind 37563
+; add sp, #__getRewindEnergyCost_locals
+.ifgr __getRewindEnergyCost_locals 0
+tsa
+clc
+adc #__getRewindEnergyCost_locals
+tas
+.endif
+rtl
+.ENDS
+.RAMSECTION "ram{WLA_FILENAME}.data" APPENDTO "globram.data"
+
+positionHistory dsb 1810
+
+.ENDS
+
+.SECTION "{WLA_FILENAME}.data" APPENDTO "glob.data"
+
+.db $0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0
+.ENDS
+
+.SECTION ".rodata" SUPERFREE
+
+.ENDS
+
+.RAMSECTION ".bss" BANK $7e SLOT 2
+.ENDS

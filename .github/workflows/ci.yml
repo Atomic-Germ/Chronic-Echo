@@ -2,9 +2,9 @@ name: CI Workflow
 
 on:
   push:
-    branches: [ main, dev/*, dev]
+    branches: [ main , dev/* , * ]
   pull_request:
-    branches: [ main ]
+    branches: [ main , develop ]
 
 jobs:
   build-and-test:
@@ -16,11 +16,14 @@ jobs:
 
     - name: Download libraries and tools
       run: |
-        brew install gnu-sed
+        brew install gnu-sed sdl2
         make deps
 
     - name: Build the rom
       run: make
+
+    - name: Test the rom
+      run: make test
 
     - name: Upload build artifacts (optional)
       uses: actions/upload-artifact@v4

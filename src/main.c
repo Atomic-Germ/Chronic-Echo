@@ -15,6 +15,12 @@ extern char sprites_simple, sprites_simple_pal;
 // Include our sprite system
 #include "sprites.h"
 
+// Include our player system
+#include "player.h"
+
+// Include our time manipulation system
+#include "time_manipulation.h"
+
 // Screen states
 #define SCREEN_INTRO 0
 #define SCREEN_FADEOUT 1
@@ -65,6 +71,12 @@ int main(void)
     initSprites();
     initPlayer();
 
+    // Initialize player character system
+    initPlayerCharacter();
+
+    // Initialize time manipulation system
+    initPositionHistory();
+
     // Init background
     bgSetGfxPtr(0, 0x2000);
     bgSetMapPtr(0, 0x6800, SC_32x32);
@@ -83,6 +95,9 @@ int main(void)
     int fadeFrameCount = 0;
     int blackFrameCount = 0;
     int brightness = 15;
+
+    // Input state for time manipulation
+    u16 previousPadState = 0;
 
     // Main game loop
     while (1) {
@@ -218,7 +233,16 @@ int main(void)
                         fadeFrameCount = 0;
                         brightness = 15;
                     }
+
+                    // Handle time manipulation input
+                    handleTimeManipulationInput(padsCurrent(0), previousPadState);
                 }
+
+                // Record current position for time manipulation
+                recordCurrentPosition(playerCharacter.x, playerCharacter.y);
+
+                // Update previous pad state for next frame
+                previousPadState = padsCurrent(0);
 
                 // Always update and draw sprites
                 updatePlayer();

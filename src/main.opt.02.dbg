@@ -1,0 +1,940 @@
+.include "hdr.asm"
+.accu 16
+.index 16
+.16bit
+.define __clearScreenForTransition_locals 4
+.define __main_locals 12
+
+.SECTION ".clearScreenForTransitiontext_0x0" SUPERFREE
+
+clearScreenForTransition:
+.ifgr __clearScreenForTransition_locals 0
+tsa
+sec
+sbc #__clearScreenForTransition_locals
+tas
+.endif
+stz.b tcc__r0
+lda.b tcc__r0
+sta -2 + __clearScreenForTransition_locals + 1,s
+__local_2:
+lda -2 + __clearScreenForTransition_locals + 1,s
+sta.b tcc__r0
+sec
+sbc.w #32
+bvc +
+eor #$8000
++
+bmi +
+brl __local_0
++
+bra __local_1
+__local_7:
+lda -2 + __clearScreenForTransition_locals + 1,s
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+lda.b tcc__r0
+sta -2 + __clearScreenForTransition_locals + 1,s
+bra __local_2
+__local_1:
+stz.b tcc__r0
+lda.b tcc__r0
+sta -4 + __clearScreenForTransition_locals + 1,s
+__local_5:
+lda -4 + __clearScreenForTransition_locals + 1,s
+sta.b tcc__r0
+sec
+sbc.w #32
+bvc +
+eor #$8000
++
+bmi +
+brl __local_3
++
+bra __local_4
+__local_6:
+lda -4 + __clearScreenForTransition_locals + 1,s
+clc
+adc.w #20
+sta.b tcc__r0
+sta -4 + __clearScreenForTransition_locals + 1,s
+bra __local_5
+__local_4:
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}13
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}13 + 0
+lda 2 + __clearScreenForTransition_locals + 1,s
+pha
+lda 2 + __clearScreenForTransition_locals + 1,s
+pha
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+bra __local_6
+__local_3:
+jmp.w __local_7
+__local_0:
+sep #$20
+lda #0
+pha
+rep #$20
+pea.w 0
+jsr.l oamClear
+tsa
+clc
+adc #3
+tas
+jsr.l oamUpdate
+jsr.l WaitForVBlank
+.ifgr __clearScreenForTransition_locals 0
+tsa
+clc
+adc #__clearScreenForTransition_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".maintext_0x1" SUPERFREE
+
+main:
+.ifgr __main_locals 0
+tsa
+sec
+sbc #__main_locals
+tas
+.endif
+pea.w 26624
+jsr.l consoleSetTextMapPtr
+pla
+pea.w 12288
+jsr.l consoleSetTextGfxPtr
+pla
+pea.w 256
+jsr.l consoleSetTextOffset
+pla
+pea.w :palfont
+pea.w palfont + 0
+pea.w :tilfont
+pea.w tilfont + 0
+pea.w (32 * 256 + 0)
+sep #$20
+rep #$20
+jsr.l consoleInitText
+tsa
+clc
+adc #10
+tas
+pea.w 1
+pea.w 12288
+pea.w :tilfont
+pea.w tilfont + 0
+jsr.l dmaCopyVram
+tsa
+clc
+adc #8
+tas
+jsr.l initSprites
+jsr.l initPlayer
+jsr.l initPlayerCharacter
+pea.w 8192
+sep #$20
+lda #0
+pha
+rep #$20
+jsr.l bgSetGfxPtr
+tsa
+clc
+adc #3
+tas
+sep #$20
+lda #0
+pha
+rep #$20
+pea.w 26624
+sep #$20
+lda #0
+pha
+rep #$20
+jsr.l bgSetMapPtr
+tsa
+clc
+adc #4
+tas
+pea.w (0 * 256 + 1)
+sep #$20
+rep #$20
+jsr.l setMode
+pla
+sep #$20
+lda #1
+pha
+rep #$20
+jsr.l bgSetDisable
+tsa
+clc
+adc #1
+tas
+sep #$20
+lda #2
+pha
+rep #$20
+jsr.l bgSetDisable
+tsa
+clc
+adc #1
+tas
+sep #$20
+lda #15
+pha
+rep #$20
+jsr.l setBrightness
+tsa
+clc
+adc #1
+tas
+stz.b tcc__r0
+lda.b tcc__r0
+sta -2 + __main_locals + 1,s
+stz.b tcc__r0
+lda.b tcc__r0
+sta -4 + __main_locals + 1,s
+stz.b tcc__r0
+lda.b tcc__r0
+sta -6 + __main_locals + 1,s
+stz.b tcc__r0
+lda.b tcc__r0
+sta -8 + __main_locals + 1,s
+lda.w #15
+sta.b tcc__r0
+sta -10 + __main_locals + 1,s
+__local_58:
+lda -2 + __main_locals + 1,s
+sta.b tcc__r0
+bra __local_8
+bra __local_9
+__local_8:
+lda.b tcc__r0
+cmp #0
+beq +
+brl __local_10
++
+__local_9:
+lda -4 + __main_locals + 1,s
+sta.b tcc__r0
+cmp #0
+beq +
+brl __local_11
++
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}14
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}14 + 0
+pea.w 14
+pea.w 8
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}15
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}15 + 0
+pea.w 16
+pea.w 8
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+jsr.l setScreenOn
+__local_11:
+lda -4 + __main_locals + 1,s
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+lda.b tcc__r0
+sta -4 + __main_locals + 1,s
+lda.w #0
+sep #$20
+lda.l snes_fps + 0
+rep #$20
+sta.b tcc__r0
+cmp #60
+beq +
+brl __local_12
++
+bra __local_13
+__local_12:
+lda.w #125
+sta.b tcc__r0
+bra __local_14
+__local_13:
+lda.w #150
+sta.b tcc__r0
+__local_14:
+lda.b tcc__r0
+sta -12 + __main_locals + 1,s
+lda -4 + __main_locals + 1,s
+sta.b tcc__r0
+lda -12 + __main_locals + 1,s
+sta.b tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_15
++
+lda.w #1
+sta -2 + __main_locals + 1,s
+stz.b tcc__r0
+lda.b tcc__r0
+sta -6 + __main_locals + 1,s
+lda.w #15
+sta.b tcc__r0
+sta -10 + __main_locals + 1,s
+__local_15:
+jmp.w __local_16
+bra __local_17
+__local_10:
+lda.b tcc__r0
+cmp #1
+beq +
+brl __local_18
++
+__local_17:
+lda -6 + __main_locals + 1,s
+sta.b tcc__r0
+tax
+lda.w #4
+jsr.l tcc__div
+stx.b tcc__r0
+txa
+cmp #0
+beq +
+brl __local_19
++
+lda -10 + __main_locals + 1,s
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #0
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+__local_19:
+brl __local_20
++
+lda -10 + __main_locals + 1,s
+dec a
+sta -10 + __main_locals + 1,s
+and.w #255
+sep #$20
+pha
+rep #$20
+jsr.l setBrightness
+tsa
+clc
+adc #1
+tas
+__local_20:
+lda -6 + __main_locals + 1,s
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+lda.b tcc__r0
+sta -6 + __main_locals + 1,s
+lda -10 + __main_locals + 1,s
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #0
+tay
+beq +++
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_21
++
+jsr.l clearScreenForTransition
+lda.w #2
+sta -2 + __main_locals + 1,s
+stz.b tcc__r0
+lda.b tcc__r0
+sta -8 + __main_locals + 1,s
+__local_21:
+jmp.w __local_22
+bra __local_23
+__local_18:
+lda.b tcc__r0
+cmp #2
+beq +
+brl __local_24
++
+__local_23:
+lda -8 + __main_locals + 1,s
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+lda.b tcc__r0
+sta -8 + __main_locals + 1,s
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #30
+tay
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_25
++
+jsr.l clearScreenForTransition
+lda.w #3
+sta -2 + __main_locals + 1,s
+stz.b tcc__r0
+lda.b tcc__r0
+sta -6 + __main_locals + 1,s
+stz.b tcc__r0
+lda.b tcc__r0
+sta -10 + __main_locals + 1,s
+__local_25:
+jmp.w __local_26
+bra __local_27
+__local_24:
+lda.b tcc__r0
+cmp #3
+beq +
+brl __local_28
++
+__local_27:
+lda -6 + __main_locals + 1,s
+sta.b tcc__r0
+cmp #0
+beq +
+brl __local_29
++
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}16
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}16 + 0
+pea.w 14
+pea.w 8
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}17
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}17 + 0
+pea.w 10
+pea.w 9
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}18
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}18 + 0
+pea.w 24
+pea.w 10
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+jsr.l setScreenOn
+__local_29:
+lda -6 + __main_locals + 1,s
+sta.b tcc__r0
+tax
+lda.w #4
+jsr.l tcc__div
+stx.b tcc__r0
+txa
+cmp #0
+beq +
+brl __local_30
++
+lda -10 + __main_locals + 1,s
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #15
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+__local_30:
+brl __local_31
++
+lda -10 + __main_locals + 1,s
+inc a
+sta -10 + __main_locals + 1,s
+and.w #255
+sep #$20
+pha
+rep #$20
+jsr.l setBrightness
+tsa
+clc
+adc #1
+tas
+__local_31:
+lda.l pad_keys + 0
+and.w #4096
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_32
++
+lda.w #6
+sta -2 + __main_locals + 1,s
+stz.b tcc__r0
+lda.b tcc__r0
+sta -6 + __main_locals + 1,s
+__local_32:
+lda -6 + __main_locals + 1,s
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+lda.b tcc__r0
+sta -6 + __main_locals + 1,s
+jmp.w __local_33
+bra __local_34
+__local_28:
+lda.b tcc__r0
+cmp #6
+beq +
+brl __local_35
++
+__local_34:
+lda -6 + __main_locals + 1,s
+sta.b tcc__r0
+tax
+lda.w #4
+jsr.l tcc__div
+stx.b tcc__r0
+txa
+cmp #0
+beq +
+brl __local_36
++
+lda -10 + __main_locals + 1,s
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #0
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+__local_36:
+brl __local_37
++
+lda -10 + __main_locals + 1,s
+dec a
+sta -10 + __main_locals + 1,s
+and.w #255
+sep #$20
+pha
+rep #$20
+jsr.l setBrightness
+tsa
+clc
+adc #1
+tas
+__local_37:
+lda -6 + __main_locals + 1,s
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+lda.b tcc__r0
+sta -6 + __main_locals + 1,s
+lda -10 + __main_locals + 1,s
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #0
+tay
+beq +++
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_38
++
+jsr.l clearScreenForTransition
+lda.w #4
+sta -2 + __main_locals + 1,s
+stz.b tcc__r0
+lda.b tcc__r0
+sta -6 + __main_locals + 1,s
+stz.b tcc__r0
+lda.b tcc__r0
+sta -10 + __main_locals + 1,s
+__local_38:
+jmp.w __local_39
+bra __local_40
+__local_35:
+lda.b tcc__r0
+cmp #4
+beq +
+brl __local_41
++
+__local_40:
+lda -6 + __main_locals + 1,s
+sta.b tcc__r0
+cmp #0
+beq +
+brl __local_42
++
+jsr.l updatePlayer
+jsr.l drawPlayer
+jsr.l setScreenOn
+stz.b tcc__r0
+lda.b tcc__r0
+sta -10 + __main_locals + 1,s
+__local_42:
+lda -6 + __main_locals + 1,s
+sta.b tcc__r0
+tax
+lda.w #4
+jsr.l tcc__div
+stx.b tcc__r0
+txa
+cmp #0
+beq +
+brl __local_43
++
+lda -10 + __main_locals + 1,s
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #15
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+__local_43:
+brl __local_44
++
+lda -10 + __main_locals + 1,s
+inc a
+sta -10 + __main_locals + 1,s
+and.w #255
+sep #$20
+pha
+rep #$20
+jsr.l setBrightness
+tsa
+clc
+adc #1
+tas
+__local_44:
+lda -6 + __main_locals + 1,s
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+lda.b tcc__r0
+sta -6 + __main_locals + 1,s
+lda -10 + __main_locals + 1,s
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #15
+tay
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_45
++
+lda.l pad_keys + 0
+and.w #512
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_46
++
+pea.w 0
+pea.w 65534
+jsr.l movePlayer
+tsa
+clc
+adc #4
+tas
+__local_46:
+lda.l pad_keys + 0
+and.w #256
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_47
++
+pea.w 0
+pea.w 2
+jsr.l movePlayer
+tsa
+clc
+adc #4
+tas
+__local_47:
+lda.l pad_keys + 0
+and.w #2048
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_48
++
+pea.w 65534
+pea.w 0
+jsr.l movePlayer
+tsa
+clc
+adc #4
+tas
+__local_48:
+lda.l pad_keys + 0
+and.w #1024
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_49
++
+pea.w 2
+pea.w 0
+jsr.l movePlayer
+tsa
+clc
+adc #4
+tas
+__local_49:
+lda.l pad_keys + 0
+and.w #32768
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_50
++
+lda.w #5
+sta -2 + __main_locals + 1,s
+stz.b tcc__r0
+lda.b tcc__r0
+sta -6 + __main_locals + 1,s
+lda.w #15
+sta.b tcc__r0
+sta -10 + __main_locals + 1,s
+__local_50:
+__local_45:
+jsr.l updatePlayer
+jsr.l drawPlayer
+jmp.w __local_51
+bra __local_52
+__local_41:
+lda.b tcc__r0
+cmp #5
+beq +
+brl __local_53
++
+__local_52:
+lda -6 + __main_locals + 1,s
+sta.b tcc__r0
+tax
+lda.w #4
+jsr.l tcc__div
+stx.b tcc__r0
+txa
+cmp #0
+beq +
+brl __local_54
++
+lda -10 + __main_locals + 1,s
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #0
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+__local_54:
+brl __local_55
++
+lda -10 + __main_locals + 1,s
+dec a
+sta -10 + __main_locals + 1,s
+and.w #255
+sep #$20
+pha
+rep #$20
+jsr.l setBrightness
+tsa
+clc
+adc #1
+tas
+__local_55:
+lda -6 + __main_locals + 1,s
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+lda.b tcc__r0
+sta -6 + __main_locals + 1,s
+lda -10 + __main_locals + 1,s
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #0
+tay
+beq +++
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_56
++
+jsr.l clearScreenForTransition
+lda.w #3
+sta -2 + __main_locals + 1,s
+stz.b tcc__r0
+lda.b tcc__r0
+sta -6 + __main_locals + 1,s
+stz.b tcc__r0
+lda.b tcc__r0
+sta -10 + __main_locals + 1,s
+__local_56:
+__local_53:
+__local_16:
+__local_22:
+__local_26:
+__local_33:
+__local_39:
+__local_51:
+__local_57:
+jsr.l WaitForVBlank
+jmp.w __local_58
+lda.w #0
+sta.b tcc__r0
+__local_59:
+.ifgr __main_locals 0
+tsa
+clc
+adc #__main_locals
+tas
+.endif
+rtl
+.ENDS
+.RAMSECTION "ram{WLA_FILENAME}.data" APPENDTO "globram.data"
+
+.ENDS
+
+.SECTION "{WLA_FILENAME}.data" APPENDTO "glob.data"
+
+.ENDS
+
+.SECTION ".rodata" SUPERFREE
+
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}13: .db $20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}14: .db $4d,$61,$64,$65,$20,$77,$69,$74,$68,$20,$43,$6f,$70,$69,$6c,$6f,$74,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}15: .db $20,$20,$61,$6e,$64,$20,$70,$76,$73,$6e,$65,$73,$6c,$69,$62,$20,$20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}16: .db $20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}17: .db $43,$48,$52,$4f,$4e,$49,$43,$20,$45,$43,$48,$4f,$45,$53,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}18: .db $50,$52,$45,$53,$53,$20,$53,$54,$41,$52,$54,$0
+.ENDS
+
+.RAMSECTION ".bss" BANK $7e SLOT 2
+.ENDS

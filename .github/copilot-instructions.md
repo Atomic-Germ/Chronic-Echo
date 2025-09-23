@@ -8,8 +8,8 @@
 ## Key Workflows
 - **Build:**
   - Run `make deps && make` to install dependencies and build the ROM.
-  - Use `make run` to launch the ROM in Mesen (if installed).
-  - Manual emulator launch: `open -a Snes9x build/ChronicEchos.sfc` or `open -a Mesen build/ChronicEchos.sfc`.
+  - Use `make run` to launch the ROM in snes_test.
+  - Manual emulator launch: `open -a Snes9x build/ChronicEchos.sfc` or `./snes_test build/ChronicEchos.sfc`.
 - **Validate ROM:**
   - Run `./validate_rom.sh build/ChronicEchos.sfc` to check ROM integrity.
 - **Graphics Conversion:**
@@ -40,7 +40,7 @@
 - If build fails with `cleanBuildRes` error, run `make deps` first.
 - If tools are missing, run `./setup_path.sh` after `make deps` or update your PATH.
 - Duplicate label warnings during linking are harmless.
-- Use compatible emulators (SNES9x, Mesen) with LoROM settings.
+- Use compatible emulators (SNES9x, snes_test) with LoROM settings.
 
 ## CI/CD
 - GitHub Actions build and test on push/PR to `main`.
