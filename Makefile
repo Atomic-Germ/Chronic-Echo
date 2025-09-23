@@ -81,7 +81,7 @@ deps:
 			echo "Unsupported arch: $$ARCH"; \
 			exit 1; \
 		fi; \
-		URL="https://github.com/Atomic-Germ/Mesen2-SDL3/releases/download/1.0.0/snes-test-suite-$${OS_NAME}-$${ARCH_NAME}.tar.gz"; \
+		URL="https://github.com/Atomic-Germ/Mesen2-SDL3/releases/download/v1.0.1-dev/snes-test-suite-$${OS_NAME}-$${ARCH_NAME}.tar.gz"; \
 		echo "Downloading snes_test for $${OS_NAME}-$${ARCH_NAME}..."; \
 		wget $$URL -O snes_test.tar.gz || curl -L $$URL -o snes_test.tar.gz; \
 		tar -xzf snes_test.tar.gz; \

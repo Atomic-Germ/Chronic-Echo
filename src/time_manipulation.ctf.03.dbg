@@ -1,0 +1,858 @@
+.include "hdr.asm"
+.accu 16
+.index 16
+.16bit
+.define __initPositionHistory_locals 0
+.define __recordCurrentPosition_locals 6
+.define __canRewind_locals 0
+.define __canRewindDistance_locals 0
+.define __rewindToFrame_locals 8
+.define __rewindByFrames_locals 2
+.define __stopRewind_locals 0
+.define __getPositionAtFrame_locals 4
+.define __getCurrentRewindFrame_locals 0
+.define __getOldestFrame_locals 0
+.define __getNewestFrame_locals 2
+.define __calculateFrameDistance_locals 0
+.define __getRewindEnergyCost_locals 0
+
+.SECTION ".initPositionHistorytext_0x0" SUPERFREE
+
+initPositionHistory:
+.ifgr __initPositionHistory_locals 0
+tsa
+sec
+sbc #__initPositionHistory_locals
+tas
+.endif
+pea.w 1810
+pea.w 0
+pea.w :positionHistory
+pea.w positionHistory + 0
+jsr.l memset
+tsa
+clc
+adc #8
+tas
+stz.b tcc__r0
+lda.b tcc__r0
+sta.l positionHistory + 1800
+stz.b tcc__r0
+lda.b tcc__r0
+sta.l positionHistory + 1802
+stz.b tcc__r0
+lda.b tcc__r0
+sta.l positionHistory + 1804
+stz.b tcc__r0
+lda.b tcc__r0
+sta.l positionHistory + 1806
+lda.w #0
+sta.b tcc__r0
+sep #$20
+sta.l positionHistory + 1808
+rep #$20
+.ifgr __initPositionHistory_locals 0
+tsa
+clc
+adc #__initPositionHistory_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".recordCurrentPositiontext_0x1" SUPERFREE
+
+recordCurrentPosition:
+.ifgr __recordCurrentPosition_locals 0
+tsa
+sec
+sbc #__recordCurrentPosition_locals
+tas
+.endif
+lda.w #0
+sep #$20
+lda.l positionHistory + 1808
+rep #$20
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_0
++
+jmp.w __local_1
+__local_0:
+lda 3 + __recordCurrentPosition_locals + 1,s
+sta.b tcc__r0
+sta -6 + __recordCurrentPosition_locals + 1,s
+stz.b tcc__r0h
+tsa
+clc
+adc #(-6 + __recordCurrentPosition_locals + 1) + 2
+sta.b tcc__r0
+lda 5 + __recordCurrentPosition_locals + 1,s
+sta.b [tcc__r0]
+stz.b tcc__r0h
+tsa
+clc
+adc #(-6 + __recordCurrentPosition_locals + 1)
+clc
+adc.w #4
+sta.b tcc__r0
+lda.l positionHistory + 1806
+sta.b tcc__r1
+sta.b [tcc__r0]
+lda.l positionHistory + 1800
+sta.b tcc__r0
+lda.w #6
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:positionHistory
+sta.b tcc__r1h
+lda.w #positionHistory + 0
+clc
+adc.b tcc__r0
+sta.b tcc__r1
+pea.w 6
+stz.b tcc__r0h
+tsa
+clc
+adc #(-4 + __recordCurrentPosition_locals + 1)
+pei (tcc__r0h)
+pha
+pei (tcc__r1h)
+pei (tcc__r1)
+jsr.l memcpy
+tsa
+clc
+adc #10
+tas
+lda.l positionHistory + 1800
+sta.b tcc__r0
+inc.b tcc__r0
+ldx.b tcc__r0
+lda.w #300
+jsr.l tcc__udiv
+txa
+sta.l positionHistory + 1800
+lda.l positionHistory + 1804
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #300
+tay
+bcc ++
++ dex
+++
+stx.b tcc__r5
+txa
+bne +
+brl __local_2
++
+lda.l positionHistory + 1804
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+lda.b tcc__r0
+sta.l positionHistory + 1804
+bra __local_3
+__local_2:
+lda.l positionHistory + 1802
+sta.b tcc__r0
+inc.b tcc__r0
+ldx.b tcc__r0
+lda.w #300
+jsr.l tcc__udiv
+stx.b tcc__r0
+txa
+sta.l positionHistory + 1802
+__local_3:
+lda.l positionHistory + 1806
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+lda.b tcc__r0
+sta.l positionHistory + 1806
+__local_1:
+.ifgr __recordCurrentPosition_locals 0
+tsa
+clc
+adc #__recordCurrentPosition_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".canRewindtext_0x2" SUPERFREE
+
+canRewind:
+.ifgr __canRewind_locals 0
+tsa
+sec
+sbc #__canRewind_locals
+tas
+.endif
+lda.l positionHistory + 1804
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #0
+tay
+beq +
+bcs ++
++ dex
+++
+stx.b tcc__r5
+txa
+bne +
+brl __local_4
++
+lda.w #0
+sep #$20
+lda.l positionHistory + 1808
+rep #$20
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_5
++
+bra __local_6
+__local_5:
+lda #1
+bra +
+__local_4:
+__local_6:
+lda #0
++
+and.w #255
+sta.b tcc__r0
+__local_7:
+.ifgr __canRewind_locals 0
+tsa
+clc
+adc #__canRewind_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".canRewindDistancetext_0x3" SUPERFREE
+
+canRewindDistance:
+.ifgr __canRewindDistance_locals 0
+tsa
+sec
+sbc #__canRewindDistance_locals
+tas
+.endif
+jsr.l canRewind
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_8
++
+lda 3 + __canRewindDistance_locals + 1,s
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #180
+tay
+beq +
+bcs ++
++ dex
+++
+stx.b tcc__r5
+txa
+beq +
+__local_8:
+brl __local_9
++
+bra __local_10
+__local_9:
+lda.w #0
+sta.b tcc__r0
+bra __local_11
+__local_10:
+lda.l positionHistory + 1804
+sta.b tcc__r0
+lda 3 + __canRewindDistance_locals + 1,s
+sta.b tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bcs ++
++ dex
+++
+txa
+and.w #255
+sta.b tcc__r5
+sta.b tcc__r0
+lda.b tcc__r5h
+sta.b tcc__r0h
+__local_11:
+__local_12:
+.ifgr __canRewindDistance_locals 0
+tsa
+clc
+adc #__canRewindDistance_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".rewindToFrametext_0x4" SUPERFREE
+
+rewindToFrame:
+.ifgr __rewindToFrame_locals 0
+tsa
+sec
+sbc #__rewindToFrame_locals
+tas
+.endif
+jsr.l canRewind
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_13
++
+bra __local_14
+__local_13:
+lda.w #0
+sta.b tcc__r0
+jmp.w __local_15
+__local_14:
+lda 3 + __rewindToFrame_locals + 1,s
+pha
+jsr.l getPositionAtFrame
+pla
+lda.b tcc__r0
+sta -4 + __rewindToFrame_locals + 1,s
+lda.b tcc__r0h
+sta -2 + __rewindToFrame_locals + 1,s
+lda -4 + __rewindToFrame_locals + 1,s
+sta.b tcc__r0
+lda -2 + __rewindToFrame_locals + 1,s
+sta.b tcc__r0h
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_16
++
+bra __local_17
+__local_16:
+lda.w #0
+sta.b tcc__r0
+jmp.w __local_18
+__local_17:
+lda 3 + __rewindToFrame_locals + 1,s
+pha
+lda.l positionHistory + 1806
+pha
+jsr.l calculateFrameDistance
+tsa
+clc
+adc #4
+tas
+lda.b tcc__r0
+sta -6 + __rewindToFrame_locals + 1,s
+pha
+jsr.l getRewindEnergyCost
+pla
+lda.b tcc__r0
+sta -8 + __rewindToFrame_locals + 1,s
+lda.l playerCharacter + 4
+sta.b tcc__r0
+lda -8 + __rewindToFrame_locals + 1,s
+sta.b tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bcc ++
++ dex
+++
+stx.b tcc__r5
+txa
+bne +
+brl __local_19
++
+lda.w #0
+sta.b tcc__r0
+jmp.w __local_20
+__local_19:
+lda -4 + __rewindToFrame_locals + 1,s
+sta.b tcc__r0
+lda -2 + __rewindToFrame_locals + 1,s
+sta.b tcc__r0h
+lda.b [tcc__r0]
+sta.l playerCharacter + 14
+lda -2 + __rewindToFrame_locals + 1,s
+sta.b tcc__r0h
+lda -4 + __rewindToFrame_locals + 1,s
+inc a
+inc a
+sta.b tcc__r0
+lda.b [tcc__r0]
+sta.l playerCharacter + 16
+lda.l playerCharacter + 4
+sta.b tcc__r0
+lda -8 + __rewindToFrame_locals + 1,s
+sta.b tcc__r1
+sec
+lda.b tcc__r0
+sbc.b tcc__r1
+sta.l playerCharacter + 4
+lda.w #1
+sep #$20
+sta.l positionHistory + 1808
+rep #$20
+lda.w #1
+sta.b tcc__r0
+__local_15:
+__local_18:
+__local_20:
+__local_21:
+.ifgr __rewindToFrame_locals 0
+tsa
+clc
+adc #__rewindToFrame_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".rewindByFramestext_0x5" SUPERFREE
+
+rewindByFrames:
+.ifgr __rewindByFrames_locals 0
+tsa
+sec
+sbc #__rewindByFrames_locals
+tas
+.endif
+lda 3 + __rewindByFrames_locals + 1,s
+pha
+jsr.l canRewindDistance
+pla
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_22
++
+bra __local_23
+__local_22:
+lda.w #0
+sta.b tcc__r0
+bra __local_24
+__local_23:
+lda.l positionHistory + 1806
+sta.b tcc__r0
+lda 3 + __rewindByFrames_locals + 1,s
+sta.b tcc__r1
+sec
+lda.b tcc__r0
+sbc.b tcc__r1
+sta -2 + __rewindByFrames_locals + 1,s
+pha
+jsr.l rewindToFrame
+pla
+__local_24:
+__local_25:
+.ifgr __rewindByFrames_locals 0
+tsa
+clc
+adc #__rewindByFrames_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".stopRewindtext_0x6" SUPERFREE
+
+stopRewind:
+.ifgr __stopRewind_locals 0
+tsa
+sec
+sbc #__stopRewind_locals
+tas
+.endif
+lda.w #0
+sta.b tcc__r0
+sep #$20
+sta.l positionHistory + 1808
+rep #$20
+.ifgr __stopRewind_locals 0
+tsa
+clc
+adc #__stopRewind_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".getPositionAtFrametext_0x7" SUPERFREE
+
+getPositionAtFrame:
+.ifgr __getPositionAtFrame_locals 0
+tsa
+sec
+sbc #__getPositionAtFrame_locals
+tas
+.endif
+lda.l positionHistory + 1804
+sta.b tcc__r0
+cmp #0
+beq +
+brl __local_26
++
+stz.b tcc__r0
+lda.w #0
+sta.b tcc__r0h
+jmp.w __local_27
+__local_26:
+lda.l positionHistory + 1800
+sta -2 + __getPositionAtFrame_locals + 1,s
+stz.b tcc__r0
+lda.b tcc__r0
+sta -4 + __getPositionAtFrame_locals + 1,s
+__local_34:
+lda -4 + __getPositionAtFrame_locals + 1,s
+sta.b tcc__r0
+lda.l positionHistory + 1804
+sta.b tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bcc ++
++ dex
+++
+stx.b tcc__r5
+txa
+bne +
+brl __local_28
++
+lda -2 + __getPositionAtFrame_locals + 1,s
+sta.b tcc__r0
+cmp #0
+beq +
+brl __local_29
++
+bra __local_30
+__local_29:
+lda -2 + __getPositionAtFrame_locals + 1,s
+sta.b tcc__r0
+dec.b tcc__r0
+bra __local_31
+__local_30:
+lda.w #299
+sta.b tcc__r0
+__local_31:
+lda.b tcc__r0
+sta -2 + __getPositionAtFrame_locals + 1,s
+sta.b tcc__r0
+lda.w #6
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:positionHistory
+sta.b tcc__r1h
+lda.w #positionHistory + 0
+clc
+adc.b tcc__r0
+clc
+adc.w #4
+sta.b tcc__r1
+lda.b [tcc__r1]
+sta.b tcc__r0
+lda 3 + __getPositionAtFrame_locals + 1,s
+sta.b tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+beq +
+dex
++
+stx.b tcc__r5
+txa
+bne +
+brl __local_32
++
+lda -2 + __getPositionAtFrame_locals + 1,s
+sta.b tcc__r0
+lda.w #6
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:positionHistory
+sta.b tcc__r1h
+lda.w #positionHistory + 0
+clc
+adc.b tcc__r0
+sta.b tcc__r1
+sta.b tcc__r0
+lda.b tcc__r1h
+sta.b tcc__r0h
+bra __local_33
+__local_32:
+lda -4 + __getPositionAtFrame_locals + 1,s
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+lda.b tcc__r0
+sta -4 + __getPositionAtFrame_locals + 1,s
+jmp.w __local_34
+__local_28:
+stz.b tcc__r0
+lda.w #0
+sta.b tcc__r0h
+__local_27:
+__local_33:
+__local_35:
+.ifgr __getPositionAtFrame_locals 0
+tsa
+clc
+adc #__getPositionAtFrame_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".getCurrentRewindFrametext_0x8" SUPERFREE
+
+getCurrentRewindFrame:
+.ifgr __getCurrentRewindFrame_locals 0
+tsa
+sec
+sbc #__getCurrentRewindFrame_locals
+tas
+.endif
+lda.l positionHistory + 1806
+sta.b tcc__r0
+__local_36:
+.ifgr __getCurrentRewindFrame_locals 0
+tsa
+clc
+adc #__getCurrentRewindFrame_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".getOldestFrametext_0x9" SUPERFREE
+
+getOldestFrame:
+.ifgr __getOldestFrame_locals 0
+tsa
+sec
+sbc #__getOldestFrame_locals
+tas
+.endif
+lda.l positionHistory + 1804
+sta.b tcc__r0
+cmp #0
+beq +
+brl __local_37
++
+lda.w #0
+sta.b tcc__r0
+bra __local_38
+__local_37:
+lda.l positionHistory + 1802
+sta.b tcc__r0
+lda.w #6
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:positionHistory
+sta.b tcc__r1h
+lda.w #positionHistory + 0
+clc
+adc.b tcc__r0
+clc
+adc.w #4
+sta.b tcc__r1
+lda.b [tcc__r1]
+sta.b tcc__r0
+__local_38:
+__local_39:
+.ifgr __getOldestFrame_locals 0
+tsa
+clc
+adc #__getOldestFrame_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".getNewestFrametext_0xa" SUPERFREE
+
+getNewestFrame:
+.ifgr __getNewestFrame_locals 0
+tsa
+sec
+sbc #__getNewestFrame_locals
+tas
+.endif
+lda.l positionHistory + 1804
+sta.b tcc__r0
+cmp #0
+beq +
+brl __local_40
++
+lda.w #0
+sta.b tcc__r0
+jmp.w __local_41
+__local_40:
+lda.l positionHistory + 1800
+sta.b tcc__r0
+cmp #0
+beq +
+brl __local_42
++
+bra __local_43
+__local_42:
+lda.l positionHistory + 1800
+sta.b tcc__r0
+dec.b tcc__r0
+bra __local_44
+__local_43:
+lda.w #299
+sta.b tcc__r0
+__local_44:
+lda.b tcc__r0
+sta -2 + __getNewestFrame_locals + 1,s
+sta.b tcc__r0
+lda.w #6
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:positionHistory
+sta.b tcc__r1h
+lda.w #positionHistory + 0
+clc
+adc.b tcc__r0
+clc
+adc.w #4
+sta.b tcc__r1
+lda.b [tcc__r1]
+sta.b tcc__r0
+__local_41:
+__local_45:
+.ifgr __getNewestFrame_locals 0
+tsa
+clc
+adc #__getNewestFrame_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".calculateFrameDistancetext_0xb" SUPERFREE
+
+calculateFrameDistance:
+.ifgr __calculateFrameDistance_locals 0
+tsa
+sec
+sbc #__calculateFrameDistance_locals
+tas
+.endif
+lda 3 + __calculateFrameDistance_locals + 1,s
+sta.b tcc__r0
+lda 5 + __calculateFrameDistance_locals + 1,s
+sta.b tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bcs ++
++ dex
+++
+stx.b tcc__r5
+txa
+bne +
+brl __local_46
++
+lda 3 + __calculateFrameDistance_locals + 1,s
+sta.b tcc__r0
+lda 5 + __calculateFrameDistance_locals + 1,s
+sta.b tcc__r1
+sec
+lda.b tcc__r0
+sbc.b tcc__r1
+sta.b tcc__r0
+bra __local_47
+__local_46:
+lda.w #0
+sta.b tcc__r0
+__local_47:
+__local_48:
+.ifgr __calculateFrameDistance_locals 0
+tsa
+clc
+adc #__calculateFrameDistance_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".getRewindEnergyCosttext_0xc" SUPERFREE
+
+getRewindEnergyCost:
+.ifgr __getRewindEnergyCost_locals 0
+tsa
+sec
+sbc #__getRewindEnergyCost_locals
+tas
+.endif
+lda 3 + __getRewindEnergyCost_locals + 1,s
+sta.b tcc__r0
+asl a
+asl a
+clc
+adc.b tcc__r0
+sta.b tcc__r0
+__local_49:
+.ifgr __getRewindEnergyCost_locals 0
+tsa
+clc
+adc #__getRewindEnergyCost_locals
+tas
+.endif
+rtl
+.ENDS
+.RAMSECTION "ram{WLA_FILENAME}.data" APPENDTO "globram.data"
+
+positionHistory dsb 1810
+
+.ENDS
+
+.SECTION "{WLA_FILENAME}.data" APPENDTO "glob.data"
+
+.db $0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0
+.ENDS
+
+.SECTION ".rodata" SUPERFREE
+
+.ENDS
+
+.RAMSECTION ".bss" BANK $7e SLOT 2
+.ENDS
