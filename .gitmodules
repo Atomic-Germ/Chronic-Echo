@@ -1,1 +1,4 @@
 
+[submodule "jgit"]
+	path = jgit
+	url = https://github.com/SourMesen/Mesen2.git

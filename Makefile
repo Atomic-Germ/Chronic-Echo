@@ -62,28 +62,46 @@ deps:
 	else \
 		echo "PVSnesLib already installed."; \
 	fi
-	@if [ ! -d "Mesen.app" ]; then \
-		echo "Downloading Mesen emulator..."; \
-		wget https://github.com/SourMesen/Mesen2/releases/download/2.1.1/Mesen_2.1.1_macOS_x64_Intel.zip -O mesen.zip || curl -L https://github.com/SourMesen/Mesen2/releases/download/2.1.1/Mesen_2.1.1_macOS_x64_Intel.zip -o mesen.zip; \
-		unzip mesen.zip; \
-		if [ -f "Mesen.app.zip" ]; then unzip Mesen.app.zip; rm Mesen.app.zip; fi; \
-		chmod +x Mesen.app/Contents/MacOS/Mesen; \
-		rm mesen.zip; \
-		echo "Mesen emulator installed successfully!"; \
+	@if [ ! -f "snes_test" ]; then \
+		OS=$$(uname -s); \
+		ARCH=$$(uname -m); \
+		if [ "$$OS" = "Darwin" ]; then \
+			OS_NAME="macos"; \
+		elif [ "$$OS" = "Linux" ]; then \
+			OS_NAME="linux"; \
+		else \
+			echo "Unsupported OS: $$OS"; \
+			exit 1; \
+		fi; \
+		if [ "$$ARCH" = "x86_64" ] || [ "$$ARCH" = "amd64" ]; then \
+			ARCH_NAME="x64"; \
+		elif [ "$$ARCH" = "arm64" ] || [ "$$ARCH" = "aarch64" ]; then \
+			ARCH_NAME="arm64"; \
+		else \
+			echo "Unsupported arch: $$ARCH"; \
+			exit 1; \
+		fi; \
+		URL="https://github.com/Atomic-Germ/Mesen2-SDL3/releases/download/1.0.0/snes-test-suite-$${OS_NAME}-$${ARCH_NAME}.tar.gz"; \
+		echo "Downloading snes_test for $${OS_NAME}-$${ARCH_NAME}..."; \
+		wget $$URL -O snes_test.tar.gz || curl -L $$URL -o snes_test.tar.gz; \
+		tar -xzf snes_test.tar.gz; \
+		chmod +x snes_test; \
+		rm snes_test.tar.gz; \
+		echo "snes_test installed successfully!"; \
 	else \
-		echo "Mesen emulator already installed."; \
+		echo "snes_test already installed."; \
 	fi
 	@echo "Setting up PATH for PVSnesLib tools..."
 	sh ./setup_path.sh
 	@echo "Dependencies setup complete!"
 
 run: $(BUILD_DIR)/$(ROMNAME).sfc
-	@echo "Running $(ROMNAME).sfc in Mednafen..."
-	mednafen $(BUILD_DIR)/$(ROMNAME).sfc
+	@echo "Running $(ROMNAME).sfc in snes_test..."
+	./snes_test $(BUILD_DIR)/$(ROMNAME).sfc
 
 test: $(BUILD_DIR)/$(ROMNAME).sfc
-	@echo "Running unit tests headlessly with Mesen..."
-	mesen --testRunner tests/test.lua $<
+	@echo "Running unit tests headlessly with snes_test..."
+	for i in tests/*.lua; do ./snes_test lua build/ChronicEchos.sfc $$i; done
 
 clean: cleanBuildRes cleanRomTemp cleanGfx
 	@echo clean intermediate files preserving ROM and tools
@@ -94,7 +112,8 @@ clean: cleanBuildRes cleanRomTemp cleanGfx
 cleanAll: cleanBuildRes cleanRom cleanGfx
 	@echo clean ALL build files including ROM and tools
 	@rm -rf $(BUILD_DIR)
-	@rm -rf Mesen.app pvsneslib
+	@rm -rf pvsneslib
+	@rm -f snes_test
 #---------------------------------------------------------------------------------
 # Override cleanGfx to preserve essential converted graphics files
 cleanGfx:
