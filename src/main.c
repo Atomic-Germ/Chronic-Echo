@@ -5,7 +5,13 @@
     -- Title screen with intro sequence
 
 
----------------------------------------------------------------------------------*/
+----------------------------------------------------------------------                if (brightness <= 0) {
+                    // Clear screen before world fades in
+                    clearScreenForTransition();
+                    currentScreen = SCREEN_WORLD;
+                    fadeFrameCount = 0;
+                    brightness = 0;
+                }----*/
 #include <snes.h>
 #include <snes/sprite.h>
 
@@ -24,6 +30,12 @@ extern char sprites_simple, sprites_simple_pal;
 // Include our battle system
 #include "battle.h"
 
+// Include our world system
+#include "world.h"
+
+// Include our dialogue system
+#include "dialogue.h"
+
 // Screen states
 #define SCREEN_INTRO 0
 #define SCREEN_FADEOUT 1
@@ -34,6 +46,7 @@ extern char sprites_simple, sprites_simple_pal;
 #define SCREEN_TITLE_FADEOUT 6
 #define SCREEN_BATTLE 7
 #define SCREEN_BATTLE_FADEOUT 8
+#define SCREEN_WORLD 9
 
 //---------------------------------------------------------------------------------
 // Random encounter system
@@ -113,6 +126,9 @@ int main(void)
 
     // Initialize battle system
     initBattleSystem();
+
+    // Initialize dialogue system
+    initDialogueSystem();
 
     // Init background
     bgSetGfxPtr(0, 0x2000);
@@ -325,7 +341,7 @@ int main(void)
 
                     // Check for battle end
                     if (!isBattleActive()) {
-                        // Battle ended, return to game
+                        // Battle ended, return to world
                         currentScreen = SCREEN_GAME_FADEOUT;
                         fadeFrameCount = 0;
                         brightness = 15;
@@ -350,10 +366,10 @@ int main(void)
 
                 fadeFrameCount++;
                 if (brightness <= 0) {
-                    // Clear screen before game fades in
+                    // Clear screen before world fades in
                     clearScreenForTransition();
                     endBattle(); // Clean up battle state
-                    currentScreen = SCREEN_GAME;
+                    currentScreen = SCREEN_WORLD;
                     fadeFrameCount = 0;
                     brightness = 0;
                 }
@@ -368,12 +384,56 @@ int main(void)
 
                 fadeFrameCount++;
                 if (brightness <= 0) {
-                    // Clear screen before title fades in
+                    // Clear screen before world fades in
                     clearScreenForTransition();
-                    currentScreen = SCREEN_TITLE;
+                    currentScreen = SCREEN_WORLD;
                     fadeFrameCount = 0;
                     brightness = 0;
                 }
+                break;
+
+            case SCREEN_WORLD:
+                // World map screen
+                if (fadeFrameCount == 0) {
+                    // Initialize world
+                    initWorld();
+                    loadArea(0); // Load overworld
+                    setScreenOn();
+                    brightness = 0;
+                }
+
+                // Fade in world screen
+                if (fadeFrameCount % 4 == 0 && brightness < 15) {
+                    brightness++;
+                    setBrightness(brightness);
+                }
+
+                fadeFrameCount++;
+
+                // Handle world navigation after fade in
+                if (brightness >= 15) {
+                    // Update world navigation
+                    updateWorldNavigation();
+
+                    // Update dialogue system
+                    updateDialogue();
+
+                    // Press B to return to title (only if no dialogue active)
+                    if ((padsCurrent(0) & KEY_B) && !isDialogueActive()) {
+                        currentScreen = SCREEN_GAME_FADEOUT;
+                        fadeFrameCount = 0;
+                        brightness = 15;
+                    }
+                }
+
+                // Render world
+                renderWorld();
+
+                // Render dialogue (on top of world)
+                renderDialogue();
+
+                // Update previous pad state
+                previousPadState = padsCurrent(0);
                 break;
         }
 

@@ -1,0 +1,5205 @@
+.include "hdr.asm"
+.accu 16
+.index 16
+.16bit
+.define __initSampleDialogue_locals 0
+.define __initDialogueSystem_locals 0
+.define __startDialogue_locals 12
+.define __updateDialogue_locals 8
+.define __renderDialogue_locals 16
+.define __isDialogueActive_locals 0
+.define __endDialogue_locals 0
+.define __setDialogueSpeed_locals 0
+.define __skipDialogueText_locals 4
+.define __selectNextChoice_locals 0
+.define __selectPreviousChoice_locals 0
+.define __confirmChoice_locals 12
+.define __getCurrentDialogueText_locals 0
+.define __getCurrentSpeaker_locals 0
+.define __getChoiceCount_locals 0
+.define __getChoiceText_locals 0
+.define __getSelectedChoice_locals 0
+
+.SECTION ".initSampleDialoguetext_0x0" SUPERFREE
+
+initSampleDialogue:
+; sub sp,#__initSampleDialogue_locals
+.ifgr __initSampleDialogue_locals 0
+tsa
+sec
+sbc #__initSampleDialogue_locals
+tas
+.endif
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x0
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,0]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 0
+rep #$20
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}18
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}18 + 0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 1
+; call r 0x2f0
+jsr.l strcpy
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}19
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}19 + 0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 17
+; call r 0x2f0
+jsr.l strcpy
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #2,tcc__r0
+lda.w #2
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x111
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,273]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 273
+rep #$20
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}20
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}20 + 0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 274
+; call r 0x2f0
+jsr.l strcpy
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x152
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,338]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 338
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x153
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,339]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 339
+rep #$20
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}21
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}21 + 0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 340
+; call r 0x2f0
+jsr.l strcpy
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #2,tcc__r0
+lda.w #2
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x194
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,404]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 404
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x195
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,405]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 405
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x21a
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,538]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 538
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x21b
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,539]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 539
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x21d
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,541]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 541
+rep #$20
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}22
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}22 + 0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 542
+; call r 0x2f0
+jsr.l strcpy
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23 + 0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 558
+; call r 0x2f0
+jsr.l strcpy
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x32e
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,814]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 814
+rep #$20
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24 + 0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 815
+; call r 0x2f0
+jsr.l strcpy
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #3,tcc__r0
+lda.w #3
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x36f
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,879]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 879
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x370
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,880]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 880
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x437
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,1079]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 1079
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x438
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,1080]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 1080
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #2,tcc__r0
+lda.w #2
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x43a
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,1082]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 1082
+rep #$20
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}25
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}25 + 0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 1083
+; call r 0x2f0
+jsr.l strcpy
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}26
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}26 + 0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 1099
+; call r 0x2f0
+jsr.l strcpy
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x54b
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,1355]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 1355
+rep #$20
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}27
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}27 + 0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 1356
+; call r 0x2f0
+jsr.l strcpy
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #3,tcc__r0
+lda.w #3
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x58c
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,1420]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 1420
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x58d
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,1421]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 1421
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x654
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,1620]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 1620
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x655
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,1621]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 1621
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #3,tcc__r0
+lda.w #3
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x657
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,1623]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 1623
+rep #$20
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}28
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}28 + 0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 1624
+; call r 0x2f0
+jsr.l strcpy
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}29
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}29 + 0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 1640
+; call r 0x2f0
+jsr.l strcpy
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x768
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,1896]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 1896
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x871
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,2161]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 2161
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x872
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodes,2162]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodes + 2162
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #4,tcc__r0
+lda.w #4
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x111 fc 0x0
+; st1 tcc__r0, [tccs_{WLA_FILENAME}_dialogueNodeCount,0]
+sep #$20
+lda.b tcc__r0
+sta.l tccs_{WLA_FILENAME}_dialogueNodeCount + 0
+rep #$20
+; gsym_addr t 0 a 9928 ind 9928
+; ERROR no jump found to patch
+; add sp, #__initSampleDialogue_locals
+.ifgr __initSampleDialogue_locals 0
+tsa
+clc
+adc #__initSampleDialogue_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".initDialogueSystemtext_0x1" SUPERFREE
+
+initDialogueSystem:
+; sub sp,#__initDialogueSystem_locals
+.ifgr __initDialogueSystem_locals 0
+tsa
+sec
+sbc #__initDialogueSystem_locals
+tas
+.endif
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x0
+; st2 tcc__r0, [currentDialogue,0]
+lda.b tcc__r0
+sta.l currentDialogue + 0
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x2
+; st1 tcc__r0, [currentDialogue,2]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 2
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x3
+; st1 tcc__r0, [currentDialogue,3]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 3
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #2,tcc__r0
+lda.w #2
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x4
+; st1 tcc__r0, [currentDialogue,4]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 4
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x5
+; st1 tcc__r0, [currentDialogue,5]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 5
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x6
+; st1 tcc__r0, [currentDialogue,6]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 6
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x7
+; st1 tcc__r0, [currentDialogue,7]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 7
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x8
+; st1 tcc__r0, [currentDialogue,8]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 8
+rep #$20
+; call r 0x2f0
+jsr.l initSampleDialogue
+; gsym_addr t 0 a 12024 ind 12024
+; ERROR no jump found to patch
+; add sp, #__initDialogueSystem_locals
+.ifgr __initDialogueSystem_locals 0
+tsa
+clc
+adc #__initDialogueSystem_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".startDialoguetext_0x2" SUPERFREE
+
+startDialogue:
+; sub sp,#__startDialogue_locals
+.ifgr __startDialogue_locals 0
+tsa
+sec
+sbc #__startDialogue_locals
+tas
+.endif
+; load 0
+; type 0 reg 0x3f0 extra 0x48c9000
+; ld2 [currentDialogue + 0], tcc__r0
+lda.l currentDialogue + 0
+sta.b tcc__r0
+; gen_opi len 2 op 0x95
+; cmpr(n)eq tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+bne +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 12629 ind 12629
+; gsym_addr t 0 a 12668 ind 12668
+; ERROR no jump found to patch
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 12789 ind 12789
+; cmp op 0x95 inv 1 v 243 r 12789
+; cmp ne
+bne +
+; gsym_addr t 0 a 12879 ind 12879
+; ERROR no jump found to patch
+brl __local_0
++
+; gtst finished; t 12789
+; gjmp_addr 0 at 12985
+jmp.w __local_1
+; gsym_addr t 12985 a 0 ind 13024
+__local_0:
+; gsym_addr t 12789 a 13058 ind 13058
+; load 0
+; type 4 reg 0xf0 extra 0x48b5000
+; ld4 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+lda.w #0
+sta.b tcc__r0h
+; store r 0x0 fr 0x1f2 ft 0x4 fc 0xfffffffc
+; st4 tcc__r0, [sp,-4]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r0
+sta -4 + __startDialogue_locals + 1,s
+lda.b tcc__r0h
+sta -2 + __startDialogue_locals + 1,s
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x51f2 ft 0x11 fc 0xfffffffb
+; st1 tcc__r0, [sp,-5]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -5 + __startDialogue_locals + 1,s
+rep #$20
+__local_4:
+; load 0
+; type 17 reg 0x53f0 extra 0x68746977
+; ld1 [gameWorld + 26032], tcc__r0
+lda.w #0
+sep #$20
+lda.l gameWorld + 26032
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #3254, tcc__r0
+lda.w #3254
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x6920726f
+; ld26032 #gameWorld + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:gameWorld
+sta.b tcc__r1h
+lda.w #gameWorld + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x11)
+; length xxy 26032 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x11)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #3250
+sta.b tcc__r1
+; load 0
+; type 17 reg 0x51f2 extra 0x2761dad0
+; ld1 [sp,-5],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -5 + __startDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 2
+; type 17 reg 0x5101 extra 0x656c6170
+; ld1 [tcc__r1,0],tcc__r2
+lda.w #0
+sep #$20
+lda.b [tcc__r1]
+rep #$20
+sta.b tcc__r2
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, tcc__r2
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r2
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 14954 ind 14954
+; gsym_addr t 0 a 14993 ind 14993
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 15083 ind 15083
+; cmp op 0x95 inv 1 v 243 r 15083
+; cmp ne
+bne +
+; gsym_addr t 0 a 15173 ind 15173
+brl __local_2
++
+; gtst finished; t 15083
+; gjmp_addr 0 at 15248
+jmp.w __local_3
+; gsym_addr t 15248 a 0 ind 15287
+__local_8:
+; load 0
+; type 17 reg 0x51f2 extra 0x2761dad0
+; ld1 [sp,-5],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -5 + __startDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x0
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -5 r type 0x11)
+; length xxy 2 vtop->type 0x0
+inc.b tcc__r0
+; store r 0x0 fr 0x51f2 ft 0x11 fc 0xfffffffb
+; st1 tcc__r0, [sp,-5]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -5 + __startDialogue_locals + 1,s
+rep #$20
+; gjmp_addr 13678 at 15945
+jmp.w __local_4
+; gsym_addr t 15945 a 13678 ind 15988
+__local_3:
+; gsym_addr t 15248 a 16026 ind 16026
+; load 0
+; type 17 reg 0x53f0 extra 0x68746977
+; ld1 [gameWorld + 26032], tcc__r0
+lda.w #0
+sep #$20
+lda.l gameWorld + 26032
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #3254, tcc__r0
+lda.w #3254
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x6920726f
+; ld26032 #gameWorld + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:gameWorld
+sta.b tcc__r1h
+lda.w #gameWorld + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x2761af80)
+; length xxy 26032 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x2761af80)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #786
+sta.b tcc__r1
+; load 0
+; type 17 reg 0x51f2 extra 0x2761dad0
+; ld1 [sp,-5],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -5 + __startDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #154, tcc__r0
+lda.w #154
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x2761af80)
+; length xxy 2464 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gtst inv 1 t 0 v 1 r 17374 ind 17374
+; load 0
+; type 17 reg 0x5101 extra 0x665c2021
+; ld1 [tcc__r1,0],tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r1]
+rep #$20
+sta.b tcc__r0
+; gsym_addr t 0 a 17543 ind 17543
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 17633 ind 17633
+; cmp op 0x95 inv 1 v 243 r 17633
+; cmp ne
+bne +
+; gsym_addr t 0 a 17723 ind 17723
+brl __local_5
++
+; gtst finished; t 17633
+; load 0
+; type 17 reg 0x51f2 extra 0x2761dad0
+; ld1 [sp,-5],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -5 + __startDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x1f2 extra 0x2761f5a0
+; ld1 [sp,3],tcc__r1
+; stack adjust: fc + disp - loc - 256 -246
+lda.w #0
+sep #$20
+lda 3 + __startDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r1
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 18299 ind 18299
+; gsym_addr t 0 a 18338 ind 18338
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 18428 ind 18428
+; cmp op 0x95 inv 1 v 243 r 18428
+; cmp ne
+bne +
+; gsym_addr t 0 a 18518 ind 18518
+brl __local_6
++
+; gtst finished; t 18428
+; load 0
+; type 17 reg 0x53f0 extra 0x68746977
+; ld1 [gameWorld + 26032], tcc__r0
+lda.w #0
+sep #$20
+lda.l gameWorld + 26032
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #3254, tcc__r0
+lda.w #3254
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 36 reg 0x2f0 extra 0x6920726f
+; ld26032 #gameWorld + 0, tcc__r1 (type 0x24)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:gameWorld
+sta.b tcc__r1h
+lda.w #gameWorld + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x4)
+; length xxy 26032 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x4)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #786
+sta.b tcc__r1
+; load 0
+; type 17 reg 0x51f2 extra 0x2761dad0
+; ld1 [sp,-5],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -5 + __startDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #154, tcc__r0
+lda.w #154
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x4)
+; length xxy 2464 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; store r 0x1 fr 0x1f2 ft 0x4 fc 0xfffffffc
+; st4 tcc__r1, [sp,-4]
+; stack adjust: fc + disp - loc - 256 -253
+lda.b tcc__r1
+sta -4 + __startDialogue_locals + 1,s
+lda.b tcc__r1h
+sta -2 + __startDialogue_locals + 1,s
+; gjmp_addr 15083 at 20097
+jmp.w __local_7
+; gsym_addr t 20097 a 15083 ind 20140
+__local_6:
+; gsym_addr t 18428 a 20178 ind 20178
+__local_5:
+; gsym_addr t 17633 a 20216 ind 20216
+; gjmp_addr 15321 at 20254
+jmp.w __local_8
+; gsym_addr t 20254 a 15321 ind 20297
+__local_2:
+__local_7:
+; gsym_addr t 20097 a 20335 ind 20335
+; gsym_addr t 0 a 15321 ind 20373
+; load 0
+; type 16 reg 0x1f2 extra 0x48c9000
+; ld2 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -253
+lda -4 + __startDialogue_locals + 1,s
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 20679 ind 20679
+; gsym_addr t 0 a 20718 ind 20718
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 20808 ind 20808
+; cmp op 0x95 inv 1 v 243 r 20808
+; cmp ne
+bne +
+; gsym_addr t 0 a 20898 ind 20898
+brl __local_9
++
+; gtst finished; t 20808
+; gjmp_addr 12985 at 20973
+jmp.w __local_10
+; gsym_addr t 20973 a 12985 ind 21017
+__local_9:
+; gsym_addr t 20808 a 21055 ind 21055
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x0
+; st2 tcc__r0, [currentDialogue,0]
+lda.b tcc__r0
+sta.l currentDialogue + 0
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x2
+; st1 tcc__r0, [currentDialogue,2]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 2
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x3
+; st1 tcc__r0, [currentDialogue,3]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 3
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x5
+; st1 tcc__r0, [currentDialogue,5]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 5
+rep #$20
+; load 0
+; type 4 reg 0x1f2 extra 0x2761e6b0
+; ld4 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -253
+lda -4 + __startDialogue_locals + 1,s
+sta.b tcc__r0
+lda -2 + __startDialogue_locals + 1,s
+sta.b tcc__r0h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -4 r type 0x11)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r0
+adc.w #8
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x5100 extra 0x0
+; ld1 [tcc__r0,0],tcc__r1
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+; store r 0x1 fr 0x53f0 ft 0x11 fc 0x8
+; st1 tcc__r1, [currentDialogue,8]
+sep #$20
+lda.b tcc__r1
+sta.l currentDialogue + 8
+rep #$20
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 2], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 2
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #541, tcc__r0
+lda.w #541
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 292 reg 0x2f0 extra 0x276218c0
+; ld8656 #tccs_{WLA_FILENAME}_dialogueNodes + 0, tcc__r1 (type 0x124)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:tccs_{WLA_FILENAME}_dialogueNodes
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_dialogueNodes + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x124 c 0 r type 0x2761af80)
+; length xxy 8656 vtop->type 0x124
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; store r 0x1 fr 0x1f2 ft 0x4 fc 0xfffffff4
+; st4 tcc__r1, [sp,-12]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r1
+sta -12 + __startDialogue_locals + 1,s
+lda.b tcc__r1h
+sta -10 + __startDialogue_locals + 1,s
+; load 0
+; type 4 reg 0x1f2 extra 0x2761c6c0
+; ld4 [sp,-12],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -12 + __startDialogue_locals + 1,s
+sta.b tcc__r0
+lda -10 + __startDialogue_locals + 1,s
+sta.b tcc__r0h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -12 r type 0x11)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r0
+adc.w #273
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x5100 extra 0x0
+; ld1 [tcc__r0,0],tcc__r1
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+; store r 0x1 fr 0x53f0 ft 0x11 fc 0x6
+; st1 tcc__r1, [currentDialogue,6]
+sep #$20
+lda.b tcc__r1
+sta.l currentDialogue + 6
+rep #$20
+__local_1:
+__local_10:
+; gsym_addr t 20973 a 24121 ind 24121
+; add sp, #__startDialogue_locals
+.ifgr __startDialogue_locals 0
+tsa
+clc
+adc #__startDialogue_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".updateDialoguetext_0x3" SUPERFREE
+
+updateDialogue:
+; sub sp,#__updateDialogue_locals
+.ifgr __updateDialogue_locals 0
+tsa
+sec
+sbc #__updateDialogue_locals
+tas
+.endif
+; load 0
+; type 0 reg 0x3f0 extra 0x48c9000
+; ld2 [currentDialogue + 0], tcc__r0
+lda.l currentDialogue + 0
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 24689 ind 24689
+; gsym_addr t 0 a 24728 ind 24728
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 24818 ind 24818
+; cmp op 0x95 inv 1 v 243 r 24818
+; cmp ne
+bne +
+; gsym_addr t 0 a 24908 ind 24908
+brl __local_11
++
+; gtst finished; t 24818
+; gjmp_addr 0 at 24984
+jmp.w __local_12
+; gsym_addr t 24984 a 0 ind 25024
+__local_11:
+; gsym_addr t 24818 a 25058 ind 25058
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 2], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 2
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #541, tcc__r0
+lda.w #541
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 292 reg 0x2f0 extra 0x276218c0
+; ld8656 #tccs_{WLA_FILENAME}_dialogueNodes + 0, tcc__r1 (type 0x124)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:tccs_{WLA_FILENAME}_dialogueNodes
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_dialogueNodes + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x124 c 0 r type 0x2761af80)
+; length xxy 8656 vtop->type 0x124
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; store r 0x1 fr 0x1f2 ft 0x4 fc 0xfffffffc
+; st4 tcc__r1, [sp,-4]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r1
+sta -4 + __updateDialogue_locals + 1,s
+lda.b tcc__r1h
+sta -2 + __updateDialogue_locals + 1,s
+; load 0
+; type 5 reg 0x3f0 extra 0x0
+; ld2 [currentDialogue + 0], tcc__r0
+lda.l currentDialogue + 0
+sta.b tcc__r0
+; gjmp_addr 0 at 26151
+jmp.w __local_13
+; gsym_addr t 26151 a 0 ind 26191
+; gjmp_addr 0 at 26225
+jmp.w __local_14
+; gsym_addr t 26225 a 0 ind 26265
+__local_13:
+; gsym_addr t 26151 a 26299 ind 26299
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #1
+ldx #1
+lda.b tcc__r0
+sec
+sbc #1
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 26447 ind 26447
+; gsym_addr t 0 a 26486 ind 26486
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 26576 ind 26576
+; cmp op 0x95 inv 1 v 243 r 26576
+; cmp ne
+bne +
+; gsym_addr t 0 a 26666 ind 26666
+brl __local_15
++
+; gtst finished; t 26576
+__local_14:
+; gsym_addr t 26225 a 26742 ind 26742
+; load 0
+; type 4 reg 0x1f2 extra 0x2761e6b0
+; ld4 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -4 + __updateDialogue_locals + 1,s
+sta.b tcc__r0
+lda -2 + __updateDialogue_locals + 1,s
+sta.b tcc__r0h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -4 r type 0x86)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r0
+adc.w #17
+sta.b tcc__r0
+; ldpush before load type 0x4 reg 0x1000
+; ldpush4 (type 0x4 reg 0x0) tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l strlen
+; add sp, #4
+tsa
+clc
+adc #4
+tas
+; load 1
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 3], tcc__r1
+lda.w #0
+sep #$20
+lda.l currentDialogue + 3
+rep #$20
+sta.b tcc__r1
+; gen_opi len 2 op 0x92
+; ucmpcd tcc__r1, tcc__r0
+ldx #1
+lda.b tcc__r1
+sec
+sbc.b tcc__r0
+tay
+bcc ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 27593 ind 27593
+; gsym_addr t 0 a 27632 ind 27632
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 27722 ind 27722
+; cmp op 0x95 inv 1 v 243 r 27722
+; cmp ne
+bne +
+; gsym_addr t 0 a 27812 ind 27812
+brl __local_16
++
+; gtst finished; t 27722
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 3], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 3
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 4], tcc__r1
+lda.w #0
+sep #$20
+lda.l currentDialogue + 4
+rep #$20
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r1 (0x1), tcc__r0 (0x0) (fr type 0x0 c 3 r type 0x11)
+; length xxy 2 vtop->type 0x0
+clc
+lda.b tcc__r0
+adc.b tcc__r1
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x3
+; st1 tcc__r0, [currentDialogue,3]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 3
+rep #$20
+; load 0
+; type 4 reg 0x1f2 extra 0x2761e6b0
+; ld4 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -4 + __updateDialogue_locals + 1,s
+sta.b tcc__r0
+lda -2 + __updateDialogue_locals + 1,s
+sta.b tcc__r0h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -4 r type 0x86)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r0
+adc.w #17
+sta.b tcc__r0
+; ldpush before load type 0x4 reg 0x1000
+; ldpush4 (type 0x4 reg 0x0) tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l strlen
+; add sp, #4
+tsa
+clc
+adc #4
+tas
+; load 1
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 3], tcc__r1
+lda.w #0
+sep #$20
+lda.l currentDialogue + 3
+rep #$20
+sta.b tcc__r1
+; gen_opi len 2 op 0x97
+; ucmpcd tcc__r1, tcc__r0
+ldx #1
+lda.b tcc__r1
+sec
+sbc.b tcc__r0
+tay
+beq +
+bcs ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 29289 ind 29289
+; gsym_addr t 0 a 29328 ind 29328
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 29418 ind 29418
+; cmp op 0x95 inv 1 v 243 r 29418
+; cmp ne
+bne +
+; gsym_addr t 0 a 29508 ind 29508
+brl __local_17
++
+; gtst finished; t 29418
+; load 0
+; type 4 reg 0x1f2 extra 0x2761e6b0
+; ld4 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -4 + __updateDialogue_locals + 1,s
+sta.b tcc__r0
+lda -2 + __updateDialogue_locals + 1,s
+sta.b tcc__r0h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -4 r type 0x86)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r0
+adc.w #17
+sta.b tcc__r0
+; ldpush before load type 0x4 reg 0x1000
+; ldpush4 (type 0x4 reg 0x0) tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l strlen
+; add sp, #4
+tsa
+clc
+adc #4
+tas
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x3
+; st1 tcc__r0, [currentDialogue,3]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 3
+rep #$20
+__local_17:
+; gsym_addr t 29418 a 30262 ind 30262
+; gjmp_addr 0 at 30300
+jmp.w __local_18
+; gsym_addr t 30300 a 0 ind 30340
+__local_16:
+; gsym_addr t 27722 a 30374 ind 30374
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 6], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 6
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x9f
+; cmpcd tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #0
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 30697 ind 30697
+; gsym_addr t 0 a 30736 ind 30736
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 30826 ind 30826
+; cmp op 0x95 inv 1 v 243 r 30826
+; cmp ne
+bne +
+; gsym_addr t 0 a 30916 ind 30916
+brl __local_19
++
+; gtst finished; t 30826
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #3,tcc__r0
+lda.w #3
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x0
+; st2 tcc__r0, [currentDialogue,0]
+lda.b tcc__r0
+sta.l currentDialogue + 0
+; gjmp_addr 0 at 31181
+jmp.w __local_20
+; gsym_addr t 31181 a 0 ind 31221
+__local_19:
+; gsym_addr t 30826 a 31255 ind 31255
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #2,tcc__r0
+lda.w #2
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x0
+; st2 tcc__r0, [currentDialogue,0]
+lda.b tcc__r0
+sta.l currentDialogue + 0
+__local_20:
+; gsym_addr t 31181 a 31482 ind 31482
+__local_18:
+; gsym_addr t 30300 a 31520 ind 31520
+; gjmp_addr 0 at 31558
+jmp.w __local_21
+; gsym_addr t 31558 a 0 ind 31598
+; gjmp_addr 0 at 31632
+jmp.w __local_22
+; gsym_addr t 31632 a 0 ind 31672
+__local_15:
+; gsym_addr t 26576 a 31706 ind 31706
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #2
+ldx #1
+lda.b tcc__r0
+sec
+sbc #2
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 31854 ind 31854
+; gsym_addr t 0 a 31893 ind 31893
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 31983 ind 31983
+; cmp op 0x95 inv 1 v 243 r 31983
+; cmp ne
+bne +
+; gsym_addr t 0 a 32073 ind 32073
+brl __local_23
++
+; gtst finished; t 31983
+__local_22:
+; gsym_addr t 31632 a 32149 ind 32149
+; load 0
+; type 16 reg 0x3f0 extra 0x8d2e00e4
+; ld2 [pad_keys + 0], tcc__r0
+lda.l pad_keys + 0
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 0 r type 0x2761af80)
+; length xxy 2 vtop->type 0x10
+; nop
+lda.b tcc__r0
+and.w #128
+sta.b tcc__r0
+; gtst inv 1 t 0 v 0 r 32468 ind 32468
+; gsym_addr t 0 a 32507 ind 32507
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 32597 ind 32597
+; cmp op 0x95 inv 1 v 243 r 32597
+; cmp ne
+bne +
+; gsym_addr t 0 a 32687 ind 32687
+brl __local_24
++
+; gtst finished; t 32597
+; load 0
+; type 4 reg 0x1f2 extra 0x2761e6b0
+; ld4 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -4 + __updateDialogue_locals + 1,s
+sta.b tcc__r0
+lda -2 + __updateDialogue_locals + 1,s
+sta.b tcc__r0h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -4 r type 0x2761af80)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r0
+adc.w #538
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x5100 extra 0x0
+; ld1 [tcc__r0,0],tcc__r1
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r1, #0
+ldx #1
+lda.b tcc__r1
+sec
+sbc #0
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 33382 ind 33382
+; gsym_addr t 0 a 33421 ind 33421
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 33511 ind 33511
+; cmp op 0x95 inv 1 v 243 r 33511
+; cmp ne
+bne +
+; gsym_addr t 0 a 33601 ind 33601
+brl __local_25
++
+; gtst finished; t 33511
+; call r 0x2f0
+jsr.l endDialogue
+; gjmp_addr 0 at 33710
+jmp.w __local_26
+; gsym_addr t 33710 a 0 ind 33750
+__local_25:
+; gsym_addr t 33511 a 33784 ind 33784
+; load 0
+; type 4 reg 0x1f2 extra 0x2761e6b0
+; ld4 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -4 + __updateDialogue_locals + 1,s
+sta.b tcc__r0
+lda -2 + __updateDialogue_locals + 1,s
+sta.b tcc__r0h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -4 r type 0x11)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r0
+adc.w #538
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x5100 extra 0x0
+; ld1 [tcc__r0,0],tcc__r1
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+; store r 0x1 fr 0x53f0 ft 0x11 fc 0x2
+; st1 tcc__r1, [currentDialogue,2]
+sep #$20
+lda.b tcc__r1
+sta.l currentDialogue + 2
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x3
+; st1 tcc__r0, [currentDialogue,3]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 3
+rep #$20
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x0
+; st2 tcc__r0, [currentDialogue,0]
+lda.b tcc__r0
+sta.l currentDialogue + 0
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x5
+; st1 tcc__r0, [currentDialogue,5]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 5
+rep #$20
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 2], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 2
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #541, tcc__r0
+lda.w #541
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 292 reg 0x2f0 extra 0x276218c0
+; ld8656 #tccs_{WLA_FILENAME}_dialogueNodes + 0, tcc__r1 (type 0x124)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:tccs_{WLA_FILENAME}_dialogueNodes
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_dialogueNodes + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x124 c 0 r type 0x2761af80)
+; length xxy 8656 vtop->type 0x124
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; store r 0x1 fr 0x1f2 ft 0x4 fc 0xfffffff8
+; st4 tcc__r1, [sp,-8]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r1
+sta -8 + __updateDialogue_locals + 1,s
+lda.b tcc__r1h
+sta -6 + __updateDialogue_locals + 1,s
+; load 0
+; type 4 reg 0x1f2 extra 0x2761d1f0
+; ld4 [sp,-8],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -8 + __updateDialogue_locals + 1,s
+sta.b tcc__r0
+lda -6 + __updateDialogue_locals + 1,s
+sta.b tcc__r0h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -8 r type 0x11)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r0
+adc.w #273
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x5100 extra 0x0
+; ld1 [tcc__r0,0],tcc__r1
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+; store r 0x1 fr 0x53f0 ft 0x11 fc 0x6
+; st1 tcc__r1, [currentDialogue,6]
+sep #$20
+lda.b tcc__r1
+sta.l currentDialogue + 6
+rep #$20
+__local_26:
+; gsym_addr t 33710 a 36641 ind 36641
+__local_24:
+; gsym_addr t 32597 a 36679 ind 36679
+; gjmp_addr 31558 at 36717
+jmp.w __local_27
+; gsym_addr t 36717 a 31558 ind 36761
+; gjmp_addr 0 at 36799
+jmp.w __local_28
+; gsym_addr t 36799 a 0 ind 36839
+__local_23:
+; gsym_addr t 31983 a 36873 ind 36873
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #3
+ldx #1
+lda.b tcc__r0
+sec
+sbc #3
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 37021 ind 37021
+; gsym_addr t 0 a 37060 ind 37060
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 37150 ind 37150
+; cmp op 0x95 inv 1 v 243 r 37150
+; cmp ne
+bne +
+; gsym_addr t 0 a 37240 ind 37240
+brl __local_29
++
+; gtst finished; t 37150
+__local_28:
+; gsym_addr t 36799 a 37316 ind 37316
+; load 0
+; type 16 reg 0x3f0 extra 0x8d2e00e4
+; ld2 [pad_keys + 0], tcc__r0
+lda.l pad_keys + 0
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 0 r type 0x2761af80)
+; length xxy 2 vtop->type 0x10
+; nop
+lda.b tcc__r0
+and.w #2048
+sta.b tcc__r0
+; gtst inv 1 t 0 v 0 r 37636 ind 37636
+; gsym_addr t 0 a 37675 ind 37675
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 37765 ind 37765
+; cmp op 0x95 inv 1 v 243 r 37765
+; cmp ne
+bne +
+; gsym_addr t 0 a 37855 ind 37855
+brl __local_30
++
+; gtst finished; t 37765
+; call r 0x2f0
+jsr.l selectPreviousChoice
+; gjmp_addr 0 at 37973
+jmp.w __local_31
+; gsym_addr t 37973 a 0 ind 38013
+__local_30:
+; gsym_addr t 37765 a 38047 ind 38047
+; load 0
+; type 16 reg 0x3f0 extra 0x8d2e00e4
+; ld2 [pad_keys + 0], tcc__r0
+lda.l pad_keys + 0
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 0 r type 0x2761af80)
+; length xxy 2 vtop->type 0x10
+; nop
+lda.b tcc__r0
+and.w #1024
+sta.b tcc__r0
+; gtst inv 1 t 0 v 0 r 38367 ind 38367
+; gsym_addr t 0 a 38406 ind 38406
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 38496 ind 38496
+; cmp op 0x95 inv 1 v 243 r 38496
+; cmp ne
+bne +
+; gsym_addr t 0 a 38586 ind 38586
+brl __local_32
++
+; gtst finished; t 38496
+; call r 0x2f0
+jsr.l selectNextChoice
+; gjmp_addr 0 at 38700
+jmp.w __local_33
+; gsym_addr t 38700 a 0 ind 38740
+__local_32:
+; gsym_addr t 38496 a 38774 ind 38774
+; load 0
+; type 16 reg 0x3f0 extra 0x8d2e00e4
+; ld2 [pad_keys + 0], tcc__r0
+lda.l pad_keys + 0
+sta.b tcc__r0
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 0 r type 0x2761af80)
+; length xxy 2 vtop->type 0x10
+; nop
+lda.b tcc__r0
+and.w #128
+sta.b tcc__r0
+; gtst inv 1 t 0 v 0 r 39093 ind 39093
+; gsym_addr t 0 a 39132 ind 39132
+; tcc__r0 to compare reg
+lda.b tcc__r0 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 39222 ind 39222
+; cmp op 0x95 inv 1 v 243 r 39222
+; cmp ne
+bne +
+; gsym_addr t 0 a 39312 ind 39312
+brl __local_34
++
+; gtst finished; t 39222
+; call r 0x2f0
+jsr.l confirmChoice
+__local_34:
+; gsym_addr t 39222 a 39423 ind 39423
+__local_33:
+; gsym_addr t 38700 a 39461 ind 39461
+__local_31:
+; gsym_addr t 37973 a 39499 ind 39499
+; gjmp_addr 36717 at 39537
+jmp.w __local_35
+; gsym_addr t 39537 a 36717 ind 39581
+; gjmp_addr 0 at 39619
+jmp.w __local_36
+; gsym_addr t 39619 a 0 ind 39659
+__local_29:
+; gsym_addr t 37150 a 39693 ind 39693
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #4
+ldx #1
+lda.b tcc__r0
+sec
+sbc #4
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 39841 ind 39841
+; gsym_addr t 0 a 39880 ind 39880
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 39970 ind 39970
+; cmp op 0x95 inv 1 v 243 r 39970
+; cmp ne
+bne +
+; gsym_addr t 0 a 40060 ind 40060
+brl __local_37
++
+; gtst finished; t 39970
+__local_36:
+; gsym_addr t 39619 a 40136 ind 40136
+; call r 0x2f0
+jsr.l endDialogue
+; gjmp_addr 39537 at 40207
+jmp.w __local_38
+; gsym_addr t 40207 a 39537 ind 40251
+__local_37:
+; gsym_addr t 39970 a 40289 ind 40289
+__local_21:
+__local_27:
+__local_35:
+__local_38:
+; gsym_addr t 40207 a 40327 ind 40327
+__local_12:
+; gsym_addr t 24984 a 40365 ind 40365
+; add sp, #__updateDialogue_locals
+.ifgr __updateDialogue_locals 0
+tsa
+clc
+adc #__updateDialogue_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".renderDialoguetext_0x4" SUPERFREE
+
+renderDialogue:
+; sub sp,#__renderDialogue_locals
+.ifgr __renderDialogue_locals 0
+tsa
+sec
+sbc #__renderDialogue_locals
+tas
+.endif
+; load 0
+; type 0 reg 0x3f0 extra 0x48c9000
+; ld2 [currentDialogue + 0], tcc__r0
+lda.l currentDialogue + 0
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 40936 ind 40936
+; gsym_addr t 0 a 40975 ind 40975
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 41065 ind 41065
+; cmp op 0x95 inv 1 v 243 r 41065
+; cmp ne
+bne +
+; gsym_addr t 0 a 41155 ind 41155
+brl __local_39
++
+; gtst finished; t 41065
+; gjmp_addr 0 at 41231
+jmp.w __local_40
+; gsym_addr t 41231 a 0 ind 41271
+__local_39:
+; gsym_addr t 41065 a 41305 ind 41305
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 2], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 2
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #541, tcc__r0
+lda.w #541
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 292 reg 0x2f0 extra 0x276218c0
+; ld8656 #tccs_{WLA_FILENAME}_dialogueNodes + 0, tcc__r1 (type 0x124)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:tccs_{WLA_FILENAME}_dialogueNodes
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_dialogueNodes + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x124 c 0 r type 0x2761af80)
+; length xxy 8656 vtop->type 0x124
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; store r 0x1 fr 0x1f2 ft 0x4 fc 0xfffffffc
+; st4 tcc__r1, [sp,-4]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r1
+sta -4 + __renderDialogue_locals + 1,s
+lda.b tcc__r1h
+sta -2 + __renderDialogue_locals + 1,s
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #18,tcc__r0
+lda.w #18
+sta.b tcc__r0
+; store r 0x0 fr 0x51f2 ft 0x11 fc 0xfffffffb
+; st1 tcc__r0, [sp,-5]
+; stack adjust: fc + disp - loc - 256 -253
+sep #$20
+lda.b tcc__r0
+sta -5 + __renderDialogue_locals + 1,s
+rep #$20
+__local_43:
+; load 0
+; type 17 reg 0x51f2 extra 0x2761d1f0
+; ld1 [sp,-5],tcc__r0
+; stack adjust: fc + disp - loc - 256 -253
+lda.w #0
+sep #$20
+lda -5 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, #24
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #24
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 42874 ind 42874
+; gsym_addr t 0 a 42913 ind 42913
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 43003 ind 43003
+; cmp op 0x95 inv 1 v 243 r 43003
+; cmp ne
+bne +
+; gsym_addr t 0 a 43093 ind 43093
+brl __local_41
++
+; gtst finished; t 43003
+; gjmp_addr 0 at 43169
+jmp.w __local_42
+; gsym_addr t 43169 a 0 ind 43209
+__local_54:
+; load 0
+; type 17 reg 0x51f2 extra 0x2761d1f0
+; ld1 [sp,-5],tcc__r0
+; stack adjust: fc + disp - loc - 256 -253
+lda.w #0
+sep #$20
+lda -5 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x0
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -5 r type 0x11)
+; length xxy 2 vtop->type 0x0
+inc.b tcc__r0
+; store r 0x0 fr 0x51f2 ft 0x11 fc 0xfffffffb
+; st1 tcc__r0, [sp,-5]
+; stack adjust: fc + disp - loc - 256 -253
+sep #$20
+lda.b tcc__r0
+sta -5 + __renderDialogue_locals + 1,s
+rep #$20
+; gjmp_addr 42546 at 43869
+jmp.w __local_43
+; gsym_addr t 43869 a 42546 ind 43913
+__local_42:
+; gsym_addr t 43169 a 43951 ind 43951
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #2,tcc__r0
+lda.w #2
+sta.b tcc__r0
+; store r 0x0 fr 0x51f2 ft 0x11 fc 0xfffffffa
+; st1 tcc__r0, [sp,-6]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -6 + __renderDialogue_locals + 1,s
+rep #$20
+__local_46:
+; load 0
+; type 17 reg 0x51f2 extra 0x2761cca0
+; ld1 [sp,-6],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -6 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, #30
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #30
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 44578 ind 44578
+; gsym_addr t 0 a 44617 ind 44617
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 44707 ind 44707
+; cmp op 0x95 inv 1 v 243 r 44707
+; cmp ne
+bne +
+; gsym_addr t 0 a 44797 ind 44797
+brl __local_44
++
+; gtst finished; t 44707
+; gjmp_addr 0 at 44873
+jmp.w __local_45
+; gsym_addr t 44873 a 0 ind 44913
+__local_53:
+; load 0
+; type 17 reg 0x51f2 extra 0x2761cca0
+; ld1 [sp,-6],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -6 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x0
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -6 r type 0x11)
+; length xxy 2 vtop->type 0x0
+inc.b tcc__r0
+; store r 0x0 fr 0x51f2 ft 0x11 fc 0xfffffffa
+; st1 tcc__r0, [sp,-6]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -6 + __renderDialogue_locals + 1,s
+rep #$20
+; gjmp_addr 44250 at 45573
+jmp.w __local_46
+; gsym_addr t 45573 a 44250 ind 45617
+__local_45:
+; gsym_addr t 44873 a 45655 ind 45655
+; load 0
+; type 17 reg 0x51f2 extra 0x2761d1f0
+; ld1 [sp,-5],tcc__r0
+; stack adjust: fc + disp - loc - 256 -253
+lda.w #0
+sep #$20
+lda -5 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #18
+ldx #1
+lda.b tcc__r0
+sec
+sbc #18
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 0 t 0 v 5 r 45997 ind 45997
+; gsym_addr t 0 a 46036 ind 46036
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 0 t 0 v 243 r 46126 ind 46126
+; cmp op 0x95 inv 0 v 243 r 46126
+; cmp ne
+beq +
+; gsym_addr t 0 a 46216 ind 46216
+brl __local_47
++
+; gtst finished; t 46126
+; load 0
+; type 17 reg 0x51f2 extra 0x2761d1f0
+; ld1 [sp,-5],tcc__r0
+; stack adjust: fc + disp - loc - 256 -253
+lda.w #0
+sep #$20
+lda -5 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #23
+ldx #1
+lda.b tcc__r0
+sec
+sbc #23
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 0 t 46126 v 5 r 46596 ind 46596
+; gsym_addr t 46126 a 46639 ind 46639
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 0 t 46126 v 243 r 46733 ind 46733
+; cmp op 0x95 inv 0 v 243 r 46733
+; cmp ne
+beq +
+__local_47:
+; gsym_addr t 46126 a 46827 ind 46827
+brl __local_48
++
+; gtst finished; t 46733
+; load 0
+; type 17 reg 0x51f2 extra 0x2761cca0
+; ld1 [sp,-6],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -6 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #2
+ldx #1
+lda.b tcc__r0
+sec
+sbc #2
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 0 t 46733 v 5 r 47209 ind 47209
+; gsym_addr t 46733 a 47252 ind 47252
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 0 t 46733 v 243 r 47346 ind 47346
+; cmp op 0x95 inv 0 v 243 r 47346
+; cmp ne
+beq +
+__local_48:
+; gsym_addr t 46733 a 47440 ind 47440
+brl __local_49
++
+; gtst finished; t 47346
+; load 0
+; type 17 reg 0x51f2 extra 0x2761cca0
+; ld1 [sp,-6],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -6 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #29
+ldx #1
+lda.b tcc__r0
+sec
+sbc #29
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 0 t 47346 v 5 r 47824 ind 47824
+; gsym_addr t 47346 a 47867 ind 47867
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 0 t 47346 v 243 r 47961 ind 47961
+; cmp op 0x95 inv 0 v 243 r 47961
+; cmp ne
+beq +
+__local_49:
+; gsym_addr t 47346 a 48055 ind 48055
+brl __local_50
++
+; gtst finished; t 47961
+; gtst inv 1 t 0 v 244 r 48135 ind 48135
+; VT_jmp r 48135 t 0 ji 0 inv 1 vtop->c.i 47961
+; gjmp_addr 0 at 48224
+jmp.w __local_51
+; gsym_addr t 48224 a 0 ind 48264
+__local_50:
+; gsym_addr t 47961 a 48298 ind 48298
+; gtst finished; t 48224
+; load 0
+; type 17 reg 0x51f2 extra 0x2761cca0
+; ld1 [sp,-6],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -6 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x51f2 extra 0x2761d1f0
+; ld1 [sp,-5],tcc__r1
+; stack adjust: fc + disp - loc - 256 -253
+lda.w #0
+sep #$20
+lda -5 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r1
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}30
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}30 + 0
+; ldpush before load type 0x10 reg 0x1
+; ldpush2 (type 0x10 reg 0x1) tcc__r1
+pei (tcc__r1)
+; ldpush before load type 0x10 reg 0x0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; gjmp_addr 0 at 49112
+jmp.w __local_52
+; gsym_addr t 49112 a 0 ind 49152
+__local_51:
+; gsym_addr t 48224 a 49186 ind 49186
+; load 0
+; type 17 reg 0x51f2 extra 0x2761cca0
+; ld1 [sp,-6],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -6 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x51f2 extra 0x2761d1f0
+; ld1 [sp,-5],tcc__r1
+; stack adjust: fc + disp - loc - 256 -253
+lda.w #0
+sep #$20
+lda -5 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r1
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}31
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}31 + 0
+; ldpush before load type 0x10 reg 0x1
+; ldpush2 (type 0x10 reg 0x1) tcc__r1
+pei (tcc__r1)
+; ldpush before load type 0x10 reg 0x0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+__local_52:
+; gsym_addr t 49112 a 49975 ind 49975
+; gjmp_addr 44947 at 50013
+jmp.w __local_53
+; gsym_addr t 50013 a 44947 ind 50057
+__local_44:
+; gsym_addr t 44707 a 50095 ind 50095
+; gsym_addr t 0 a 44947 ind 50133
+; gjmp_addr 43243 at 50167
+jmp.w __local_54
+; gsym_addr t 50167 a 43243 ind 50211
+__local_41:
+; gsym_addr t 43003 a 50249 ind 50249
+; gsym_addr t 0 a 43243 ind 50287
+; load 0
+; type 4 reg 0x1f2 extra 0x2761e0e0
+; ld4 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -252
+lda -4 + __renderDialogue_locals + 1,s
+sta.b tcc__r0
+lda -2 + __renderDialogue_locals + 1,s
+sta.b tcc__r0h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -4 r type 0x86)
+; length xxy 4 vtop->type 0x4
+inc.b tcc__r0
+; ldpush before load type 0x4 reg 0x1000
+; ldpush4 (type 0x4 reg 0x0) tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l strlen
+; add sp, #4
+tsa
+clc
+adc #4
+tas
+; gen_opi len 2 op 0x97
+; ucmpcd tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #0
+tay
+beq +
+bcs ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 50958 ind 50958
+; gsym_addr t 0 a 50997 ind 50997
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 51087 ind 51087
+; cmp op 0x95 inv 1 v 243 r 51087
+; cmp ne
+bne +
+; gsym_addr t 0 a 51177 ind 51177
+brl __local_55
++
+; gtst finished; t 51087
+; load 0
+; type 4 reg 0x1f2 extra 0x2761e0e0
+; ld4 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -252
+lda -4 + __renderDialogue_locals + 1,s
+sta.b tcc__r0
+lda -2 + __renderDialogue_locals + 1,s
+sta.b tcc__r0h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -4 r type 0x10)
+; length xxy 4 vtop->type 0x4
+inc.b tcc__r0
+; ldpush before load type 0x4 reg 0x1000
+; ldpush4 (type 0x4 reg 0x0) tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+; push2 imm r 0xf0
+pea.w 19
+; push2 imm r 0xf0
+pea.w 3
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 4 reg 0x1f2 extra 0x2761e0e0
+; ld4 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -252
+lda -4 + __renderDialogue_locals + 1,s
+sta.b tcc__r0
+lda -2 + __renderDialogue_locals + 1,s
+sta.b tcc__r0h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -4 r type 0x86)
+; length xxy 4 vtop->type 0x4
+inc.b tcc__r0
+; ldpush before load type 0x4 reg 0x1000
+; ldpush4 (type 0x4 reg 0x0) tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l strlen
+; add sp, #4
+tsa
+clc
+adc #4
+tas
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x10 c 0 r type 0x86)
+; length xxy 2 vtop->type 0x10
+clc
+lda.b tcc__r0
+adc.w #3
+sta.b tcc__r0
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}32
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}32 + 0
+; push2 imm r 0xf0
+pea.w 19
+; ldpush before load type 0x10 reg 0x0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+__local_55:
+; gsym_addr t 51087 a 52819 ind 52819
+; load 0
+; type 17 reg 0xf0 extra 0x48c9000
+; ld1 #20,tcc__r0
+lda.w #20
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x11 fc 0xfffffff9
+; st1 tcc__r0, [sp,-7]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -7 + __renderDialogue_locals + 1,s
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x48c9000
+; ld1 #3,tcc__r0
+lda.w #3
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x11 fc 0xfffffff8
+; st1 tcc__r0, [sp,-8]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -8 + __renderDialogue_locals + 1,s
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x11 fc 0xfffffff7
+; st1 tcc__r0, [sp,-9]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -9 + __renderDialogue_locals + 1,s
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x48c9000
+; ld1 #26,tcc__r0
+lda.w #26
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x11 fc 0xfffffff6
+; st1 tcc__r0, [sp,-10]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -10 + __renderDialogue_locals + 1,s
+rep #$20
+__local_65:
+; load 0
+; type 17 reg 0x51f2 extra 0x2761afd0
+; ld1 [sp,-9],tcc__r0
+; stack adjust: fc + disp - loc - 256 -253
+lda.w #0
+sep #$20
+lda -9 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 3], tcc__r1
+lda.w #0
+sep #$20
+lda.l currentDialogue + 3
+rep #$20
+sta.b tcc__r1
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 54401 ind 54401
+; gsym_addr t 0 a 54440 ind 54440
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 54530 ind 54530
+; cmp op 0x95 inv 1 v 243 r 54530
+; cmp ne
+bne +
+; gsym_addr t 0 a 54620 ind 54620
+brl __local_56
++
+; gtst finished; t 54530
+; load 0
+; type 4 reg 0x1f2 extra 0x2761e0e0
+; ld4 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -248
+lda -4 + __renderDialogue_locals + 1,s
+sta.b tcc__r0
+lda -2 + __renderDialogue_locals + 1,s
+sta.b tcc__r0h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -4 r type 0x86)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r0
+adc.w #17
+sta.b tcc__r0
+; ldpush before load type 0x4 reg 0x1000
+; ldpush4 (type 0x4 reg 0x0) tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l strlen
+; add sp, #4
+tsa
+clc
+adc #4
+tas
+; load 1
+; type 17 reg 0x51f2 extra 0x2761afd0
+; ld1 [sp,-9],tcc__r1
+; stack adjust: fc + disp - loc - 256 -253
+lda.w #0
+sep #$20
+lda -9 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r1
+; gen_opi len 2 op 0x92
+; ucmpcd tcc__r1, tcc__r0
+ldx #1
+lda.b tcc__r1
+sec
+sbc.b tcc__r0
+tay
+bcc ++
++ dex
+++
+stx.b tcc__r5
+; gtst inv 1 t 54530 v 5 r 55557 ind 55557
+; gsym_addr t 54530 a 55600 ind 55600
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 54530 v 243 r 55694 ind 55694
+; cmp op 0x95 inv 1 v 243 r 55694
+; cmp ne
+bne +
+__local_56:
+; gsym_addr t 54530 a 55788 ind 55788
+brl __local_57
++
+; gtst finished; t 55694
+; gtst inv 1 t 0 v 245 r 55868 ind 55868
+; VT_jmp r 55868 t 0 ji 1 inv 1 vtop->c.i 55694
+; gsym_addr t 0 a 55957 ind 55957
+; gtst finished; t 55694
+; load 0
+; type 4 reg 0x1f2 extra 0x2761e0e0
+; ld4 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -247
+lda -4 + __renderDialogue_locals + 1,s
+sta.b tcc__r0
+lda -2 + __renderDialogue_locals + 1,s
+sta.b tcc__r0h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -4 r type 0x2761af80)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r0
+adc.w #17
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x51f2 extra 0x2761afd0
+; ld1 [sp,-9],tcc__r1
+; stack adjust: fc + disp - loc - 256 -252
+lda.w #0
+sep #$20
+lda -9 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r1 (0x1), tcc__r0 (0x0) (fr type 0x24 c -4 r type 0x2761af80)
+; length xxy 256 vtop->type 0x24
+clc
+lda.b tcc__r0
+adc.b tcc__r1
+sta.b tcc__r0
+; load 1
+; type 1 reg 0x1100 extra 0x48b5000
+; ld1 [tcc__r0,0],tcc__r1
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+xba
+xba
+bpl +
+ora.w #$ff00
++
+sta.b tcc__r1
+; store r 0x1 fr 0x1f2 ft 0x1 fc 0xfffffff5
+; st1 tcc__r1, [sp,-11]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r1
+sta -11 + __renderDialogue_locals + 1,s
+rep #$20
+; load 0
+; type 1 reg 0x11f2 extra 0x2761a9e0
+; ld1 [sp,-11],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -11 + __renderDialogue_locals + 1,s
+rep #$20
+xba
+xba
+bpl +
+ora.w #$ff00
++
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #10
+ldx #1
+lda.b tcc__r0
+sec
+sbc #10
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 0 t 0 v 5 r 57440 ind 57440
+; gsym_addr t 0 a 57479 ind 57479
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 0 t 0 v 243 r 57569 ind 57569
+; cmp op 0x95 inv 0 v 243 r 57569
+; cmp ne
+beq +
+; gsym_addr t 0 a 57659 ind 57659
+brl __local_58
++
+; gtst finished; t 57569
+; load 0
+; type 17 reg 0x51f2 extra 0x2761afd0
+; ld1 [sp,-9],tcc__r0
+; stack adjust: fc + disp - loc - 256 -252
+lda.w #0
+sep #$20
+lda -9 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x9f
+; cmpcd tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #0
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 58068 ind 58068
+; gsym_addr t 0 a 58107 ind 58107
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 58197 ind 58197
+; cmp op 0x95 inv 1 v 243 r 58197
+; cmp ne
+bne +
+; gsym_addr t 0 a 58287 ind 58287
+brl __local_59
++
+; gtst finished; t 58197
+; load 0
+; type 17 reg 0x51f2 extra 0x2761afd0
+; ld1 [sp,-9],tcc__r0
+; stack adjust: fc + disp - loc - 256 -252
+lda.w #0
+sep #$20
+lda -9 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x51f2 extra 0x2761ac90
+; ld1 [sp,-10],tcc__r1
+; stack adjust: fc + disp - loc - 256 -253
+lda.w #0
+sep #$20
+lda -10 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r1
+; gen_opi len 2 op %
+; div tcc__r1,tcc__r0
+ldx.b tcc__r0
+lda.b tcc__r1
+jsr.l tcc__div
+stx.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 58197 v 5 r 58959 ind 58959
+; gsym_addr t 58197 a 59002 ind 59002
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 58197 v 243 r 59096 ind 59096
+; cmp op 0x95 inv 1 v 243 r 59096
+; cmp ne
+bne +
+__local_59:
+; gsym_addr t 58197 a 59190 ind 59190
+brl __local_60
++
+; gtst finished; t 59096
+; gtst inv 0 t 57569 v 245 r 59270 ind 59270
+; VT_jmp r 59270 t 57569 ji 1 inv 0 vtop->c.i 59096
+; gjmp_addr 57569 at 59367
+jmp.w __local_61
+; gsym_addr t 59367 a 57569 ind 59411
+__local_60:
+; gsym_addr t 59096 a 59449 ind 59449
+; gtst finished; t 59367
+; gtst inv 1 t 0 v 244 r 59512 ind 59512
+; VT_jmp r 59512 t 0 ji 0 inv 1 vtop->c.i 59367
+; gjmp_addr 0 at 59601
+jmp.w __local_62
+; gsym_addr t 59601 a 0 ind 59641
+__local_58:
+__local_61:
+; gsym_addr t 59367 a 59675 ind 59675
+; gtst finished; t 59601
+; load 0
+; type 17 reg 0x51f2 extra 0x2761c6c0
+; ld1 [sp,-7],tcc__r0
+; stack adjust: fc + disp - loc - 256 -250
+lda.w #0
+sep #$20
+lda -7 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x48046cc
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -7 r type 0x11)
+; length xxy 2 vtop->type 0x0
+inc.b tcc__r0
+; store r 0x0 fr 0x51f2 ft 0x11 fc 0xfffffff9
+; st1 tcc__r0, [sp,-7]
+; stack adjust: fc + disp - loc - 256 -250
+sep #$20
+lda.b tcc__r0
+sta -7 + __renderDialogue_locals + 1,s
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x48c9000
+; ld1 #3,tcc__r0
+lda.w #3
+sta.b tcc__r0
+; store r 0x0 fr 0x51f2 ft 0x11 fc 0xfffffff8
+; st1 tcc__r0, [sp,-8]
+; stack adjust: fc + disp - loc - 256 -251
+sep #$20
+lda.b tcc__r0
+sta -8 + __renderDialogue_locals + 1,s
+rep #$20
+; load 0
+; type 1 reg 0x11f2 extra 0x2761a9e0
+; ld1 [sp,-11],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -11 + __renderDialogue_locals + 1,s
+rep #$20
+xba
+xba
+bpl +
+ora.w #$ff00
++
+sta.b tcc__r0
+; gen_opi len 2 op 0x95
+; cmpr(n)eq tcc__r0, #10
+ldx #1
+lda.b tcc__r0
+sec
+sbc #10
+tay
+bne +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 60971 ind 60971
+; gsym_addr t 0 a 61010 ind 61010
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 61100 ind 61100
+; cmp op 0x95 inv 1 v 243 r 61100
+; cmp ne
+bne +
+; gsym_addr t 0 a 61190 ind 61190
+brl __local_63
++
+; gtst finished; t 61100
+; load 0
+; type 17 reg 0x51f2 extra 0x2761afd0
+; ld1 [sp,-9],tcc__r0
+; stack adjust: fc + disp - loc - 256 -252
+lda.w #0
+sep #$20
+lda -9 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x0
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; sbc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -9 r type 0x11)
+; length xxy 2 vtop->type 0x0
+dec.b tcc__r0
+; store r 0x0 fr 0x51f2 ft 0x11 fc 0xfffffff7
+; st1 tcc__r0, [sp,-9]
+; stack adjust: fc + disp - loc - 256 -252
+sep #$20
+lda.b tcc__r0
+sta -9 + __renderDialogue_locals + 1,s
+rep #$20
+__local_63:
+; gsym_addr t 61100 a 61892 ind 61892
+; gjmp_addr 0 at 61930
+jmp.w __local_64
+; gsym_addr t 61930 a 0 ind 61970
+__local_62:
+; gsym_addr t 59601 a 62004 ind 62004
+; load 0
+; type 17 reg 0x51f2 extra 0x2761b2a0
+; ld1 [sp,-8],tcc__r0
+; stack adjust: fc + disp - loc - 256 -251
+lda.w #0
+sep #$20
+lda -8 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x7
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -8 r type 0x11)
+; length xxy 2 vtop->type 0x0
+inc.b tcc__r0
+; store r 0x0 fr 0x51f2 ft 0x11 fc 0xfffffff8
+; st1 tcc__r0, [sp,-8]
+; stack adjust: fc + disp - loc - 256 -251
+sep #$20
+lda.b tcc__r0
+sta -8 + __renderDialogue_locals + 1,s
+rep #$20
+; load 0
+; type 17 reg 0x51f2 extra 0x2761c6c0
+; ld1 [sp,-7],tcc__r0
+; stack adjust: fc + disp - loc - 256 -250
+lda.w #0
+sep #$20
+lda -7 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; ldpush before load type 0x4 reg 0x10f2
+; load 2
+; type 4 reg 0x10f2 extra 0x0
+; ld4 #(sp) + -11,tcc__r2 (fr 0x10f2 ft 0x4 fc 0xfffffff5)
+stz.b tcc__r2h
+tsa
+clc
+adc #(-11 + __renderDialogue_locals + 1)
+sta.b tcc__r2
+; ldpush4 (type 0x4 reg 0x2) tcc__r2
+pei (tcc__r2h)
+pei (tcc__r2)
+; ldpush before load type 0x10 reg 0x0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; ldpush before load type 0x10 reg 0x1
+; ldpush2 (type 0x10 reg 0x1) tcc__r1
+pei (tcc__r1)
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+__local_64:
+; gsym_addr t 61930 a 63394 ind 63394
+; load 0
+; type 17 reg 0x51f2 extra 0x2761afd0
+; ld1 [sp,-9],tcc__r0
+; stack adjust: fc + disp - loc - 256 -252
+lda.w #0
+sep #$20
+lda -9 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x6b625174
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -9 r type 0x11)
+; length xxy 2 vtop->type 0x0
+inc.b tcc__r0
+; store r 0x0 fr 0x51f2 ft 0x11 fc 0xfffffff7
+; st1 tcc__r0, [sp,-9]
+; stack adjust: fc + disp - loc - 256 -252
+sep #$20
+lda.b tcc__r0
+sta -9 + __renderDialogue_locals + 1,s
+rep #$20
+; gjmp_addr 53921 at 64065
+jmp.w __local_65
+; gsym_addr t 64065 a 53921 ind 64109
+__local_57:
+; gsym_addr t 55694 a 64147 ind 64147
+; gsym_addr t 0 a 53921 ind 64185
+; load 0
+; type 0 reg 0x3f0 extra 0x48c9000
+; ld2 [currentDialogue + 0], tcc__r0
+lda.l currentDialogue + 0
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #3
+ldx #1
+lda.b tcc__r0
+sec
+sbc #3
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 64450 ind 64450
+; gsym_addr t 0 a 64489 ind 64489
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 64579 ind 64579
+; cmp op 0x95 inv 1 v 243 r 64579
+; cmp ne
+bne +
+; gsym_addr t 0 a 64669 ind 64669
+brl __local_66
++
+; gtst finished; t 64579
+; load 0
+; type 17 reg 0xf0 extra 0x48c9000
+; ld1 #22,tcc__r0
+lda.w #22
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x11 fc 0xfffffff4
+; st1 tcc__r0, [sp,-12]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -12 + __renderDialogue_locals + 1,s
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x51f2 ft 0x11 fc 0xfffffff3
+; st1 tcc__r0, [sp,-13]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -13 + __renderDialogue_locals + 1,s
+rep #$20
+__local_69:
+; load 0
+; type 17 reg 0x51f2 extra 0x2761a6f0
+; ld1 [sp,-13],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -13 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 6], tcc__r1
+lda.w #0
+sep #$20
+lda.l currentDialogue + 6
+rep #$20
+sta.b tcc__r1
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 65760 ind 65760
+; gsym_addr t 0 a 65799 ind 65799
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 65889 ind 65889
+; cmp op 0x95 inv 1 v 243 r 65889
+; cmp ne
+bne +
+; gsym_addr t 0 a 65979 ind 65979
+brl __local_67
++
+; gtst finished; t 65889
+; gjmp_addr 0 at 66055
+jmp.w __local_68
+; gsym_addr t 66055 a 0 ind 66095
+__local_71:
+; load 0
+; type 17 reg 0x51f2 extra 0x2761a6f0
+; ld1 [sp,-13],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -13 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x0
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c -13 r type 0x11)
+; length xxy 2 vtop->type 0x0
+inc.b tcc__r0
+; store r 0x0 fr 0x51f2 ft 0x11 fc 0xfffffff3
+; st1 tcc__r0, [sp,-13]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -13 + __renderDialogue_locals + 1,s
+rep #$20
+; gjmp_addr 65278 at 66760
+jmp.w __local_69
+; gsym_addr t 66760 a 65278 ind 66804
+__local_68:
+; gsym_addr t 66055 a 66842 ind 66842
+; load 0
+; type 1 reg 0xf0 extra 0x0
+; ld1 #32,tcc__r0
+lda.w #32
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x1 fc 0xfffffff0
+; st1 tcc__r0, [sp,-16]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -16 + __renderDialogue_locals + 1,s
+rep #$20
+; load 0
+; type 1 reg 0xf0 extra 0x0
+; ld1 #32,tcc__r0
+lda.w #32
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x1 fc 0xfffffff1
+; st1 tcc__r0, [sp,-15]
+; stack adjust: fc + disp - loc - 256 -253
+sep #$20
+lda.b tcc__r0
+sta -15 + __renderDialogue_locals + 1,s
+rep #$20
+; load 0
+; type 1 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x1 fc 0xfffffff2
+; st1 tcc__r0, [sp,-14]
+; stack adjust: fc + disp - loc - 256 -252
+sep #$20
+lda.b tcc__r0
+sta -14 + __renderDialogue_locals + 1,s
+rep #$20
+; load 0
+; type 17 reg 0x51f2 extra 0x2761a6f0
+; ld1 [sp,-13],tcc__r0
+; stack adjust: fc + disp - loc - 256 -251
+lda.w #0
+sep #$20
+lda -13 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 5], tcc__r1
+lda.w #0
+sep #$20
+lda.l currentDialogue + 5
+rep #$20
+sta.b tcc__r1
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 68124 ind 68124
+; gsym_addr t 0 a 68163 ind 68163
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 68253 ind 68253
+; cmp op 0x95 inv 1 v 243 r 68253
+; cmp ne
+bne +
+; gsym_addr t 0 a 68343 ind 68343
+brl __local_70
++
+; gtst finished; t 68253
+; load 0
+; type 1 reg 0xf0 extra 0x0
+; ld1 #62,tcc__r0
+lda.w #62
+sta.b tcc__r0
+; store r 0x0 fr 0x11f2 ft 0x1 fc 0xfffffff0
+; st1 tcc__r0, [sp,-16]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -16 + __renderDialogue_locals + 1,s
+rep #$20
+__local_70:
+; gsym_addr t 68253 a 68682 ind 68682
+; load 0
+; type 17 reg 0x51f2 extra 0x2761a9e0
+; ld1 [sp,-12],tcc__r0
+; stack adjust: fc + disp - loc - 256 -250
+lda.w #0
+sep #$20
+lda -12 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x51f2 extra 0x2761a6f0
+; ld1 [sp,-13],tcc__r1
+; stack adjust: fc + disp - loc - 256 -251
+lda.w #0
+sep #$20
+lda -13 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r1 (0x1), tcc__r0 (0x0) (fr type 0x0 c -12 r type 0x10)
+; length xxy 2 vtop->type 0x0
+clc
+lda.b tcc__r0
+adc.b tcc__r1
+sta.b tcc__r0
+; ldpush before load type 0x4 reg 0x10f2
+; load 1
+; type 4 reg 0x10f2 extra 0x0
+; ld4 #(sp) + -16,tcc__r1 (fr 0x10f2 ft 0x4 fc 0xfffffff0)
+stz.b tcc__r1h
+tsa
+clc
+adc #(-16 + __renderDialogue_locals + 1)
+sta.b tcc__r1
+; ldpush4 (type 0x4 reg 0x1) tcc__r1
+pei (tcc__r1h)
+pei (tcc__r1)
+; ldpush before load type 0x10 reg 0x0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; push2 imm r 0xf0
+pea.w 3
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; load 0
+; type 17 reg 0x51f2 extra 0x2761a9e0
+; ld1 [sp,-12],tcc__r0
+; stack adjust: fc + disp - loc - 256 -250
+lda.w #0
+sep #$20
+lda -12 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x51f2 extra 0x2761a6f0
+; ld1 [sp,-13],tcc__r1
+; stack adjust: fc + disp - loc - 256 -251
+lda.w #0
+sep #$20
+lda -13 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r1 (0x1), tcc__r0 (0x0) (fr type 0x0 c -12 r type 0x10)
+; length xxy 2 vtop->type 0x0
+clc
+lda.b tcc__r0
+adc.b tcc__r1
+sta.b tcc__r0
+; load 1
+; type 4 reg 0x1f2 extra 0x2761e0e0
+; ld4 [sp,-4],tcc__r1
+; stack adjust: fc + disp - loc - 256 -242
+lda -4 + __renderDialogue_locals + 1,s
+sta.b tcc__r1
+lda -2 + __renderDialogue_locals + 1,s
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c -4 r type 0x10)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #274
+sta.b tcc__r1
+; load 2
+; type 17 reg 0x51f2 extra 0x2761a6f0
+; ld1 [sp,-13],tcc__r2
+; stack adjust: fc + disp - loc - 256 -251
+lda.w #0
+sep #$20
+lda -13 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r2
+; gen_opi len 2 op *
+; mul #66, tcc__r2
+lda.w #66
+sta.b tcc__r9
+lda.b tcc__r2
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r2
+; gen_opi len 2 op +
+; adc tcc__r2 (0x2), tcc__r1 (0x1) (fr type 0x24 c -4 r type 0x10)
+; length xxy 264 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r2
+sta.b tcc__r1
+; ldpush before load type 0x4 reg 0x1001
+; ldpush4 (type 0x4 reg 0x1) tcc__r1
+pei (tcc__r1h)
+pei (tcc__r1)
+; ldpush before load type 0x10 reg 0x0
+; ldpush2 (type 0x10 reg 0x0) tcc__r0
+pei (tcc__r0)
+; push2 imm r 0xf0
+pea.w 5
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+; gjmp_addr 66129 at 71451
+jmp.w __local_71
+; gsym_addr t 71451 a 66129 ind 71495
+__local_67:
+; gsym_addr t 65889 a 71533 ind 71533
+; gsym_addr t 0 a 66129 ind 71571
+__local_66:
+; gsym_addr t 64579 a 71605 ind 71605
+; load 0
+; type 0 reg 0x3f0 extra 0x48c9000
+; ld2 [currentDialogue + 0], tcc__r0
+lda.l currentDialogue + 0
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #2
+ldx #1
+lda.b tcc__r0
+sec
+sbc #2
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 71874 ind 71874
+; gsym_addr t 0 a 71913 ind 71913
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 72003 ind 72003
+; cmp op 0x95 inv 1 v 243 r 72003
+; cmp ne
+bne +
+; gsym_addr t 0 a 72093 ind 72093
+brl __local_72
++
+; gtst finished; t 72003
+; push4 imm r 0x12f0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}33
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}33 + 0
+; push2 imm r 0xf0
+pea.w 22
+; push2 imm r 0xf0
+pea.w 27
+; call r 0x2f0
+jsr.l consoleDrawText
+; add sp, #8
+tsa
+clc
+adc #8
+tas
+__local_72:
+; gsym_addr t 72003 a 72410 ind 72410
+__local_40:
+; gsym_addr t 41231 a 72448 ind 72448
+; add sp, #__renderDialogue_locals
+.ifgr __renderDialogue_locals 0
+tsa
+clc
+adc #__renderDialogue_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".isDialogueActivetext_0x5" SUPERFREE
+
+isDialogueActive:
+; sub sp,#__isDialogueActive_locals
+.ifgr __isDialogueActive_locals 0
+tsa
+sec
+sbc #__isDialogueActive_locals
+tas
+.endif
+; load 0
+; type 0 reg 0x3f0 extra 0x48c9000
+; ld2 [currentDialogue + 0], tcc__r0
+lda.l currentDialogue + 0
+sta.b tcc__r0
+; gen_opi len 2 op 0x95
+; cmpr(n)eq tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+bne +
+dex
++
+stx.b tcc__r5
+; gen_opi len 2 op &
+; and tcc__r240 (0xf0), tcc__r5 (0x5) (fr type 0x0 c 0 r type 0x2761af80)
+; length xxy 2 vtop->type 0x0
+; nop
+lda.b tcc__r5
+and.w #255
+sta.b tcc__r5
+; load 0
+; type 17 reg 0x5 extra 0x2761eb90
+; mov tcc__r5, tcc__r0
+lda.b tcc__r5
+sta.b tcc__r0
+lda.b tcc__r5h
+sta.b tcc__r0h
+; gjmp_addr 0 at 73324
+jmp.w __local_73
+; gsym_addr t 73324 a 0 ind 73364
+__local_73:
+; gsym_addr t 73324 a 73398 ind 73398
+; add sp, #__isDialogueActive_locals
+.ifgr __isDialogueActive_locals 0
+tsa
+clc
+adc #__isDialogueActive_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".endDialoguetext_0x6" SUPERFREE
+
+endDialogue:
+; sub sp,#__endDialogue_locals
+.ifgr __endDialogue_locals 0
+tsa
+sec
+sbc #__endDialogue_locals
+tas
+.endif
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x0
+; st2 tcc__r0, [currentDialogue,0]
+lda.b tcc__r0
+sta.l currentDialogue + 0
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x2
+; st1 tcc__r0, [currentDialogue,2]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 2
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x3
+; st1 tcc__r0, [currentDialogue,3]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 3
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x5
+; st1 tcc__r0, [currentDialogue,5]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 5
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x6
+; st1 tcc__r0, [currentDialogue,6]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 6
+rep #$20
+; gsym_addr t 0 a 74758 ind 74758
+; add sp, #__endDialogue_locals
+.ifgr __endDialogue_locals 0
+tsa
+clc
+adc #__endDialogue_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".setDialogueSpeedtext_0x7" SUPERFREE
+
+setDialogueSpeed:
+; sub sp,#__setDialogueSpeed_locals
+.ifgr __setDialogueSpeed_locals 0
+tsa
+sec
+sbc #__setDialogueSpeed_locals
+tas
+.endif
+; load 0
+; type 17 reg 0x1f2 extra 0x2761cca0
+; ld1 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -251
+lda.w #0
+sep #$20
+lda 3 + __setDialogueSpeed_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x9d
+; cmpcd tcc__r0, #1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #1
+tay
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 75420 ind 75420
+; gsym_addr t 0 a 75459 ind 75459
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 75549 ind 75549
+; cmp op 0x95 inv 1 v 243 r 75549
+; cmp ne
+bne +
+; gsym_addr t 0 a 75639 ind 75639
+brl __local_74
++
+; gtst finished; t 75549
+; load 0
+; type 17 reg 0x1f2 extra 0x2761cca0
+; ld1 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -251
+lda.w #0
+sep #$20
+lda 3 + __setDialogueSpeed_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x9e
+; cmpcd tcc__r0, #5
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #5
+tay
+beq +++
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 75549 v 5 r 76048 ind 76048
+; gsym_addr t 75549 a 76091 ind 76091
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 75549 v 243 r 76185 ind 76185
+; cmp op 0x95 inv 1 v 243 r 76185
+; cmp ne
+bne +
+__local_74:
+; gsym_addr t 75549 a 76279 ind 76279
+brl __local_75
++
+; gtst finished; t 76185
+; gtst inv 1 t 0 v 245 r 76359 ind 76359
+; VT_jmp r 76359 t 0 ji 1 inv 1 vtop->c.i 76185
+; gsym_addr t 0 a 76448 ind 76448
+; gtst finished; t 76185
+; load 0
+; type 17 reg 0x1f2 extra 0x0
+; ld1 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -251
+lda.w #0
+sep #$20
+lda 3 + __setDialogueSpeed_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x4
+; st1 tcc__r0, [currentDialogue,4]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 4
+rep #$20
+__local_75:
+; gsym_addr t 76185 a 76823 ind 76823
+; gsym_addr t 0 a 76861 ind 76861
+; add sp, #__setDialogueSpeed_locals
+.ifgr __setDialogueSpeed_locals 0
+tsa
+clc
+adc #__setDialogueSpeed_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".skipDialogueTexttext_0x8" SUPERFREE
+
+skipDialogueText:
+; sub sp,#__skipDialogueText_locals
+.ifgr __skipDialogueText_locals 0
+tsa
+sec
+sbc #__skipDialogueText_locals
+tas
+.endif
+; load 0
+; type 0 reg 0x3f0 extra 0x48c9000
+; ld2 [currentDialogue + 0], tcc__r0
+lda.l currentDialogue + 0
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #1
+ldx #1
+lda.b tcc__r0
+sec
+sbc #1
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 77444 ind 77444
+; gsym_addr t 0 a 77483 ind 77483
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 77573 ind 77573
+; cmp op 0x95 inv 1 v 243 r 77573
+; cmp ne
+bne +
+; gsym_addr t 0 a 77663 ind 77663
+brl __local_76
++
+; gtst finished; t 77573
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 2], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 2
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #541, tcc__r0
+lda.w #541
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 292 reg 0x2f0 extra 0x276218c0
+; ld8656 #tccs_{WLA_FILENAME}_dialogueNodes + 0, tcc__r1 (type 0x124)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:tccs_{WLA_FILENAME}_dialogueNodes
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_dialogueNodes + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x124 c 0 r type 0x2761af80)
+; length xxy 8656 vtop->type 0x124
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; store r 0x1 fr 0x1f2 ft 0x4 fc 0xfffffffc
+; st4 tcc__r1, [sp,-4]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r1
+sta -4 + __skipDialogueText_locals + 1,s
+lda.b tcc__r1h
+sta -2 + __skipDialogueText_locals + 1,s
+; load 0
+; type 4 reg 0x1f2 extra 0x2761b2a0
+; ld4 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -4 + __skipDialogueText_locals + 1,s
+sta.b tcc__r0
+lda -2 + __skipDialogueText_locals + 1,s
+sta.b tcc__r0h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -4 r type 0x86)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r0
+adc.w #17
+sta.b tcc__r0
+; ldpush before load type 0x4 reg 0x1000
+; ldpush4 (type 0x4 reg 0x0) tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+; call r 0x2f0
+jsr.l strlen
+; add sp, #4
+tsa
+clc
+adc #4
+tas
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x3
+; st1 tcc__r0, [currentDialogue,3]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 3
+rep #$20
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 6], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 6
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x9f
+; cmpcd tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #0
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 79650 ind 79650
+; gsym_addr t 0 a 79689 ind 79689
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 79779 ind 79779
+; cmp op 0x95 inv 1 v 243 r 79779
+; cmp ne
+bne +
+; gsym_addr t 0 a 79869 ind 79869
+brl __local_77
++
+; gtst finished; t 79779
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #3,tcc__r0
+lda.w #3
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x0
+; st2 tcc__r0, [currentDialogue,0]
+lda.b tcc__r0
+sta.l currentDialogue + 0
+; gjmp_addr 0 at 80134
+jmp.w __local_78
+; gsym_addr t 80134 a 0 ind 80174
+__local_77:
+; gsym_addr t 79779 a 80208 ind 80208
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #2,tcc__r0
+lda.w #2
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x0
+; st2 tcc__r0, [currentDialogue,0]
+lda.b tcc__r0
+sta.l currentDialogue + 0
+__local_78:
+; gsym_addr t 80134 a 80435 ind 80435
+__local_76:
+; gsym_addr t 77573 a 80473 ind 80473
+; gsym_addr t 0 a 80511 ind 80511
+; add sp, #__skipDialogueText_locals
+.ifgr __skipDialogueText_locals 0
+tsa
+clc
+adc #__skipDialogueText_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".selectNextChoicetext_0x9" SUPERFREE
+
+selectNextChoice:
+; sub sp,#__selectNextChoice_locals
+.ifgr __selectNextChoice_locals 0
+tsa
+sec
+sbc #__selectNextChoice_locals
+tas
+.endif
+; load 0
+; type 0 reg 0x3f0 extra 0x48c9000
+; ld2 [currentDialogue + 0], tcc__r0
+lda.l currentDialogue + 0
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #3
+ldx #1
+lda.b tcc__r0
+sec
+sbc #3
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 81094 ind 81094
+; gsym_addr t 0 a 81133 ind 81133
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 81223 ind 81223
+; cmp op 0x95 inv 1 v 243 r 81223
+; cmp ne
+bne +
+; gsym_addr t 0 a 81313 ind 81313
+brl __local_79
++
+; gtst finished; t 81223
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 6], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 6
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x9f
+; cmpcd tcc__r0, #1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #1
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 81223 v 5 r 81674 ind 81674
+; gsym_addr t 81223 a 81717 ind 81717
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 81223 v 243 r 81811 ind 81811
+; cmp op 0x95 inv 1 v 243 r 81811
+; cmp ne
+bne +
+__local_79:
+; gsym_addr t 81223 a 81905 ind 81905
+brl __local_80
++
+; gtst finished; t 81811
+; gtst inv 1 t 0 v 245 r 81985 ind 81985
+; VT_jmp r 81985 t 0 ji 1 inv 1 vtop->c.i 81811
+; gsym_addr t 0 a 82074 ind 82074
+; gtst finished; t 81811
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 5], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 5
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0x6b625078
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c 5 r type 0x11)
+; length xxy 2 vtop->type 0x0
+inc.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x5
+; st1 tcc__r0, [currentDialogue,5]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 5
+rep #$20
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 5], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 5
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 6], tcc__r1
+lda.w #0
+sep #$20
+lda.l currentDialogue + 6
+rep #$20
+sta.b tcc__r1
+; gen_opi len 2 op 0x9d
+; cmpcd tcc__r0, tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 83098 ind 83098
+; gsym_addr t 0 a 83137 ind 83137
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 83227 ind 83227
+; cmp op 0x95 inv 1 v 243 r 83227
+; cmp ne
+bne +
+; gsym_addr t 0 a 83317 ind 83317
+brl __local_81
++
+; gtst finished; t 83227
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x5
+; st1 tcc__r0, [currentDialogue,5]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 5
+rep #$20
+__local_81:
+; gsym_addr t 83227 a 83603 ind 83603
+__local_80:
+; gsym_addr t 81811 a 83641 ind 83641
+; gsym_addr t 0 a 83679 ind 83679
+; add sp, #__selectNextChoice_locals
+.ifgr __selectNextChoice_locals 0
+tsa
+clc
+adc #__selectNextChoice_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".selectPreviousChoicetext_0xa" SUPERFREE
+
+selectPreviousChoice:
+; sub sp,#__selectPreviousChoice_locals
+.ifgr __selectPreviousChoice_locals 0
+tsa
+sec
+sbc #__selectPreviousChoice_locals
+tas
+.endif
+; load 0
+; type 0 reg 0x3f0 extra 0x48c9000
+; ld2 [currentDialogue + 0], tcc__r0
+lda.l currentDialogue + 0
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #3
+ldx #1
+lda.b tcc__r0
+sec
+sbc #3
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 84282 ind 84282
+; gsym_addr t 0 a 84321 ind 84321
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 84411 ind 84411
+; cmp op 0x95 inv 1 v 243 r 84411
+; cmp ne
+bne +
+; gsym_addr t 0 a 84501 ind 84501
+brl __local_82
++
+; gtst finished; t 84411
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 6], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 6
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x9f
+; cmpcd tcc__r0, #1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #1
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 84411 v 5 r 84862 ind 84862
+; gsym_addr t 84411 a 84905 ind 84905
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 84411 v 243 r 84999 ind 84999
+; cmp op 0x95 inv 1 v 243 r 84999
+; cmp ne
+bne +
+__local_82:
+; gsym_addr t 84411 a 85093 ind 85093
+brl __local_83
++
+; gtst finished; t 84999
+; gtst inv 1 t 0 v 245 r 85173 ind 85173
+; VT_jmp r 85173 t 0 ji 1 inv 1 vtop->c.i 84999
+; gsym_addr t 0 a 85262 ind 85262
+; gtst finished; t 84999
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 5], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 5
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 85575 ind 85575
+; gsym_addr t 0 a 85614 ind 85614
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 85704 ind 85704
+; cmp op 0x95 inv 1 v 243 r 85704
+; cmp ne
+bne +
+; gsym_addr t 0 a 85794 ind 85794
+brl __local_84
++
+; gtst finished; t 85704
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 6], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 6
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op -
+; sbc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c 6 r type 0x11)
+; length xxy 2 vtop->type 0x0
+dec.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x5
+; st1 tcc__r0, [currentDialogue,5]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 5
+rep #$20
+; gjmp_addr 0 at 86279
+jmp.w __local_85
+; gsym_addr t 86279 a 0 ind 86319
+__local_84:
+; gsym_addr t 85704 a 86353 ind 86353
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 5], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 5
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 0 reg 0x0 extra 0xf0
+; mov tcc__r0, tcc__r1
+lda.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+; gen_opi len 2 op +
+; sbc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x0 c 5 r type 0x11)
+; length xxy 2 vtop->type 0x0
+dec.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x5
+; st1 tcc__r0, [currentDialogue,5]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 5
+rep #$20
+__local_85:
+; gsym_addr t 86279 a 86918 ind 86918
+__local_83:
+; gsym_addr t 84999 a 86956 ind 86956
+; gsym_addr t 0 a 86994 ind 86994
+; add sp, #__selectPreviousChoice_locals
+.ifgr __selectPreviousChoice_locals 0
+tsa
+clc
+adc #__selectPreviousChoice_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".confirmChoicetext_0xb" SUPERFREE
+
+confirmChoice:
+; sub sp,#__confirmChoice_locals
+.ifgr __confirmChoice_locals 0
+tsa
+sec
+sbc #__confirmChoice_locals
+tas
+.endif
+; load 0
+; type 0 reg 0x3f0 extra 0x48c9000
+; ld2 [currentDialogue + 0], tcc__r0
+lda.l currentDialogue + 0
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #3
+ldx #1
+lda.b tcc__r0
+sec
+sbc #3
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 87574 ind 87574
+; gsym_addr t 0 a 87613 ind 87613
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 87703 ind 87703
+; cmp op 0x95 inv 1 v 243 r 87703
+; cmp ne
+bne +
+; gsym_addr t 0 a 87793 ind 87793
+brl __local_86
++
+; gtst finished; t 87703
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 2], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 2
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #541, tcc__r0
+lda.w #541
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 292 reg 0x2f0 extra 0x276218c0
+; ld8656 #tccs_{WLA_FILENAME}_dialogueNodes + 0, tcc__r1 (type 0x124)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:tccs_{WLA_FILENAME}_dialogueNodes
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_dialogueNodes + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x124 c 0 r type 0x2761af80)
+; length xxy 8656 vtop->type 0x124
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; store r 0x1 fr 0x1f2 ft 0x4 fc 0xfffffffc
+; st4 tcc__r1, [sp,-4]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r1
+sta -4 + __confirmChoice_locals + 1,s
+lda.b tcc__r1h
+sta -2 + __confirmChoice_locals + 1,s
+; load 0
+; type 17 reg 0x53f0 extra 0x48b5000
+; ld1 [currentDialogue + 5], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 5
+rep #$20
+sta.b tcc__r0
+; store r 0x0 fr 0x1f2 ft 0x11 fc 0xfffffffb
+; st1 tcc__r0, [sp,-5]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r0
+sta -5 + __confirmChoice_locals + 1,s
+rep #$20
+; load 0
+; type 17 reg 0x51f2 extra 0x2761a1f0
+; ld1 [sp,-5],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -5 + __confirmChoice_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 6], tcc__r1
+lda.w #0
+sep #$20
+lda.l currentDialogue + 6
+rep #$20
+sta.b tcc__r1
+; gen_opi len 2 op 0x9c
+; cmpcd tcc__r0, tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 89617 ind 89617
+; gsym_addr t 0 a 89656 ind 89656
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 89746 ind 89746
+; cmp op 0x95 inv 1 v 243 r 89746
+; cmp ne
+bne +
+; gsym_addr t 0 a 89836 ind 89836
+brl __local_87
++
+; gtst finished; t 89746
+; load 0
+; type 4 reg 0x1f2 extra 0x2761a9e0
+; ld4 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -253
+lda -4 + __confirmChoice_locals + 1,s
+sta.b tcc__r0
+lda -2 + __confirmChoice_locals + 1,s
+sta.b tcc__r0h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -4 r type 0x2761af80)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r0
+adc.w #274
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x51f2 extra 0x2761a1f0
+; ld1 [sp,-5],tcc__r1
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -5 + __confirmChoice_locals + 1,s
+rep #$20
+sta.b tcc__r1
+; gen_opi len 2 op *
+; mul #66, tcc__r1
+lda.w #66
+sta.b tcc__r9
+lda.b tcc__r1
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r1 (0x1), tcc__r0 (0x0) (fr type 0x24 c -4 r type 0x2761af80)
+; length xxy 264 vtop->type 0x24
+clc
+lda.b tcc__r0
+adc.b tcc__r1
+sta.b tcc__r0
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -4 r type 0x2761af80)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r0
+adc.w #65
+sta.b tcc__r0
+; gtst inv 1 t 89746 v 0 r 90950 ind 90950
+; load 1
+; type 17 reg 0x5100 extra 0x0
+; ld1 [tcc__r0,0],tcc__r1
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+; gsym_addr t 89746 a 91116 ind 91116
+; tcc__r1 to compare reg
+lda.b tcc__r1 ; DON'T OPTIMIZE
+; gtst inv 1 t 89746 v 243 r 91210 ind 91210
+; cmp op 0x95 inv 1 v 243 r 91210
+; cmp ne
+bne +
+__local_87:
+; gsym_addr t 89746 a 91304 ind 91304
+brl __local_88
++
+; gtst finished; t 91210
+; gtst inv 1 t 0 v 245 r 91384 ind 91384
+; VT_jmp r 91384 t 0 ji 1 inv 1 vtop->c.i 91210
+; gsym_addr t 0 a 91473 ind 91473
+; gtst finished; t 91210
+; load 0
+; type 4 reg 0x1f2 extra 0x2761a9e0
+; ld4 [sp,-4],tcc__r0
+; stack adjust: fc + disp - loc - 256 -252
+lda -4 + __confirmChoice_locals + 1,s
+sta.b tcc__r0
+lda -2 + __confirmChoice_locals + 1,s
+sta.b tcc__r0h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -4 r type 0x2761af80)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r0
+adc.w #274
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x51f2 extra 0x2761a1f0
+; ld1 [sp,-5],tcc__r1
+; stack adjust: fc + disp - loc - 256 -253
+lda.w #0
+sep #$20
+lda -5 + __confirmChoice_locals + 1,s
+rep #$20
+sta.b tcc__r1
+; gen_opi len 2 op *
+; mul #66, tcc__r1
+lda.w #66
+sta.b tcc__r9
+lda.b tcc__r1
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r1 (0x1), tcc__r0 (0x0) (fr type 0x24 c -4 r type 0x2761af80)
+; length xxy 264 vtop->type 0x24
+clc
+lda.b tcc__r0
+adc.b tcc__r1
+sta.b tcc__r0
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -4 r type 0x2761af80)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r0
+adc.w #64
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x5100 extra 0x48b5000
+; ld1 [tcc__r0,0],tcc__r1
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+; store r 0x1 fr 0x1f2 ft 0x11 fc 0xfffffffa
+; st1 tcc__r1, [sp,-6]
+; stack adjust: fc + disp - loc - 256 -254
+sep #$20
+lda.b tcc__r1
+sta -6 + __confirmChoice_locals + 1,s
+rep #$20
+; load 0
+; type 17 reg 0x51f2 extra 0x27619ec0
+; ld1 [sp,-6],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -6 + __confirmChoice_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 93181 ind 93181
+; gsym_addr t 0 a 93220 ind 93220
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 93310 ind 93310
+; cmp op 0x95 inv 1 v 243 r 93310
+; cmp ne
+bne +
+; gsym_addr t 0 a 93400 ind 93400
+brl __local_89
++
+; gtst finished; t 93310
+; call r 0x2f0
+jsr.l endDialogue
+; gjmp_addr 0 at 93509
+jmp.w __local_90
+; gsym_addr t 93509 a 0 ind 93549
+__local_89:
+; gsym_addr t 93310 a 93583 ind 93583
+; load 0
+; type 17 reg 0x51f2 extra 0x0
+; ld1 [sp,-6],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda.w #0
+sep #$20
+lda -6 + __confirmChoice_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x2
+; st1 tcc__r0, [currentDialogue,2]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 2
+rep #$20
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x3
+; st1 tcc__r0, [currentDialogue,3]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 3
+rep #$20
+; load 0
+; type 5 reg 0xf0 extra 0x0
+; ld2 #1,tcc__r0
+lda.w #1
+sta.b tcc__r0
+; store r 0x0 fr 0x3f0 ft 0x5 fc 0x0
+; st2 tcc__r0, [currentDialogue,0]
+lda.b tcc__r0
+sta.l currentDialogue + 0
+; load 0
+; type 17 reg 0xf0 extra 0x0
+; ld1 #0,tcc__r0
+lda.w #0
+sta.b tcc__r0
+; store r 0x0 fr 0x53f0 ft 0x11 fc 0x5
+; st1 tcc__r0, [currentDialogue,5]
+sep #$20
+lda.b tcc__r0
+sta.l currentDialogue + 5
+rep #$20
+; load 0
+; type 17 reg 0x51f2 extra 0x27619ec0
+; ld1 [sp,-6],tcc__r0
+; stack adjust: fc + disp - loc - 256 -248
+lda.w #0
+sep #$20
+lda -6 + __confirmChoice_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #541, tcc__r0
+lda.w #541
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 292 reg 0x2f0 extra 0x276218c0
+; ld8656 #tccs_{WLA_FILENAME}_dialogueNodes + 0, tcc__r1 (type 0x124)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:tccs_{WLA_FILENAME}_dialogueNodes
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_dialogueNodes + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x124 c 0 r type 0x2761af80)
+; length xxy 8656 vtop->type 0x124
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; store r 0x1 fr 0x1f2 ft 0x4 fc 0xfffffff4
+; st4 tcc__r1, [sp,-12]
+; stack adjust: fc + disp - loc - 256 -254
+lda.b tcc__r1
+sta -12 + __confirmChoice_locals + 1,s
+lda.b tcc__r1h
+sta -10 + __confirmChoice_locals + 1,s
+; load 0
+; type 4 reg 0x1f2 extra 0x27619950
+; ld4 [sp,-12],tcc__r0
+; stack adjust: fc + disp - loc - 256 -254
+lda -12 + __confirmChoice_locals + 1,s
+sta.b tcc__r0
+lda -10 + __confirmChoice_locals + 1,s
+sta.b tcc__r0h
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r0 (0x0) (fr type 0x4 c -12 r type 0x11)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r0
+adc.w #273
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x5100 extra 0x0
+; ld1 [tcc__r0,0],tcc__r1
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+; store r 0x1 fr 0x53f0 ft 0x11 fc 0x6
+; st1 tcc__r1, [currentDialogue,6]
+sep #$20
+lda.b tcc__r1
+sta.l currentDialogue + 6
+rep #$20
+__local_90:
+; gsym_addr t 93509 a 96171 ind 96171
+__local_88:
+; gsym_addr t 91210 a 96209 ind 96209
+__local_86:
+; gsym_addr t 87703 a 96247 ind 96247
+; gsym_addr t 0 a 96285 ind 96285
+; add sp, #__confirmChoice_locals
+.ifgr __confirmChoice_locals 0
+tsa
+clc
+adc #__confirmChoice_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".getCurrentDialogueTexttext_0xc" SUPERFREE
+
+getCurrentDialogueText:
+; sub sp,#__getCurrentDialogueText_locals
+.ifgr __getCurrentDialogueText_locals 0
+tsa
+sec
+sbc #__getCurrentDialogueText_locals
+tas
+.endif
+; load 0
+; type 0 reg 0x3f0 extra 0x48c9000
+; ld2 [currentDialogue + 0], tcc__r0
+lda.l currentDialogue + 0
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 96889 ind 96889
+; gsym_addr t 0 a 96928 ind 96928
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 97018 ind 97018
+; cmp op 0x95 inv 1 v 243 r 97018
+; cmp ne
+bne +
+; gsym_addr t 0 a 97108 ind 97108
+brl __local_91
++
+; gtst finished; t 97018
+; load 0
+; type 4 reg 0x12f0 extra 0x2761ac90
+; ld4 #tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34 + 0, tcc__r0 (type 0x4)
+lda.w #:tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34
+sta.b tcc__r0h
+lda.w #tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34 + 0
+sta.b tcc__r0
+; gjmp_addr 0 at 97426
+jmp.w __local_92
+; gsym_addr t 97426 a 0 ind 97466
+__local_91:
+; gsym_addr t 97018 a 97500 ind 97500
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 2], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 2
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #541, tcc__r0
+lda.w #541
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 292 reg 0x2f0 extra 0x276218c0
+; ld8656 #tccs_{WLA_FILENAME}_dialogueNodes + 0, tcc__r1 (type 0x124)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:tccs_{WLA_FILENAME}_dialogueNodes
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_dialogueNodes + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x124 c 0 r type 0x2761af80)
+; length xxy 8656 vtop->type 0x124
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x2761af80)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #17
+sta.b tcc__r1
+; load 0
+; type 4 reg 0x1001 extra 0x2761ac90
+; mov tcc__r1, tcc__r0
+lda.b tcc__r1
+sta.b tcc__r0
+lda.b tcc__r1h
+sta.b tcc__r0h
+; gjmp_addr 97426 at 98555
+jmp.w __local_93
+; gsym_addr t 98555 a 97426 ind 98599
+__local_92:
+__local_93:
+; gsym_addr t 98555 a 98637 ind 98637
+; add sp, #__getCurrentDialogueText_locals
+.ifgr __getCurrentDialogueText_locals 0
+tsa
+clc
+adc #__getCurrentDialogueText_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".getCurrentSpeakertext_0xd" SUPERFREE
+
+getCurrentSpeaker:
+; sub sp,#__getCurrentSpeaker_locals
+.ifgr __getCurrentSpeaker_locals 0
+tsa
+sec
+sbc #__getCurrentSpeaker_locals
+tas
+.endif
+; load 0
+; type 0 reg 0x3f0 extra 0x48c9000
+; ld2 [currentDialogue + 0], tcc__r0
+lda.l currentDialogue + 0
+sta.b tcc__r0
+; gen_opi len 2 op 0x94
+; cmpr(n)eq tcc__r0, #0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+beq +
+dex
++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 99247 ind 99247
+; gsym_addr t 0 a 99286 ind 99286
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 99376 ind 99376
+; cmp op 0x95 inv 1 v 243 r 99376
+; cmp ne
+bne +
+; gsym_addr t 0 a 99466 ind 99466
+brl __local_94
++
+; gtst finished; t 99376
+; load 0
+; type 4 reg 0x12f0 extra 0x2761a470
+; ld4 #tccs_{WLA_FILENAME}_L.{WLA_FILENAME}35 + 0, tcc__r0 (type 0x4)
+lda.w #:tccs_{WLA_FILENAME}_L.{WLA_FILENAME}35
+sta.b tcc__r0h
+lda.w #tccs_{WLA_FILENAME}_L.{WLA_FILENAME}35 + 0
+sta.b tcc__r0
+; gjmp_addr 0 at 99784
+jmp.w __local_95
+; gsym_addr t 99784 a 0 ind 99824
+__local_94:
+; gsym_addr t 99376 a 99858 ind 99858
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 2], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 2
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #541, tcc__r0
+lda.w #541
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 292 reg 0x2f0 extra 0x276218c0
+; ld8656 #tccs_{WLA_FILENAME}_dialogueNodes + 0, tcc__r1 (type 0x124)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:tccs_{WLA_FILENAME}_dialogueNodes
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_dialogueNodes + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x124 c 0 r type 0x2761af80)
+; length xxy 8656 vtop->type 0x124
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x2761af80)
+; length xxy 4 vtop->type 0x4
+inc.b tcc__r1
+; load 0
+; type 4 reg 0x1001 extra 0x2761a470
+; mov tcc__r1, tcc__r0
+lda.b tcc__r1
+sta.b tcc__r0
+lda.b tcc__r1h
+sta.b tcc__r0h
+; gjmp_addr 99784 at 100885
+jmp.w __local_96
+; gsym_addr t 100885 a 99784 ind 100930
+__local_95:
+__local_96:
+; gsym_addr t 100885 a 100970 ind 100970
+; add sp, #__getCurrentSpeaker_locals
+.ifgr __getCurrentSpeaker_locals 0
+tsa
+clc
+adc #__getCurrentSpeaker_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".getChoiceCounttext_0xe" SUPERFREE
+
+getChoiceCount:
+; sub sp,#__getChoiceCount_locals
+.ifgr __getChoiceCount_locals 0
+tsa
+sec
+sbc #__getChoiceCount_locals
+tas
+.endif
+; load 0
+; type 17 reg 0x53f0 extra 0x27619ec0
+; ld1 [currentDialogue + 6], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 6
+rep #$20
+sta.b tcc__r0
+; gjmp_addr 0 at 101473
+jmp.w __local_97
+; gsym_addr t 101473 a 0 ind 101514
+__local_97:
+; gsym_addr t 101473 a 101550 ind 101550
+; add sp, #__getChoiceCount_locals
+.ifgr __getChoiceCount_locals 0
+tsa
+clc
+adc #__getChoiceCount_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".getChoiceTexttext_0xf" SUPERFREE
+
+getChoiceText:
+; sub sp,#__getChoiceText_locals
+.ifgr __getChoiceText_locals 0
+tsa
+sec
+sbc #__getChoiceText_locals
+tas
+.endif
+; load 0
+; type 17 reg 0x1f2 extra 0x27617d10
+; ld1 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -251
+lda.w #0
+sep #$20
+lda 3 + __getChoiceText_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; load 1
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 6], tcc__r1
+lda.w #0
+sep #$20
+lda.l currentDialogue + 6
+rep #$20
+sta.b tcc__r1
+; gen_opi len 2 op 0x9d
+; cmpcd tcc__r0, tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+; gtst inv 1 t 0 v 5 r 102364 ind 102364
+; gsym_addr t 0 a 102405 ind 102405
+; tcc__r5 to compare reg
+lda.b tcc__r5 ; DON'T OPTIMIZE
+; gtst inv 1 t 0 v 243 r 102497 ind 102497
+; cmp op 0x95 inv 1 v 243 r 102497
+; cmp ne
+bne +
+; gsym_addr t 0 a 102590 ind 102590
+brl __local_98
++
+; gtst finished; t 102497
+; load 0
+; type 4 reg 0x12f0 extra 0x27618b30
+; ld4 #tccs_{WLA_FILENAME}_L.{WLA_FILENAME}36 + 0, tcc__r0 (type 0x4)
+lda.w #:tccs_{WLA_FILENAME}_L.{WLA_FILENAME}36
+sta.b tcc__r0h
+lda.w #tccs_{WLA_FILENAME}_L.{WLA_FILENAME}36 + 0
+sta.b tcc__r0
+; gjmp_addr 0 at 102911
+jmp.w __local_99
+; gsym_addr t 102911 a 0 ind 102952
+__local_98:
+; gsym_addr t 102497 a 102988 ind 102988
+; load 0
+; type 17 reg 0x53f0 extra 0x0
+; ld1 [currentDialogue + 2], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 2
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #541, tcc__r0
+lda.w #541
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; load 1
+; type 292 reg 0x2f0 extra 0x276218c0
+; ld8656 #tccs_{WLA_FILENAME}_dialogueNodes + 0, tcc__r1 (type 0x124)
+; FISHY! length <> PTR_SIZE! (may be an array)
+lda.w #:tccs_{WLA_FILENAME}_dialogueNodes
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_dialogueNodes + 0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x124 c 0 r type 0x2761af80)
+; length xxy 8656 vtop->type 0x124
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; gen_opi len 2 op +
+; adc tcc__r240 (0xf0), tcc__r1 (0x1) (fr type 0x4 c 0 r type 0x2761af80)
+; length xxy 4 vtop->type 0x4
+clc
+lda.b tcc__r1
+adc.w #274
+sta.b tcc__r1
+; load 0
+; type 17 reg 0x1f2 extra 0x27617d10
+; ld1 [sp,3],tcc__r0
+; stack adjust: fc + disp - loc - 256 -251
+lda.w #0
+sep #$20
+lda 3 + __getChoiceText_locals + 1,s
+rep #$20
+sta.b tcc__r0
+; gen_opi len 2 op *
+; mul #66, tcc__r0
+lda.w #66
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+; gen_opi len 2 op +
+; adc tcc__r0 (0x0), tcc__r1 (0x1) (fr type 0x24 c 0 r type 0x2761af80)
+; length xxy 264 vtop->type 0x24
+clc
+lda.b tcc__r1
+adc.b tcc__r0
+sta.b tcc__r1
+; load 0
+; type 4 reg 0x1001 extra 0x27618b30
+; mov tcc__r1, tcc__r0
+lda.b tcc__r1
+sta.b tcc__r0
+lda.b tcc__r1h
+sta.b tcc__r0h
+; gjmp_addr 102911 at 104529
+jmp.w __local_100
+; gsym_addr t 104529 a 102911 ind 104576
+__local_99:
+__local_100:
+; gsym_addr t 104529 a 104617 ind 104617
+; add sp, #__getChoiceText_locals
+.ifgr __getChoiceText_locals 0
+tsa
+clc
+adc #__getChoiceText_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".getSelectedChoicetext_0x10" SUPERFREE
+
+getSelectedChoice:
+; sub sp,#__getSelectedChoice_locals
+.ifgr __getSelectedChoice_locals 0
+tsa
+sec
+sbc #__getSelectedChoice_locals
+tas
+.endif
+; load 0
+; type 17 reg 0x53f0 extra 0x276183e0
+; ld1 [currentDialogue + 5], tcc__r0
+lda.w #0
+sep #$20
+lda.l currentDialogue + 5
+rep #$20
+sta.b tcc__r0
+; gjmp_addr 0 at 105124
+jmp.w __local_101
+; gsym_addr t 105124 a 0 ind 105166
+__local_101:
+; gsym_addr t 105124 a 105202 ind 105202
+; add sp, #__getSelectedChoice_locals
+.ifgr __getSelectedChoice_locals 0
+tsa
+clc
+adc #__getSelectedChoice_locals
+tas
+.endif
+rtl
+.ENDS
+.RAMSECTION "ram{WLA_FILENAME}.data" APPENDTO "globram.data"
+
+tccs_{WLA_FILENAME}_dialogueNodeCount dsb 1
+
+.ENDS
+
+.SECTION "{WLA_FILENAME}.data" APPENDTO "glob.data"
+
+.db $0
+.ENDS
+
+.SECTION ".rodata" SUPERFREE
+
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}18: .db $56,$69,$6c,$6c,$61,$67,$65,$72,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}19: .db $48,$65,$6c,$6c,$6f,$2c,$20,$74,$72,$61,$76,$65,$6c,$65,$72,$21,$20,$57,$65,$6c,$63,$6f,$6d,$65,$20,$74,$6f,$20,$6f,$75,$72,$20,$76,$69,$6c,$6c,$61,$67,$65,$2e,$20,$57,$68,$61,$74,$20,$62,$72,$69,$6e,$67,$73,$20,$79,$6f,$75,$20,$68,$65,$72,$65,$3f,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}20: .db $49,$27,$6d,$20,$65,$78,$70,$6c,$6f,$72,$69,$6e,$67,$20,$74,$68,$65,$20,$77,$6f,$72,$6c,$64,$2e,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}21: .db $49,$27,$6d,$20,$6c,$6f,$6f,$6b,$69,$6e,$67,$20,$66,$6f,$72,$20,$61,$64,$76,$65,$6e,$74,$75,$72,$65,$2e,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}22: .db $56,$69,$6c,$6c,$61,$67,$65,$72,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23: .db $41,$68,$2c,$20,$65,$78,$70,$6c,$6f,$72,$61,$74,$69,$6f,$6e,$21,$20,$54,$68,$65,$72,$65,$27,$73,$20,$6d,$75,$63,$68,$20,$74,$6f,$20,$73,$65,$65,$20,$69,$6e,$20,$74,$68,$65,$73,$65,$20,$6c,$61,$6e,$64,$73,$2e,$20,$42,$65,$20,$63,$61,$72,$65,$66,$75,$6c,$20,$6f,$66,$20,$74,$68,$65,$20,$74,$69,$6d,$65,$20,$61,$6e,$6f,$6d,$61,$6c,$69,$65,$73,$2e,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24: .db $54,$69,$6d,$65,$20,$61,$6e,$6f,$6d,$61,$6c,$69,$65,$73,$3f,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}25: .db $56,$69,$6c,$6c,$61,$67,$65,$72,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}26: .db $41,$64,$76,$65,$6e,$74,$75,$72,$65,$2c,$20,$65,$68,$3f,$20,$57,$65,$6c,$6c,$2c,$20,$79,$6f,$75,$27,$76,$65,$20,$63,$6f,$6d,$65,$20,$74,$6f,$20,$74,$68,$65,$20,$72,$69,$67,$68,$74,$20,$70,$6c,$61,$63,$65,$21,$20,$4a,$75,$73,$74,$20,$77,$61,$74,$63,$68,$20,$6f,$75,$74,$20,$66,$6f,$72,$20,$74,$68,$6f,$73,$65,$20,$74,$65,$6d,$70,$6f,$72,$61,$6c,$20,$64,$69,$73,$74,$75,$72,$62,$61,$6e,$63,$65,$73,$2e,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}27: .db $54,$65,$6d,$70,$6f,$72,$61,$6c,$20,$64,$69,$73,$74,$75,$72,$62,$61,$6e,$63,$65,$73,$3f,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}28: .db $56,$69,$6c,$6c,$61,$67,$65,$72,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}29: .db $59,$65,$73,$2c,$20,$73,$74,$72,$61,$6e,$67,$65,$20,$74,$68,$69,$6e,$67,$73,$20,$68,$61,$70,$70,$65,$6e,$20,$77,$69,$74,$68,$20,$74,$69,$6d,$65,$20,$61,$72,$6f,$75,$6e,$64,$20,$68,$65,$72,$65,$2e,$20,$53,$6f,$6d,$65,$20,$73,$61,$79,$20,$61,$20,$67,$72,$65,$61,$74,$20,$70,$6f,$77,$65,$72,$20,$73,$6c,$65,$65,$70,$73,$20,$62,$65,$6e,$65,$61,$74,$68,$20,$74,$68,$65,$20,$6d,$6f,$75,$6e,$74,$61,$69,$6e,$73,$2e,$20,$46,$61,$72,$65,$77,$65,$6c,$6c,$2c,$20,$74,$72,$61,$76,$65,$6c,$65,$72,$21,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}30: .db $23,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}31: .db $20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}32: .db $3a,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}33: .db $3e,$3e,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34: .db $0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}35: .db $0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}36: .db $0
+.ENDS
+
+.RAMSECTION ".bss" BANK $7e SLOT 2
+currentDialogue dsb 10
+tccs_{WLA_FILENAME}_dialogueNodes dsb 8656
+.ENDS

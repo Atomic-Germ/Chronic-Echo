@@ -61,8 +61,8 @@ tas
 stz.b tcc__r0
 lda.b tcc__r0
 sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 0
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}17
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}17 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}20
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}20 + 0
 pea.w :tccs_{WLA_FILENAME}_enemyDefinitions
 pea.w tccs_{WLA_FILENAME}_enemyDefinitions + 2
 jsr.l strcpy
@@ -88,8 +88,8 @@ sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 29
 rep #$20
 lda.w #1
 sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 30
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}18
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}18 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}21
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}21 + 0
 pea.w :tccs_{WLA_FILENAME}_enemyDefinitions
 pea.w tccs_{WLA_FILENAME}_enemyDefinitions + 32
 jsr.l strcpy
@@ -115,8 +115,8 @@ sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 59
 rep #$20
 lda.w #2
 sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 60
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}19
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}19 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}22
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}22 + 0
 pea.w :tccs_{WLA_FILENAME}_enemyDefinitions
 pea.w tccs_{WLA_FILENAME}_enemyDefinitions + 62
 jsr.l strcpy
@@ -142,8 +142,8 @@ sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 89
 rep #$20
 lda.w #3
 sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 90
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}20
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}20 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23 + 0
 pea.w :tccs_{WLA_FILENAME}_enemyDefinitions
 pea.w tccs_{WLA_FILENAME}_enemyDefinitions + 92
 jsr.l strcpy
@@ -169,8 +169,8 @@ sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 119
 rep #$20
 lda.w #4
 sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 120
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}21
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}21 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24 + 0
 pea.w :tccs_{WLA_FILENAME}_enemyDefinitions
 pea.w tccs_{WLA_FILENAME}_enemyDefinitions + 122
 jsr.l strcpy
@@ -196,8 +196,8 @@ sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 149
 rep #$20
 lda.w #5
 sta.w tccs_{WLA_FILENAME}_enemyDefinitions + 150
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}22
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}22 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}25
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}25 + 0
 pea.w :tccs_{WLA_FILENAME}_enemyDefinitions
 pea.w tccs_{WLA_FILENAME}_enemyDefinitions + 152
 jsr.l strcpy
@@ -1129,7 +1129,7 @@ lda.l playerCharacter + 4
 sta.b tcc__r0
 ldx #1
 sec
-sbc.w #5
+sbc.w #20
 tay
 bcc ++
 + dex
@@ -1175,7 +1175,7 @@ sta.l playerCharacter + 0
 __local_66:
 lda.l playerCharacter + 4
 sec
-sbc.w #5
+sbc.w #20
 sta.l playerCharacter + 4
 lda.w #1
 sta.b tcc__r0
@@ -1589,7 +1589,7 @@ lda.l playerCharacter + 4
 sta.b tcc__r0
 ldx #1
 sec
-sbc.w #5
+sbc.w #20
 tay
 bcs ++
 + dex
@@ -1717,8 +1717,8 @@ lda.b tcc__r0
 sta -2 + __drawBattleScreen_locals + 1,s
 bra __local_110
 __local_109:
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}26
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}26 + 0
 lda 0 + __drawBattleScreen_locals + 1,s
 pha
 lda 4 + __drawBattleScreen_locals + 1,s
@@ -1732,8 +1732,8 @@ bra __local_111
 __local_108:
 jmp.w __local_112
 __local_105:
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}27
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}27 + 0
 pea.w 2
 pea.w 10
 jsr.l consoleDrawText
@@ -1750,8 +1750,8 @@ tsa
 clc
 adc #8
 tas
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}25
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}25 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}28
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}28 + 0
 pea.w 8
 pea.w 2
 jsr.l consoleDrawText
@@ -1759,8 +1759,8 @@ tsa
 clc
 adc #8
 tas
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}26
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}26 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}29
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}29 + 0
 pea.w 8
 pea.w 20
 jsr.l consoleDrawText
@@ -1814,8 +1814,8 @@ lda.b tcc__r0
 sta -34 + __drawBattleUI_locals + 1,s
 bra __local_115
 __local_114:
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}27
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}27 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}30
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}30 + 0
 lda -30 + __drawBattleUI_locals + 1,s
 pha
 pea.w 0
@@ -1826,8 +1826,8 @@ adc #8
 tas
 bra __local_116
 __local_113:
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}28
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}28 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}31
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}31 + 0
 pea.w 19
 pea.w 1
 jsr.l consoleDrawText
@@ -1840,8 +1840,8 @@ pha
 lda.l playerCharacter + 0
 sta.b tcc__r0
 pha
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}29
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}29 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}32
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}32 + 0
 stz.b tcc__r0h
 tsa
 clc
@@ -1880,8 +1880,8 @@ ldx.b tcc__r0
 jsr.l tcc__udiv
 lda.b tcc__r9
 sta -36 + __drawBattleUI_locals + 1,s
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}30
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}30 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}33
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}33 + 0
 pea.w 20
 pea.w 1
 jsr.l consoleDrawText
@@ -1932,8 +1932,8 @@ lda -34 + __drawBattleUI_locals + 1,s
 sta.b tcc__r0
 inc.b tcc__r0
 inc.b tcc__r0
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}31
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}31 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34 + 0
 pea.w 20
 pei (tcc__r0)
 jsr.l consoleDrawText
@@ -1947,8 +1947,8 @@ lda -34 + __drawBattleUI_locals + 1,s
 sta.b tcc__r0
 inc.b tcc__r0
 inc.b tcc__r0
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}32
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}32 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}35
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}35 + 0
 pea.w 20
 pei (tcc__r0)
 jsr.l consoleDrawText
@@ -1959,8 +1959,8 @@ tas
 __local_121:
 jmp.w __local_122
 __local_117:
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}33
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}33 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}36
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}36 + 0
 pea.w 20
 pea.w 12
 jsr.l consoleDrawText
@@ -1968,8 +1968,8 @@ tsa
 clc
 adc #8
 tas
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}37
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}37 + 0
 pea.w 19
 pea.w 15
 jsr.l consoleDrawText
@@ -1982,8 +1982,8 @@ pha
 lda.l currentBattle + 20
 sta.b tcc__r0
 pha
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}35
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}35 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}38
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}38 + 0
 stz.b tcc__r0h
 tsa
 clc
@@ -2022,8 +2022,8 @@ ldx.b tcc__r0
 jsr.l tcc__udiv
 lda.b tcc__r9
 sta -38 + __drawBattleUI_locals + 1,s
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}36
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}36 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}39
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}39 + 0
 pea.w 20
 pea.w 15
 jsr.l consoleDrawText
@@ -2074,8 +2074,8 @@ lda -34 + __drawBattleUI_locals + 1,s
 clc
 adc.w #16
 sta.b tcc__r0
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}37
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}37 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}40
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}40 + 0
 pea.w 20
 pei (tcc__r0)
 jsr.l consoleDrawText
@@ -2089,8 +2089,8 @@ lda -34 + __drawBattleUI_locals + 1,s
 clc
 adc.w #16
 sta.b tcc__r0
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}38
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}38 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}41
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}41 + 0
 pea.w 20
 pei (tcc__r0)
 jsr.l consoleDrawText
@@ -2101,8 +2101,8 @@ tas
 __local_127:
 jmp.w __local_128
 __local_123:
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}39
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}39 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}42
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}42 + 0
 pea.w 20
 pea.w 26
 jsr.l consoleDrawText
@@ -2110,8 +2110,8 @@ tsa
 clc
 adc #8
 tas
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}40
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}40 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}43
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}43 + 0
 pea.w 22
 pea.w 1
 jsr.l consoleDrawText
@@ -2124,8 +2124,8 @@ pha
 lda.l playerCharacter + 4
 sta.b tcc__r0
 pha
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}41
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}41 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}44
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}44 + 0
 stz.b tcc__r0h
 tsa
 clc
@@ -2150,8 +2150,8 @@ tsa
 clc
 adc #8
 tas
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}42
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}42 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}45
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}45 + 0
 pea.w 24
 pea.w 1
 jsr.l consoleDrawText
@@ -2159,8 +2159,8 @@ tsa
 clc
 adc #8
 tas
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}43
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}43 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}46
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}46 + 0
 pea.w 25
 pea.w 1
 jsr.l consoleDrawText
@@ -2168,8 +2168,8 @@ tsa
 clc
 adc #8
 tas
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}44
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}44 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}47
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}47 + 0
 pea.w 26
 pea.w 1
 jsr.l consoleDrawText
@@ -2180,8 +2180,8 @@ tas
 lda.l currentBattle + 32
 sta.b tcc__r0
 pha
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}45
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}45 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}48
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}48 + 0
 stz.b tcc__r0h
 tsa
 clc
@@ -2215,8 +2215,8 @@ lda.b tcc__r0 ; DON'T OPTIMIZE
 bne +
 brl __local_129
 +
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}46
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}46 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}49
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}49 + 0
 pea.w 25
 pea.w 20
 jsr.l consoleDrawText
@@ -2235,8 +2235,8 @@ lda.b tcc__r0 ; DON'T OPTIMIZE
 bne +
 brl __local_131
 +
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}47
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}47 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}50
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}50 + 0
 pea.w 25
 pea.w 20
 jsr.l consoleDrawText
@@ -2246,8 +2246,8 @@ adc #8
 tas
 bra __local_132
 __local_131:
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}48
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}48 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}51
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}51 + 0
 pea.w 25
 pea.w 20
 jsr.l consoleDrawText
@@ -2527,8 +2527,8 @@ beq +
 brl __local_154
 +
 __local_153:
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}49
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}49 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}52
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}52 + 0
 pea.w 10
 pea.w 10
 jsr.l consoleDrawText
@@ -2569,8 +2569,8 @@ beq +
 brl __local_158
 +
 __local_157:
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}50
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}50 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}53
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}53 + 0
 pea.w 10
 pea.w 10
 jsr.l consoleDrawText
@@ -2611,8 +2611,8 @@ beq +
 brl __local_162
 +
 __local_161:
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}51
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}51 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}54
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}54 + 0
 pea.w 10
 pea.w 10
 jsr.l consoleDrawText
@@ -2673,41 +2673,41 @@ tccs__FUNC_updateBattleAnimations_animationFrame dsb 1
 
 .SECTION ".rodata" SUPERFREE
 
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}17: .db $53,$4c,$49,$4d,$45,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}18: .db $47,$4f,$42,$4c,$49,$4e,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}19: .db $4f,$52,$43,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}20: .db $53,$4b,$45,$4c,$45,$54,$4f,$4e,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}21: .db $44,$52,$41,$47,$4f,$4e,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}22: .db $54,$49,$4d,$45,$20,$4c,$4f,$52,$44,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23: .db $20,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24: .db $3d,$3d,$3d,$20,$42,$41,$54,$54,$4c,$45,$20,$3d,$3d,$3d,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}25: .db $50,$4c,$41,$59,$45,$52,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}26: .db $45,$4e,$45,$4d,$59,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}27: .db $20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}28: .db $50,$4c,$41,$59,$45,$52,$20,$48,$50,$3a,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}29: .db $25,$64,$2f,$25,$64,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}30: .db $5b,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}31: .db $3d,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}32: .db $20,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}33: .db $5d,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34: .db $45,$4e,$45,$4d,$59,$20,$48,$50,$3a,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}35: .db $25,$64,$2f,$25,$64,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}36: .db $5b,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}37: .db $3d,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}38: .db $20,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}39: .db $5d,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}40: .db $54,$49,$4d,$45,$20,$45,$4e,$45,$52,$47,$59,$3a,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}41: .db $25,$64,$2f,$25,$64,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}42: .db $41,$3a,$41,$54,$54,$41,$43,$4b,$20,$20,$42,$3a,$44,$45,$46,$45,$4e,$44,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}43: .db $58,$3a,$54,$49,$4d,$45,$20,$53,$54,$4f,$50,$20,$20,$59,$3a,$53,$4c,$4f,$57,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}44: .db $4c,$3a,$52,$45,$57,$49,$4e,$44,$20,$20,$52,$3a,$45,$53,$43,$41,$50,$45,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}45: .db $54,$55,$52,$4e,$3a,$20,$25,$64,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}46: .db $54,$49,$4d,$45,$20,$53,$54,$4f,$50,$21,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}47: .db $53,$4c,$4f,$57,$20,$4d,$4f,$54,$49,$4f,$4e,$21,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}48: .db $20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}49: .db $56,$49,$43,$54,$4f,$52,$59,$21,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}50: .db $44,$45,$46,$45,$41,$54,$21,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}51: .db $45,$53,$43,$41,$50,$45,$44,$21,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}20: .db $53,$4c,$49,$4d,$45,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}21: .db $47,$4f,$42,$4c,$49,$4e,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}22: .db $4f,$52,$43,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23: .db $53,$4b,$45,$4c,$45,$54,$4f,$4e,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24: .db $44,$52,$41,$47,$4f,$4e,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}25: .db $54,$49,$4d,$45,$20,$4c,$4f,$52,$44,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}26: .db $20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}27: .db $3d,$3d,$3d,$20,$42,$41,$54,$54,$4c,$45,$20,$3d,$3d,$3d,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}28: .db $50,$4c,$41,$59,$45,$52,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}29: .db $45,$4e,$45,$4d,$59,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}30: .db $20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}31: .db $50,$4c,$41,$59,$45,$52,$20,$48,$50,$3a,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}32: .db $25,$64,$2f,$25,$64,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}33: .db $5b,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34: .db $3d,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}35: .db $20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}36: .db $5d,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}37: .db $45,$4e,$45,$4d,$59,$20,$48,$50,$3a,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}38: .db $25,$64,$2f,$25,$64,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}39: .db $5b,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}40: .db $3d,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}41: .db $20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}42: .db $5d,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}43: .db $54,$49,$4d,$45,$20,$45,$4e,$45,$52,$47,$59,$3a,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}44: .db $25,$64,$2f,$25,$64,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}45: .db $41,$3a,$41,$54,$54,$41,$43,$4b,$20,$20,$42,$3a,$44,$45,$46,$45,$4e,$44,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}46: .db $58,$3a,$54,$49,$4d,$45,$20,$53,$54,$4f,$50,$20,$20,$59,$3a,$53,$4c,$4f,$57,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}47: .db $4c,$3a,$52,$45,$57,$49,$4e,$44,$20,$20,$52,$3a,$45,$53,$43,$41,$50,$45,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}48: .db $54,$55,$52,$4e,$3a,$20,$25,$64,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}49: .db $54,$49,$4d,$45,$20,$53,$54,$4f,$50,$21,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}50: .db $53,$4c,$4f,$57,$20,$4d,$4f,$54,$49,$4f,$4e,$21,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}51: .db $20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}52: .db $56,$49,$43,$54,$4f,$52,$59,$21,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}53: .db $44,$45,$46,$45,$41,$54,$21,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}54: .db $45,$53,$43,$41,$50,$45,$44,$21,$0
 .ENDS
 
 .RAMSECTION ".bss" BANK $7e SLOT 2

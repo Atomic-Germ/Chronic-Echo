@@ -2,16 +2,16 @@
 
 
     Chronic Echo - Battle System Implementation
-    -- Battle mechanics with time manipulation integration
+    -- Turn-based combat with time manipulation mechanics
 
 
 ---------------------------------------------------------------------------------*/
 #include <snes.h>
-#include <snes/sprite.h>
 #include <string.h>
+#include <stdio.h>
+
 #include "battle.h"
-#include "player.h"
-#include "time_manipulation.h"
+#include "player.h"  // For player character access
 
 //---------------------------------------------------------------------------------
 // Global battle instance

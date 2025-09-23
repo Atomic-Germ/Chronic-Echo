@@ -1,0 +1,1379 @@
+.include "hdr.asm"
+.accu 16
+.index 16
+.16bit
+.define __initWorld_locals 4
+.define __loadArea_locals 4
+.define __updateWorldNavigation_locals 12
+.define __renderWorld_locals 4
+.define __checkTileCollision_locals 10
+.define __addNPCToArea_locals 8
+.define __getNPCAtPosition_locals 16
+.define __interactWithNPC_locals 10
+.define __transitionToArea_locals 0
+
+.SECTION ".initWorldtext_0x0" SUPERFREE
+
+initWorld:
+.ifgr __initWorld_locals 0
+tsa
+sec
+sbc #__initWorld_locals
+tas
+.endif
+lda.w #0
+sep #$20
+sta.w gameWorld + 26032
+rep #$20
+lda.w #0
+sep #$20
+sta.w gameWorld + 26033
+rep #$20
+stz.b tcc__r0
+lda.b tcc__r0
+sta.w gameWorld + 26034
+stz.b tcc__r0
+lda.b tcc__r0
+sta.w gameWorld + 26036
+lda.w #:gameWorld
+sta.b tcc__r0h
+lda.w #gameWorld + 0
+sta.b tcc__r0
+sta -4 + __initWorld_locals + 1,s
+lda.b tcc__r0h
+sta -2 + __initWorld_locals + 1,s
+lda -4 + __initWorld_locals + 1,s
+sta.b tcc__r0
+lda -2 + __initWorld_locals + 1,s
+sta.b tcc__r0h
+stz.b tcc__r1
+lda.b tcc__r1
+sta.b [tcc__r0]
+lda -2 + __initWorld_locals + 1,s
+sta.b tcc__r0h
+lda -4 + __initWorld_locals + 1,s
+sta.b tcc__r0
+inc.b tcc__r0
+inc.b tcc__r0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23 + 0
+pei (tcc__r0h)
+pei (tcc__r0)
+jsr.l strcpy
+tsa
+clc
+adc #8
+tas
+lda -4 + __initWorld_locals + 1,s
+sta.b tcc__r0
+lda -2 + __initWorld_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #18
+sta.b tcc__r0
+pea.w 768
+pea.w :overworldTilemap
+pea.w overworldTilemap + 0
+pei (tcc__r0h)
+pei (tcc__r0)
+jsr.l memcpy
+tsa
+clc
+adc #10
+tas
+lda -4 + __initWorld_locals + 1,s
+sta.b tcc__r0
+lda -2 + __initWorld_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #3250
+sta.b tcc__r0
+lda.w #0
+sep #$20
+sta.b [tcc__r0]
+rep #$20
+lda -4 + __initWorld_locals + 1,s
+sta.b tcc__r0
+lda -2 + __initWorld_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #3251
+sta.b tcc__r0
+lda.w #0
+sep #$20
+sta.b [tcc__r0]
+rep #$20
+lda -4 + __initWorld_locals + 1,s
+sta.b tcc__r0
+lda -2 + __initWorld_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #3252
+sta.b tcc__r0
+lda.w #0
+sep #$20
+sta.b [tcc__r0]
+rep #$20
+lda.w #1
+sep #$20
+sta.w gameWorld + 26033
+rep #$20
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}25
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}25 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24 + 0
+pea.w 150
+pea.w 200
+pea.w 0
+sep #$20
+lda #0
+pha
+rep #$20
+jsr.l addNPCToArea
+tsa
+clc
+adc #15
+tas
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}27
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}27 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}26
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}26 + 0
+pea.w 180
+pea.w 250
+pea.w 1
+sep #$20
+lda #0
+pha
+rep #$20
+jsr.l addNPCToArea
+tsa
+clc
+adc #15
+tas
+.ifgr __initWorld_locals 0
+tsa
+clc
+adc #__initWorld_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".loadAreatext_0x1" SUPERFREE
+
+loadArea:
+.ifgr __loadArea_locals 0
+tsa
+sec
+sbc #__loadArea_locals
+tas
+.endif
+lda.w #0
+sep #$20
+lda 3 + __loadArea_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.w gameWorld + 26033
+rep #$20
+sta.b tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_0
++
+jmp.w __local_1
+__local_0:
+lda.w #0
+sep #$20
+lda 3 + __loadArea_locals + 1,s
+sta.w gameWorld + 26032
+rep #$20
+lda.w #0
+sep #$20
+lda 3 + __loadArea_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #3254
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:gameWorld
+sta.b tcc__r1h
+lda.w #gameWorld + 0
+clc
+adc.b tcc__r0
+sta.b tcc__r1
+sta -4 + __loadArea_locals + 1,s
+lda.b tcc__r1h
+sta -2 + __loadArea_locals + 1,s
+stz.b tcc__r0
+lda.b tcc__r0
+sta.w gameWorld + 26034
+stz.b tcc__r0
+lda.b tcc__r0
+sta.w gameWorld + 26036
+__local_1:
+.ifgr __loadArea_locals 0
+tsa
+clc
+adc #__loadArea_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".updateWorldNavigationtext_0x2" SUPERFREE
+
+updateWorldNavigation:
+.ifgr __updateWorldNavigation_locals 0
+tsa
+sec
+sbc #__updateWorldNavigation_locals
+tas
+.endif
+lda.l pad_keys + 0
+sta -2 + __updateWorldNavigation_locals + 1,s
+lda.l playerCharacter + 16
+sta -4 + __updateWorldNavigation_locals + 1,s
+lda.l playerCharacter + 18
+sta -6 + __updateWorldNavigation_locals + 1,s
+lda.w #2
+sta -8 + __updateWorldNavigation_locals + 1,s
+lda -2 + __updateWorldNavigation_locals + 1,s
+and.w #512
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_2
++
+lda -4 + __updateWorldNavigation_locals + 1,s
+sta.b tcc__r0
+lda -8 + __updateWorldNavigation_locals + 1,s
+sta.b tcc__r1
+sec
+lda.b tcc__r0
+sbc.b tcc__r1
+sta.b tcc__r0
+sta -4 + __updateWorldNavigation_locals + 1,s
+__local_2:
+lda -2 + __updateWorldNavigation_locals + 1,s
+and.w #256
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_3
++
+lda -4 + __updateWorldNavigation_locals + 1,s
+sta.b tcc__r0
+lda -8 + __updateWorldNavigation_locals + 1,s
+sta.b tcc__r1
+clc
+adc.b tcc__r0
+sta.b tcc__r0
+sta -4 + __updateWorldNavigation_locals + 1,s
+__local_3:
+lda -2 + __updateWorldNavigation_locals + 1,s
+and.w #2048
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_4
++
+lda -6 + __updateWorldNavigation_locals + 1,s
+sta.b tcc__r0
+lda -8 + __updateWorldNavigation_locals + 1,s
+sta.b tcc__r1
+sec
+lda.b tcc__r0
+sbc.b tcc__r1
+sta.b tcc__r0
+sta -6 + __updateWorldNavigation_locals + 1,s
+__local_4:
+lda -2 + __updateWorldNavigation_locals + 1,s
+and.w #1024
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_5
++
+lda -6 + __updateWorldNavigation_locals + 1,s
+sta.b tcc__r0
+lda -8 + __updateWorldNavigation_locals + 1,s
+sta.b tcc__r1
+clc
+adc.b tcc__r0
+sta.b tcc__r0
+sta -6 + __updateWorldNavigation_locals + 1,s
+__local_5:
+lda -6 + __updateWorldNavigation_locals + 1,s
+pha
+lda -2 + __updateWorldNavigation_locals + 1,s
+pha
+jsr.l checkTileCollision
+tsa
+clc
+adc #4
+tas
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_6
++
+bra __local_7
+__local_6:
+lda -4 + __updateWorldNavigation_locals + 1,s
+sta.l playerCharacter + 16
+lda -6 + __updateWorldNavigation_locals + 1,s
+sta.b tcc__r0
+sta.l playerCharacter + 18
+__local_7:
+lda.l playerCharacter + 16
+sec
+sbc.w #128
+sta.w gameWorld + 26034
+lda.l playerCharacter + 18
+sec
+sbc.w #112
+sta.w gameWorld + 26036
+lda.w gameWorld + 26034
+sta.b tcc__r0
+sec
+sbc.w #0
+bvc +
+eor #$8000
++
+bmi +
+brl __local_8
++
+stz.b tcc__r0
+lda.b tcc__r0
+sta.w gameWorld + 26034
+__local_8:
+lda.w gameWorld + 26036
+sta.b tcc__r0
+sec
+sbc.w #0
+bvc +
+eor #$8000
++
+bmi +
+brl __local_9
++
+stz.b tcc__r0
+lda.b tcc__r0
+sta.w gameWorld + 26036
+__local_9:
+lda.w gameWorld + 26034
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #256
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_10
++
+lda.w #256
+sta.b tcc__r0
+sta.w gameWorld + 26034
+__local_10:
+lda.w gameWorld + 26036
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #160
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_11
++
+lda.w #160
+sta.b tcc__r0
+sta.w gameWorld + 26036
+__local_11:
+lda -2 + __updateWorldNavigation_locals + 1,s
+and.w #128
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_12
++
+lda.l playerCharacter + 18
+pha
+lda.l playerCharacter + 16
+pha
+jsr.l getNPCAtPosition
+tsa
+clc
+adc #4
+tas
+lda.b tcc__r0
+sta -12 + __updateWorldNavigation_locals + 1,s
+lda.b tcc__r0h
+sta -10 + __updateWorldNavigation_locals + 1,s
+lda -12 + __updateWorldNavigation_locals + 1,s
+sta.b tcc__r0
+lda -10 + __updateWorldNavigation_locals + 1,s
+sta.b tcc__r0h
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_13
++
+lda -12 + __updateWorldNavigation_locals + 1,s
+sta.b tcc__r0
+lda -10 + __updateWorldNavigation_locals + 1,s
+pha
+pei (tcc__r0)
+jsr.l interactWithNPC
+tsa
+clc
+adc #4
+tas
+__local_13:
+__local_12:
+.ifgr __updateWorldNavigation_locals 0
+tsa
+clc
+adc #__updateWorldNavigation_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".renderWorldtext_0x3" SUPERFREE
+
+renderWorld:
+.ifgr __renderWorld_locals 0
+tsa
+sec
+sbc #__renderWorld_locals
+tas
+.endif
+lda.w #0
+sep #$20
+lda.w gameWorld + 26032
+rep #$20
+sta.b tcc__r0
+lda.w #3254
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:gameWorld
+sta.b tcc__r1h
+lda.w #gameWorld + 0
+clc
+adc.b tcc__r0
+sta.b tcc__r1
+sta -4 + __renderWorld_locals + 1,s
+lda.b tcc__r1h
+sta -2 + __renderWorld_locals + 1,s
+sta.b tcc__r0h
+lda -4 + __renderWorld_locals + 1,s
+sta.b tcc__r0
+inc.b tcc__r0
+inc.b tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+pea.w 1
+pea.w 1
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+.ifgr __renderWorld_locals 0
+tsa
+clc
+adc #__renderWorld_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".checkTileCollisiontext_0x4" SUPERFREE
+
+checkTileCollision:
+.ifgr __checkTileCollision_locals 0
+tsa
+sec
+sbc #__checkTileCollision_locals
+tas
+.endif
+lda 3 + __checkTileCollision_locals + 1,s
+sta.b tcc__r0
+tax
+lda.w #16
+jsr.l tcc__div
+lda.b tcc__r9
+sep #$20
+sta -1 + __checkTileCollision_locals + 1,s
+rep #$20
+lda 5 + __checkTileCollision_locals + 1,s
+sta.b tcc__r0
+tax
+lda.w #16
+jsr.l tcc__div
+lda.b tcc__r9
+sep #$20
+sta -2 + __checkTileCollision_locals + 1,s
+rep #$20
+lda.w #0
+sep #$20
+lda -1 + __checkTileCollision_locals + 1,s
+rep #$20
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #32
+tay
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+beq +
+brl __local_14
++
+lda.w #0
+sep #$20
+lda -2 + __checkTileCollision_locals + 1,s
+rep #$20
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #24
+tay
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+beq +
+__local_14:
+brl __local_15
++
+bra __local_16
+__local_15:
+lda.w #1
+sta.b tcc__r0
+jmp.w __local_17
+__local_16:
+lda.w #0
+sep #$20
+lda.w gameWorld + 26032
+rep #$20
+sta.b tcc__r0
+lda.w #3254
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:gameWorld
+sta.b tcc__r1h
+lda.w #gameWorld + 0
+clc
+adc.b tcc__r0
+sta.b tcc__r1
+sta -8 + __checkTileCollision_locals + 1,s
+lda.b tcc__r1h
+sta -6 + __checkTileCollision_locals + 1,s
+lda -8 + __checkTileCollision_locals + 1,s
+sta.b tcc__r0
+lda -6 + __checkTileCollision_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #18
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda -2 + __checkTileCollision_locals + 1,s
+rep #$20
+sta.b tcc__r1
+ldy.w #5
+-
+asl a
+dey
+bne -
++
+sta.b tcc__r1
+lda.w #0
+sep #$20
+lda -1 + __checkTileCollision_locals + 1,s
+rep #$20
+sta.b tcc__r2
+clc
+adc.b tcc__r1
+clc
+adc.b tcc__r0
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+sta -10 + __checkTileCollision_locals + 1,s
+sta.b tcc__r0
+bra __local_18
+bra __local_19
+__local_18:
+lda.b tcc__r0
+cmp #3
+beq +
+brl __local_20
++
+__local_19:
+bra __local_21
+__local_20:
+lda.b tcc__r0
+cmp #4
+beq +
+brl __local_22
++
+__local_21:
+bra __local_23
+__local_22:
+lda.b tcc__r0
+cmp #5
+beq +
+brl __local_24
++
+__local_23:
+lda.w #1
+sta.b tcc__r0
+bra __local_25
+__local_24:
+lda.w #0
+sta.b tcc__r0
+__local_17:
+__local_25:
+__local_26:
+.ifgr __checkTileCollision_locals 0
+tsa
+clc
+adc #__checkTileCollision_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".addNPCToAreatext_0x5" SUPERFREE
+
+addNPCToArea:
+.ifgr __addNPCToArea_locals 0
+tsa
+sec
+sbc #__addNPCToArea_locals
+tas
+.endif
+lda.w #0
+sep #$20
+lda 3 + __addNPCToArea_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.w gameWorld + 26033
+rep #$20
+sta.b tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_27
++
+jmp.w __local_28
+__local_27:
+lda.w #0
+sep #$20
+lda 3 + __addNPCToArea_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #3254
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:gameWorld
+sta.b tcc__r1h
+lda.w #gameWorld + 0
+clc
+adc.b tcc__r0
+sta.b tcc__r1
+sta -4 + __addNPCToArea_locals + 1,s
+lda.b tcc__r1h
+sta -2 + __addNPCToArea_locals + 1,s
+lda -4 + __addNPCToArea_locals + 1,s
+sta.b tcc__r0
+lda -2 + __addNPCToArea_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #3250
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+ldx #1
+sec
+sbc.w #16
+tay
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_29
++
+jmp.w __local_30
+__local_29:
+lda -4 + __addNPCToArea_locals + 1,s
+sta.b tcc__r0
+lda -2 + __addNPCToArea_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #786
+sta.b tcc__r0
+lda -4 + __addNPCToArea_locals + 1,s
+sta.b tcc__r1
+lda -2 + __addNPCToArea_locals + 1,s
+sta.b tcc__r1h
+clc
+lda.b tcc__r1
+adc.w #3250
+sta.b tcc__r1
+lda.w #0
+sep #$20
+lda.b [tcc__r1]
+rep #$20
+sta.b tcc__r2
+lda.w #154
+sta.b tcc__r9
+lda.b tcc__r2
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r2
+clc
+adc.b tcc__r0
+sta.b tcc__r0
+sta -8 + __addNPCToArea_locals + 1,s
+lda.b tcc__r0h
+sta -6 + __addNPCToArea_locals + 1,s
+lda -8 + __addNPCToArea_locals + 1,s
+sta.b tcc__r0
+lda -6 + __addNPCToArea_locals + 1,s
+sta.b tcc__r0h
+lda.w #1
+sep #$20
+sta.b [tcc__r0]
+rep #$20
+lda -6 + __addNPCToArea_locals + 1,s
+sta.b tcc__r0h
+lda -8 + __addNPCToArea_locals + 1,s
+inc a
+inc a
+sta.b tcc__r0
+lda 4 + __addNPCToArea_locals + 1,s
+sta.b [tcc__r0]
+lda -8 + __addNPCToArea_locals + 1,s
+sta.b tcc__r0
+lda -6 + __addNPCToArea_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #4
+sta.b tcc__r0
+lda 6 + __addNPCToArea_locals + 1,s
+sta.b [tcc__r0]
+lda -8 + __addNPCToArea_locals + 1,s
+sta.b tcc__r0
+lda -6 + __addNPCToArea_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #6
+sta.b tcc__r0
+lda 8 + __addNPCToArea_locals + 1,s
+sta.b [tcc__r0]
+lda -8 + __addNPCToArea_locals + 1,s
+sta.b tcc__r0
+lda -6 + __addNPCToArea_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #8
+sta.b tcc__r0
+lda -4 + __addNPCToArea_locals + 1,s
+sta.b tcc__r1
+lda -2 + __addNPCToArea_locals + 1,s
+sta.b tcc__r1h
+clc
+lda.b tcc__r1
+adc.w #3250
+sta.b tcc__r1
+lda.w #0
+sep #$20
+lda.b [tcc__r1]
+rep #$20
+sta.b tcc__r2
+sep #$20
+sta.b [tcc__r0]
+rep #$20
+lda -8 + __addNPCToArea_locals + 1,s
+sta.b tcc__r0
+lda -6 + __addNPCToArea_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #153
+sta.b tcc__r0
+lda.w #0
+sep #$20
+sta.b [tcc__r0]
+rep #$20
+lda -8 + __addNPCToArea_locals + 1,s
+sta.b tcc__r0
+lda -6 + __addNPCToArea_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #9
+sta.b tcc__r0
+lda 10 + __addNPCToArea_locals + 1,s
+sta.b tcc__r1
+lda 12 + __addNPCToArea_locals + 1,s
+pha
+pei (tcc__r1)
+pei (tcc__r0h)
+pei (tcc__r0)
+jsr.l strcpy
+tsa
+clc
+adc #8
+tas
+lda -8 + __addNPCToArea_locals + 1,s
+sta.b tcc__r0
+lda -6 + __addNPCToArea_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #25
+sta.b tcc__r0
+lda 14 + __addNPCToArea_locals + 1,s
+sta.b tcc__r1
+lda 16 + __addNPCToArea_locals + 1,s
+pha
+pei (tcc__r1)
+pei (tcc__r0h)
+pei (tcc__r0)
+jsr.l strcpy
+tsa
+clc
+adc #8
+tas
+lda -4 + __addNPCToArea_locals + 1,s
+sta.b tcc__r0
+lda -2 + __addNPCToArea_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #3250
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+sta.b tcc__r2
+lda.b tcc__r1h
+sta.b tcc__r2h
+inc.b tcc__r1
+sep #$20
+lda.b tcc__r1
+sta.b [tcc__r0]
+rep #$20
+__local_28:
+__local_30:
+.ifgr __addNPCToArea_locals 0
+tsa
+clc
+adc #__addNPCToArea_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".getNPCAtPositiontext_0x6" SUPERFREE
+
+getNPCAtPosition:
+.ifgr __getNPCAtPosition_locals 0
+tsa
+sec
+sbc #__getNPCAtPosition_locals
+tas
+.endif
+lda.w #0
+sep #$20
+lda.w gameWorld + 26032
+rep #$20
+sta.b tcc__r0
+lda.w #3254
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:gameWorld
+sta.b tcc__r1h
+lda.w #gameWorld + 0
+clc
+adc.b tcc__r0
+sta.b tcc__r1
+sta -4 + __getNPCAtPosition_locals + 1,s
+lda.b tcc__r1h
+sta -2 + __getNPCAtPosition_locals + 1,s
+stz.b tcc__r0
+lda.b tcc__r0
+sta -6 + __getNPCAtPosition_locals + 1,s
+__local_33:
+lda -4 + __getNPCAtPosition_locals + 1,s
+sta.b tcc__r0
+lda -2 + __getNPCAtPosition_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #3250
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+lda -6 + __getNPCAtPosition_locals + 1,s
+sta.b tcc__r0
+sec
+sbc.b tcc__r1
+bvc +
+eor #$8000
++
+bmi +
+brl __local_31
++
+bra __local_32
+__local_37:
+lda -6 + __getNPCAtPosition_locals + 1,s
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+lda.b tcc__r0
+sta -6 + __getNPCAtPosition_locals + 1,s
+jmp.w __local_33
+__local_32:
+lda -4 + __getNPCAtPosition_locals + 1,s
+sta.b tcc__r0
+lda -2 + __getNPCAtPosition_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #786
+sta.b tcc__r0
+lda -6 + __getNPCAtPosition_locals + 1,s
+sta.b tcc__r1
+lda.w #154
+sta.b tcc__r9
+lda.b tcc__r1
+sta.b tcc__r10
+jsr.l tcc__mul
+clc
+adc.b tcc__r0
+sta.b tcc__r0
+sta -12 + __getNPCAtPosition_locals + 1,s
+lda.b tcc__r0h
+sta -10 + __getNPCAtPosition_locals + 1,s
+lda -12 + __getNPCAtPosition_locals + 1,s
+sta.b tcc__r0
+lda -10 + __getNPCAtPosition_locals + 1,s
+sta.b tcc__r0h
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+lda.b tcc__r1 ; DON'T OPTIMIZE
+bne +
+brl __local_34
++
+lda -12 + __getNPCAtPosition_locals + 1,s
+sta.b tcc__r0
+lda -10 + __getNPCAtPosition_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #4
+sta.b tcc__r0
+lda.b [tcc__r0]
+sta.b tcc__r1
+lda 3 + __getNPCAtPosition_locals + 1,s
+sta.b tcc__r0
+sec
+lda.b tcc__r1
+sbc.b tcc__r0
+sta -14 + __getNPCAtPosition_locals + 1,s
+lda -12 + __getNPCAtPosition_locals + 1,s
+sta.b tcc__r0
+lda -10 + __getNPCAtPosition_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #6
+sta.b tcc__r0
+lda.b [tcc__r0]
+sta.b tcc__r1
+lda 5 + __getNPCAtPosition_locals + 1,s
+sta.b tcc__r0
+sec
+lda.b tcc__r1
+sbc.b tcc__r0
+sta -16 + __getNPCAtPosition_locals + 1,s
+lda -14 + __getNPCAtPosition_locals + 1,s
+sta.b tcc__r0
+lda -14 + __getNPCAtPosition_locals + 1,s
+sta.b tcc__r1
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda -16 + __getNPCAtPosition_locals + 1,s
+sta.b tcc__r1
+lda -16 + __getNPCAtPosition_locals + 1,s
+sta.b tcc__r2
+sta.b tcc__r9
+lda.b tcc__r1
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r1
+clc
+adc.b tcc__r0
+sta.b tcc__r0
+sec
+sbc.w #1024
+bvc +
+eor #$8000
++
+bmi +
+brl __local_35
++
+lda -12 + __getNPCAtPosition_locals + 1,s
+sta.b tcc__r0
+lda -10 + __getNPCAtPosition_locals + 1,s
+sta.b tcc__r0h
+bra __local_36
+__local_35:
+__local_34:
+jmp.w __local_37
+__local_31:
+stz.b tcc__r0
+lda.w #0
+sta.b tcc__r0h
+__local_36:
+__local_38:
+.ifgr __getNPCAtPosition_locals 0
+tsa
+clc
+adc #__getNPCAtPosition_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".interactWithNPCtext_0x7" SUPERFREE
+
+interactWithNPC:
+.ifgr __interactWithNPC_locals 0
+tsa
+sec
+sbc #__interactWithNPC_locals
+tas
+.endif
+lda.w #0
+sep #$20
+sta -1 + __interactWithNPC_locals + 1,s
+rep #$20
+lda.w #0
+sep #$20
+lda.w gameWorld + 26032
+rep #$20
+sta.b tcc__r0
+lda.w #3254
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:gameWorld
+sta.b tcc__r1h
+lda.w #gameWorld + 0
+clc
+adc.b tcc__r0
+sta.b tcc__r1
+sta -8 + __interactWithNPC_locals + 1,s
+lda.b tcc__r1h
+sta -6 + __interactWithNPC_locals + 1,s
+stz.b tcc__r0
+lda.b tcc__r0
+sta -10 + __interactWithNPC_locals + 1,s
+__local_41:
+lda -8 + __interactWithNPC_locals + 1,s
+sta.b tcc__r0
+lda -6 + __interactWithNPC_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #3250
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+lda -10 + __interactWithNPC_locals + 1,s
+sta.b tcc__r0
+sec
+sbc.b tcc__r1
+bvc +
+eor #$8000
++
+bmi +
+brl __local_39
++
+bra __local_40
+__local_44:
+lda -10 + __interactWithNPC_locals + 1,s
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+lda.b tcc__r0
+sta -10 + __interactWithNPC_locals + 1,s
+jmp.w __local_41
+__local_40:
+lda -8 + __interactWithNPC_locals + 1,s
+sta.b tcc__r0
+lda -6 + __interactWithNPC_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #786
+sta.b tcc__r0
+lda -10 + __interactWithNPC_locals + 1,s
+sta.b tcc__r1
+lda.w #154
+sta.b tcc__r9
+lda.b tcc__r1
+sta.b tcc__r10
+jsr.l tcc__mul
+clc
+adc.b tcc__r0
+sta.b tcc__r0
+lda 3 + __interactWithNPC_locals + 1,s
+sta.b tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+beq +
+dex
++
+stx.b tcc__r5
+txa
+bne +
+brl __local_42
++
+lda.w #0
+sep #$20
+lda -10 + __interactWithNPC_locals + 1,s
+rep #$20
+sta.b tcc__r0
+sep #$20
+sta -1 + __interactWithNPC_locals + 1,s
+rep #$20
+bra __local_43
+__local_42:
+jmp.w __local_44
+__local_39:
+__local_43:
+lda.w #0
+sep #$20
+lda -1 + __interactWithNPC_locals + 1,s
+pha
+rep #$20
+jsr.l startDialogue
+tsa
+clc
+adc #1
+tas
+.ifgr __interactWithNPC_locals 0
+tsa
+clc
+adc #__interactWithNPC_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".transitionToAreatext_0x8" SUPERFREE
+
+transitionToArea:
+.ifgr __transitionToArea_locals 0
+tsa
+sec
+sbc #__transitionToArea_locals
+tas
+.endif
+lda.w #0
+sep #$20
+lda 3 + __transitionToArea_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.w gameWorld + 26033
+rep #$20
+sta.b tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_45
++
+bra __local_46
+__local_45:
+lda.w #0
+sep #$20
+lda 3 + __transitionToArea_locals + 1,s
+pha
+rep #$20
+jsr.l loadArea
+tsa
+clc
+adc #1
+tas
+lda 4 + __transitionToArea_locals + 1,s
+sta.l playerCharacter + 16
+lda 6 + __transitionToArea_locals + 1,s
+sta.b tcc__r0
+sta.l playerCharacter + 18
+__local_46:
+.ifgr __transitionToArea_locals 0
+tsa
+clc
+adc #__transitionToArea_locals
+tas
+.endif
+rtl
+.ENDS
+.RAMSECTION "ram{WLA_FILENAME}.data" APPENDTO "globram.data"
+
+.ENDS
+
+.SECTION "{WLA_FILENAME}.data" APPENDTO "glob.data"
+
+.ENDS
+
+.SECTION ".rodata" SUPERFREE
+
+overworldTilemap: .db $0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23: .db $4f,$76,$65,$72,$77,$6f,$72,$6c,$64,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24: .db $56,$69,$6c,$6c,$61,$67,$65,$72,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}25: .db $57,$65,$6c,$63,$6f,$6d,$65,$20,$74,$6f,$20,$6f,$75,$72,$20,$76,$69,$6c,$6c,$61,$67,$65,$21,$20,$42,$65,$20,$63,$61,$72,$65,$66,$75,$6c,$20,$6f,$66,$20,$74,$68,$65,$20,$6d,$6f,$6e,$73,$74,$65,$72,$73,$2e,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}26: .db $4d,$65,$72,$63,$68,$61,$6e,$74,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}27: .db $49,$20,$73,$65,$6c,$6c,$20,$70,$6f,$74,$69,$6f,$6e,$73,$20,$61,$6e,$64,$20,$65,$71,$75,$69,$70,$6d,$65,$6e,$74,$2e,$20,$57,$68,$61,$74,$20,$64,$6f,$20,$79,$6f,$75,$20,$6e,$65,$65,$64,$3f,$0
+.ENDS
+
+.RAMSECTION ".bss" BANK $7e SLOT 2
+gameWorld dsb 26038
+.ENDS

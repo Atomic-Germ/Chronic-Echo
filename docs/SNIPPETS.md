@@ -2,6 +2,74 @@
 
 This file documents reusable code patterns and techniques for SNES development in this project.
 
+## Progression System Patterns
+
+### Experience and Leveling
+
+```c
+// Grant experience from battle rewards
+grantExperience(&playerProgression, enemyExperience);
+
+// Check for automatic level-ups
+if (canLevelUp(&playerProgression.stats)) {
+    performLevelUp(&playerProgression.stats);
+}
+
+// Display level and experience
+renderLevelDisplay(1, 1);  // Shows "Lv.X EXP:Y/Z"
+```
+
+### Equipment Management
+
+```c
+// Equip item from inventory
+equipItem(&playerProgression, inventoryIndex, EQUIP_SLOT_WEAPON);
+
+// Unequip item (adds back to inventory if space available)
+unequipItem(&playerProgression, EQUIP_SLOT_WEAPON);
+
+// Check if player can equip an item
+if (canEquipItem(&playerProgression.stats, &equipmentDatabase[itemId])) {
+    // Safe to equip
+}
+```
+
+### Stat Calculations
+
+```c
+// Get current player stats (includes equipment bonuses)
+u16 currentHp = playerProgression.stats.currentHp;
+u16 maxHp = playerProgression.stats.maxHp;
+u16 attack = playerProgression.stats.attack;
+u16 defense = playerProgression.stats.defense;
+
+// Calculate damage with equipment bonuses applied
+u8 damage = calculateDamage(attackerAttack, defenderDefense);
+```
+
+### Progression UI
+
+```c
+// Render stat screen
+renderStatScreen(1, 1);
+
+// Render equipment menu
+renderEquipmentMenu(1, 10);
+
+// Render player inventory
+renderPlayerInventory(1, 20);
+```
+
+### Initialization
+
+```c
+// Initialize progression system
+initProgressionSystem();
+
+// Reset to starting stats
+resetProgressionState(&playerProgression);
+```
+
 ## Fade In/Out Effects
 
 To create smooth fade in or fade out effects for screen transitions:
@@ -136,3 +204,117 @@ if (playerCharacter.timeEnergy >= REWIND_ENERGY_COST) {
     rewindBattleTurn();
 }
 ```
+
+## Dialogue System Patterns
+
+### Dialogue Tree Structure
+
+```c
+// Define dialogue nodes with choices
+DialogueNode dialogueNodes[] = {
+    {
+        .id = 0,
+        .speaker = "Villager",
+        .text = "Hello, traveler! What brings you here?",
+        .choiceCount = 2,
+        .choices = {
+            {"I'm exploring.", 1, 1},
+            {"I'm looking for adventure.", 2, 1}
+        },
+        .nextNodeId = 0
+    },
+    {
+        .id = 1,
+        .speaker = "Villager",
+        .text = "Exploration! Be careful of the time anomalies.",
+        .choiceCount = 1,
+        .choices = {
+            {"Time anomalies?", 3, 1}
+        },
+        .nextNodeId = 0
+    }
+};
+```
+
+### Dialogue Rendering
+
+```c
+void renderDialogue(void) {
+    if (!isDialogueActive()) return;
+
+    // Draw dialogue box
+    drawDialogueBox();
+
+    // Draw speaker name
+    if (strlen(getCurrentSpeaker()) > 0) {
+        consoleDrawText(DIALOGUE_BOX_X + 1, DIALOGUE_BOX_Y + 1,
+                       getCurrentSpeaker());
+    }
+
+    // Draw text with typewriter effect
+    drawDialogueText();
+
+    // Draw choices if available
+    if (getChoiceCount() > 0) {
+        drawDialogueChoices();
+    } else {
+        // Draw continue prompt
+        consoleDrawText(DIALOGUE_BOX_X + DIALOGUE_BOX_WIDTH - 3,
+                       DIALOGUE_BOX_Y + DIALOGUE_BOX_HEIGHT - 2, ">>");
+    }
+}
+```
+
+### Dialogue Input Handling
+
+```c
+void updateDialogue(void) {
+    if (!isDialogueActive()) return;
+
+    u16 pad0 = padsCurrent(0);
+
+    if (getChoiceCount() > 0) {
+        // Choice selection mode
+        if (pad0 & KEY_UP) {
+            selectPreviousChoice();
+        } else if (pad0 & KEY_DOWN) {
+            selectNextChoice();
+        } else if (pad0 & KEY_A) {
+            confirmChoice();
+        }
+    } else {
+        // Continue mode
+        if (pad0 & KEY_A) {
+            advanceDialogue();
+        }
+    }
+
+    // Allow skipping text display
+    if (pad0 & KEY_B) {
+        skipDialogueText();
+    }
+}
+```
+
+### NPC Interaction Integration
+
+```c
+// In world navigation update
+if (pad0 & KEY_A) {
+    NPC* npc = getNPCAtPosition(playerCharacter.x, playerCharacter.y);
+    if (npc && !isDialogueActive()) {
+        // Find NPC index and start dialogue
+        u8 npcId = getNPCIndex(npc);
+        startDialogue(npcId);
+    }
+}
+```
+
+### Dialogue Usage Notes
+
+- Initialize dialogue system with `initDialogueSystem()` after other systems
+- Call `updateDialogue()` and `renderDialogue()` in the main game loop
+- Dialogue boxes use console text coordinates (2,18) to (30,28) by default
+- Text displays with typewriter effect (configurable speed 1-5)
+- Player can skip text with B button, navigate choices with Up/Down, confirm with A
+- Dialogue automatically prevents other input while active

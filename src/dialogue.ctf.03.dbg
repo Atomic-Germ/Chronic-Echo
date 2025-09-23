@@ -1,0 +1,2571 @@
+.include "hdr.asm"
+.accu 16
+.index 16
+.16bit
+.define __initSampleDialogue_locals 0
+.define __initDialogueSystem_locals 0
+.define __startDialogue_locals 12
+.define __updateDialogue_locals 8
+.define __renderDialogue_locals 16
+.define __isDialogueActive_locals 0
+.define __endDialogue_locals 0
+.define __setDialogueSpeed_locals 0
+.define __skipDialogueText_locals 4
+.define __selectNextChoice_locals 0
+.define __selectPreviousChoice_locals 0
+.define __confirmChoice_locals 12
+.define __getCurrentDialogueText_locals 0
+.define __getCurrentSpeaker_locals 0
+.define __getChoiceCount_locals 0
+.define __getChoiceText_locals 0
+.define __getSelectedChoice_locals 0
+
+.SECTION ".initSampleDialoguetext_0x0" SUPERFREE
+
+initSampleDialogue:
+.ifgr __initSampleDialogue_locals 0
+tsa
+sec
+sbc #__initSampleDialogue_locals
+tas
+.endif
+lda.w #0
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 0
+rep #$20
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}18
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}18 + 0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 1
+jsr.l strcpy
+tsa
+clc
+adc #8
+tas
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}19
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}19 + 0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 17
+jsr.l strcpy
+tsa
+clc
+adc #8
+tas
+lda.w #2
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 273
+rep #$20
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}20
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}20 + 0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 274
+jsr.l strcpy
+tsa
+clc
+adc #8
+tas
+lda.w #1
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 338
+rep #$20
+lda.w #1
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 339
+rep #$20
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}21
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}21 + 0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 340
+jsr.l strcpy
+tsa
+clc
+adc #8
+tas
+lda.w #2
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 404
+rep #$20
+lda.w #1
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 405
+rep #$20
+lda.w #0
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 538
+rep #$20
+lda.w #0
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 539
+rep #$20
+lda.w #1
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 541
+rep #$20
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}22
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}22 + 0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 542
+jsr.l strcpy
+tsa
+clc
+adc #8
+tas
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23 + 0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 558
+jsr.l strcpy
+tsa
+clc
+adc #8
+tas
+lda.w #1
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 814
+rep #$20
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24 + 0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 815
+jsr.l strcpy
+tsa
+clc
+adc #8
+tas
+lda.w #3
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 879
+rep #$20
+lda.w #1
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 880
+rep #$20
+lda.w #0
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 1079
+rep #$20
+lda.w #0
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 1080
+rep #$20
+lda.w #2
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 1082
+rep #$20
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}25
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}25 + 0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 1083
+jsr.l strcpy
+tsa
+clc
+adc #8
+tas
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}26
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}26 + 0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 1099
+jsr.l strcpy
+tsa
+clc
+adc #8
+tas
+lda.w #1
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 1355
+rep #$20
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}27
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}27 + 0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 1356
+jsr.l strcpy
+tsa
+clc
+adc #8
+tas
+lda.w #3
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 1420
+rep #$20
+lda.w #1
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 1421
+rep #$20
+lda.w #0
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 1620
+rep #$20
+lda.w #0
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 1621
+rep #$20
+lda.w #3
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 1623
+rep #$20
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}28
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}28 + 0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 1624
+jsr.l strcpy
+tsa
+clc
+adc #8
+tas
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}29
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}29 + 0
+pea.w :tccs_{WLA_FILENAME}_dialogueNodes
+pea.w tccs_{WLA_FILENAME}_dialogueNodes + 1640
+jsr.l strcpy
+tsa
+clc
+adc #8
+tas
+lda.w #0
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 1896
+rep #$20
+lda.w #0
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 2161
+rep #$20
+lda.w #0
+sep #$20
+sta.w tccs_{WLA_FILENAME}_dialogueNodes + 2162
+rep #$20
+lda.w #4
+sta.b tcc__r0
+sep #$20
+sta.l tccs_{WLA_FILENAME}_dialogueNodeCount + 0
+rep #$20
+.ifgr __initSampleDialogue_locals 0
+tsa
+clc
+adc #__initSampleDialogue_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".initDialogueSystemtext_0x1" SUPERFREE
+
+initDialogueSystem:
+.ifgr __initDialogueSystem_locals 0
+tsa
+sec
+sbc #__initDialogueSystem_locals
+tas
+.endif
+stz.b tcc__r0
+lda.b tcc__r0
+sta.w currentDialogue + 0
+lda.w #0
+sep #$20
+sta.w currentDialogue + 2
+rep #$20
+lda.w #0
+sep #$20
+sta.w currentDialogue + 3
+rep #$20
+lda.w #2
+sep #$20
+sta.w currentDialogue + 4
+rep #$20
+lda.w #0
+sep #$20
+sta.w currentDialogue + 5
+rep #$20
+lda.w #0
+sep #$20
+sta.w currentDialogue + 6
+rep #$20
+lda.w #1
+sep #$20
+sta.w currentDialogue + 7
+rep #$20
+lda.w #0
+sep #$20
+sta.w currentDialogue + 8
+rep #$20
+jsr.l initSampleDialogue
+.ifgr __initDialogueSystem_locals 0
+tsa
+clc
+adc #__initDialogueSystem_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".startDialoguetext_0x2" SUPERFREE
+
+startDialogue:
+.ifgr __startDialogue_locals 0
+tsa
+sec
+sbc #__startDialogue_locals
+tas
+.endif
+lda.w currentDialogue + 0
+sta.b tcc__r0
+ldx #1
+sec
+sbc #0
+tay
+bne +
+dex
++
+stx.b tcc__r5
+txa
+bne +
+brl __local_0
++
+jmp.w __local_1
+__local_0:
+stz.b tcc__r0
+stz.b tcc__r0h
+lda.b tcc__r0
+sta -4 + __startDialogue_locals + 1,s
+lda.b tcc__r0h
+sta -2 + __startDialogue_locals + 1,s
+lda.w #0
+sta.b tcc__r0
+sep #$20
+sta -5 + __startDialogue_locals + 1,s
+rep #$20
+__local_4:
+lda.w #0
+sep #$20
+lda.l gameWorld + 26032
+rep #$20
+sta.b tcc__r0
+lda.w #3254
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:gameWorld
+sta.b tcc__r1h
+lda.w #gameWorld + 0
+clc
+adc.b tcc__r0
+clc
+adc.w #3250
+sta.b tcc__r1
+lda.w #0
+sep #$20
+lda -5 + __startDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r1]
+rep #$20
+sta.b tcc__r2
+lda.b tcc__r0
+sec
+sbc.b tcc__r2
+bvc +
+eor #$8000
++
+bmi +
+brl __local_2
++
+bra __local_3
+__local_8:
+lda.w #0
+sep #$20
+lda -5 + __startDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+sep #$20
+lda.b tcc__r0
+sta -5 + __startDialogue_locals + 1,s
+rep #$20
+jmp.w __local_4
+__local_3:
+lda.w #0
+sep #$20
+lda.l gameWorld + 26032
+rep #$20
+sta.b tcc__r0
+lda.w #3254
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:gameWorld
+sta.b tcc__r1h
+lda.w #gameWorld + 0
+clc
+adc.b tcc__r0
+clc
+adc.w #786
+sta.b tcc__r1
+lda.w #0
+sep #$20
+lda -5 + __startDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #154
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+clc
+adc.b tcc__r1
+sta.b tcc__r1
+lda.w #0
+sep #$20
+lda.b [tcc__r1]
+rep #$20
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_5
++
+lda.w #0
+sep #$20
+lda -5 + __startDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda 3 + __startDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+beq +
+dex
++
+stx.b tcc__r5
+txa
+bne +
+brl __local_6
++
+lda.w #0
+sep #$20
+lda.l gameWorld + 26032
+rep #$20
+sta.b tcc__r0
+lda.w #3254
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:gameWorld
+sta.b tcc__r1h
+lda.w #gameWorld + 0
+clc
+adc.b tcc__r0
+clc
+adc.w #786
+sta.b tcc__r1
+lda.w #0
+sep #$20
+lda -5 + __startDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #154
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+clc
+adc.b tcc__r1
+sta.b tcc__r1
+sta -4 + __startDialogue_locals + 1,s
+lda.b tcc__r1h
+sta -2 + __startDialogue_locals + 1,s
+bra __local_7
+__local_6:
+__local_5:
+jmp.w __local_8
+__local_2:
+__local_7:
+lda -4 + __startDialogue_locals + 1,s
+sta.b tcc__r0
+cmp #0
+beq +
+brl __local_9
++
+jmp.w __local_10
+__local_9:
+lda.w #1
+sta.w currentDialogue + 0
+lda.w #0
+sep #$20
+sta.w currentDialogue + 2
+rep #$20
+lda.w #0
+sep #$20
+sta.w currentDialogue + 3
+rep #$20
+lda.w #0
+sep #$20
+sta.w currentDialogue + 5
+rep #$20
+lda -4 + __startDialogue_locals + 1,s
+sta.b tcc__r0
+lda -2 + __startDialogue_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #8
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+sep #$20
+sta.w currentDialogue + 8
+rep #$20
+lda.w #0
+sep #$20
+lda.w currentDialogue + 2
+rep #$20
+sta.b tcc__r0
+lda.w #541
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:tccs_{WLA_FILENAME}_dialogueNodes
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_dialogueNodes + 0
+clc
+adc.b tcc__r0
+sta.b tcc__r1
+sta -12 + __startDialogue_locals + 1,s
+lda.b tcc__r1h
+sta -10 + __startDialogue_locals + 1,s
+lda -12 + __startDialogue_locals + 1,s
+sta.b tcc__r0
+lda -10 + __startDialogue_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #273
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+sep #$20
+sta.w currentDialogue + 6
+rep #$20
+__local_1:
+__local_10:
+.ifgr __startDialogue_locals 0
+tsa
+clc
+adc #__startDialogue_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".updateDialoguetext_0x3" SUPERFREE
+
+updateDialogue:
+.ifgr __updateDialogue_locals 0
+tsa
+sec
+sbc #__updateDialogue_locals
+tas
+.endif
+lda.w currentDialogue + 0
+sta.b tcc__r0
+cmp #0
+beq +
+brl __local_11
++
+jmp.w __local_12
+__local_11:
+lda.w #0
+sep #$20
+lda.w currentDialogue + 2
+rep #$20
+sta.b tcc__r0
+lda.w #541
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:tccs_{WLA_FILENAME}_dialogueNodes
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_dialogueNodes + 0
+clc
+adc.b tcc__r0
+sta.b tcc__r1
+sta -4 + __updateDialogue_locals + 1,s
+lda.b tcc__r1h
+sta -2 + __updateDialogue_locals + 1,s
+lda.w currentDialogue + 0
+sta.b tcc__r0
+bra __local_13
+bra __local_14
+__local_13:
+lda.b tcc__r0
+cmp #1
+beq +
+brl __local_15
++
+__local_14:
+lda -4 + __updateDialogue_locals + 1,s
+sta.b tcc__r0
+lda -2 + __updateDialogue_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #17
+pei (tcc__r0h)
+pha
+jsr.l strlen
+tsa
+clc
+adc #4
+tas
+lda.w #0
+sep #$20
+lda.w currentDialogue + 3
+rep #$20
+sta.b tcc__r1
+ldx #1
+sec
+sbc.b tcc__r0
+tay
+bcc ++
++ dex
+++
+stx.b tcc__r5
+txa
+bne +
+brl __local_16
++
+lda.w #0
+sep #$20
+lda.w currentDialogue + 3
+rep #$20
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.w currentDialogue + 4
+rep #$20
+clc
+adc.b tcc__r0
+sep #$20
+sta.w currentDialogue + 3
+rep #$20
+lda -4 + __updateDialogue_locals + 1,s
+sta.b tcc__r0
+lda -2 + __updateDialogue_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #17
+pei (tcc__r0h)
+pha
+jsr.l strlen
+tsa
+clc
+adc #4
+tas
+lda.w #0
+sep #$20
+lda.w currentDialogue + 3
+rep #$20
+sta.b tcc__r1
+ldx #1
+sec
+sbc.b tcc__r0
+tay
+beq +
+bcs ++
++ dex
+++
+stx.b tcc__r5
+txa
+bne +
+brl __local_17
++
+lda -4 + __updateDialogue_locals + 1,s
+sta.b tcc__r0
+lda -2 + __updateDialogue_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #17
+pei (tcc__r0h)
+pha
+jsr.l strlen
+tsa
+clc
+adc #4
+tas
+sep #$20
+lda.b tcc__r0
+sta.w currentDialogue + 3
+rep #$20
+__local_17:
+jmp.w __local_18
+__local_16:
+lda.w #0
+sep #$20
+lda.w currentDialogue + 6
+rep #$20
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #0
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_19
++
+lda.w #3
+sta.b tcc__r0
+sta.w currentDialogue + 0
+bra __local_20
+__local_19:
+lda.w #2
+sta.b tcc__r0
+sta.w currentDialogue + 0
+__local_20:
+__local_18:
+jmp.w __local_21
+bra __local_22
+__local_15:
+lda.b tcc__r0
+cmp #2
+beq +
+brl __local_23
++
+__local_22:
+lda.l pad_keys + 0
+and.w #128
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_24
++
+lda -4 + __updateDialogue_locals + 1,s
+sta.b tcc__r0
+lda -2 + __updateDialogue_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #538
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+cmp #0
+beq +
+brl __local_25
++
+jsr.l endDialogue
+jmp.w __local_26
+__local_25:
+lda -4 + __updateDialogue_locals + 1,s
+sta.b tcc__r0
+lda -2 + __updateDialogue_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #538
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+sep #$20
+sta.w currentDialogue + 2
+rep #$20
+lda.w #0
+sep #$20
+sta.w currentDialogue + 3
+rep #$20
+lda.w #1
+sta.w currentDialogue + 0
+lda.w #0
+sep #$20
+sta.w currentDialogue + 5
+rep #$20
+lda.w #0
+sep #$20
+lda.w currentDialogue + 2
+rep #$20
+sta.b tcc__r0
+lda.w #541
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:tccs_{WLA_FILENAME}_dialogueNodes
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_dialogueNodes + 0
+clc
+adc.b tcc__r0
+sta.b tcc__r1
+sta -8 + __updateDialogue_locals + 1,s
+lda.b tcc__r1h
+sta -6 + __updateDialogue_locals + 1,s
+lda -8 + __updateDialogue_locals + 1,s
+sta.b tcc__r0
+lda -6 + __updateDialogue_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #273
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+sep #$20
+sta.w currentDialogue + 6
+rep #$20
+__local_26:
+__local_24:
+jmp.w __local_27
+bra __local_28
+__local_23:
+lda.b tcc__r0
+cmp #3
+beq +
+brl __local_29
++
+__local_28:
+lda.l pad_keys + 0
+and.w #2048
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_30
++
+jsr.l selectPreviousChoice
+bra __local_31
+__local_30:
+lda.l pad_keys + 0
+and.w #1024
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_32
++
+jsr.l selectNextChoice
+bra __local_33
+__local_32:
+lda.l pad_keys + 0
+and.w #128
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_34
++
+jsr.l confirmChoice
+__local_34:
+__local_33:
+__local_31:
+bra __local_35
+bra __local_36
+__local_29:
+lda.b tcc__r0
+cmp #4
+beq +
+brl __local_37
++
+__local_36:
+jsr.l endDialogue
+__local_37:
+__local_21:
+__local_27:
+__local_35:
+__local_38:
+__local_12:
+.ifgr __updateDialogue_locals 0
+tsa
+clc
+adc #__updateDialogue_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".renderDialoguetext_0x4" SUPERFREE
+
+renderDialogue:
+.ifgr __renderDialogue_locals 0
+tsa
+sec
+sbc #__renderDialogue_locals
+tas
+.endif
+lda.w currentDialogue + 0
+sta.b tcc__r0
+cmp #0
+beq +
+brl __local_39
++
+jmp.w __local_40
+__local_39:
+lda.w #0
+sep #$20
+lda.w currentDialogue + 2
+rep #$20
+sta.b tcc__r0
+lda.w #541
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:tccs_{WLA_FILENAME}_dialogueNodes
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_dialogueNodes + 0
+clc
+adc.b tcc__r0
+sta.b tcc__r1
+sta -4 + __renderDialogue_locals + 1,s
+lda.b tcc__r1h
+sta -2 + __renderDialogue_locals + 1,s
+lda.w #18
+sta.b tcc__r0
+sep #$20
+sta -5 + __renderDialogue_locals + 1,s
+rep #$20
+__local_43:
+lda.w #0
+sep #$20
+lda -5 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+sec
+sbc.w #24
+bvc +
+eor #$8000
++
+bmi +
+brl __local_41
++
+bra __local_42
+__local_54:
+lda.w #0
+sep #$20
+lda -5 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+sep #$20
+lda.b tcc__r0
+sta -5 + __renderDialogue_locals + 1,s
+rep #$20
+bra __local_43
+__local_42:
+lda.w #2
+sta.b tcc__r0
+sep #$20
+sta -6 + __renderDialogue_locals + 1,s
+rep #$20
+__local_46:
+lda.w #0
+sep #$20
+lda -6 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+sec
+sbc.w #30
+bvc +
+eor #$8000
++
+bmi +
+brl __local_44
++
+bra __local_45
+__local_53:
+lda.w #0
+sep #$20
+lda -6 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+sep #$20
+lda.b tcc__r0
+sta -6 + __renderDialogue_locals + 1,s
+rep #$20
+bra __local_46
+__local_45:
+lda.w #0
+sep #$20
+lda -5 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+ldx #1
+sec
+sbc #18
+tay
+beq +
+dex
++
+stx.b tcc__r5
+txa
+beq +
+brl __local_47
++
+lda.w #0
+sep #$20
+lda -5 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+ldx #1
+sec
+sbc #23
+tay
+beq +
+dex
++
+stx.b tcc__r5
+txa
+beq +
+__local_47:
+brl __local_48
++
+lda.w #0
+sep #$20
+lda -6 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+ldx #1
+sec
+sbc #2
+tay
+beq +
+dex
++
+stx.b tcc__r5
+txa
+beq +
+__local_48:
+brl __local_49
++
+lda.w #0
+sep #$20
+lda -6 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+ldx #1
+sec
+sbc #29
+tay
+beq +
+dex
++
+stx.b tcc__r5
+txa
+beq +
+__local_49:
+brl __local_50
++
+bra __local_51
+__local_50:
+lda.w #0
+sep #$20
+lda -6 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda -5 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r1
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}30
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}30 + 0
+pei (tcc__r1)
+pei (tcc__r0)
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+bra __local_52
+__local_51:
+lda.w #0
+sep #$20
+lda -6 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda -5 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r1
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}31
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}31 + 0
+pei (tcc__r1)
+pei (tcc__r0)
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+__local_52:
+jmp.w __local_53
+__local_44:
+jmp.w __local_54
+__local_41:
+lda -2 + __renderDialogue_locals + 1,s
+sta.b tcc__r0h
+lda -4 + __renderDialogue_locals + 1,s
+sta.b tcc__r0
+inc.b tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+jsr.l strlen
+tsa
+clc
+adc #4
+tas
+ldx #1
+lda.b tcc__r0
+sec
+sbc.w #0
+tay
+beq +
+bcs ++
++ dex
+++
+stx.b tcc__r5
+txa
+bne +
+brl __local_55
++
+lda -2 + __renderDialogue_locals + 1,s
+sta.b tcc__r0h
+lda -4 + __renderDialogue_locals + 1,s
+sta.b tcc__r0
+inc.b tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+pea.w 19
+pea.w 3
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+lda -2 + __renderDialogue_locals + 1,s
+sta.b tcc__r0h
+lda -4 + __renderDialogue_locals + 1,s
+sta.b tcc__r0
+inc.b tcc__r0
+pei (tcc__r0h)
+pei (tcc__r0)
+jsr.l strlen
+tsa
+clc
+adc #4
+tas
+clc
+lda.b tcc__r0
+adc.w #3
+sta.b tcc__r0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}32
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}32 + 0
+pea.w 19
+pei (tcc__r0)
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+__local_55:
+sep #$20
+lda.b #20
+sta -7 + __renderDialogue_locals + 1,s
+lda.b #3
+sta -8 + __renderDialogue_locals + 1,s
+rep #$20
+lda.w #0
+sep #$20
+sta -9 + __renderDialogue_locals + 1,s
+rep #$20
+lda.w #26
+sta.b tcc__r0
+sep #$20
+sta -10 + __renderDialogue_locals + 1,s
+rep #$20
+__local_65:
+lda.w #0
+sep #$20
+lda -9 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.w currentDialogue + 3
+rep #$20
+sta.b tcc__r1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+bvc +
+eor #$8000
++
+bmi +
+brl __local_56
++
+lda -4 + __renderDialogue_locals + 1,s
+sta.b tcc__r0
+lda -2 + __renderDialogue_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #17
+pei (tcc__r0h)
+pha
+jsr.l strlen
+tsa
+clc
+adc #4
+tas
+lda.w #0
+sep #$20
+lda -9 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r1
+ldx #1
+sec
+sbc.b tcc__r0
+tay
+bcc ++
++ dex
+++
+stx.b tcc__r5
+txa
+bne +
+__local_56:
+brl __local_57
++
+lda -4 + __renderDialogue_locals + 1,s
+sta.b tcc__r0
+lda -2 + __renderDialogue_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #17
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda -9 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r1
+clc
+adc.b tcc__r0
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+xba
+xba
+bpl +
+ora.w #$ff00
++
+sta.b tcc__r1
+sep #$20
+sta -11 + __renderDialogue_locals + 1,s
+rep #$20
+lda.w #0
+sep #$20
+lda -11 + __renderDialogue_locals + 1,s
+rep #$20
+xba
+xba
+bpl +
+ora.w #$ff00
++
+sta.b tcc__r0
+ldx #1
+sec
+sbc #10
+tay
+beq +
+dex
++
+stx.b tcc__r5
+txa
+beq +
+brl __local_58
++
+lda.w #0
+sep #$20
+lda -9 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #0
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_59
++
+lda.w #0
+sep #$20
+lda -9 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda -10 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r1
+ldx.b tcc__r0
+jsr.l tcc__div
+stx.b tcc__r0
+ldx #1
+lda.b tcc__r0
+sec
+sbc #0
+tay
+beq +
+dex
++
+stx.b tcc__r5
+txa
+bne +
+__local_59:
+brl __local_60
++
+bra __local_61
+__local_60:
+jmp.w __local_62
+__local_58:
+__local_61:
+lda.w #0
+sep #$20
+lda -7 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+sep #$20
+lda.b tcc__r0
+sta -7 + __renderDialogue_locals + 1,s
+rep #$20
+lda.w #3
+sta.b tcc__r0
+sep #$20
+sta -8 + __renderDialogue_locals + 1,s
+rep #$20
+lda.w #0
+sep #$20
+lda -11 + __renderDialogue_locals + 1,s
+rep #$20
+xba
+xba
+bpl +
+ora.w #$ff00
++
+sta.b tcc__r0
+ldx #1
+sec
+sbc #10
+tay
+bne +
+dex
++
+stx.b tcc__r5
+txa
+bne +
+brl __local_63
++
+lda.w #0
+sep #$20
+lda -9 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+dec.b tcc__r0
+sep #$20
+lda.b tcc__r0
+sta -9 + __renderDialogue_locals + 1,s
+rep #$20
+__local_63:
+jmp.w __local_64
+__local_62:
+lda.w #0
+sep #$20
+lda -8 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+inc.b tcc__r0
+sep #$20
+lda.b tcc__r0
+sta -8 + __renderDialogue_locals + 1,s
+rep #$20
+lda.w #0
+sep #$20
+lda -7 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+stz.b tcc__r2h
+tsa
+clc
+adc #(-11 + __renderDialogue_locals + 1)
+pei (tcc__r2h)
+pha
+pei (tcc__r0)
+pei (tcc__r1)
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+__local_64:
+lda.w #0
+sep #$20
+lda -9 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+sep #$20
+lda.b tcc__r0
+sta -9 + __renderDialogue_locals + 1,s
+rep #$20
+jmp.w __local_65
+__local_57:
+lda.w currentDialogue + 0
+sta.b tcc__r0
+cmp #3
+beq +
+brl __local_66
++
+sep #$20
+lda.b #22
+sta -12 + __renderDialogue_locals + 1,s
+rep #$20
+lda.w #0
+sta.b tcc__r0
+sep #$20
+sta -13 + __renderDialogue_locals + 1,s
+rep #$20
+__local_69:
+lda.w #0
+sep #$20
+lda -13 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.w currentDialogue + 6
+rep #$20
+sta.b tcc__r1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+bvc +
+eor #$8000
++
+bmi +
+brl __local_67
++
+bra __local_68
+__local_71:
+lda.w #0
+sep #$20
+lda -13 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+sep #$20
+lda.b tcc__r0
+sta -13 + __renderDialogue_locals + 1,s
+rep #$20
+jmp.w __local_69
+__local_68:
+sep #$20
+lda.b #32
+sta -16 + __renderDialogue_locals + 1,s
+lda.b #32
+sta -15 + __renderDialogue_locals + 1,s
+rep #$20
+lda.w #0
+sep #$20
+sta -14 + __renderDialogue_locals + 1,s
+rep #$20
+lda.w #0
+sep #$20
+lda -13 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.w currentDialogue + 5
+rep #$20
+sta.b tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+beq +
+dex
++
+stx.b tcc__r5
+txa
+bne +
+brl __local_70
++
+lda.w #62
+sta.b tcc__r0
+sep #$20
+sta -16 + __renderDialogue_locals + 1,s
+rep #$20
+__local_70:
+lda.w #0
+sep #$20
+lda -12 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda -13 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r1
+clc
+adc.b tcc__r0
+sta.b tcc__r0
+stz.b tcc__r1h
+tsa
+clc
+adc #(-16 + __renderDialogue_locals + 1)
+pei (tcc__r1h)
+pha
+pei (tcc__r0)
+pea.w 3
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+lda.w #0
+sep #$20
+lda -12 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda -13 + __renderDialogue_locals + 1,s
+rep #$20
+clc
+adc.b tcc__r0
+sta.b tcc__r0
+lda -4 + __renderDialogue_locals + 1,s
+sta.b tcc__r1
+lda -2 + __renderDialogue_locals + 1,s
+sta.b tcc__r1h
+clc
+lda.b tcc__r1
+adc.w #274
+sta.b tcc__r1
+lda.w #0
+sep #$20
+lda -13 + __renderDialogue_locals + 1,s
+rep #$20
+sta.b tcc__r2
+lda.w #66
+sta.b tcc__r9
+lda.b tcc__r2
+sta.b tcc__r10
+jsr.l tcc__mul
+clc
+adc.b tcc__r1
+pei (tcc__r1h)
+pha
+pei (tcc__r0)
+pea.w 5
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+jmp.w __local_71
+__local_67:
+__local_66:
+lda.w currentDialogue + 0
+sta.b tcc__r0
+cmp #2
+beq +
+brl __local_72
++
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}33
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}33 + 0
+pea.w 22
+pea.w 27
+jsr.l consoleDrawText
+tsa
+clc
+adc #8
+tas
+__local_72:
+__local_40:
+.ifgr __renderDialogue_locals 0
+tsa
+clc
+adc #__renderDialogue_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".isDialogueActivetext_0x5" SUPERFREE
+
+isDialogueActive:
+.ifgr __isDialogueActive_locals 0
+tsa
+sec
+sbc #__isDialogueActive_locals
+tas
+.endif
+lda.w currentDialogue + 0
+sta.b tcc__r0
+ldx #1
+sec
+sbc #0
+tay
+bne +
+dex
++
+txa
+and.w #255
+sta.b tcc__r5
+sta.b tcc__r0
+lda.b tcc__r5h
+sta.b tcc__r0h
+__local_73:
+.ifgr __isDialogueActive_locals 0
+tsa
+clc
+adc #__isDialogueActive_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".endDialoguetext_0x6" SUPERFREE
+
+endDialogue:
+.ifgr __endDialogue_locals 0
+tsa
+sec
+sbc #__endDialogue_locals
+tas
+.endif
+stz.b tcc__r0
+lda.b tcc__r0
+sta.w currentDialogue + 0
+lda.w #0
+sep #$20
+sta.w currentDialogue + 2
+rep #$20
+lda.w #0
+sep #$20
+sta.w currentDialogue + 3
+rep #$20
+lda.w #0
+sep #$20
+sta.w currentDialogue + 5
+rep #$20
+lda.w #0
+sta.b tcc__r0
+sep #$20
+sta.w currentDialogue + 6
+rep #$20
+.ifgr __endDialogue_locals 0
+tsa
+clc
+adc #__endDialogue_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".setDialogueSpeedtext_0x7" SUPERFREE
+
+setDialogueSpeed:
+.ifgr __setDialogueSpeed_locals 0
+tsa
+sec
+sbc #__setDialogueSpeed_locals
+tas
+.endif
+lda.w #0
+sep #$20
+lda 3 + __setDialogueSpeed_locals + 1,s
+rep #$20
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #1
+tay
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_74
++
+lda.w #0
+sep #$20
+lda 3 + __setDialogueSpeed_locals + 1,s
+rep #$20
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #5
+tay
+beq +++
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+__local_74:
+brl __local_75
++
+lda.w #0
+sep #$20
+lda 3 + __setDialogueSpeed_locals + 1,s
+rep #$20
+sta.b tcc__r0
+sep #$20
+sta.w currentDialogue + 4
+rep #$20
+__local_75:
+.ifgr __setDialogueSpeed_locals 0
+tsa
+clc
+adc #__setDialogueSpeed_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".skipDialogueTexttext_0x8" SUPERFREE
+
+skipDialogueText:
+.ifgr __skipDialogueText_locals 0
+tsa
+sec
+sbc #__skipDialogueText_locals
+tas
+.endif
+lda.w currentDialogue + 0
+sta.b tcc__r0
+cmp #1
+beq +
+brl __local_76
++
+lda.w #0
+sep #$20
+lda.w currentDialogue + 2
+rep #$20
+sta.b tcc__r0
+lda.w #541
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:tccs_{WLA_FILENAME}_dialogueNodes
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_dialogueNodes + 0
+clc
+adc.b tcc__r0
+sta.b tcc__r1
+sta -4 + __skipDialogueText_locals + 1,s
+lda.b tcc__r1h
+sta -2 + __skipDialogueText_locals + 1,s
+lda -4 + __skipDialogueText_locals + 1,s
+sta.b tcc__r0
+lda -2 + __skipDialogueText_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #17
+pei (tcc__r0h)
+pha
+jsr.l strlen
+tsa
+clc
+adc #4
+tas
+sep #$20
+lda.b tcc__r0
+sta.w currentDialogue + 3
+rep #$20
+lda.w #0
+sep #$20
+lda.w currentDialogue + 6
+rep #$20
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #0
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_77
++
+lda.w #3
+sta.b tcc__r0
+sta.w currentDialogue + 0
+bra __local_78
+__local_77:
+lda.w #2
+sta.b tcc__r0
+sta.w currentDialogue + 0
+__local_78:
+__local_76:
+.ifgr __skipDialogueText_locals 0
+tsa
+clc
+adc #__skipDialogueText_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".selectNextChoicetext_0x9" SUPERFREE
+
+selectNextChoice:
+.ifgr __selectNextChoice_locals 0
+tsa
+sec
+sbc #__selectNextChoice_locals
+tas
+.endif
+lda.w currentDialogue + 0
+sta.b tcc__r0
+cmp #3
+beq +
+brl __local_79
++
+lda.w #0
+sep #$20
+lda.w currentDialogue + 6
+rep #$20
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #1
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+__local_79:
+brl __local_80
++
+lda.w #0
+sep #$20
+lda.w currentDialogue + 5
+rep #$20
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+sep #$20
+lda.b tcc__r0
+sta.w currentDialogue + 5
+rep #$20
+lda.w #0
+sep #$20
+lda.w currentDialogue + 5
+rep #$20
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.w currentDialogue + 6
+rep #$20
+sta.b tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_81
++
+lda.w #0
+sta.b tcc__r0
+sep #$20
+sta.w currentDialogue + 5
+rep #$20
+__local_81:
+__local_80:
+.ifgr __selectNextChoice_locals 0
+tsa
+clc
+adc #__selectNextChoice_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".selectPreviousChoicetext_0xa" SUPERFREE
+
+selectPreviousChoice:
+.ifgr __selectPreviousChoice_locals 0
+tsa
+sec
+sbc #__selectPreviousChoice_locals
+tas
+.endif
+lda.w currentDialogue + 0
+sta.b tcc__r0
+cmp #3
+beq +
+brl __local_82
++
+lda.w #0
+sep #$20
+lda.w currentDialogue + 6
+rep #$20
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #1
+tay
+beq ++
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+__local_82:
+brl __local_83
++
+lda.w #0
+sep #$20
+lda.w currentDialogue + 5
+rep #$20
+sta.b tcc__r0
+cmp #0
+beq +
+brl __local_84
++
+lda.w #0
+sep #$20
+lda.w currentDialogue + 6
+rep #$20
+sta.b tcc__r0
+dec.b tcc__r0
+sep #$20
+lda.b tcc__r0
+sta.w currentDialogue + 5
+rep #$20
+bra __local_85
+__local_84:
+lda.w #0
+sep #$20
+lda.w currentDialogue + 5
+rep #$20
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+dec.b tcc__r0
+sep #$20
+lda.b tcc__r0
+sta.w currentDialogue + 5
+rep #$20
+__local_85:
+__local_83:
+.ifgr __selectPreviousChoice_locals 0
+tsa
+clc
+adc #__selectPreviousChoice_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".confirmChoicetext_0xb" SUPERFREE
+
+confirmChoice:
+.ifgr __confirmChoice_locals 0
+tsa
+sec
+sbc #__confirmChoice_locals
+tas
+.endif
+lda.w currentDialogue + 0
+sta.b tcc__r0
+cmp #3
+beq +
+brl __local_86
++
+lda.w #0
+sep #$20
+lda.w currentDialogue + 2
+rep #$20
+sta.b tcc__r0
+lda.w #541
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:tccs_{WLA_FILENAME}_dialogueNodes
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_dialogueNodes + 0
+clc
+adc.b tcc__r0
+sta.b tcc__r1
+sta -4 + __confirmChoice_locals + 1,s
+lda.b tcc__r1h
+sta -2 + __confirmChoice_locals + 1,s
+lda.w #0
+sep #$20
+lda.w currentDialogue + 5
+sta -5 + __confirmChoice_locals + 1,s
+rep #$20
+lda.w #0
+sep #$20
+lda -5 + __confirmChoice_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.w currentDialogue + 6
+rep #$20
+sta.b tcc__r1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+bvc +
+eor #$8000
++
+bmi +
+brl __local_87
++
+lda -4 + __confirmChoice_locals + 1,s
+sta.b tcc__r0
+lda -2 + __confirmChoice_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #274
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda -5 + __confirmChoice_locals + 1,s
+rep #$20
+sta.b tcc__r1
+lda.w #66
+sta.b tcc__r9
+lda.b tcc__r1
+sta.b tcc__r10
+jsr.l tcc__mul
+clc
+adc.b tcc__r0
+clc
+adc.w #65
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+lda.b tcc__r1 ; DON'T OPTIMIZE
+bne +
+__local_87:
+brl __local_88
++
+lda -4 + __confirmChoice_locals + 1,s
+sta.b tcc__r0
+lda -2 + __confirmChoice_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #274
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda -5 + __confirmChoice_locals + 1,s
+rep #$20
+sta.b tcc__r1
+lda.w #66
+sta.b tcc__r9
+lda.b tcc__r1
+sta.b tcc__r10
+jsr.l tcc__mul
+clc
+adc.b tcc__r0
+clc
+adc.w #64
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+sep #$20
+sta -6 + __confirmChoice_locals + 1,s
+rep #$20
+lda.w #0
+sep #$20
+lda -6 + __confirmChoice_locals + 1,s
+rep #$20
+sta.b tcc__r0
+cmp #0
+beq +
+brl __local_89
++
+jsr.l endDialogue
+jmp.w __local_90
+__local_89:
+lda.w #0
+sep #$20
+lda -6 + __confirmChoice_locals + 1,s
+sta.w currentDialogue + 2
+rep #$20
+lda.w #0
+sep #$20
+sta.w currentDialogue + 3
+rep #$20
+lda.w #1
+sta.w currentDialogue + 0
+lda.w #0
+sep #$20
+sta.w currentDialogue + 5
+rep #$20
+lda.w #0
+sep #$20
+lda -6 + __confirmChoice_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #541
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:tccs_{WLA_FILENAME}_dialogueNodes
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_dialogueNodes + 0
+clc
+adc.b tcc__r0
+sta.b tcc__r1
+sta -12 + __confirmChoice_locals + 1,s
+lda.b tcc__r1h
+sta -10 + __confirmChoice_locals + 1,s
+lda -12 + __confirmChoice_locals + 1,s
+sta.b tcc__r0
+lda -10 + __confirmChoice_locals + 1,s
+sta.b tcc__r0h
+clc
+lda.b tcc__r0
+adc.w #273
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.b [tcc__r0]
+rep #$20
+sta.b tcc__r1
+sep #$20
+sta.w currentDialogue + 6
+rep #$20
+__local_90:
+__local_88:
+__local_86:
+.ifgr __confirmChoice_locals 0
+tsa
+clc
+adc #__confirmChoice_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".getCurrentDialogueTexttext_0xc" SUPERFREE
+
+getCurrentDialogueText:
+.ifgr __getCurrentDialogueText_locals 0
+tsa
+sec
+sbc #__getCurrentDialogueText_locals
+tas
+.endif
+lda.w currentDialogue + 0
+sta.b tcc__r0
+cmp #0
+beq +
+brl __local_91
++
+lda.w #:tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34
+sta.b tcc__r0h
+lda.w #tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34 + 0
+sta.b tcc__r0
+bra __local_92
+__local_91:
+lda.w #0
+sep #$20
+lda.w currentDialogue + 2
+rep #$20
+sta.b tcc__r0
+lda.w #541
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:tccs_{WLA_FILENAME}_dialogueNodes
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_dialogueNodes + 0
+clc
+adc.b tcc__r0
+clc
+adc.w #17
+sta.b tcc__r1
+sta.b tcc__r0
+lda.b tcc__r1h
+sta.b tcc__r0h
+__local_92:
+__local_93:
+.ifgr __getCurrentDialogueText_locals 0
+tsa
+clc
+adc #__getCurrentDialogueText_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".getCurrentSpeakertext_0xd" SUPERFREE
+
+getCurrentSpeaker:
+.ifgr __getCurrentSpeaker_locals 0
+tsa
+sec
+sbc #__getCurrentSpeaker_locals
+tas
+.endif
+lda.w currentDialogue + 0
+sta.b tcc__r0
+cmp #0
+beq +
+brl __local_94
++
+lda.w #:tccs_{WLA_FILENAME}_L.{WLA_FILENAME}35
+sta.b tcc__r0h
+lda.w #tccs_{WLA_FILENAME}_L.{WLA_FILENAME}35 + 0
+sta.b tcc__r0
+bra __local_95
+__local_94:
+lda.w #0
+sep #$20
+lda.w currentDialogue + 2
+rep #$20
+sta.b tcc__r0
+lda.w #541
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:tccs_{WLA_FILENAME}_dialogueNodes
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_dialogueNodes + 0
+clc
+adc.b tcc__r0
+inc a
+sta.b tcc__r1
+sta.b tcc__r0
+lda.b tcc__r1h
+sta.b tcc__r0h
+__local_95:
+__local_96:
+.ifgr __getCurrentSpeaker_locals 0
+tsa
+clc
+adc #__getCurrentSpeaker_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".getChoiceCounttext_0xe" SUPERFREE
+
+getChoiceCount:
+.ifgr __getChoiceCount_locals 0
+tsa
+sec
+sbc #__getChoiceCount_locals
+tas
+.endif
+lda.w #0
+sep #$20
+lda.w currentDialogue + 6
+rep #$20
+sta.b tcc__r0
+__local_97:
+.ifgr __getChoiceCount_locals 0
+tsa
+clc
+adc #__getChoiceCount_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".getChoiceTexttext_0xf" SUPERFREE
+
+getChoiceText:
+.ifgr __getChoiceText_locals 0
+tsa
+sec
+sbc #__getChoiceText_locals
+tas
+.endif
+lda.w #0
+sep #$20
+lda 3 + __getChoiceText_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #0
+sep #$20
+lda.w currentDialogue + 6
+rep #$20
+sta.b tcc__r1
+ldx #1
+lda.b tcc__r0
+sec
+sbc.b tcc__r1
+tay
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_98
++
+lda.w #:tccs_{WLA_FILENAME}_L.{WLA_FILENAME}36
+sta.b tcc__r0h
+lda.w #tccs_{WLA_FILENAME}_L.{WLA_FILENAME}36 + 0
+sta.b tcc__r0
+jmp.w __local_99
+__local_98:
+lda.w #0
+sep #$20
+lda.w currentDialogue + 2
+rep #$20
+sta.b tcc__r0
+lda.w #541
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+sta.b tcc__r0
+lda.w #:tccs_{WLA_FILENAME}_dialogueNodes
+sta.b tcc__r1h
+lda.w #tccs_{WLA_FILENAME}_dialogueNodes + 0
+clc
+adc.b tcc__r0
+clc
+adc.w #274
+sta.b tcc__r1
+lda.w #0
+sep #$20
+lda 3 + __getChoiceText_locals + 1,s
+rep #$20
+sta.b tcc__r0
+lda.w #66
+sta.b tcc__r9
+lda.b tcc__r0
+sta.b tcc__r10
+jsr.l tcc__mul
+clc
+adc.b tcc__r1
+sta.b tcc__r1
+sta.b tcc__r0
+lda.b tcc__r1h
+sta.b tcc__r0h
+__local_99:
+__local_100:
+.ifgr __getChoiceText_locals 0
+tsa
+clc
+adc #__getChoiceText_locals
+tas
+.endif
+rtl
+.ENDS
+
+.SECTION ".getSelectedChoicetext_0x10" SUPERFREE
+
+getSelectedChoice:
+.ifgr __getSelectedChoice_locals 0
+tsa
+sec
+sbc #__getSelectedChoice_locals
+tas
+.endif
+lda.w #0
+sep #$20
+lda.w currentDialogue + 5
+rep #$20
+sta.b tcc__r0
+__local_101:
+.ifgr __getSelectedChoice_locals 0
+tsa
+clc
+adc #__getSelectedChoice_locals
+tas
+.endif
+rtl
+.ENDS
+.RAMSECTION "ram{WLA_FILENAME}.data" APPENDTO "globram.data"
+
+tccs_{WLA_FILENAME}_dialogueNodeCount dsb 1
+
+.ENDS
+
+.SECTION "{WLA_FILENAME}.data" APPENDTO "glob.data"
+
+.db $0
+.ENDS
+
+.SECTION ".rodata" SUPERFREE
+
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}18: .db $56,$69,$6c,$6c,$61,$67,$65,$72,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}19: .db $48,$65,$6c,$6c,$6f,$2c,$20,$74,$72,$61,$76,$65,$6c,$65,$72,$21,$20,$57,$65,$6c,$63,$6f,$6d,$65,$20,$74,$6f,$20,$6f,$75,$72,$20,$76,$69,$6c,$6c,$61,$67,$65,$2e,$20,$57,$68,$61,$74,$20,$62,$72,$69,$6e,$67,$73,$20,$79,$6f,$75,$20,$68,$65,$72,$65,$3f,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}20: .db $49,$27,$6d,$20,$65,$78,$70,$6c,$6f,$72,$69,$6e,$67,$20,$74,$68,$65,$20,$77,$6f,$72,$6c,$64,$2e,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}21: .db $49,$27,$6d,$20,$6c,$6f,$6f,$6b,$69,$6e,$67,$20,$66,$6f,$72,$20,$61,$64,$76,$65,$6e,$74,$75,$72,$65,$2e,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}22: .db $56,$69,$6c,$6c,$61,$67,$65,$72,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23: .db $41,$68,$2c,$20,$65,$78,$70,$6c,$6f,$72,$61,$74,$69,$6f,$6e,$21,$20,$54,$68,$65,$72,$65,$27,$73,$20,$6d,$75,$63,$68,$20,$74,$6f,$20,$73,$65,$65,$20,$69,$6e,$20,$74,$68,$65,$73,$65,$20,$6c,$61,$6e,$64,$73,$2e,$20,$42,$65,$20,$63,$61,$72,$65,$66,$75,$6c,$20,$6f,$66,$20,$74,$68,$65,$20,$74,$69,$6d,$65,$20,$61,$6e,$6f,$6d,$61,$6c,$69,$65,$73,$2e,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24: .db $54,$69,$6d,$65,$20,$61,$6e,$6f,$6d,$61,$6c,$69,$65,$73,$3f,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}25: .db $56,$69,$6c,$6c,$61,$67,$65,$72,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}26: .db $41,$64,$76,$65,$6e,$74,$75,$72,$65,$2c,$20,$65,$68,$3f,$20,$57,$65,$6c,$6c,$2c,$20,$79,$6f,$75,$27,$76,$65,$20,$63,$6f,$6d,$65,$20,$74,$6f,$20,$74,$68,$65,$20,$72,$69,$67,$68,$74,$20,$70,$6c,$61,$63,$65,$21,$20,$4a,$75,$73,$74,$20,$77,$61,$74,$63,$68,$20,$6f,$75,$74,$20,$66,$6f,$72,$20,$74,$68,$6f,$73,$65,$20,$74,$65,$6d,$70,$6f,$72,$61,$6c,$20,$64,$69,$73,$74,$75,$72,$62,$61,$6e,$63,$65,$73,$2e,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}27: .db $54,$65,$6d,$70,$6f,$72,$61,$6c,$20,$64,$69,$73,$74,$75,$72,$62,$61,$6e,$63,$65,$73,$3f,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}28: .db $56,$69,$6c,$6c,$61,$67,$65,$72,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}29: .db $59,$65,$73,$2c,$20,$73,$74,$72,$61,$6e,$67,$65,$20,$74,$68,$69,$6e,$67,$73,$20,$68,$61,$70,$70,$65,$6e,$20,$77,$69,$74,$68,$20,$74,$69,$6d,$65,$20,$61,$72,$6f,$75,$6e,$64,$20,$68,$65,$72,$65,$2e,$20,$53,$6f,$6d,$65,$20,$73,$61,$79,$20,$61,$20,$67,$72,$65,$61,$74,$20,$70,$6f,$77,$65,$72,$20,$73,$6c,$65,$65,$70,$73,$20,$62,$65,$6e,$65,$61,$74,$68,$20,$74,$68,$65,$20,$6d,$6f,$75,$6e,$74,$61,$69,$6e,$73,$2e,$20,$46,$61,$72,$65,$77,$65,$6c,$6c,$2c,$20,$74,$72,$61,$76,$65,$6c,$65,$72,$21,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}30: .db $23,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}31: .db $20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}32: .db $3a,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}33: .db $3e,$3e,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34: .db $0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}35: .db $0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}36: .db $0
+.ENDS
+
+.RAMSECTION ".bss" BANK $7e SLOT 2
+currentDialogue dsb 10
+tccs_{WLA_FILENAME}_dialogueNodes dsb 8656
+.ENDS

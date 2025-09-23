@@ -190,8 +190,8 @@ sta.b tcc__r0
 sta -4 + __clearScreenForTransition_locals + 1,s
 bra __local_10
 __local_9:
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}19
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}19 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}29
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}29 + 0
 lda 2 + __clearScreenForTransition_locals + 1,s
 pha
 lda 2 + __clearScreenForTransition_locals + 1,s
@@ -270,6 +270,7 @@ jsr.l initPlayer
 jsr.l initPlayerCharacter
 jsr.l initPositionHistory
 jsr.l initBattleSystem
+jsr.l initDialogueSystem
 pea.w 8192
 sep #$20
 lda #0
@@ -343,7 +344,7 @@ sta -10 + __main_locals + 1,s
 stz.b tcc__r0
 lda.b tcc__r0
 sta -12 + __main_locals + 1,s
-__local_79:
+__local_89:
 lda -2 + __main_locals + 1,s
 sta.b tcc__r0
 bra __local_13
@@ -361,8 +362,8 @@ cmp #0
 beq +
 brl __local_16
 +
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}20
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}20 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}30
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}30 + 0
 pea.w 14
 pea.w 8
 jsr.l consoleDrawText
@@ -370,8 +371,8 @@ tsa
 clc
 adc #8
 tas
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}21
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}21 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}31
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}31 + 0
 pea.w 16
 pea.w 8
 jsr.l consoleDrawText
@@ -585,8 +586,8 @@ cmp #0
 beq +
 brl __local_34
 +
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}22
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}22 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}32
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}32 + 0
 pea.w 14
 pea.w 8
 jsr.l consoleDrawText
@@ -594,8 +595,8 @@ tsa
 clc
 adc #8
 tas
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}33
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}33 + 0
 pea.w 10
 pea.w 9
 jsr.l consoleDrawText
@@ -603,8 +604,8 @@ tsa
 clc
 adc #8
 tas
-pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24
-pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24 + 0
+pea.w :tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34
+pea.w tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34 + 0
 pea.w 24
 pea.w 10
 jsr.l consoleDrawText
@@ -1282,7 +1283,7 @@ brl __local_71
 +
 jsr.l clearScreenForTransition
 jsr.l endBattle
-lda.w #4
+lda.w #9
 sta -2 + __main_locals + 1,s
 stz.b tcc__r0
 lda.b tcc__r0
@@ -1372,7 +1373,7 @@ bne +
 brl __local_77
 +
 jsr.l clearScreenForTransition
-lda.w #3
+lda.w #9
 sta -2 + __main_locals + 1,s
 stz.b tcc__r0
 lda.b tcc__r0
@@ -1381,7 +1382,138 @@ stz.b tcc__r0
 lda.b tcc__r0
 sta -10 + __main_locals + 1,s
 __local_77:
+jmp.w __local_78
+bra __local_79
 __local_74:
+lda.b tcc__r0
+cmp #9
+beq +
+brl __local_80
++
+__local_79:
+lda -6 + __main_locals + 1,s
+sta.b tcc__r0
+cmp #0
+beq +
+brl __local_81
++
+jsr.l initWorld
+sep #$20
+lda #0
+pha
+rep #$20
+jsr.l loadArea
+tsa
+clc
+adc #1
+tas
+jsr.l setScreenOn
+stz.b tcc__r0
+lda.b tcc__r0
+sta -10 + __main_locals + 1,s
+__local_81:
+lda -6 + __main_locals + 1,s
+sta.b tcc__r0
+tax
+lda.w #4
+jsr.l tcc__div
+stx.b tcc__r0
+txa
+cmp #0
+beq +
+brl __local_82
++
+lda -10 + __main_locals + 1,s
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #15
+tay
+bvc +
+eor #$8000
++
+bmi +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+__local_82:
+brl __local_83
++
+lda -10 + __main_locals + 1,s
+inc a
+sta -10 + __main_locals + 1,s
+and.w #255
+sep #$20
+pha
+rep #$20
+jsr.l setBrightness
+tsa
+clc
+adc #1
+tas
+__local_83:
+lda -6 + __main_locals + 1,s
+sta.b tcc__r0
+sta.b tcc__r1
+lda.b tcc__r0h
+sta.b tcc__r1h
+inc.b tcc__r0
+lda.b tcc__r0
+sta -6 + __main_locals + 1,s
+lda -10 + __main_locals + 1,s
+sta.b tcc__r0
+ldx #1
+sec
+sbc.w #15
+tay
+bvc +
+eor #$8000
++
+bpl +++
+++
+dex
++++
+stx.b tcc__r5
+txa
+bne +
+brl __local_84
++
+jsr.l updateWorldNavigation
+jsr.l updateDialogue
+lda.l pad_keys + 0
+and.w #32768
+sta.b tcc__r0
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_85
++
+jsr.l isDialogueActive
+lda.b tcc__r0 ; DON'T OPTIMIZE
+bne +
+brl __local_86
++
+bra __local_87
+__local_86:
+lda.w #5
+sta -2 + __main_locals + 1,s
+stz.b tcc__r0
+lda.b tcc__r0
+sta -6 + __main_locals + 1,s
+lda.w #15
+sta.b tcc__r0
+sta -10 + __main_locals + 1,s
+__local_85:
+__local_87:
+__local_84:
+jsr.l renderWorld
+jsr.l renderDialogue
+lda.l pad_keys + 0
+sta.b tcc__r0
+sta -12 + __main_locals + 1,s
+__local_80:
 __local_21:
 __local_27:
 __local_31:
@@ -1391,11 +1523,12 @@ __local_57:
 __local_66:
 __local_72:
 __local_78:
+__local_88:
 jsr.l WaitForVBlank
-jmp.w __local_79
+jmp.w __local_89
 lda.w #0
 sta.b tcc__r0
-__local_80:
+__local_90:
 .ifgr __main_locals 0
 tsa
 clc
@@ -1414,12 +1547,12 @@ rtl
 
 .SECTION ".rodata" SUPERFREE
 
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}19: .db $20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}20: .db $4d,$61,$64,$65,$20,$77,$69,$74,$68,$20,$43,$6f,$70,$69,$6c,$6f,$74,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}21: .db $20,$20,$61,$6e,$64,$20,$70,$76,$73,$6e,$65,$73,$6c,$69,$62,$20,$20,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}22: .db $20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}23: .db $43,$48,$52,$4f,$4e,$49,$43,$20,$45,$43,$48,$4f,$45,$53,$0
-tccs_{WLA_FILENAME}_L.{WLA_FILENAME}24: .db $50,$52,$45,$53,$53,$20,$53,$54,$41,$52,$54,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}29: .db $20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}30: .db $4d,$61,$64,$65,$20,$77,$69,$74,$68,$20,$43,$6f,$70,$69,$6c,$6f,$74,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}31: .db $20,$20,$61,$6e,$64,$20,$70,$76,$73,$6e,$65,$73,$6c,$69,$62,$20,$20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}32: .db $20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}33: .db $43,$48,$52,$4f,$4e,$49,$43,$20,$45,$43,$48,$4f,$45,$53,$0
+tccs_{WLA_FILENAME}_L.{WLA_FILENAME}34: .db $50,$52,$45,$53,$53,$20,$53,$54,$41,$52,$54,$0
 .ENDS
 
 .RAMSECTION ".bss" BANK $7e SLOT 2

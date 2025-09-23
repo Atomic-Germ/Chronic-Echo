@@ -10,6 +10,7 @@
 #define PLAYER_H
 
 #include <snes.h>
+//#include "progression.h"  // Include progression system
 
 //---------------------------------------------------------------------------------
 // Constants

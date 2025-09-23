@@ -26,6 +26,35 @@ static const char* itemNames[] = {
     "Armor"
 };
 
+/*---------------------------------------------------------------------------------
+
+
+    Chronic Echo - Player Character System Implementation
+    -- Player stats, inventory, and position management
+
+
+---------------------------------------------------------------------------------*/
+#include <snes.h>
+#include <string.h>  // For memset, strcpy
+
+#include "player.h"
+#include "progression.h"  // Include progression system
+
+//---------------------------------------------------------------------------------
+// Global player character instance
+PlayerCharacter playerCharacter = {0};
+
+//---------------------------------------------------------------------------------
+// Item name lookup table
+static const char* itemNames[] = {
+    "None",
+    "Potion",
+    "Time Crystal",
+    "Key",
+    "Weapon",
+    "Armor"
+};
+
 //---------------------------------------------------------------------------------
 void initPlayerCharacter(void)
 {
