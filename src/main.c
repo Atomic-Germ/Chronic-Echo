@@ -96,6 +96,9 @@ int main(void)
     int blackFrameCount = 0;
     int brightness = 15;
 
+    // Input state for time manipulation
+    u16 previousPadState = 0;
+
     // Main game loop
     while (1) {
         switch (currentScreen) {
@@ -230,10 +233,16 @@ int main(void)
                         fadeFrameCount = 0;
                         brightness = 15;
                     }
+
+                    // Handle time manipulation input
+                    handleTimeManipulationInput(padsCurrent(0), previousPadState);
                 }
 
                 // Record current position for time manipulation
                 recordCurrentPosition(playerCharacter.x, playerCharacter.y);
+
+                // Update previous pad state for next frame
+                previousPadState = padsCurrent(0);
 
                 // Always update and draw sprites
                 updatePlayer();

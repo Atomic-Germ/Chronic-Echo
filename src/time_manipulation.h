@@ -18,6 +18,11 @@
 #define MAX_REWIND_DISTANCE 180    // Maximum frames that can be rewound at once
 
 //---------------------------------------------------------------------------------
+// Input Constants
+#define REWIND_BUTTON KEY_L        // L button for time rewind
+#define FAST_FORWARD_BUTTON KEY_R  // R button for fast forward (future feature)
+
+//---------------------------------------------------------------------------------
 // Position History Entry Structure
 typedef struct {
     s16 x;              // Player X position
@@ -53,6 +58,9 @@ u8 canRewindDistance(u16 frames);
 u8 rewindToFrame(u16 targetFrame);
 u8 rewindByFrames(u16 frameCount);
 void stopRewind(void);
+
+// Input handling
+void handleTimeManipulationInput(u16 currentPadState, u16 previousPadState);
 
 // History queries
 PositionHistoryEntry* getPositionAtFrame(u16 frameNumber);
