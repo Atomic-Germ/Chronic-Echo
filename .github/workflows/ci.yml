@@ -2,9 +2,9 @@ name: CI Workflow
 
 on:
   push:
-    branches: [ dev/* , develop ]
+    branches: [ 'dev/**', 'develop' ]
   pull_request:
-    branches: [ main , develop ]
+    branches: [ 'main', 'develop' ]
 
 jobs:
   build-and-test:
@@ -30,3 +30,25 @@ jobs:
       with:
         name: build-logs-and-artifacts
         path: ./build/ChronicEchos.sfc
+
+  release:
+    runs-on: macos-latest  # Added missing runs-on
+    needs: build-and-test  # Optional: only run if build-and-test succeeds
+    if: github.event_name == 'push' && github.ref == 'refs/heads/release'  # Trigger condition
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Download libraries and tools
+        run: |
+          brew install gnu-sed sdl2
+          make deps
+
+      - name: Build the rom
+        run: make
+
+      - name: Upload Release Asset
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-rom
+          path: ./build/ChronicEchos.sfc
