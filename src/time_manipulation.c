@@ -199,3 +199,30 @@ u16 getRewindEnergyCost(u16 frameCount)
 {
     return frameCount * REWIND_ENERGY_COST;
 }
+
+//---------------------------------------------------------------------------------
+// Handle time manipulation input from controller
+void handleTimeManipulationInput(u16 currentPadState, u16 previousPadState)
+{
+    // Check for rewind button press (L button)
+    if ((currentPadState & REWIND_BUTTON) && !(previousPadState & REWIND_BUTTON)) {
+        // L button was just pressed - attempt to rewind by 1 frame
+        if (canRewindDistance(1)) {
+            rewindByFrames(1);
+        }
+        // Note: No else clause - failed rewinds are silent for now
+        // Could add audio/visual feedback here in future phases
+    }
+
+    // Check for fast forward button (R button) - reserved for future feature
+    if ((currentPadState & FAST_FORWARD_BUTTON) && !(previousPadState & FAST_FORWARD_BUTTON)) {
+        // R button pressed - could implement fast forward in future
+        // For now, do nothing
+    }
+
+    // Check for rewind button hold (continuous rewind)
+    if (currentPadState & REWIND_BUTTON) {
+        // L button is being held - could implement continuous rewind
+        // For now, single press only to prevent accidental overuse
+    }
+}
