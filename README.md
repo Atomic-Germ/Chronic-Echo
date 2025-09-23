@@ -1,6 +1,26 @@
 # Chronic Echos - SNES Game Development
 
-A time manipulation RPG for the Super Nintendo Entertainment System, built using pvsneslib.
+A time manipulatio```text
+Chronic-Echo/
+├── pvsneslib/          # pvsneslib library and tools (v4.3.0)
+├── src/
+│   ├── main.c          # Main C source file and game loop
+│   ├── sprites.c       # Sprite management system
+│   ├── player.c        # Player character system
+│   ├── time_manipulation.c # Time manipulation mechanics
+│   ├── battle.c        # Battle system implementation
+│   ├── battle.h        # Battle system header
+│   └── player.h        # Player character definitions
+├── data.asm            # Data includes (fonts, graphics)
+├── hdr.asm             # ROM header and memory configuration
+├── Makefile            # Build configuration
+├── assets/             # Graphics, audio, and other assets
+├── build/              # Build output directory
+├── tests/              # Automated test scripts
+├── docs/               # Documentation
+├── .copilot/           # Design documents and development notes
+└── ChronicEchos.sfc    # Output ROM file (262KB LoROM)
+```uper Nintendo Entertainment System, built using pvsneslib.
 
 
 
@@ -122,16 +142,24 @@ export PATH="/path/to/Chronic-Echo/pvsneslib/devkitsnes/tools:$PATH"
 ## Current Status
 
 ✅ **Phase 1: Engine Core** - Basic title screen working
+✅ **Phase 2.1: Input Integration** - Time manipulation controls implemented  
+✅ **Phase 2.2: Battle System Integration** - RPG combat with time mechanics
 
 - Build pipeline established
 - PPU initialization and text rendering
-- Simple title screen with "CHRONIC ECHOS"
+- Time manipulation system (rewind, slow motion, time stop)
+- Player character system with RPG stats
+- Comprehensive battle system with random encounters
+- Time-based battle abilities (stop, slow, rewind)
+- Battle UI with HP bars and action menus
 
-🔄 **Next Steps**
+🔄 **Next Steps: Phase 2.3 - World Building & Progression**
 
-- Add input handling for navigation
-- Implement game state management
-- Begin time manipulation mechanics
+- Implement world map and navigation
+- Add NPCs and dialogue system
+- Create progression mechanics (leveling, equipment)
+- Design multiple areas and dungeons
+- Add save/load functionality
 
 ## Documentation
 
